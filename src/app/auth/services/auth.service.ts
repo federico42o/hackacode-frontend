@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 @Injectable({
@@ -5,5 +6,14 @@ import { Injectable } from '@angular/core';
 })
 export class AuthService {
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
+
+  login(username: string, password: string): void {
+    this.http.post('http://localhost:3000/login', { username, password });
+  }
+
+  logout(): void {
+    this.http.post('http://localhost:3000/logout', {});
+  }
+
 }

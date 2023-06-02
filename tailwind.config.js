@@ -11,7 +11,12 @@ module.exports = {
       'blue': '#007ace',
       'red': '#de3618',
       'yellow': '#fbbf24',
-      'green': '#10b981',
+      'green': {
+        '300':'#10b981',
+        '400':'#059669',
+        '500':'#047857',
+        '600':'#42855B'
+              },
       'white': '#ffffff',
       'black': '#000000',
       'gray': {
@@ -28,5 +33,9 @@ module.exports = {
       roboto: ['Roboto', 'sans-serif'],
     },
   },
-  plugins: [],
+  plugins: [
+    require("@tailwindcss/forms")({
+      strategy: 'class',
+    }),
+  ],
 }

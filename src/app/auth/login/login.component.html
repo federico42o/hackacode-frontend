@@ -1,1 +1,35 @@
-<p>login works!</p>
+<div class="mx-auto w-96 flex items-center justify-center h-[90vh]">
+    <form class="flex flex-col gap-4" [formGroup]="loginForm">
+        <div>
+        <input class="
+        form-input
+        text-secondary
+        mt-1
+        block
+        w-full
+        rounded-md
+        border-gray-300
+        shadow-md
+        focus:border-green-600 caret-green focus:ring-2 focus:ring-green-600 focus:ring-opacity-5" type="email" id="email" placeholder="example@hackacode.com"
+        formControlName="email"
+        
+        >
+
+        </div>
+        <div>
+        <input 
+        class="
+        form-input
+        text-secondary
+        mt-1
+        block
+        w-full
+        rounded-md
+        border-gray-300
+        shadow-sm
+        focus:border-green-600 focus:ring-2 caret-green focus:ring-green-600 focus:ring-opacity-5" type="password" id="password" placeholder="contraseña"
+        formControlName="password">
+        </div>
+        <button type="submit">Iniciar sesión</button>
+    </form>
+</div>
