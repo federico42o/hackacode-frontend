@@ -1,7 +1,12 @@
 <button
 (click)="toggleTheme()"
-class="dark:text-white text-secondary px-4 py-2 rounded-md shadow-md transition ease-in-out duration-500"
+class="dark:text-white text-secondary px-4 transition ease-in-out duration-500"
 >
-DM
+<ng-lottie
+width="60px"
+height="70px"
+[options]="options" 
+(animationCreated)="onAnimate($event)">
+</ng-lottie>
 
 </button>

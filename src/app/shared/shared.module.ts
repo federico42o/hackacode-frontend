@@ -5,7 +5,11 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { AuthRoutingModule } from '../auth/auth-routing.module';
 import { HeaderComponent } from './components/header/header.component';
 
-
+import { LottieModule } from 'ngx-lottie';
+import player from 'lottie-web';
+export function playerFactory(): any {  
+  return import('lottie-web');
+}
 
 @NgModule({
   declarations: [
@@ -15,7 +19,8 @@ import { HeaderComponent } from './components/header/header.component';
   ],
   imports: [
     CommonModule,
-    AuthRoutingModule
+    AuthRoutingModule,
+    LottieModule.forRoot({ player: playerFactory }),
   ],
   exports: [
     ToggleThemeBtnComponent,

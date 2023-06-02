@@ -11,6 +11,8 @@ import { AddBuyerComponent } from './pages/add-buyer/add-buyer.component';
 import { TicketSelectorComponent } from './pages/ticket-selector/ticket-selector.component';
 import { AddTicketFormComponent } from './pages/ticket-selector/add-ticket-form/add-ticket-form.component';
 
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -27,6 +29,7 @@ import { AddTicketFormComponent } from './pages/ticket-selector/add-ticket-form/
     AppRoutingModule,
     AuthModule,
     SharedModule,
+
   ],
   providers: [],
   bootstrap: [AppComponent]
