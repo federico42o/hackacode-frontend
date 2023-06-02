@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { generateCode } from 'src/app/shared/utils/code';
 
 @Component({
   selector: 'app-add-ticket-form',
@@ -7,6 +8,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
   styleUrls: ['./add-ticket-form.component.css']
 })
 export class AddTicketFormComponent implements OnInit{
+
   
     constructor(private fb: FormBuilder) { }
     ticketType!: TicketType;
@@ -19,17 +21,33 @@ export class AddTicketFormComponent implements OnInit{
     }
     ticketForm! : FormGroup;
     ngOnInit(): void {
-
       this.ticketForm = this.fb.group({
+        id : '',
         buyer : this.buyer,
-        total : 4321.0,
-        type : {id: 1, type: 'General'},
-        game : ''
+        type : this.ticketType,
+        game : '',
+        shift : '',
+        total : 0.0,
       })
+
+
     }
 
     setType(event: any){
-      event.target.value === 'general' ?  this.ticketType = TicketType.GENERAL : this.ticketType = TicketType.VIP;
+      event.target.value === 'GENERAL' ?  this.ticketType = TicketType.GENERAL : this.ticketType = TicketType.VIP;
+    }
+
+    onSubmit() : void {
+
+      this.ticketForm = this.fb.group({
+        id : generateCode(),
+        buyer : this.buyer,
+        type : this.ticketType,
+        game : this.ticketForm.value.game,
+        shift : this.ticketForm.value.shift,
+        total : 4321.0,
+      })
+      console.log(this.ticketForm.value as Ticket)
     }
 
 
@@ -37,15 +55,16 @@ export class AddTicketFormComponent implements OnInit{
 }
 
 export interface Ticket {
-  id: number;
+  id: string;
   buyer: Buyer;
   total: number;
   type: TicketType;
   game?: string;
+  shift?: string;
 }
 export enum TicketType {
-  GENERAL = 1,
-  VIP = 2,
+  GENERAL= 'GENERAL',
+  VIP= 'VIP',
 }
 export interface Buyer{
   id: number;

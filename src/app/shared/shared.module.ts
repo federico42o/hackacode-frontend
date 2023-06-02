@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ToggleThemeBtnComponent } from './components';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { AuthRoutingModule } from '../auth/auth-routing.module';
+import { HeaderComponent } from './components/header/header.component';
 
 
 
@@ -10,6 +11,7 @@ import { AuthRoutingModule } from '../auth/auth-routing.module';
   declarations: [
     ToggleThemeBtnComponent,
     NavbarComponent,
+    HeaderComponent,
   ],
   imports: [
     CommonModule,
@@ -18,6 +20,7 @@ import { AuthRoutingModule } from '../auth/auth-routing.module';
   exports: [
     ToggleThemeBtnComponent,
     NavbarComponent,
+    HeaderComponent,
   ]
 })
 export class SharedModule { }

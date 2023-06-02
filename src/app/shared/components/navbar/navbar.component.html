@@ -1,11 +1,20 @@
-<header class="border-b border-green-600">
-    <nav class="flex justify-between">
 
-        <div class="logo cursor-pointer">
-            <a routerLink="/">
-                <img src="assets/images/logo.png" alt="logo">
-            </a>
+<nav class="w-full md:max-w-fit m-0  min-h-screen max-h-screen fixed top-0 left-0">
+
+    <div class="logo cursor-pointer mt-10 px-2 flex flex-col justify-between h-[60vh]">
+        <h1 class="text-8xl text-center">BRAND</h1>
+        <div class="text-secondary dark:text-primary flex flex-col justify-between items-center gap-4 mt-10 text-3xl ">
+        <a routerLink="/new-ticket">
+            Ticket
+        </a>
+        <a routerLink="/">
+            link 2
+        </a>
+        <a routerLink="/">
+            link 3
+        </a>
         </div>
-        <app-toggle-theme-btn></app-toggle-theme-btn>
-    </nav>
-</header>
+
+    <button routerLink="/login">Cerrar sesión</button>
+    </div>
+</nav>

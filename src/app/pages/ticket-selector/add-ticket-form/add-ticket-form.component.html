@@ -1,36 +1,40 @@
 
-<form [formGroup]="ticketForm" class="text-secondary">
-    <select name="" id="tickets" (change)="setType($event)">
+<form [formGroup]="ticketForm" class="text-secondary flex justify-between" (ngSubmit)="onSubmit()">
+    <div class="flex flex-2 gap-2">
+    <select name="" id="tickets" (change)="setType($event)" >
         <option value="">Selecciona un tipo de entrada</option>
-        <option value="general">Entrada general</option>
-        <option value="vip">Entrada VIP</option>
+        <option value="GENERAL">Entrada general</option>
+        <option value="VIP">Entrada VIP</option>
     </select>
     <input type="text" name="" id="buyer" placeholder="Código cliente">
-    <div *ngIf="ticketType === 1">
-    <select name="" id="games">
+    <div *ngIf="ticketType === 'GENERAL'">
+    <select class="h-full" id="games" formControlName="game">
         <option value="">Selecciona un juego</option>
-        <option value="">Juego 1</option>
-        <option value="">Juego 2</option>
-        <option value="">Juego 3</option>
-        <option value="">Juego 4</option>
-        <option value="">Juego 5</option>
+        <option value="Juego1">Juego 1</option>
+        <option value="Juego2">Juego 2</option>
+        <option value="Juego3">Juego 3</option>
+        <option value="Juego4">Juego 4</option>
+        <option value="Juego5">Juego 5</option>
     </select>
-    <select name="" id="shifts">
+    <select class="h-full" id="shifts" formControlName="shift">
         <option value="">Selecciona un turno</option>
-        <option value="">10:30</option>
-        <option value="">11:00</option>
-        <option value="">11:30</option>
-        <option value="">12:00</option>
-        <option value="">12:30</option>
-        <option value="">13:00</option>
-        <option value="">13:30</option>
-        <option value="">14:00</option>
-        <option value="">14:30</option>
-        <option value="">15:00</option>      
+        <option value="10:30">10:30</option>
+        <option value="11:00">11:00</option>
+        <option value="11:30">11:30</option>
+        <option value="12:00">12:00</option>
+        <option value="12:30">12:30</option>
+        <option value="13:00">13:00</option>
+        <option value="13:30">13:30</option>
+        <option value="14:00">14:00</option>
+        <option value="14:30">14:30</option>
+        <option value="15:00">15:00</option>      
     </select>
+</div>
 
 </div>
-<button class="dark:text-white text-secondary">Guardar y añadir otro</button>
-<button class="dark:text-white text-secondary">Guardar e imprimir</button>
-<button class="dark:text-white text-secondary">Cancelar</button>
+<div class="actions flex gap-2">
+<button type="button" class="text-white bg-green-600 p-1 rounded-sm">Guardar y añadir otro</button>
+<button type="submit" class="text-white bg-green-600 p-1 rounded-sm">Guardar e imprimir</button>
+<button type="reset" class="text-white bg-green-600 p-1 rounded-sm">Cancelar</button>
+</div>
 </form>
