@@ -1,4 +1,14 @@
-.spacing{
-    margin-left: 390px;
-    margin-right: 10px;
-}
+.main-container {
+    display: flex;
+  }
+  
+  .navbar {
+    width: fit-content; /* Ajusta el ancho según tus necesidades */
+  }
+  
+  .router-content {
+    flex-grow: 1;
+  }
+  .router-content.full-width {
+    margin: 14rem auto;
+  }
