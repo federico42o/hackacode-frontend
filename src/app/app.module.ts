@@ -20,7 +20,6 @@ import { AddTicketFormComponent } from './pages/ticket-selector/add-ticket-form/
     TicketSelectorComponent,
     AddTicketFormComponent,
 
-
   ],
   imports: [
     BrowserModule,

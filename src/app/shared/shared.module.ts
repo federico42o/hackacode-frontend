@@ -7,6 +7,7 @@ import { HeaderComponent } from './components/header/header.component';
 
 import { LottieModule } from 'ngx-lottie';
 import player from 'lottie-web';
+import { ClockComponent } from './components/clock/clock.component';
 export function playerFactory(): any {  
   return import('lottie-web');
 }
@@ -16,6 +17,7 @@ export function playerFactory(): any {
     ToggleThemeBtnComponent,
     NavbarComponent,
     HeaderComponent,
+    ClockComponent,
   ],
   imports: [
     CommonModule,
@@ -26,6 +28,7 @@ export function playerFactory(): any {
     ToggleThemeBtnComponent,
     NavbarComponent,
     HeaderComponent,
+    ClockComponent,
   ]
 })
 export class SharedModule { }
