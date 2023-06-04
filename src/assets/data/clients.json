@@ -1,0 +1,112 @@
+{
+    "clients": [
+        {
+            "name": "John",
+            "surname": "Doe",
+            "birthdate": "1990-01-01",
+            "dni": "12345678"
+
+        },
+        {
+            "name": "Jane",
+            "surname": "Smith",
+            "birthdate": "1985-05-10",
+            "dni": "87654321"
+          },
+          {
+            "name": "Michael",
+            "surname": "Johnson",
+            "birthdate": "1982-09-15",
+            "dni": "45678912"
+          },
+            {
+                "name": "Emma",
+                "surname": "Williams",
+                "birthdate": "1995-12-25",
+                "dni": "98765432"
+            },
+            {
+                "name": "Chris",
+                "surname": "Brown",
+                "birthdate": "1999-03-30",
+                "dni": "21436587"
+            },
+            {
+                "name": "Mary",
+                "surname": "Jones",
+                "birthdate": "1998-07-20",
+                "dni": "65871243"
+            },
+            {
+                "name": "Daniel",
+                "surname": "Garcia",
+                "birthdate": "1997-11-05",
+                "dni": "98712365"
+            },
+            {
+                "name": "Olivia",
+                "surname": "Miller",
+                "birthdate": "1996-04-15",
+                "dni": "32145678"
+            },
+            {
+                "name": "Matthew",
+                "surname": "Davis",
+                "birthdate": "1994-08-10",
+                "dni": "78945612"
+            },
+            {
+                "name": "Ava",
+                "surname": "Wilson",
+                "birthdate": "1993-02-20",
+                "dni": "45698712"
+            },
+            {
+                "name": "Andrew",
+                "surname": "Taylor",
+                "birthdate": "1992-06-30",
+                "dni": "98712365"
+            },
+            {
+                "name": "Sofia",
+                "surname": "Anderson",
+                "birthdate": "1991-10-05",
+                "dni": "32145678"
+            },
+            {
+                "name": "James",
+                "surname": "Thomas",
+                "birthdate": "1990-01-01",
+                "dni": "78945612"
+            },
+            {
+                "name": "Amelia",
+                "surname": "Jackson",
+                "birthdate": "1985-05-10",
+                "dni": "45698712"
+            },
+            {
+                "name": "David",
+                "surname": "White",
+                "birthdate": "1982-09-15",
+                "dni": "98712365"
+            },
+            {
+                "name": "Sophia",
+                "surname": "Harris",
+                "birthdate": "1995-12-25",
+                "dni": "32145678"
+            },
+            {
+                "name": "Joseph",
+                "surname": "Martin",
+                "birthdate": "1999-03-30",
+                "dni": "78945612"
+            },
+            {
+                "name": "Isabella",
+                "surname": "Thompson",
+                "birthdate": "2003-08-20"
+            }
+    ]
+}

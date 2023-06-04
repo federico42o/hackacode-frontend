@@ -1,0 +1,18 @@
+<form >
+<input
+class="form-input text-center block w-full rounded-r-md border-green-200 shadow-sm focus:border-[#009688] focus:ring focus:ring-[#009688] focus:ring-opacity-30"
+type="text"
+placeholder="DNI del cliente"
+[matAutocomplete]="auto"
+[formControl]="clientCtrl"
+
+/>
+<mat-autocomplete #auto="matAutocomplete" class="">
+	<mat-option
+		*ngFor="let client of filteredClients$ | async"
+		[value]="client.name"
+	>
+		{{ client.name }},({{client.dni}})
+	</mat-option>
+</mat-autocomplete>
+</form>

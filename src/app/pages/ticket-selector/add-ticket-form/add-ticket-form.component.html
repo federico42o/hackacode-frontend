@@ -6,17 +6,7 @@
         <option value="GENERAL">Entrada general</option>
         <option value="VIP">Entrada VIP</option>
     </select>
-    <input type="text" name="" id="buyer" placeholder="Código cliente">
-    <div *ngIf="ticketType === 'GENERAL'">
-    <select class="h-full" id="games" formControlName="game">
-        <option value="">Selecciona un juego</option>
-        <option value="Juego1">Juego 1</option>
-        <option value="Juego2">Juego 2</option>
-        <option value="Juego3">Juego 3</option>
-        <option value="Juego4">Juego 4</option>
-        <option value="Juego5">Juego 5</option>
-    </select>
-</div>
-
+    <!-- <input type="text" name="" id="buyer" placeholder="Código cliente"> -->
+    <app-buscador-cliente></app-buscador-cliente>
 </div>
 </form>
