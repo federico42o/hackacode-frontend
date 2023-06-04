@@ -30,7 +30,7 @@ export class BuscadorClienteComponent implements OnInit {
   private setupFilteredClients(): void {
     this.filteredClients$ = this.clientCtrl.valueChanges.pipe(
       startWith(''),
-      map(client => (client ? this._filterClients$(client) : this.clients))
+      map(client => (client ? this._filterClients$(client) : []))
     );
   }
 

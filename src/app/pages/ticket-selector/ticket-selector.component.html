@@ -1,13 +1,13 @@
 
 <section class="h-full flex flex-col">
-    <div class="container gap-4 mx-auto bg-[#1a1a1a] flex-1 flex flex-col p-4">
+    <div class="container gap-4 mx-auto bg-[#1a1a1a] flex-grow flex flex-col p-4">
         <div class="row">
         <div class="col-12">
             <app-clock></app-clock>
         </div>
         </div>
 
-        
+        <!-- input ticket count -->
         <div *ngIf="tickets.length<=0 " class="place-self-center">
             <div class=" flex gap-4">
                 <input class="  
@@ -24,24 +24,44 @@
                 (click)="addTicketForms()">Aceptar</button>
         </div>
         </div>
+        <!-- input ticket count -->
+
+        <div *ngIf="show">
+
+        <!-- form tickets -->
+        <div class="flex">
         <div class="row flex-1">
-        <div class="col-12 mx-auto w-full ">
-            <div  *ngFor="let ticket of tickets; index as i" class="my-2 flex gap-2">
-                <span class="inline">{{i+1}}</span>
+        <div class="col-6 w-9/12">
+            <div  *ngFor="let ticket of tickets; index as i" class="my-2 flex gap-3 items-center">
+                <span class="inline w-4 text-center">{{i+1 }}</span>
                 <app-add-ticket-form  ></app-add-ticket-form>
 
             </div>
         </div>
-        </div>
-        <div class="row">
-            <div class="col-12">
+    </div>
+    <!-- form tickets -->
+
+    <!-- divider -->
+    <div
+    class="inline-block h-[500px] min-h-[1em] w-0.5 self-stretch bg-neutral-100 opacity-100 dark:opacity-50">
+    </div>
+     <!-- divider -->
+
+
+    <!-- resumen -->
+        <div class="row w-3/12">
+            <div class="col-6">
                 <p class="text-end">Total: {{totalPrice | currency }}</p>
             </div>
         </div>
+    <!-- resumen -->
+
+    </div>
         <!-- <div class="actions flex gap-2">
             <button type="button" class="text-white bg-green-600 p-1 rounded-sm">Guardar y añadir otro</button>
             <button type="submit" class="text-white bg-green-600 p-1 rounded-sm">Guardar e imprimir</button>
             <button type="reset" class="text-white bg-green-600 p-1 rounded-sm">Cancelar</button>
         </div> -->
     </div>
+</div>
 </section>

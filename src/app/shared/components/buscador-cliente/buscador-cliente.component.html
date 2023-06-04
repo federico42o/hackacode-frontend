@@ -1,6 +1,13 @@
 <form >
 <input
-class="form-input text-center block w-full rounded-r-md border-green-200 shadow-sm focus:border-[#009688] focus:ring focus:ring-[#009688] focus:ring-opacity-30"
+class="w-52 
+form-input
+text-secondary
+rounded-sm
+p-1
+border-gray-300
+shadow-md
+focus:border-green-600 caret-green focus:ring-2 focus:ring-green-600 focus:ring-opacity-5"
 type="text"
 placeholder="DNI del cliente"
 [matAutocomplete]="auto"
@@ -12,7 +19,7 @@ placeholder="DNI del cliente"
 		*ngFor="let client of filteredClients$ | async"
 		[value]="client.name"
 	>
-		{{ client.name }},({{client.dni}})
+		{{ client.name +' '+ client.surname }},({{client.dni}})
 	</mat-option>
 </mat-autocomplete>
 </form>

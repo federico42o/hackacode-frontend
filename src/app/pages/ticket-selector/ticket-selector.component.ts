@@ -11,6 +11,7 @@ export class TicketSelectorComponent implements OnInit{
  tickets: any[] = [];
  input!: any;
  totalPrice: number = 10000;
+ show: boolean = false;
  
  ngOnInit(): void {
    console.log(this.tickets);
@@ -18,6 +19,7 @@ export class TicketSelectorComponent implements OnInit{
  
  addTicketForms() {
    this.tickets = Array(this.input).fill(0).map((x, i) => i);
+    this.show = !this.show;
 
  }
 
