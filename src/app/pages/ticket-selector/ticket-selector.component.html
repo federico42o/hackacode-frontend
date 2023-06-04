@@ -1,19 +1,41 @@
 
 <section class="h-full flex flex-col">
-    <div class="container gap-4 mx-auto bg-[#1a1a1a] flex-1 flex flex-col">
+    <div class="container gap-4 mx-auto bg-[#1a1a1a] flex-1 flex flex-col p-4">
         <div class="row">
         <div class="col-12">
             <p class="text-center">Ticket Selector</p>
         </div>
         </div>
+
+        
+        <div *ngIf="tickets.length<=0 " class="place-self-center">
+            <div class=" flex gap-4">
+                <input class="  
+                w-52 
+                form-input
+                text-secondary
+                rounded-sm
+                p-1
+                border-gray-300
+                shadow-md
+                focus:border-green-600 caret-green focus:ring-2 focus:ring-green-600 focus:ring-opacity-5" type="number" min="0" max="10" id="ticket-count" placeholder="Ingrese cant. de tickets" [(ngModel)]="input">
+                <button 
+                class="text-white bg-green-600 p-1 rounded-sm"
+                (click)="addTicketForms()">Aceptar</button>
+        </div>
+        </div>
         <div class="row flex-1">
-        <div class="col-12 mx-auto w-full">
-            <app-add-ticket-form></app-add-ticket-form>
+        <div class="col-12 mx-auto w-full ">
+            <div  *ngFor="let ticket of tickets; index as i" class="my-2 flex gap-2">
+                <span class="inline">{{i+1}}</span>
+                <app-add-ticket-form  ></app-add-ticket-form>
+
+            </div>
         </div>
         </div>
         <div class="row">
             <div class="col-12">
-                <p class="text-center">Total: </p>
+                <p class="text-end">Total: {{totalPrice | currency }}</p>
             </div>
         </div>
         <!-- <div class="actions flex gap-2">

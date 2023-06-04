@@ -1,10 +1,24 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-ticket-selector',
   templateUrl: './ticket-selector.component.html',
   styleUrls: ['./ticket-selector.component.css']
 })
-export class TicketSelectorComponent {
+export class TicketSelectorComponent implements OnInit{
+ constructor() { }
+ tickets: any[] = [];
+ input!: any;
+ totalPrice: number = 10000;
+ 
+ ngOnInit(): void {
+   console.log(this.tickets);
+ }
+ 
+ addTicketForms() {
+   this.tickets = Array(this.input).fill(0).map((x, i) => i);
+
+ }
 
 }
