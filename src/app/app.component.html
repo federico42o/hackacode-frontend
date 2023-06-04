@@ -3,7 +3,8 @@
   <div class="navbar" *ngIf="route.url !== '/login'">
     <app-navbar></app-navbar>
   </div>
-  <div [ngClass]="{ 'router-content': true, 'full-width': route.url !== '/login' }">
+  <div [ngClass]="{ 'router-content': true, 'full-width': route.url !== '/login' }" >
+    
     <router-outlet></router-outlet>
   </div>
 </main>
