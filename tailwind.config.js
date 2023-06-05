@@ -35,6 +35,9 @@ module.exports = {
         roboto: ['Roboto', 'sans-serif'],
       },
     },
+    backgroundImage: {
+      'ticket-pattern': "url('/assets/img/bg-ticket.png')",
+    }
   },
   plugins: [
     require("@tailwindcss/forms")({

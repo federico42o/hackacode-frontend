@@ -11,6 +11,8 @@ import { AddBuyerComponent } from './pages/add-buyer/add-buyer.component';
 import { TicketSelectorComponent } from './pages/ticket-selector/ticket-selector.component';
 import { AddTicketFormComponent } from './pages/ticket-selector/add-ticket-form/add-ticket-form.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { GeneralTicketComponent } from './components/general-ticket/general-ticket.component';
+import { VipTicketComponent } from './components/vip-ticket/vip-ticket.component';
 
 
 
@@ -20,6 +22,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     AddBuyerComponent,
     TicketSelectorComponent,
     AddTicketFormComponent,
+    GeneralTicketComponent,
+    VipTicketComponent,
 
   ],
   imports: [
