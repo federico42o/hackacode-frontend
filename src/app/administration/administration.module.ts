@@ -2,14 +2,17 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { AdministrationRoutingModule } from './administration-routing.module';
-import { AddBuyerComponent } from '../pages';
+
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../shared';
+import { BuyerComponent } from './pages/buyer';
+import { EmployeeComponent } from './pages/employee/employee.component';
 
 
 @NgModule({
   declarations: [
-    AddBuyerComponent,
+    BuyerComponent,
+    EmployeeComponent,
   ],
   imports: [
     CommonModule,
@@ -19,7 +22,8 @@ import { SharedModule } from '../shared';
     SharedModule
   ],
   exports:[
-    AddBuyerComponent
+    BuyerComponent,
+    EmployeeComponent,
   ]
 })
 export class AdministrationModule { }

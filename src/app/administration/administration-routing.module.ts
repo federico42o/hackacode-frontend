@@ -1,9 +1,13 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AddBuyerComponent } from '../pages';
+
+
+import { BuyerComponent } from './pages/buyer';
+import { EmployeeComponent } from './pages/employee/employee.component';
 
 const routes: Routes = [
-  {path:'add-buyer', component:AddBuyerComponent}
+  {path:'buyer', component:BuyerComponent},
+  {path:'employee', component:EmployeeComponent},
 ];
 
 @NgModule({
