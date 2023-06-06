@@ -10,5 +10,5 @@
     flex-grow: 1;
   }
   .router-content.full-width {
-    margin:12rem auto;
+    margin:12rem auto 0 0;
   }

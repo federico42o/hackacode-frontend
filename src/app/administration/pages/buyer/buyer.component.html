@@ -60,7 +60,7 @@
     <div class="flex gap-2">
         <label for="entries" > Mostrar</label>
         <select id="entries" class="text-secondary" [(ngModel)]="pageSize" (ngModelChange)="setPageSize()">
-            <option [value]="clients.length">Todo</option>
+            <option [value]="clients && clients.length > 0 ? clients.length : 0">Todo</option>
             <option value="5">5</option>
             <option value="10">10</option>
             <option value="25">25</option>
@@ -68,21 +68,25 @@
         </select>
 
     </div>
+    <div class="max-h-[550px] overflow-auto" id="scrollbar">
 <app-table [data]="page" [headers]="headers" [columns]="columns" [actions]="true"></app-table>
-
+    </div>
+</div>
     <div
-    class="px-5 py-5 border-t flex flex-col xs:flex-row items-center xs:justify-between          ">
+    class="px-5 pt-4 border-t flex flex-col xs:flex-row items-center xs:justify-between">
     <span class="text-xs xs:text-sm">
-        Mostrando {{pageSize}} de {{clients.length}} Entradas
+        Mostrando {{pageSize}} de {{clients?.length}} clientes
     </span>
     <div class="inline-flex mt-2 xs:mt-0">
         <button
+        (click)="prevPage()"
             class="text-sm hover:bg-[#EEE9DA] bg-[#f5f5f5] dark:hover:bg-[#252525] dark:bg-[#1a1a1a] font-semibold py-2 px-4 rounded-l">
-            Prev
+            Anterior
         </button>
         <button
+        (click)="nextPage()"
             class="text-sm hover:bg-[#EEE9DA] bg-[#f5f5f5] dark:hover:bg-[#252525] dark:bg-[#1a1a1a] font-semibold py-2 px-4 rounded-r">
-            Next
+            Siguiente
         </button>
 </div>
 </div>

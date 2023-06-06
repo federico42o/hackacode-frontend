@@ -16,6 +16,7 @@ export class BuyerComponent implements OnInit{
   headers : string[] = ["Nombre", "Apellido", "Fecha de nacimiento", "DNI"];
   columns : string[] = ["name", "surname", "birthdate", "dni"];
   pageSize: number = 5;
+
   ngOnInit(): void {
     this.service.getClients().subscribe(
       (data:any) => {
@@ -42,11 +43,20 @@ export class BuyerComponent implements OnInit{
     }
   }
 
-  setPageSize():void{
-    if(this.pageSize > this.clients.length){
+  setPageSize(): void {
+    if (this.pageSize > this.clients.length) {
       this.pageSize = this.clients.length;
     }
-    this.page = this.clients.slice(0,this.pageSize);
+  
+    this.page = this.clients.slice(0, this.pageSize);
+  }
+  
+  prevPage(): void {
 
   }
+  
+  nextPage(): void {
+
+  }
+  
 }
