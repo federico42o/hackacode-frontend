@@ -1,2 +1,2 @@
-export * from './ticket-selector'
-export * from './add-buyer'
+export * from '../sales/pages/ticket-selector'
+export * from '../administration/pages/add-buyer'
