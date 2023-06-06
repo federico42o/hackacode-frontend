@@ -7,12 +7,14 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../shared';
 import { BuyerComponent } from './pages/buyer';
 import { EmployeeComponent } from './pages/employee/employee.component';
+import { TableComponent } from './components/table/table.component';
 
 
 @NgModule({
   declarations: [
     BuyerComponent,
     EmployeeComponent,
+    TableComponent,
   ],
   imports: [
     CommonModule,
@@ -24,6 +26,7 @@ import { EmployeeComponent } from './pages/employee/employee.component';
   exports:[
     BuyerComponent,
     EmployeeComponent,
+    TableComponent,
   ]
 })
 export class AdministrationModule { }
