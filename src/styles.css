@@ -13,4 +13,10 @@
     margin: 0;
 }
 html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; overflow-y: hidden;}
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; overflow-y: hidden;
+    
+
+}
+/* body:not(.dark){
+    background-image: linear-gradient(to right bottom, #12171a, #14171b, #16181b, #17181c, #19191c, #1e1d22, #252129, #2c242e, #3b2b3b, #4c3347, #5e3952, #71405c);
+} */

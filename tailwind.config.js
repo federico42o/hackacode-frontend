@@ -37,6 +37,8 @@ module.exports = {
     },
     backgroundImage: {
       'ticket-pattern': "url('/assets/img/bg-ticket.png')",
+      'dark-gradient': 'linear-gradient(to right top, #181818, #181a1d, #141e20, #12211e, #182318);',
+      'light-gradient':'linear-gradient(to right top, #badbe1, #b2e0e0, #afe5d9, #b2e9ce, #bdebc0);'
     }
   },
   plugins: [
