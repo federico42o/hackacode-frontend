@@ -8,47 +8,47 @@ import { AnimationItem } from 'lottie-web';
   templateUrl: './toggle-theme-btn.component.html',
   styleUrls: ['./toggle-theme-btn.component.css']
 })
-export class ToggleThemeBtnComponent implements OnInit{
+export class ToggleThemeBtnComponent implements OnInit {
   isDarkTheme: boolean = false;
   animationItem!: AnimationItem;
-  constructor(private theme: ThemeService) { }
-  options: AnimationOptions = {    
+
+  constructor(private theme: ThemeService) {}
+
+  options: AnimationOptions = {
     path: '/assets/lottie/dark-mode-button.json',
     autoplay: false,
     loop: false
+  };
 
-  };  
   ngOnInit(): void {
-    this.theme.getDarkMode().subscribe(
-      (res: boolean) => {
-        this.isDarkTheme = res
-        
-      }
-
-    )
+    this.theme.getDarkMode().subscribe((res: boolean) => {
+      this.isDarkTheme = res;
+      this.setInitialFrame(); // Update the initial animation frame when the theme changes
+    });
   }
 
   toggleTheme(): void {
-    this.theme.changeTheme();
-    if(!this.isDarkTheme) {
+    this.theme.toggleTheme(); // Use toggleTheme() instead of changeTheme()
+
+    if (this.isDarkTheme) {
       this.animationItem.playSegments([0, 255], true);
-    }else{
+    } else {
       this.animationItem.playSegments([295, 481], true);
     }
   }
 
-  onAnimate(animationItem: AnimationItem): void {    
+  onAnimate(animationItem: AnimationItem): void {
     this.animationItem = animationItem;
     this.setInitialFrame();
-    
   }
+
   setInitialFrame(): void {
     if (!this.animationItem) return;
 
-    if (!this.isDarkTheme) {
-      this.animationItem.goToAndStop(255, true); // Iniciar en el frame 255 para darkMode
+    if (this.isDarkTheme) {
+      this.animationItem.goToAndStop(255, true); // Start at frame 255 for dark mode
     } else {
-      this.animationItem.goToAndStop(0, true); // Iniciar en el frame 0 para lightMode
+      this.animationItem.goToAndStop(0, true); // Start at frame 0 for light mode
     }
   }
 }

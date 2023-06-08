@@ -5,25 +5,33 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root'
 })
 export class ThemeService {
+  private isDarkMode: BehaviorSubject<boolean>;
 
-  private isDarkMode : BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  constructor() {
+    const darkMode = localStorage.getItem('darkMode');
+    this.isDarkMode = new BehaviorSubject<boolean>(darkMode ? JSON.parse(darkMode) : true);
 
-  constructor() { } 
+    // Apply initial theme
+    this.applyTheme();
+  }
 
-  getDarkMode(){
+  getDarkMode() {
     return this.isDarkMode.asObservable();
   }
 
-  changeTheme(){
-    if(this.isDarkMode.value){
+  toggleTheme() {
+    const newValue = !this.isDarkMode.value;
+    this.isDarkMode.next(newValue);
+    localStorage.setItem('darkMode', JSON.stringify(newValue));
 
+    this.applyTheme();
+  }
+
+  private applyTheme() {
+    if (this.isDarkMode.value) {
       document.documentElement.classList.add('dark');
-      this.isDarkMode.next(!this.isDarkMode.value);
-      localStorage.setItem('darkMode', JSON.stringify(this.isDarkMode.value));
-    }else{
+    } else {
       document.documentElement.classList.remove('dark');
-      this.isDarkMode.next(!this.isDarkMode.value);
-      localStorage.setItem('darkMode', JSON.stringify(this.isDarkMode.value));
     }
   }
 }
