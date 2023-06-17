@@ -16,6 +16,7 @@ export class TicketSelectorComponent implements OnInit{
  orderNumber: number = Math.ceil(Math.random() * 100000);
  ngOnInit(): void {
    this.game = {
+      id: 1,
       name: "Roller Coaster",
       price: 10000,
       requiredAge: 12,

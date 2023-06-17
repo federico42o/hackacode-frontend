@@ -2,8 +2,9 @@ import { Schedule } from "./schedule";
 
 
 export interface Game {
-    name:string;
-    price:number;
-    requiredAge:number;
+    id:number,
+    name:string,
+    price:number,
+    requiredAge:number,
     schedule:Schedule;
 }

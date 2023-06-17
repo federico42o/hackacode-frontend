@@ -11,6 +11,7 @@ import { GeneralTicketComponent,VipTicketComponent } from './components';
 import { SharedModule } from './shared';
 import { AdministrationModule, AuthModule, SalesModule } from "./modules";
 import { AuthInterceptor } from "./modules/auth/auth.interceptor";
+import { CookieService } from "ngx-cookie-service";
 
 
 
@@ -35,6 +36,7 @@ import { AuthInterceptor } from "./modules/auth/auth.interceptor";
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
+    CookieService,
   ],
   bootstrap: [AppComponent]
 })

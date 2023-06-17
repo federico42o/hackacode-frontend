@@ -1,3 +1,5 @@
 export * from './game'
 export * from './ticket'
 export * from './schedule'
+export * from './user'
+export * from './employee'

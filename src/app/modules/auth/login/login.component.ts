@@ -25,9 +25,15 @@ export class LoginComponent implements OnInit{
     console.log(this.loginForm.value);
     this.loginService.login(this.loginForm.value.email,this.loginForm.value.password).subscribe(
       {next:(data:any)=>{
-        console.log(data)},
+        
+      },
+
         error:(error:any)=>{
           console.log(error);
+        },
+        complete:()=>{
+          this.route.navigate(['/']);
+          
         }
       }
     );
