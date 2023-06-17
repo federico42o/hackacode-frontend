@@ -1,17 +1,16 @@
-import { HttpClientModule } from "@angular/common/http";
+import { HTTP_INTERCEPTORS, HttpClientModule } from "@angular/common/http";
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { AdministrationModule } from './administration/administration.module';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { AuthModule } from './auth';
-import { GeneralTicketComponent } from './components/general-ticket/general-ticket.component';
-import { VipTicketComponent } from './components/vip-ticket/vip-ticket.component';
-import { SalesModule } from './sales/sales.module';
+import { GeneralTicketComponent,VipTicketComponent } from './components';
+
 import { SharedModule } from './shared';
+import { AdministrationModule, AuthModule, SalesModule } from "./modules";
+import { AuthInterceptor } from "./modules/auth/auth.interceptor";
 
 
 
@@ -34,7 +33,9 @@ import { SharedModule } from './shared';
     AdministrationModule,
 
   ],
-  providers: [],
+  providers: [
+    {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

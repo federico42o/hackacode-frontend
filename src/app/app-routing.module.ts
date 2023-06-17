@@ -7,9 +7,9 @@ const routes: Routes = [
   {path:'', redirectTo: '/', pathMatch: 'full'},
   {path:'ticket', component: GeneralTicketComponent},
   {path:'vip-ticket', component: VipTicketComponent},
-  { path: 'auth', loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule) },
-  { path: '', loadChildren: () => import('./sales/sales.module').then(m => m.SalesModule) },
-  { path: 'administration', loadChildren: () => import('./administration/administration.module').then(m => m.AdministrationModule) },
+  { path: 'auth', loadChildren: () => import('./modules/auth').then(m => m.AuthModule) },
+  { path: '', loadChildren: () => import('./modules/sales').then(m => m.SalesModule) },
+  { path: 'administration', loadChildren: () => import('./modules/administration').then(m => m.AdministrationModule) },
 ];
 
 @NgModule({

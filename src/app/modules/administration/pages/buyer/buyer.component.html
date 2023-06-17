@@ -1,5 +1,5 @@
 <div class="login-form mx-auto w-full flex  justify-center my-4">
-    <!-- <form class="flex gap-4" [formGroup]="buyerForm" (ngSubmit)="onSubmit()">
+    <form class="flex gap-4" [formGroup]="buyerForm" (ngSubmit)="onSubmit()">
         <div>
             <input class="
         form-input
@@ -54,7 +54,7 @@
         id="dni" placeholder="DNI" formControlName="dni">
         </div>
         <button type="submit">Agregar</button>
-    </form> -->
+    </form>
 </div>
 
 <div class="mx-[2rem]">
@@ -71,7 +71,7 @@
     </div>
     <div class="max-h-[550px] overflow-auto 
     h-full w-full bg-gray-900 rounded-md bg-clip-padding backdrop-filter backdrop-blur-lg bg-opacity-10 " id="scrollbar">
-<app-table [data]="page" [headers]="headers" [columns]="columns" [actions]="true"></app-table>
+<app-table [data]="clients" [headers]="headers" [columns]="columns" [actions]="true"></app-table>
     </div>
 </div>
     <div

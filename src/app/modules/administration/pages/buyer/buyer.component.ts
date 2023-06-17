@@ -1,7 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ClientService } from 'src/app/shared/services/client.service';
+import { BuyerService } from '../../services/buyer.service';
 
+export interface BuyerRequest {
+  name: string;
+  surname: string;
+  birthdate: string;
+  dni: string;
+}
 @Component({
   selector: 'app-buyer',
   templateUrl: './buyer.component.html',
@@ -9,7 +16,7 @@ import { ClientService } from 'src/app/shared/services/client.service';
 })
 export class BuyerComponent implements OnInit{
   
-  constructor(private fb : FormBuilder, private service : ClientService){}
+  constructor(private fb : FormBuilder, private service : ClientService, private buyerService: BuyerService){}
   buyerForm! : FormGroup;
   clients : any;
   page : any;
@@ -18,15 +25,11 @@ export class BuyerComponent implements OnInit{
   pageSize: number = 5;
 
   ngOnInit(): void {
-    this.service.getClients().subscribe(
-      (data:any) => {
-        this.clients = data.clients;
-        this.setPageSize();
-      });
+    this._updatePage()
 
     this.buyerForm = this.fb.group({
-      name:["", [Validators.required,Validators.pattern("[a-zA-Z ]*")]],
-      surname:["",[Validators.required, Validators.pattern("[a-zA-Z ]*")]],
+      name:["", [Validators.required]],
+      surname:["",[Validators.required]],
       birthdate:["",[Validators.required]],
       dni:["",[Validators.required, Validators.pattern("[0-9]{8}")]],
     });
@@ -34,12 +37,21 @@ export class BuyerComponent implements OnInit{
 
 
   onSubmit():void{
-
+    console.log(this.buyerForm.value)
     if(this.buyerForm.invalid){
-      return;
+     console.log("invalid form")
     }else{
 
-    console.log(this.buyerForm.value)
+    this.buyerService.create(this.buyerForm.value as BuyerRequest).subscribe(
+      {next:(data:any) => {
+        this._updatePage()
+      },
+      error:(error:any) => {
+        console.log(error)
+      }
+
+    });
+    this.buyerForm.reset();
     }
   }
 
@@ -58,5 +70,14 @@ export class BuyerComponent implements OnInit{
   nextPage(): void {
 
   }
+
+  private _updatePage(): void {
+    this.buyerService.getAll().subscribe(
+      (data:any) => {
+        this.clients = data.content;
+        this.page = this.clients;
+        this.setPageSize();
+      });
+    }
   
 }
