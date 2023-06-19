@@ -3,10 +3,10 @@
   <app-clock></app-clock>
 </div>
 <main class="main-container">
-  <div class="navbar" *ngIf="route.url !== '/login'">
+  <div class="navbar" *ngIf="route.url !== '/auth/login'">
     <app-navbar></app-navbar>
   </div>
-  <div [ngClass]="{ 'router-content': true, 'full-width': route.url !== '/login' }" >
+  <div [ngClass]="{ 'router-content': true, 'full-width': route.url !== '/auth/login' }" >
     
     <router-outlet></router-outlet>
   </div>

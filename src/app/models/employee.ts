@@ -6,6 +6,6 @@ export interface Employee {
     surname: string,
     dni: string,
     birthdate: Date,
-    game: Game;
+    game?: Game;
 
 }

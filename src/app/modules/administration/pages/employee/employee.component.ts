@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { EmployeeService } from '../../services/employee.service';
+import { Employee } from 'src/app/models';
+import { MatDialog } from '@angular/material/dialog';
+import { EmployeeFormComponent } from '../../components';
 
 @Component({
   selector: 'app-employee',
@@ -7,27 +11,34 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./employee.component.css']
 })
 export class EmployeeComponent implements OnInit{
+  
+  constructor(private service : EmployeeService,public dialog: MatDialog){}
 
-  constructor(private fb : FormBuilder){}
-  buyerForm! : FormGroup;
+  headers : string[] = ["Nombre", "Apellido", "Fecha de nacimiento", "DNI"];
+  columns : string[] = ["name", "surname", "birthdate", "dni"];
+  employees : Employee[] = [];
   ngOnInit(): void {
-    this.buyerForm = this.fb.group({
-      name:["", [Validators.required,Validators.pattern("[a-zA-Z ]*")]],
-      surname:["",[Validators.required, Validators.pattern("[a-zA-Z ]*")]],
-      email:["",[Validators.required, Validators.email]],
-      birthdate:["",[Validators.required]],
-      dni:["",[Validators.required, Validators.pattern("[0-9]{8}")]],
+    this._updateTable()
+  }
+
+  openDialog() : void{
+    const dialogRef = this.dialog.open(EmployeeFormComponent,{
+      width: '50%',
+      height: '50%',
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      this._updateTable()
     });
   }
 
 
-  onSubmit():void{
-    if(this.buyerForm.invalid){
-      return;
-    }else{
-
-    console.log(this.buyerForm.value)
-    }
+  private _updateTable() : void{
+    this.service.getAll().subscribe(
+      {
+        next:(data:any) => {
+          this.employees = data.content
+        }
+      })
   }
 
 }

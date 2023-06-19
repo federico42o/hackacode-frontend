@@ -4,11 +4,9 @@ import { CommonModule } from '@angular/common';
 import { AdministrationRoutingModule } from './administration-routing.module';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { BuyerComponent } from './pages/buyer';
-import { EmployeeComponent } from './pages/employee/employee.component';
-import { TableComponent } from './components/table/table.component';
+import { EmployeeComponent,BuyerComponent,UsersComponent } from './pages';
+import { TableComponent,EmployeeFormComponent } from './components';
 import { SharedModule } from 'src/app/shared';
-import { UsersComponent } from './pages/users/users.component';
 
 
 @NgModule({
@@ -17,6 +15,7 @@ import { UsersComponent } from './pages/users/users.component';
     EmployeeComponent,
     TableComponent,
     UsersComponent,
+    EmployeeFormComponent,
   ],
   imports: [
     CommonModule,
@@ -29,6 +28,8 @@ import { UsersComponent } from './pages/users/users.component';
     BuyerComponent,
     EmployeeComponent,
     TableComponent,
+    UsersComponent,
+    EmployeeFormComponent,
   ]
 })
 export class AdministrationModule { }
