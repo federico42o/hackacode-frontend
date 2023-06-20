@@ -15,8 +15,10 @@ export class AuthGuard  {
       if(!this.service.isLogged()){
         this.route.navigate(['/auth/login']);
         return false;
+      }else{
+
+        return true;
       }
-    return true;
   }
   
 }

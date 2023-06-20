@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges } from '@angular/core';
 import { FormControl } from '@angular/forms';
 
 @Component({
@@ -14,6 +14,17 @@ export class TableComponent implements OnInit{
   @Input() columns!: string[];
   @Input() data!: any[];
   @Input() actions!: boolean;
+
+  @Output() delete = new EventEmitter();
+  @Output() edit = new EventEmitter();
+
+  emitDelete(id: number){
+    this.delete.emit(id);
+  }
+
+  emitEdit(id: number){
+    this.edit.emit(id);
+  }
   
   pageSize!: any;
   page!: any[];

@@ -6,13 +6,11 @@ import { AuthGuard } from './modules/auth/guard/auth.guard';
 import { AppComponent } from './app.component';
 
 const routes: Routes = [
-  {path:'', redirectTo:'/', pathMatch:'full'},
+  { path: 'auth', loadChildren: () => import('./modules/auth/auth.module').then(m => m.AuthModule) },
   {path:'ticket', component: GeneralTicketComponent},
   {path:'vip-ticket', component: VipTicketComponent},
   { path: 'sales', loadChildren: () => import('./modules/sales/sales.module').then(m => m.SalesModule),canActivate: [AuthGuard] },
   { path: 'administration', loadChildren: () => import('./modules/administration/administration.module').then(m => m.AdministrationModule), canActivate: [AuthGuard] },
-  { path: 'auth', loadChildren: () => import('./modules/auth/auth.module').then(m => m.AuthModule) },
-  { path: '**', redirectTo: '/' }
 ];
 
 @NgModule({

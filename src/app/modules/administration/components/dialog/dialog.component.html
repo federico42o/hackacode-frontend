@@ -1,0 +1,9 @@
+<section class="bg-white text-secondary dark:bg-secondary h-full w-full dark:text-white p-4">
+<div>
+  {{data.message}}?
+</div>
+<div mat-dialog-actions class="flex gap-4">
+  <button mat-dialog-close>Cancelar</button>
+  <button mat-dialog-close cdkFocusInitial (click)="onAccept()">Borrar</button>
+</div>
+</section>

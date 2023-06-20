@@ -7,6 +7,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { EmployeeComponent,BuyerComponent,UsersComponent } from './pages';
 import { TableComponent,EmployeeFormComponent } from './components';
 import { SharedModule } from 'src/app/shared';
+import { DialogComponent } from './components/dialog/dialog.component';
 
 
 @NgModule({
@@ -16,6 +17,7 @@ import { SharedModule } from 'src/app/shared';
     TableComponent,
     UsersComponent,
     EmployeeFormComponent,
+    DialogComponent,
   ],
   imports: [
     CommonModule,

@@ -12,13 +12,14 @@ export class EmployeeFormComponent implements OnInit{
 
 
   constructor(private fb : FormBuilder,private service : EmployeeService){}
-  buyerForm! : FormGroup;
+  employeeForm! : FormGroup;
   ngOnInit(): void {
-    this.buyerForm = this.fb.group({
+    this.employeeForm = this.fb.group({
       name:["", [Validators.required,Validators.pattern("[a-zA-Z ]*")]],
       surname:["",[Validators.required, Validators.pattern("[a-zA-Z ]*")]],
       birthdate:["",[Validators.required]],
       dni:["",[Validators.required, Validators.pattern("[0-9]{8}")]],
+      game:["none",]
     });
   }
 
@@ -26,15 +27,17 @@ export class EmployeeFormComponent implements OnInit{
 
 
   onSubmit():void{
-    if(this.buyerForm.invalid){
+    if(this.employeeForm.invalid){
       return;
     }
-
-    this.service.create(this.buyerForm.value as Employee).subscribe(
+    if(this.employeeForm.value.game == "none"){
+      this.employeeForm.value.game = null;
+    }
+    this.service.create(this.employeeForm.value as Employee).subscribe(
       {
         error: error => console.error('There was an error!', error),
         complete: () => {
-          this.buyerForm.reset();
+          this.employeeForm.reset();
           console.log('Employee created')}
       });
   }

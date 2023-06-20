@@ -7,9 +7,7 @@ import { ClockComponent,HeaderComponent,NavbarComponent,ToggleThemeBtnComponent,
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuthRoutingModule } from '../modules/auth/auth-routing.module';
 import { TabComponent } from './components/navbar/tab/tab.component';
-import {MatDialogModule} from '@angular/material/dialog';
-import { AdministrationModule } from '../modules';
-import { AdministrationRoutingModule } from '../modules/administration/administration-routing.module';
+import {DialogModule} from '@angular/cdk/dialog';
 export function playerFactory(): any {  
   return import('lottie-web');
 }
@@ -30,12 +28,12 @@ export function playerFactory(): any {
     ReactiveFormsModule,
     MatAutocompleteModule,
     AuthRoutingModule,
-    MatDialogModule,
+    DialogModule,
     LottieModule.forRoot({ player: playerFactory }),
   ],
   exports: [
     FormsModule,
-    MatDialogModule,
+    DialogModule,
     ToggleThemeBtnComponent,
     NavbarComponent,
     HeaderComponent,

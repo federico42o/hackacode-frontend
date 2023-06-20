@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ClientService } from 'src/app/shared/services/client.service';
 import { BuyerService } from '../../services/buyer.service';
+import { Subscription } from 'rxjs';
 
 export interface BuyerRequest {
   name: string;
@@ -14,9 +15,11 @@ export interface BuyerRequest {
   templateUrl: './buyer.component.html',
   styleUrls: ['./buyer.component.css']
 })
-export class BuyerComponent implements OnInit{
+export class BuyerComponent implements OnInit,OnDestroy{
   
   constructor(private fb : FormBuilder, private service : ClientService, private buyerService: BuyerService){}
+
+  subscription$! : Subscription;
   buyerForm! : FormGroup;
   clients : any;
   page : any;
@@ -72,12 +75,16 @@ export class BuyerComponent implements OnInit{
   }
 
   private _updatePage(): void {
-    this.buyerService.getAll().subscribe(
+    this.subscription$ = this.buyerService.getAll().subscribe(
       (data:any) => {
         this.clients = data.content;
         this.page = this.clients;
         this.setPageSize();
       });
     }
-  
+    ngOnDestroy(): void {
+      if(this.subscription$){
+        this.subscription$.unsubscribe();
+      }
+    }
 }
