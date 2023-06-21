@@ -8,6 +8,7 @@ import { EmployeeComponent,BuyerComponent,UsersComponent } from './pages';
 import { TableComponent,EmployeeFormComponent } from './components';
 import { SharedModule } from 'src/app/shared';
 import { DialogComponent } from './components/dialog/dialog.component';
+import { TableUsersComponent } from './pages/users/table-users/table-users.component';
 
 
 @NgModule({
@@ -18,6 +19,7 @@ import { DialogComponent } from './components/dialog/dialog.component';
     UsersComponent,
     EmployeeFormComponent,
     DialogComponent,
+    TableUsersComponent
   ],
   imports: [
     CommonModule,
@@ -32,6 +34,7 @@ import { DialogComponent } from './components/dialog/dialog.component';
     TableComponent,
     UsersComponent,
     EmployeeFormComponent,
+    TableUsersComponent
   ]
 })
 export class AdministrationModule { }

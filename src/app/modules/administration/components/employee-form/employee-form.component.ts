@@ -37,8 +37,7 @@ export class EmployeeFormComponent implements OnInit{
       {
         error: error => console.error('There was an error!', error),
         complete: () => {
-          this.employeeForm.reset();
-          console.log('Employee created')}
+          this.employeeForm.reset();}
       });
   }
 }
