@@ -15,7 +15,6 @@ export class UsersComponent implements OnInit {
 
   headers: string[] = ["Nombre", "Apellido", "DNI", "Usuario", "Roles"];
   columns: string[] = ["nombre", "apellido", "dni", "usuario", "roles"];
-  users: User[] = [];
   data: any[] = []
   ngOnInit(): void {
     this.service.getAll().subscribe(
@@ -27,26 +26,16 @@ export class UsersComponent implements OnInit {
   }
 
   setData(userList: User[]): UserTable[] {
-    let usuario = {
-      nombre: "",
-      apellido: "",
-      dni: "",
-      usuario: "",
-      roles: ""
-    }
-    let usuarios = []
-    for (const user of userList) {
-      
-        usuario.nombre = user.employee.name
-        usuario.apellido = user.employee.surname
-        usuario.dni = user.employee.dni
-        usuario.usuario = user.username
-        for (const roles of user.roles) {
-          usuario.roles = roles.role + " "
-        }
-        usuarios.push(usuario)      
-    }
-    return usuarios
+    return userList.map((user) => {
+      const usuario: UserTable = {
+        nombre: user.employee.name,
+        apellido: user.employee.surname,
+        dni: user.employee.dni,
+        usuario: user.username,
+        roles: user.roles.map((role) => role.role).join("/")
+      };
+      return usuario;
+    });
   }
 
 }
