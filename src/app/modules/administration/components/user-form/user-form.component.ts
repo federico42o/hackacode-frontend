@@ -6,6 +6,8 @@ import { UserRequest } from 'src/app/models/user-request';
 import { EmployeeService } from '../../services/employee.service';
 import { UserEmployeeService } from '../../services/user-employee.service';
 import { RoleService } from '../../services/role.service';
+import { randomPassword } from 'src/app/shared/utils/genPw';
+import { randomEmail } from 'src/app/shared/utils/generateEmail';
 
 @Component({
   selector: 'app-user-form',
@@ -24,10 +26,11 @@ export class UserFormComponent implements OnInit {
   ngOnInit(): void {
     this.userForm = this.fb.group({
       username: ["", [Validators.required, Validators.email]],
-      password: ["", [Validators.required]],
+      password: [randomPassword(), [Validators.required]],
       employee: [null, [Validators.required]],
       roles: ["", [Validators.required]],
     });
+
     this.loadEmployees();
     this.loadRoles();
     console.log(this.roles)
@@ -35,7 +38,7 @@ export class UserFormComponent implements OnInit {
 
   onSubmit(): void {
     const user: UserRequest = {
-      username: this.userForm.get("username")?.value,
+      username: this.userForm.get("username")?.value.concat("@crazyland.com"),
       password: this.userForm.get("password")?.value,
       employee: this.userForm.get("employee")?.value,
       roles: this.userForm.get("roles")?.value,
@@ -53,6 +56,15 @@ export class UserFormComponent implements OnInit {
 
         }
       });
+    }
+  }
+
+  showPw():void{
+    const input = document.getElementById("password") as HTMLInputElement;
+    if(input.type === "password"){
+      input.type = "text";
+    }else{
+      input.type = "password";
     }
   }
 
@@ -102,3 +114,4 @@ export class UserFormComponent implements OnInit {
     return '';
   }
 }
+

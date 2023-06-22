@@ -12,6 +12,7 @@ import { SharedModule } from './shared';
 import { AdministrationModule, AuthModule, SalesModule } from "./modules";
 import { AuthInterceptor } from "./modules/auth/auth.interceptor";
 import { CookieService } from "ngx-cookie-service";
+import { MAT_DATE_LOCALE } from "@angular/material/core";
 
 
 
@@ -35,6 +36,7 @@ import { CookieService } from "ngx-cookie-service";
 
   ],
   providers: [
+    {provide: MAT_DATE_LOCALE, useValue: "es-ES"},
     {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
     CookieService,
   ],
