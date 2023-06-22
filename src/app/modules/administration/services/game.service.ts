@@ -7,7 +7,7 @@ import { Injectable } from '@angular/core';
 export class GameService {
 
   constructor(private http: HttpClient) { }
-  baseUrl = 'http://localhost:8080/games/';
+  baseUrl = 'http://localhost:8080/api/juegos';
 
   getAll(): any {
     return this.http.get(this.baseUrl);
@@ -19,11 +19,11 @@ export class GameService {
   }
 
   delete(id: number): void {
-    this.http.delete(this.baseUrl + id);
+    this.http.delete(this.baseUrl+"/" + id);
   }
 
   update(game: any, id: number): void {
-    this.http.put(this.baseUrl + id, game);
+    this.http.put(this.baseUrl +"/"+ id, game);
   }
   
 }

@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { Game } from 'src/app/models/game';
+import { AuthService } from 'src/app/modules/auth/services/auth.service';
 
 @Component({
   selector: 'app-ticket-selector',
@@ -7,24 +9,18 @@ import { Game } from 'src/app/models/game';
   styleUrls: ['./ticket-selector.component.css']
 })
 export class TicketSelectorComponent implements OnInit{
- constructor() { }
+ constructor(private authService : AuthService) { }
  tickets: any[] = [];
  input!: any;
- totalPrice: number = 10000;
  show: boolean = false;
  game!: Game;
- orderNumber: number = Math.ceil(Math.random() * 100000);
+ game$!: Subscription;
  ngOnInit(): void {
-   this.game = {
-      id: 1,
-      name: "Roller Coaster",
-      price: 10000,
-      requiredAge: 12,
-      schedule: {
-        startTime: "10:00",
-        endTime: "18:00"
+   this.game$ = this.authService.getCurrentGame().subscribe({
+      next: game => {
+        this.game = game;
       }
-    }
+   });
 
  }
  

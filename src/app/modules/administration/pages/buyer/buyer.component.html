@@ -1,36 +1,32 @@
 <div class="mx-[2rem]">
-    <button class="bg-green-400 text-white" (click)="openDialog()">AÑADIR COMPRADOR</button>
-    <div class="flex gap-2 mb-1 justify-end items-center">
-        <label for="entries" > Mostrar</label>
-        <select id="entries" class="text-secondary" [(ngModel)]="pageSize" (ngModelChange)="setPageSize()">
-            <option [value]="clients && clients.length > 0 ? clients.length : 0">Todo</option>
-            <option value="5">5</option>
-            <option value="10">10</option>
-            <option value="25">25</option>
-            <option value="50">50</option>
-        </select>
+    <div class="max-h-[550px] overflow-auto" id="scrollbar">
+        <button class="bg-green-400 text-white" (click)="openDialog()">AÑADIR COMPRADOR</button>
+        <!-- <div class="flex gap-2 mb-1  items-center">
+            <label for="entries"> Mostrar</label>
+            <select id="entries" class="text-secondary" [(ngModel)]="pageSize" (ngModelChange)="setPageSize()">
+                <option [value]="clients && clients.length > 0 ? clients.length : 0">Todo</option>
+                <option value="5">5</option>
+                <option value="10">10</option>
+                <option value="25">25</option>
+                <option value="50">50</option>
+            </select>
 
+        </div> -->
+        <app-table [data]="clients" [headers]="headers" [columns]="columns" [actions]="true"></app-table>
+        <div class="px-5 pt-4 flex flex-col xs:flex-row  xs:justify-between">
+            <span class="text-xs xs:text-sm">
+                Mostrando {{pageSize}} de {{clients?.length}} clientes
+            </span>
+            <div class="inline-flex mt-2 xs:mt-0">
+                <button (click)="prevPage()"
+                    class="text-sm hover:bg-[#EEE9DA] bg-[#f5f5f5] dark:hover:bg-[#252525] dark:bg-[#1a1a1a] font-semibold py-2 px-4 rounded-l">
+                    Anterior
+                </button>
+                <button (click)="nextPage()"
+                    class="text-sm hover:bg-[#EEE9DA] bg-[#f5f5f5] dark:hover:bg-[#252525] dark:bg-[#1a1a1a] font-semibold py-2 px-4 rounded-r">
+                    Siguiente
+                </button>
+            </div>
+        </div>
     </div>
-    <div class="max-h-[550px] overflow-auto 
-    h-full w-full bg-gray-900 rounded-md bg-clip-padding backdrop-filter backdrop-blur-lg bg-opacity-10 " id="scrollbar">
-<app-table [data]="clients" [headers]="headers" [columns]="columns" [actions]="true"></app-table>
-    </div>
-</div>
-    <div
-    class="px-5 pt-4 flex flex-col xs:flex-row items-center xs:justify-between">
-    <span class="text-xs xs:text-sm">
-        Mostrando {{pageSize}} de {{clients?.length}} clientes
-    </span>
-    <div class="inline-flex mt-2 xs:mt-0">
-        <button
-        (click)="prevPage()"
-            class="text-sm hover:bg-[#EEE9DA] bg-[#f5f5f5] dark:hover:bg-[#252525] dark:bg-[#1a1a1a] font-semibold py-2 px-4 rounded-l">
-            Anterior
-        </button>
-        <button
-        (click)="nextPage()"
-            class="text-sm hover:bg-[#EEE9DA] bg-[#f5f5f5] dark:hover:bg-[#252525] dark:bg-[#1a1a1a] font-semibold py-2 px-4 rounded-r">
-            Siguiente
-        </button>
-</div>
-</div>
+</div>  

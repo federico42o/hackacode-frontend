@@ -29,6 +29,15 @@ export class TableComponent implements OnInit{
   pageSize!: any;
   page!: any[];
 
+  getDisplayValue(row: any, column: string): string {
+    if (row[column] == null) {
+      return 'No disponible';
+    } else if (typeof row[column] === 'object' && row[column].name) {
+      return row[column].name;
+    } else {
+      return row[column].toString();
+    }
+  }
 
 
 }

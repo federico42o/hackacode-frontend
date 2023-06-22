@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable, OnInit } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 import { BehaviorSubject, Observable, Subscription, catchError, switchMap, tap, throwError } from 'rxjs';
-import { User } from 'src/app/models';
+import { Game, User } from 'src/app/models';
 
 import jwt_decode from 'jwt-decode';
 @Injectable({
@@ -11,12 +11,14 @@ import jwt_decode from 'jwt-decode';
 export class AuthService {
 
   private currentUserSubject: BehaviorSubject<User> = new BehaviorSubject<User>({} as User);
+  private currentGameSubject: BehaviorSubject<Game> = new BehaviorSubject<Game>({} as Game);
   constructor(private http: HttpClient, private cookies: CookieService) { 
     const token = cookies.get('token');
     if (token !== '' && token !== null) {
       const decoded: any = jwt_decode(token);
       this.getUserByUsername(decoded.sub).subscribe({
         next: (user: User) => {
+          if(user.employee.game !== null){this.setCurrentGame(user.employee.game||{} as Game)}
           this.setCurrentUser(user);
         },
         error: (err: any) => {
@@ -29,6 +31,9 @@ export class AuthService {
 
   setCurrentUser(user: User) {
     this.currentUserSubject.next(user);
+  }
+  setCurrentGame(game: Game) {
+    this.currentGameSubject.next(game);
   }
 
   getUserByUsername(username: string): Observable<User> {
@@ -60,6 +65,9 @@ export class AuthService {
 
   getCurrentUser(): Observable<User> {
     return this.currentUserSubject.asObservable();
+  }
+  getCurrentGame(): Observable<Game> {
+    return this.currentGameSubject.asObservable();
   }
 
   isLogged(): boolean {

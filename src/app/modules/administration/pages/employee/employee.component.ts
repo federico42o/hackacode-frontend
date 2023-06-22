@@ -25,10 +25,11 @@ export class EmployeeComponent implements OnInit, OnDestroy{
     
   }
 
-  openDialog() : void{
+  openDialog(mode:string,id :number) : void{
     const dialogRef = this.dialog.open(EmployeeFormComponent,{
       width: '60%',
       height: '50%',
+      data: {mode,id}
     });
     dialogRef.closed.subscribe(result => {
       this._updateTable()
@@ -36,6 +37,43 @@ export class EmployeeComponent implements OnInit, OnDestroy{
   }
 
 
+
+
+  handleEdit(id: number): void {
+    this.openDialog('update',id);
+  }
+
+  handleDelete(id:number): void{
+    const dialogRef = this.dialog.open(DialogComponent,{
+      width: '30%',
+      height: '10%',
+      data: {
+        message: "¿Desea borrar este empleado?",
+        id,
+      }
+      });
+      dialogRef.componentInstance?.accept.subscribe({
+        next: () => {
+          console.log(id)
+          this.service.delete(id).subscribe({
+            next: (data:any) => {
+              console.log(data)
+            },
+            complete: () => {
+              this._updateTable();
+            }
+
+          });
+          
+        },
+        error: (err:any) => {
+          console.log(err);
+        },
+        complete: () => {
+          this._updateTable();
+        }
+      });  
+  }
   private _updateTable() : void{
     this.employees$ = this.service.getAll().subscribe(
       {
@@ -45,23 +83,6 @@ export class EmployeeComponent implements OnInit, OnDestroy{
         }
       })
   }
-
-  handleEdit(id:number): void{
-
-      
-  }
-
-  handleDelete(id:number): void{
-    const dialogRef = this.dialog.open(DialogComponent,{
-      width: '30%',
-      height: '30%',
-      data: {
-        message: "¿Desea borrar este empleado?",
-      }
-      });
-      
-  }
-
 
   ngOnDestroy(): void {
     this.employees$.unsubscribe();
