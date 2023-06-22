@@ -58,7 +58,11 @@ export class EmployeeComponent implements OnInit, OnDestroy{
           this.service.delete(id).subscribe({
             next: (data:any) => {
               console.log(data)
+            },
+            complete: () => {
+              this._updateTable();
             }
+            
           });
           
         },
