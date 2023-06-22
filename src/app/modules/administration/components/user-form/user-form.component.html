@@ -1,0 +1,81 @@
+<div
+    class="p-4 login-form mx-auto w-full h-full flex flex-col items-center justify-around gap-4 bg-primary dark:bg-secondary">
+    <p class="text-4xl block bg-primary dark:bg-secondary p-2">Registrar empleado</p>
+    <form class="flex flex-col gap-4" [formGroup]="userForm" (ngSubmit)="onSubmit()">
+        <div class="flex flex-col gap-2">
+            <label class="blok whitespace-nowrap w-full">Nombre de usuario <span
+                    class="text-red text-sm align-top">*</span></label>
+            <div class="w-full flex gap-4">
+                <input class="
+        form-input
+        text-secondary
+        mt-1
+        block
+        w-6/12
+        rounded-md
+        border-gray-300
+        shadow-md
+        focus:border-green-600 caret-green focus:ring-2 focus:ring-green-600 focus:ring-opacity-5" type="text"
+                    id="username" placeholder="Nombre de usuario" formControlName="username">
+
+                <input class="
+        form-input
+        text-secondary
+        mt-1
+        block
+        w-6/12
+        rounded-md
+        border-gray-300
+        shadow-md
+        focus:border-green-600 focus:ring-2 caret-green focus:ring-green-600 focus:ring-opacity-5" type="password"
+                    id="password" placeholder="Contraseña" formControlName="password">
+            </div>
+        </div>
+        <div class="flex gap-2 items-center justify-between">
+            <div class="flex flex-col gap-2 w-6/12">
+                <label class="whitespace-nowrap">Empleado <span class="text-red text-sm align-top">*</span></label>
+                <input class="
+            
+        form-input
+        text-secondary
+        mt-1
+        block
+        w-full
+        rounded-md
+        border-gray-300
+        shadow-md
+        focus:border-green-600 focus:ring-2 caret-green focus:ring-green-600 focus:ring-opacity-5" type="text" id=""
+                    placeholder="DNI" formControlName="employee" [matAutocomplete]="auto"
+                    [formControl]="employeeCtrl">
+            </div>
+        </div>
+        <div class="flex flex-col gap-2 w-6/12">
+            <label for="DNI" class="whitespace-nowrap">Roles</label>
+            <select formControlName="roles" class="form-select
+            text-secondary
+            mt-1
+            block
+            w-full
+            rounded-md
+            border-gray-300
+            shadow-md
+            focus:border-green-600 focus:ring-2 caret-green focus:ring-green-600 focus:ring-opacity-5" multiple>
+                <option value="none">Elegir Roles</option>
+                <option value="1">ADMINISTRATOR</option>
+                <option value="2">VENTAS</option>
+            </select>
+        </div>
+        <button
+            class="bg-blue-500 hover:bg-blue-400 dark:text-white font-medium py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded">
+            Registrar
+        </button>
+    </form>
+    <mat-autocomplete #auto="matAutocomplete" class="">
+        <mat-option
+            *ngFor="let employee of filteredEmployees$ | async"
+            [value]="employee"
+        >
+            {{ employee.name +' '+ employee.surname }},({{employee.dni}})
+        </mat-option>
+    </mat-autocomplete>
+</div>

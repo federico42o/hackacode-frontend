@@ -9,6 +9,7 @@ import { TableComponent,EmployeeFormComponent } from './components';
 import { SharedModule } from 'src/app/shared';
 import { DialogComponent } from './components/dialog/dialog.component';
 import { TableUsersComponent } from './pages/users/table-users/table-users.component';
+import { UserFormComponent } from './components/user-form/user-form.component';
 
 
 @NgModule({
@@ -19,7 +20,8 @@ import { TableUsersComponent } from './pages/users/table-users/table-users.compo
     UsersComponent,
     EmployeeFormComponent,
     DialogComponent,
-    TableUsersComponent
+    TableUsersComponent,
+    UserFormComponent
   ],
   imports: [
     CommonModule,

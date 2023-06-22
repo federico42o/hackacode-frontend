@@ -18,7 +18,6 @@ export class BuscadorClienteComponent implements OnInit {
   ngOnInit(): void {
     this.service.getClients().subscribe(
       (response: any) => {
-        console.log(response)
         this.clients = response.clients;
         this.setupFilteredClients()
         
