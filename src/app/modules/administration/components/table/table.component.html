@@ -1,5 +1,5 @@
 
-    <table class="w-full dark:text-[#F8F7E4]">
+    <table class=" dark:text-[#F8F7E4]">
     <thead class="dark:text-[#DED87B] "  >
         <tr class="h-10 bg-[#B5D5C5] dark:bg-[#2C3639] sticky top-0 ">
             <th class="text-start  pl-2 " *ngFor="let header of headers; index as i" [ngClass]="{'pr-10':i !== headers.length-1}" [class.pr-2]="i===headers.length-1">
@@ -13,7 +13,7 @@
     <tbody>
         <tr *ngFor="let row of data; index as j" class="max-w-fit border-b-2 hover:bg-[#EEE9DA] dark:hover:bg-[#1a1a1a]">
             <td *ngFor="let column of columns;index as c" class="text-start w-fit pl-2 py-2"  [class.pr-2]="c===columns.length-1">
-                {{ row[column] == null ? 'No disponible' : row[column]  }}
+                {{ getDisplayValue(row, column) }}
             </td>
             <td class="py-2 flex justify-center items-center" *ngIf="actions">
 
