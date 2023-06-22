@@ -10,7 +10,7 @@ export class DialogComponent {
 
   constructor(@Inject(DIALOG_DATA) public data: any) {}
 
-  @Output() accept = new  EventEmitter();
+  @Output() accept = new EventEmitter();
 
   onAccept():void{
     this.accept.emit();

@@ -94,12 +94,6 @@ export class EmployeeFormComponent implements OnInit,OnDestroy{
       
     }
   }
-  displayEmployee(game: Game | null): string {
-    if (game && typeof game !== 'string') {
-      return `${game.name}`;
-    }
-    return '';
-  }
   ngOnDestroy(): void {
     this.games$.unsubscribe();
   }

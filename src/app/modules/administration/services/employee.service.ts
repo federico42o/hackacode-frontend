@@ -21,8 +21,8 @@ export class EmployeeService {
 
   }
 
-  delete(id:number):void{
-    this.http.delete(this.baseUrl+"/"+id);
+  delete(id:number):Observable<any>{
+    return this.http.delete(this.baseUrl+"/"+id);
   }
 
   update(employee:any, id:number):Observable<any>{

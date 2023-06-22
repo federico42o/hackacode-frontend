@@ -49,7 +49,25 @@ export class EmployeeComponent implements OnInit, OnDestroy{
       height: '30%',
       data: {
         message: "¿Desea borrar este empleado?",
+        id,
       }
+      });
+      dialogRef.componentInstance?.accept.subscribe({
+        next: () => {
+          console.log(id)
+          this.service.delete(id).subscribe({
+            next: (data:any) => {
+              console.log(data)
+            }
+          });
+          
+        },
+        error: (err:any) => {
+          console.log(err);
+        },
+        complete: () => {
+          this._updateTable();
+        }
       });  
   }
   private _updateTable() : void{
