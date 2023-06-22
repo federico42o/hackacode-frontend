@@ -32,26 +32,28 @@
             </div>
         </div>
         <div class="flex gap-2 items-center justify-between">
-            <div class="flex flex-col gap-2 w-6/12">
+            <div class="flex flex-col gap-2 w-full">
                 <label class="whitespace-nowrap">Empleado <span class="text-red text-sm align-top">*</span></label>
-                <input class="
-            
-        form-input
-        text-secondary
-        mt-1
-        block
-        w-full
-        rounded-md
-        border-gray-300
-        shadow-md
-        focus:border-green-600 focus:ring-2 caret-green focus:ring-green-600 focus:ring-opacity-5" type="text" id=""
-                    placeholder="DNI" formControlName="employee" [matAutocomplete]="auto"
-                    [formControl]="employeeCtrl">
+                <input class="form-input text-secondary mt-1 block w-full rounded-md border-gray-300 shadow-md focus:border-green-600 focus:ring-2 caret-green focus:ring-green-600 focus:ring-opacity-5"
+                type="text"
+                id=""
+                placeholder="DNI"
+                formControlName="employee"
+                [matAutocomplete]="auto"
+                [value]="displayEmployee(userForm.get('employee')?.value)">
+         <mat-autocomplete #auto="matAutocomplete" >
+           <mat-option *ngFor="let employee of filteredEmployees$ | async" [value]="employee" >
+             {{ employee.name +' '+ employee.surname }}, ({{employee.dni}})
+           </mat-option>
+         </mat-autocomplete>
             </div>
         </div>
-        <div class="flex flex-col gap-2 w-6/12">
+        <div class="flex flex-col gap-2 ">
             <label for="DNI" class="whitespace-nowrap">Roles</label>
-            <select formControlName="roles" class="form-select
+            <select formControlName="roles" class="form-multiselect
+            overflow-hidden
+
+            appearance-none
             text-secondary
             mt-1
             block
@@ -60,9 +62,7 @@
             border-gray-300
             shadow-md
             focus:border-green-600 focus:ring-2 caret-green focus:ring-green-600 focus:ring-opacity-5" multiple>
-                <option value="none">Elegir Roles</option>
-                <option value="1">ADMINISTRATOR</option>
-                <option value="2">VENTAS</option>
+                <option *ngFor="let role of roles" [value]="role">{{role.role}}</option>
             </select>
         </div>
         <button
@@ -70,12 +70,5 @@
             Registrar
         </button>
     </form>
-    <mat-autocomplete #auto="matAutocomplete" class="">
-        <mat-option
-            *ngFor="let employee of filteredEmployees$ | async"
-            [value]="employee"
-        >
-            {{ employee.name +' '+ employee.surname }},({{employee.dni}})
-        </mat-option>
-    </mat-autocomplete>
+
 </div>
