@@ -2,11 +2,11 @@
 <div class="text-4xl w-[calc(100vw-320px)] text-center absolute  top-0 right-0 z-[-200]">
   <app-clock></app-clock>
 </div>
-<main class="main-container">
+<main class="main-container ">
   <div class="navbar w-[320px]" *ngIf="route.url !== '/auth/login'">
     <app-navbar></app-navbar>
   </div>
-  <div [ngClass]="{ 'router-content': true, 'full-width': route.url !== '/auth/login' }" >
+  <div [ngClass]="{ 'router-content': true, 'full-width': route.url !== '/auth/login' }" class="">
     
     <router-outlet></router-outlet>
   </div>

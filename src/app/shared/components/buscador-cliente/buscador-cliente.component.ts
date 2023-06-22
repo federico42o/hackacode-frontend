@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Observable, map, of, startWith } from 'rxjs';
 import { ClientService } from '../../services/client.service';
 import { FormControl } from '@angular/forms';
+import { BuyerService } from 'src/app/modules/administration/services/buyer.service';
 
 @Component({
   selector: 'app-buscador-cliente',
@@ -13,12 +14,12 @@ export class BuscadorClienteComponent implements OnInit {
   clientCtrl = new FormControl('');
   filteredClients$!: Observable<any[]>;
 
-  constructor(private service: ClientService) {}
+  constructor(private service: BuyerService) {}
 
   ngOnInit(): void {
-    this.service.getClients().subscribe(
+    this.service.getAll().subscribe(
       (response: any) => {
-        this.clients = response.clients;
+        this.clients = response.content;
         this.setupFilteredClients()
         
       }
