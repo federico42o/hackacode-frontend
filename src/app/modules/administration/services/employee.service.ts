@@ -26,7 +26,7 @@ export class EmployeeService {
   }
 
   update(employee:any, id:number):Observable<any>{
-    return this.http.put(this.baseUrl+"/"+id, employee);
+    return this.http.put(this.baseUrl, employee);
   }
 
   getByID(id:number):Observable<any>{
