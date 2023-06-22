@@ -1,6 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
-import { generateCode } from 'src/app/shared/utils/code';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Buyer } from 'src/app/models/buyer';
+import { Ticket } from 'src/app/models/ticket';
+import { TicketType } from 'src/app/models/ticket-type';
+import { TicketService } from '../../services/ticket.service';
+import { Observable, map, startWith } from 'rxjs';
+import { BuyerService } from 'src/app/modules/administration/services/buyer.service';
+import { TicketVip } from 'src/app/models/ticket-vip';
+import { TicketRequest } from 'src/app/models/ticket-request';
+import { TicketVipRequest } from 'src/app/models/ticket-vip-request';
 
 @Component({
   selector: 'app-add-ticket-form',
@@ -9,67 +17,99 @@ import { generateCode } from 'src/app/shared/utils/code';
 })
 export class AddTicketFormComponent implements OnInit{
 
-  
-    constructor(private fb: FormBuilder) { }
+
+    constructor(private fb: FormBuilder,private service: TicketService,private buyerService: BuyerService) { }
     ticketType!: TicketType;
-    buyer: Buyer = {
-      id: 1,
-      name: 'John Doe',
-      email: 'example@gmail.com',
-      phone: '1234567890',
-      birthdate: new Date(1990, 1, 1),
-    }
+    buyer!: Buyer;
     ticketForm! : FormGroup;
+    clients!: any[];
+    clientCtrl = new FormControl('');
+    filteredClients$!: Observable<any[]>;
     ngOnInit(): void {
       this.ticketForm = this.fb.group({
-        id : '',
-        buyer : this.buyer,
-        type : this.ticketType,
-        game : '',
-        shift : '',
-        total : 0.0,
+        buyer : [null,[Validators.required]],
       })
-
-
+      this.buyerService.getAll().subscribe(
+        (response: any) => {
+          this.clients = response.content;
+          this.setupFilteredClients()
+          
+        }
+      );
     }
+    
 
     setType(event: any){
+      console.log(event.target.value)
       event.target.value === 'GENERAL' ?  this.ticketType = TicketType.GENERAL : this.ticketType = TicketType.VIP;
     }
 
     onSubmit() : void {
 
-      this.ticketForm = this.fb.group({
-        id : generateCode(),
-        buyer : this.buyer,
-        type : this.ticketType,
-        game : this.ticketForm.value.game,
-        shift : this.ticketForm.value.shift,
-        total : 4321.0,
-      })
-      console.log(this.ticketForm.value as Ticket)
+      if(this.ticketForm.invalid){
+        console.log(this.ticketForm.value)
+        return;
+      }
+      if(this.ticketType === TicketType.GENERAL){
+        const ticket: TicketRequest = {
+          buyer: this.ticketForm.get('buyer')?.value,
+          game: {
+            id: 1,
+            name: 'Montaña Rusa',
+            price: 3400.0,
+            requiredAge: 18,
+          },
+        };
+        this.service.createNormal(ticket).subscribe({
+          error: (err) => console.log(err),
+        });
+      }else{
+        const ticket: TicketVipRequest = {
+          buyer: this.ticketForm.get('buyer')?.value,
+          price: 5000,
+        };
+        this.service.createVip(ticket).subscribe({
+          error: (err) => console.log(err),
+        });
+      }
     }
 
+    displayEmployee(buyer: Buyer | null): string {
+      if (buyer && typeof buyer !== 'string') {
+        return `${buyer.name} ${buyer.surname} (${buyer.dni})`;
+      }
+      return '';
+    }
+
+  
 
 
+    
+  
+    private setupFilteredClients(): void {
+      this.filteredClients$ = this.ticketForm.get("buyer")!.valueChanges.pipe(
+        startWith(""),
+        map((value: string | Buyer) => {
+          if (typeof value === "string") {
+            return value ? this.filterEmployees(value) : this.clients.slice();
+          } else {
+            return [value];
+          }
+        })
+      );
+    }
+  
+    private filterEmployees(value: string): Buyer[] {
+      const filterValue = value.toLowerCase();
+      return this.clients.filter(
+        (clients) =>
+          (clients.dni && clients.dni.includes(filterValue)) ||
+          (clients.name && clients.name.toLowerCase().includes(filterValue))
+      );
+    }
+
+    
+
 }
 
-export interface Ticket {
-  id: string;
-  buyer: Buyer;
-  total: number;
-  type: TicketType;
-  game?: string;
-  shift?: string;
-}
-export enum TicketType {
-  GENERAL= 'GENERAL',
-  VIP= 'VIP',
-}
-export interface Buyer{
-  id: number;
-  name: string;
-  email: string;
-  phone: string;
-  birthdate: Date;
-}
+

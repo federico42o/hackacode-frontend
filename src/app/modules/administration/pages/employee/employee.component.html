@@ -1,2 +1,4 @@
+<section class="mx-[2rem]">
 <button class="bg-green-400 text-white" (click)="openDialog()">AÑADIR EMPLEADO</button>
 <app-table [data]="employees" [headers]="headers" [columns]="columns" [actions]="true" (delete)="handleDelete($event)" (edit)="handleEdit($event)"></app-table>
+</section>

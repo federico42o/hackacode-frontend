@@ -3,6 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ClientService } from 'src/app/shared/services/client.service';
 import { BuyerService } from '../../services/buyer.service';
 import { Subscription } from 'rxjs';
+import { Dialog } from '@angular/cdk/dialog';
+import { BuyerFormComponent } from '../../components/buyer-form/buyer-form.component';
 
 export interface BuyerRequest {
   name: string;
@@ -17,7 +19,7 @@ export interface BuyerRequest {
 })
 export class BuyerComponent implements OnInit,OnDestroy{
   
-  constructor(private fb : FormBuilder, private service : ClientService, private buyerService: BuyerService){}
+  constructor(private fb : FormBuilder, private buyerService: BuyerService, public dialog : Dialog){}
 
   subscription$! : Subscription;
   buyerForm! : FormGroup;
@@ -29,13 +31,7 @@ export class BuyerComponent implements OnInit,OnDestroy{
 
   ngOnInit(): void {
     this._updatePage()
-
-    this.buyerForm = this.fb.group({
-      name:["", [Validators.required]],
-      surname:["",[Validators.required]],
-      birthdate:["",[Validators.required]],
-      dni:["",[Validators.required, Validators.pattern("[0-9]{8}")]],
-    });
+    this._updateTable()
   }
 
 
@@ -86,5 +82,25 @@ export class BuyerComponent implements OnInit,OnDestroy{
       if(this.subscription$){
         this.subscription$.unsubscribe();
       }
+    }
+
+
+    openDialog() : void{
+      const dialogRef = this.dialog.open(BuyerFormComponent,{
+        width: '60%',
+        height: '50%',
+      });
+      dialogRef.closed.subscribe(result => {
+        this._updateTable()
+      });
+    }
+
+    private _updateTable() : void{
+       this.buyerService.getAll().subscribe(
+        {
+          next:(data:any) => {
+            this.clients = data.content
+          }
+        })
     }
 }

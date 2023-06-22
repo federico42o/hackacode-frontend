@@ -2,56 +2,53 @@
     class="p-4 login-form mx-auto w-full h-full flex flex-col items-center justify-around gap-4 bg-primary dark:bg-secondary">
     <p class="text-4xl block bg-primary dark:bg-secondary p-2">Registrar empleado</p>
     <form class="flex flex-col gap-4" [formGroup]="userForm" (ngSubmit)="onSubmit()">
-        <div class="flex flex-col gap-2">
-            <label class="blok whitespace-nowrap w-full">Nombre de usuario <span
-                    class="text-red text-sm align-top">*</span></label>
-            <div class="w-full flex gap-4">
-                <input class="
-        form-input
-        text-secondary
-        mt-1
-        block
-        w-6/12
-        rounded-md
-        border-gray-300
-        shadow-md
-        focus:border-green-600 caret-green focus:ring-2 focus:ring-green-600 focus:ring-opacity-5" type="text"
-                    id="username" placeholder="Nombre de usuario" formControlName="username">
-
-                <input class="
-        form-input
-        text-secondary
-        mt-1
-        block
-        w-6/12
-        rounded-md
-        border-gray-300
-        shadow-md
-        focus:border-green-600 focus:ring-2 caret-green focus:ring-green-600 focus:ring-opacity-5" type="password"
-                    id="password" placeholder="Contraseña" formControlName="password">
+        <div class="flex  gap-2">
+            <div class="flex flex-col ">
+                <label class="blok whitespace-nowrap w-6/12">Nombre de usuario <span
+                        class="text-red text-sm align-top">*</span></label>
+                <div class="w-full flex gap-4">
+                    <div class="flex">
+                        <input class="form-input text-secondary mt-1 block w-full rounded-l-md border-gray-300 shadow-md focus:border-green-600 caret-green focus:ring-4 focus:ring-green-600 focus:ring-opacity-5" type="text"
+                            id="username" placeholder="Nombre de usuario" formControlName="username">
+                        <input class="form-input
+                        text-secondary
+                        mt-1
+                        block
+                        rounded-r-md
+                        border-gray-300
+                        shadow-md" value="@crazyland.com" disabled>
+                    </div>
+                </div>
             </div>
+                <div class="flex flex-col">
+                    <label class="blok whitespace-nowrap w-6/12">Contraseña</label>
+                    <div class="flex">
+                    <input class="form-input text-secondary mt-1 block w-full rounded-md border-gray-300 shadow-md focus:border-green-600 focus:ring-2 caret-green focus:ring-green-600 focus:ring-opacity-5" type="password"
+                        id="password" placeholder="Contraseña" formControlName="password" #password>
+                    <button (click)="showPw()">ojo</button>
+                    </div>
+                </div>
         </div>
         <div class="flex gap-2 items-center justify-between">
-            <div class="flex flex-col gap-2 w-6/12">
+            <div class="flex flex-col gap-2 w-full">
                 <label class="whitespace-nowrap">Empleado <span class="text-red text-sm align-top">*</span></label>
-                <input class="
-            
-        form-input
-        text-secondary
-        mt-1
-        block
-        w-full
-        rounded-md
-        border-gray-300
-        shadow-md
-        focus:border-green-600 focus:ring-2 caret-green focus:ring-green-600 focus:ring-opacity-5" type="text" id=""
-                    placeholder="DNI" formControlName="employee" [matAutocomplete]="auto"
-                    [formControl]="employeeCtrl">
+                <input
+                    class="form-input text-secondary mt-1 block w-full rounded-md border-gray-300 shadow-md focus:border-green-600 focus:ring-2 caret-green focus:ring-green-600 focus:ring-opacity-5"
+                    type="text" id="" placeholder="DNI" formControlName="employee" [matAutocomplete]="auto"
+                    [value]="displayEmployee(userForm.get('employee')?.value)">
+                <mat-autocomplete #auto="matAutocomplete">
+                    <mat-option *ngFor="let employee of filteredEmployees$ | async" [value]="employee">
+                        {{ employee.name +' '+ employee.surname }}, ({{employee.dni}})
+                    </mat-option>
+                </mat-autocomplete>
             </div>
         </div>
-        <div class="flex flex-col gap-2 w-6/12">
+        <div class="flex flex-col gap-2 ">
             <label for="DNI" class="whitespace-nowrap">Roles</label>
-            <select formControlName="roles" class="form-select
+            <select formControlName="roles" class="form-multiselect
+            overflow-hidden
+
+            appearance-none
             text-secondary
             mt-1
             block
@@ -60,9 +57,7 @@
             border-gray-300
             shadow-md
             focus:border-green-600 focus:ring-2 caret-green focus:ring-green-600 focus:ring-opacity-5" multiple>
-                <option value="none">Elegir Roles</option>
-                <option value="1">ADMINISTRATOR</option>
-                <option value="2">VENTAS</option>
+                <option *ngFor="let role of roles" [value]="role">{{role.role}}</option>
             </select>
         </div>
         <button
@@ -70,12 +65,5 @@
             Registrar
         </button>
     </form>
-    <mat-autocomplete #auto="matAutocomplete" class="">
-        <mat-option
-            *ngFor="let employee of filteredEmployees$ | async"
-            [value]="employee"
-        >
-            {{ employee.name +' '+ employee.surname }},({{employee.dni}})
-        </mat-option>
-    </mat-autocomplete>
+
 </div>

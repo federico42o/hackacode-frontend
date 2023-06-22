@@ -1,8 +1,7 @@
 import { Buyer } from "./buyer";
 import { Game } from "./game";
 
-export interface Ticket {
-    id: string,
+export interface TicketRequest {
     game: Game,
     buyer : Buyer
 }

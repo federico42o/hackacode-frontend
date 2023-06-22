@@ -8,7 +8,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuthRoutingModule } from '../modules/auth/auth-routing.module';
 import { TabComponent } from './components/navbar/tab/tab.component';
 import {DialogModule} from '@angular/cdk/dialog';
+import {MatDatepickerModule} from '@angular/material/datepicker';
 import { HomeComponent } from './components/home/home.component';
+import { MatNativeDateModule } from '@angular/material/core';
 export function playerFactory(): any {  
   return import('lottie-web');
 }
@@ -23,6 +25,7 @@ export function playerFactory(): any {
     TabComponent,
     HomeComponent,
     
+    
   ],
   imports: [
     CommonModule,
@@ -31,9 +34,12 @@ export function playerFactory(): any {
     MatAutocompleteModule,
     AuthRoutingModule,
     DialogModule,
+    MatNativeDateModule,
+    MatDatepickerModule,
     LottieModule.forRoot({ player: playerFactory }),
   ],
   exports: [
+    MatNativeDateModule,
     FormsModule,
     DialogModule,
     ToggleThemeBtnComponent,
@@ -42,6 +48,7 @@ export function playerFactory(): any {
     ClockComponent,
     MatAutocompleteModule,
     BuscadorClienteComponent,
+    MatDatepickerModule
   ]
 })
 export class SharedModule { }

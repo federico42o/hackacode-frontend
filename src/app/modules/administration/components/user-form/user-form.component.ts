@@ -1,9 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { Employee } from 'src/app/models';
-import { EmployeeService } from '../../services/employee.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable, map, startWith } from 'rxjs';
+import { Employee, UserRole } from 'src/app/models';
 import { UserRequest } from 'src/app/models/user-request';
+import { EmployeeService } from '../../services/employee.service';
+import { UserEmployeeService } from '../../services/user-employee.service';
+import { RoleService } from '../../services/role.service';
+import { randomPassword } from 'src/app/shared/utils/genPw';
+import { randomEmail } from 'src/app/shared/utils/generateEmail';
 
 @Component({
   selector: 'app-user-form',
@@ -12,57 +16,102 @@ import { UserRequest } from 'src/app/models/user-request';
 })
 export class UserFormComponent implements OnInit {
 
-  constructor(private fb: FormBuilder, private employeeService: EmployeeService) { }
+  constructor(private fb: FormBuilder, private employeeService: EmployeeService, private userService: UserEmployeeService,private roleService:RoleService) {}
 
-  userForm!: FormGroup
-  employees!: Employee[]
-  employeeCtrl = new FormControl('');
-  filteredEmployees$!: Observable<any[]>;
+  userForm!: FormGroup;
+  employees!: Employee[];
+  filteredEmployees$!: Observable<Employee[]>;
+  roles!: UserRole[]
 
   ngOnInit(): void {
-    this.userForm = this.fb.group(
-      {
-        username: ["", [Validators.required, Validators.email]],
-        password: ["", [Validators.required,]],
-        employee: [, [Validators.required,]],
-        roles: ["", [Validators.required,]]
-      }
-    )
-    this.loadEmployees()
+    this.userForm = this.fb.group({
+      username: ["", [Validators.required, Validators.email]],
+      password: [randomPassword(), [Validators.required]],
+      employee: [null, [Validators.required]],
+      roles: ["", [Validators.required]],
+    });
+
+    this.loadEmployees();
+    this.loadRoles();
+    console.log(this.roles)
   }
 
   onSubmit(): void {
     const user: UserRequest = {
-      username: this.userForm.get("username")?.value,
-      password : this.userForm.get("password")?.value,
-      employee : this.userForm.get("employee")?.value,
-      roles : this.userForm.get("roles")?.value
+      username: this.userForm.get("username")?.value.concat("@crazyland.com"),
+      password: this.userForm.get("password")?.value,
+      employee: this.userForm.get("employee")?.value,
+      roles: this.userForm.get("roles")?.value,
     };
-    console.log(user)
+    if(this.userForm.valid){
+      this.userService.create(user).subscribe({
+        next: () => {
+          this.userForm.reset();
+        },
+        error: (err:any) =>{
+          console.log(err)
+        },
+        complete:()=> {
+          console.log("complete")
+
+        }
+      });
+    }
+  }
+
+  showPw():void{
+    const input = document.getElementById("password") as HTMLInputElement;
+    if(input.type === "password"){
+      input.type = "text";
+    }else{
+      input.type = "password";
+    }
   }
 
   loadEmployees(): void {
     this.employeeService.getAll().subscribe({
       next: (data: any) => {
-        this.employees = data.content
-        this.setupFilteredClients()
-      }
-    })
+        this.employees = data.content;
+        this.setupFilteredEmployees();
+      },
+    });
   }
 
-  private setupFilteredClients(): void {
-    this.filteredEmployees$ = this.employeeCtrl.valueChanges.pipe(
-      startWith(''),
-      map(employee => (employee ? this._filterClients$(employee) : []))
+  loadRoles(): void {
+    this.roleService.getAll().subscribe({
+      next: (data: any) => {
+        this.roles = data;
+      }
+    });
+  }
+
+  private setupFilteredEmployees(): void {
+    this.filteredEmployees$ = this.userForm.get("employee")!.valueChanges.pipe(
+      startWith(""),
+      map((value: string | Employee) => {
+        if (typeof value === "string") {
+          return value ? this.filterEmployees(value) : this.employees.slice();
+        } else {
+          return [value];
+        }
+      })
     );
   }
 
-  private _filterClients$(value: string): any[] {
-    if (this.employees) {
-      return this.employees.filter(employee => employee.dni && employee.dni.includes(value.toString()) || employee.name && employee.name.toLowerCase().includes(value.toString().toLowerCase()));
-    } else {
-      return [];
-    }
+  private filterEmployees(value: string): Employee[] {
+    const filterValue = value.toLowerCase();
+    return this.employees.filter(
+      (employee) =>
+        (employee.dni && employee.dni.includes(filterValue)) ||
+        (employee.name && employee.name.toLowerCase().includes(filterValue))
+    );
   }
-
+  
+  displayEmployee(employee: Employee | null): string {
+    if (employee && typeof employee !== 'string') {
+      return `${employee.name} ${employee.surname} (${employee.dni})`;
+    }
+    return '';
+  }
 }
+

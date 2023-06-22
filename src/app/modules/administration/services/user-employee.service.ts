@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { User } from 'src/app/models';
+import { UserRequest } from 'src/app/models/user-request';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +14,7 @@ export class UserEmployeeService {
     return this.http.get(this.baseUrl);
   }
 
-  create(user:User):Observable<any>{
+  create(user:UserRequest):Observable<any>{
     return this.http.post(this.baseUrl, user);
   }
 }

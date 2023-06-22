@@ -1,12 +1,35 @@
 
 <form [formGroup]="ticketForm" class="text-secondary flex justify-between" (ngSubmit)="onSubmit()">
     <div class="flex flex-2 gap-2">
-    <select name="" id="tickets" (change)="setType($event)" >
+    <select name="" id="tickets" (change)="setType($event)"  >
         <option value="">Tipo de entrada</option>
         <option value="GENERAL">Entrada general</option>
         <option value="VIP">Entrada VIP</option>
     </select>
-    <!-- <input type="text" name="" id="buyer" placeholder="Código cliente"> -->
-    <app-buscador-cliente></app-buscador-cliente>
+        <input
+        class="w-52 
+        form-input
+        text-secondary
+        rounded-sm
+        p-1
+        border-gray-300
+        shadow-md
+        focus:border-green-600 caret-green focus:ring-2 focus:ring-green-600 focus:ring-opacity-5"
+        type="text"
+        placeholder="DNI del cliente"
+        [matAutocomplete]="auto"
+        formControlName="buyer"
+        [value]="displayEmployee(ticketForm.get('buyer')?.value)">
+        <mat-autocomplete #auto="matAutocomplete" class="">
+            <mat-option
+                *ngFor="let client of filteredClients$ | async"
+                [value]="client"
+            >
+                {{ client.name +' '+ client.surname }},({{client.dni}})
+            </mat-option>
+        </mat-autocomplete>
+
+    <button type="submit" class="bg-green-300 text-white">GENERAR TICKET</button>
 </div>
+
 </form>
