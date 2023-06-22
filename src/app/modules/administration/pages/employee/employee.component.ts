@@ -25,10 +25,11 @@ export class EmployeeComponent implements OnInit, OnDestroy{
     
   }
 
-  openDialog() : void{
+  openDialog(mode:string,id :number) : void{
     const dialogRef = this.dialog.open(EmployeeFormComponent,{
       width: '60%',
       height: '50%',
+      data: {mode,id}
     });
     dialogRef.closed.subscribe(result => {
       this._updateTable()
@@ -36,19 +37,10 @@ export class EmployeeComponent implements OnInit, OnDestroy{
   }
 
 
-  private _updateTable() : void{
-    this.employees$ = this.service.getAll().subscribe(
-      {
-        next:(data:any) => {
-          console.log(data)
-          this.employees = data.content
-        }
-      })
-  }
 
-  handleEdit(id:number): void{
 
-      
+  handleEdit(id: number): void {
+    this.openDialog('update',id);
   }
 
   handleDelete(id:number): void{
@@ -58,10 +50,17 @@ export class EmployeeComponent implements OnInit, OnDestroy{
       data: {
         message: "¿Desea borrar este empleado?",
       }
-      });
-      
+      });  
   }
-
+  private _updateTable() : void{
+    this.employees$ = this.service.getAll().subscribe(
+      {
+        next:(data:any) => {
+          console.log(data)
+          this.employees = data.content
+        }
+      })
+  }
 
   ngOnDestroy(): void {
     this.employees$.unsubscribe();

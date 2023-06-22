@@ -25,8 +25,12 @@ export class EmployeeService {
     this.http.delete(this.baseUrl+"/"+id);
   }
 
-  update(employee:any, id:number):void{
-    this.http.put(this.baseUrl+"/"+id, employee);
+  update(employee:any, id:number):Observable<any>{
+    return this.http.put(this.baseUrl+"/"+id, employee);
+  }
+
+  getByID(id:number):Observable<any>{
+    return this.http.get(this.baseUrl+"/"+id);
   }
 
 }
