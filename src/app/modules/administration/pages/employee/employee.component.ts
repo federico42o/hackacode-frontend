@@ -46,7 +46,7 @@ export class EmployeeComponent implements OnInit, OnDestroy{
   handleDelete(id:number): void{
     const dialogRef = this.dialog.open(DialogComponent,{
       width: '30%',
-      height: '30%',
+      height: '10%',
       data: {
         message: "¿Desea borrar este empleado?",
         id,
@@ -62,7 +62,7 @@ export class EmployeeComponent implements OnInit, OnDestroy{
             complete: () => {
               this._updateTable();
             }
-            
+
           });
           
         },
