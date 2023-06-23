@@ -9,6 +9,7 @@ import { AddTicketFormComponent } from './components';
 import { SharedModule } from 'src/app/shared';
 import { GameComponent } from './pages/game/game.component';
 import { GameFormComponent } from './components/game-form/game-form.component';
+import { AdministrationModule } from '../administration';
 
 
 @NgModule({
@@ -16,18 +17,21 @@ import { GameFormComponent } from './components/game-form/game-form.component';
     TicketSelectorComponent,
     AddTicketFormComponent,
     GameComponent,
-    GameFormComponent,
+    GameFormComponent
   ],
   imports: [
     CommonModule,
     SalesRoutingModule,
     ReactiveFormsModule,
     FormsModule,
-    SharedModule
+    SharedModule,
+    AdministrationModule
   ],
   exports: [
     TicketSelectorComponent,
     AddTicketFormComponent,
+    GameFormComponent,
+    GameComponent
   ]
 })
 export class SalesModule { }
