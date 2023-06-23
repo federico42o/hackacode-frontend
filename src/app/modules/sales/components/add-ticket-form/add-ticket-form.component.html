@@ -1,7 +1,7 @@
 
-<form [formGroup]="ticketForm" class="text-secondary flex justify-between" (ngSubmit)="onSubmit()">
+<form *ngIf="!created" [formGroup]="ticketForm" class="text-secondary flex justify-between" (ngSubmit)="onSubmit()">
     <div class="flex flex-2 gap-2">
-    <select name="" id="tickets" (change)="setType($event)"  >
+    <select name="" id="tickets" (change)="setType($event)" formControlName="type" >
         <option value="">Tipo de entrada</option>
         <option value="GENERAL">Entrada general</option>
         <option value="VIP">Entrada VIP</option>
@@ -19,8 +19,8 @@
         placeholder="DNI del cliente"
         [matAutocomplete]="auto"
         formControlName="buyer"
-        [value]="displayEmployee(ticketForm.get('buyer')?.value)">
-        <mat-autocomplete #auto="matAutocomplete" class="">
+        [value]="displayBuyer(ticketForm.get('buyer')?.value)">
+        <mat-autocomplete #auto="matAutocomplete" class="" [autoActiveFirstOption]="false">
             <mat-option
                 *ngFor="let client of filteredClients$ | async"
                 [value]="client"
@@ -31,5 +31,9 @@
 
     <button type="submit" class="bg-green-300 text-white">GENERAR TICKET</button>
 </div>
-
 </form>
+<div *ngIf="created">
+
+    Ticket ID: {{ticketID}}
+
+</div>

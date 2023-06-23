@@ -9,6 +9,8 @@ import { BuyerService } from 'src/app/modules/administration/services/buyer.serv
 import { TicketVip } from 'src/app/models/ticket-vip';
 import { TicketRequest } from 'src/app/models/ticket-request';
 import { TicketVipRequest } from 'src/app/models/ticket-vip-request';
+import { AuthService } from 'src/app/modules/auth/services/auth.service';
+import { Game } from 'src/app/models';
 
 @Component({
   selector: 'app-add-ticket-form',
@@ -17,16 +19,23 @@ import { TicketVipRequest } from 'src/app/models/ticket-vip-request';
 })
 export class AddTicketFormComponent implements OnInit{
 
-
-    constructor(private fb: FormBuilder,private service: TicketService,private buyerService: BuyerService) { }
+  constructor(private fb: FormBuilder,private service: TicketService,private buyerService: BuyerService,private authService : AuthService) {
+    authService.getCurrentGame().subscribe(
+      (data) => this.currentGame = data 
+      );
+    }
+    created:boolean =false;
+    currentGame!: Game;
     ticketType!: TicketType;
     buyer!: Buyer;
     ticketForm! : FormGroup;
+    ticketID!: string;
     clients!: any[];
     clientCtrl = new FormControl('');
     filteredClients$!: Observable<any[]>;
     ngOnInit(): void {
       this.ticketForm = this.fb.group({
+        type:["",[Validators.required]],
         buyer : [null,[Validators.required]],
       })
       this.buyerService.getAll().subscribe(
@@ -47,36 +56,34 @@ export class AddTicketFormComponent implements OnInit{
     onSubmit() : void {
 
       if(this.ticketForm.invalid){
-        console.log(this.ticketForm.value)
         return;
       }
       if(this.ticketType === TicketType.GENERAL){
         const ticket: TicketRequest = {
           buyer: this.ticketForm.get('buyer')?.value,
-          game: {
-            id: 1,
-            name: 'Montaña Rusa',
-            price: 3400.0,
-            requiredAge: 18,
-          },
+          game: this.currentGame
         };
         this.service.createNormal(ticket).subscribe({
-          error: (err) => console.log(err),
+          next: (data:any) => {this.ticketID=data},
+          error: (err) => {console.log(err)},
+          complete:()=>{this.created=true}
         });
       }else{
         const ticket: TicketVipRequest = {
           buyer: this.ticketForm.get('buyer')?.value,
-          price: 5000,
+          price: 5000.0,
         };
         this.service.createVip(ticket).subscribe({
-          error: (err) => console.log(err),
+          next: (data:any) => {this.ticketID=data},
+          error: (err) => {console.log(err)},
+          complete:()=>{this.created=true}
         });
       }
     }
 
-    displayEmployee(buyer: Buyer | null): string {
+    displayBuyer(buyer: Buyer | null): string {
       if (buyer && typeof buyer !== 'string') {
-        return `${buyer.name} ${buyer.surname} (${buyer.dni})`;
+        return buyer.dni;
       }
       return '';
     }
@@ -91,15 +98,15 @@ export class AddTicketFormComponent implements OnInit{
         startWith(""),
         map((value: string | Buyer) => {
           if (typeof value === "string") {
-            return value ? this.filterEmployees(value) : this.clients.slice();
+            return value ? this.filterBuyers(value) : this.clients.slice();
           } else {
-            return [value];
+            return [];
           }
         })
       );
     }
   
-    private filterEmployees(value: string): Buyer[] {
+    private filterBuyers(value: string): Buyer[] {
       const filterValue = value.toLowerCase();
       return this.clients.filter(
         (clients) =>
