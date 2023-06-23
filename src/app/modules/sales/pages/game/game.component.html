@@ -1,1 +1,1 @@
-<p>game works!</p>
+<app-table [data]="games" [headers]="headers" [columns]="columns" [actions]="true" (delete)="handleDelete($event)" (edit)="handleEdit($event)"></app-table>
