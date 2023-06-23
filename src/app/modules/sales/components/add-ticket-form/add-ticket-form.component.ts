@@ -9,6 +9,8 @@ import { BuyerService } from 'src/app/modules/administration/services/buyer.serv
 import { TicketVip } from 'src/app/models/ticket-vip';
 import { TicketRequest } from 'src/app/models/ticket-request';
 import { TicketVipRequest } from 'src/app/models/ticket-vip-request';
+import { AuthService } from 'src/app/modules/auth/services/auth.service';
+import { Game } from 'src/app/models';
 
 @Component({
   selector: 'app-add-ticket-form',
@@ -17,8 +19,12 @@ import { TicketVipRequest } from 'src/app/models/ticket-vip-request';
 })
 export class AddTicketFormComponent implements OnInit{
 
-
-    constructor(private fb: FormBuilder,private service: TicketService,private buyerService: BuyerService) { }
+    currentGame!: Game;
+    constructor(private fb: FormBuilder,private service: TicketService,private buyerService: BuyerService,private authService : AuthService) {
+      authService.getCurrentGame().subscribe(
+        (data) => this.currentGame = data 
+      );
+     }
     ticketType!: TicketType;
     buyer!: Buyer;
     ticketForm! : FormGroup;
@@ -53,15 +59,11 @@ export class AddTicketFormComponent implements OnInit{
       if(this.ticketType === TicketType.GENERAL){
         const ticket: TicketRequest = {
           buyer: this.ticketForm.get('buyer')?.value,
-          game: {
-            id: 1,
-            name: 'Montaña Rusa',
-            price: 3400.0,
-            requiredAge: 18,
-          },
+          game: this.currentGame
         };
         this.service.createNormal(ticket).subscribe({
-          error: (err) => console.log(err),
+          next: (data:any) => {console.log(data)},
+          error: (err) => {console.log(err)},
         });
       }else{
         const ticket: TicketVipRequest = {
