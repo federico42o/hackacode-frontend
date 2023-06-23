@@ -11,6 +11,7 @@ import { DialogComponent } from './components/dialog/dialog.component';
 import { TableUsersComponent } from './pages/users/table-users/table-users.component';
 import { UserFormComponent } from './components/user-form/user-form.component';
 import { BuyerFormComponent } from './components/buyer-form/buyer-form.component';
+import { MatExpansionModule } from '@angular/material/expansion';
 
 
 @NgModule({
@@ -23,14 +24,16 @@ import { BuyerFormComponent } from './components/buyer-form/buyer-form.component
     DialogComponent,
     TableUsersComponent,
     UserFormComponent,
-    BuyerFormComponent
+    BuyerFormComponent,
+    
   ],
   imports: [
     CommonModule,
     AdministrationRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    SharedModule
+    SharedModule,
+    MatExpansionModule
   ],
   exports:[
     BuyerComponent,

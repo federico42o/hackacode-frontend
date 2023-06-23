@@ -11,6 +11,7 @@ import {DialogModule} from '@angular/cdk/dialog';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { HomeComponent } from './components/home/home.component';
 import { MatNativeDateModule } from '@angular/material/core';
+import {MatExpansionModule} from '@angular/material/expansion';
 export function playerFactory(): any {  
   return import('lottie-web');
 }
@@ -34,6 +35,7 @@ export function playerFactory(): any {
     MatAutocompleteModule,
     AuthRoutingModule,
     DialogModule,
+    MatExpansionModule,
     MatNativeDateModule,
     MatDatepickerModule,
     LottieModule.forRoot({ player: playerFactory }),

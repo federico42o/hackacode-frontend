@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ClientService } from 'src/app/shared/services/client.service';
 import { BuyerService } from '../../services/buyer.service';
@@ -12,7 +12,7 @@ import { BuyerRequest } from '../../pages';
 export class BuyerFormComponent implements OnInit{
 
   constructor(private fb: FormBuilder, private service: BuyerService) { }
-  
+  @Output() clientAdded: EventEmitter<void> = new EventEmitter<void>();
   clientForm! : FormGroup;
   ngOnInit(): void {
     this.clientForm = this.fb.group({
@@ -52,10 +52,13 @@ export class BuyerFormComponent implements OnInit{
       },
       error:(error:any) => {
         console.log(error)
+      },
+      complete: () =>{
+        this.clientForm.reset();
+        this.clientAdded.emit();
       }
 
     });
-    this.clientForm.reset();
     }
   }
 
