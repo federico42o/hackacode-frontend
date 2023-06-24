@@ -14,6 +14,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import {MatExpansionModule} from '@angular/material/expansion';
 import { GeneralTicketComponent, VipTicketComponent } from '../components';
 import { BarCodeComponent } from '../components/bar-code/bar-code.component';
+import { InvoiceComponent } from './components/invoice/invoice.component';
 export function playerFactory(): any {  
   return import('lottie-web');
 }
@@ -30,6 +31,7 @@ export function playerFactory(): any {
     GeneralTicketComponent,
     VipTicketComponent,
     BarCodeComponent,
+    InvoiceComponent,
     
     
   ],
@@ -59,6 +61,7 @@ export function playerFactory(): any {
     GeneralTicketComponent,
     VipTicketComponent,
     BarCodeComponent,
+    InvoiceComponent,
   ]
 })
 export class SharedModule { }

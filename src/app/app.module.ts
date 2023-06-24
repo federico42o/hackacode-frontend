@@ -14,12 +14,14 @@ import { AuthInterceptor } from "./modules/auth/auth.interceptor";
 import { CookieService } from "ngx-cookie-service";
 import { MAT_DATE_LOCALE } from "@angular/material/core";
 import { BarCodeComponent } from './components/bar-code/bar-code.component';
+import { PdfComponent } from './components/pdf/pdf.component';
 
 
 
 @NgModule({
   declarations: [
     AppComponent,
+    PdfComponent,
 
 
   ],

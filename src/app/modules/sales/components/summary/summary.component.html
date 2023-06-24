@@ -1,0 +1,38 @@
+<section class="p-4 h-full">
+<table class="w-full mb-8 flex flex-col justify-between h-full">
+    <thead class="border-b-2 border-b-gray-200">
+        <tr class="w-full  flex gap-4">
+            <th class="text-left font-bold text-primary w-[25%]">Descripcion</th>
+            <th class="text-left font-bold text-primary w-[25%]">Cantidad</th>
+            <th class="text-left font-bold text-primary w-[25%]">Comprador</th>
+            <th class="text-right font-bold text-primary w-[25%]">Precio</th>
+        </tr>
+    </thead>
+    <tbody class="flex-1">
+        <tr *ngFor="let ticket of ticketData" class="w-full  flex gap-4">
+            <td  class="text-left text-primary w-[25%]"> {{ticket.game !== undefined ?   currentGame.name : 'ENTRADA VIP'}}</td>
+            <td  class="text-left text-primary w-[25%]"> {{ticketCount}}</td>
+            <td class="text-left w-[25%]">{{ticket.buyer.name + " " +ticket.buyer.surname}}</td>
+            <td class="text-right w-[25%]">{{displayPrice(ticket) | currency}}</td>
+        </tr>
+    </tbody>
+    <tfoot>
+        <tr class="w-full  flex gap-4">
+            <td class="text-left font-bold text-primary w-[25%]">Total</td>
+            <td class="text-left font-bold text-primary min-w-[50%]"></td>
+            <td class="text-right font-bold text-primary w-[25%]">{{total | currency}}</td>
+        </tr>
+    </tfoot>
+</table>
+<div class="flex gap-4">
+
+<button class="text-[#CD4527] font-medium bg-white flex items-center gap-2 px-4 py-1 rounded-sm">
+    <img src="/assets/img/pdf.png" alt="" width="16" class="" (click)="generatePdf(ticketData)">
+    Ver PDF
+</button>
+<button class="text-[#CD4527] font-medium bg-white flex items-center gap-2 px-4 py-1 rounded-sm">
+    <img src="/assets/img/close.png" alt="" width="16" class="" (click)="cancel(ticketData)">
+    Cancelar compra
+</button>
+</div>
+</section>

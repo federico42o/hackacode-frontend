@@ -1,16 +1,17 @@
 import { Dialog } from '@angular/cdk/dialog';
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Observable, map, startWith } from 'rxjs';
 import { GeneralTicketComponent, VipTicketComponent } from 'src/app/components';
-import { Game } from 'src/app/models';
+import { Game, Ticket } from 'src/app/models';
 import { Buyer } from 'src/app/models/buyer';
 import { TicketRequest } from 'src/app/models/ticket-request';
 import { TicketType } from 'src/app/models/ticket-type';
 import { TicketVipRequest } from 'src/app/models/ticket-vip-request';
 import { BuyerService } from 'src/app/modules/administration/services/buyer.service';
-import { AuthService } from 'src/app/modules/auth/services/auth.service';
 import { TicketService } from '../../services/ticket.service';
+import { TicketVip } from 'src/app/models/ticket-vip';
+
 
 @Component({
   selector: 'app-add-ticket-form',
@@ -19,54 +20,50 @@ import { TicketService } from '../../services/ticket.service';
 })
 export class AddTicketFormComponent implements OnInit{
 
-  constructor(private fb: FormBuilder,private service: TicketService,private buyerService: BuyerService,private authService : AuthService,private dialog:Dialog) {
-    authService.getCurrentGame().subscribe(
-      (data) => this.currentGame = data 
-      );
+  constructor(private fb: FormBuilder,private service: TicketService,private buyerService: BuyerService,private dialog:Dialog) {
     }
     created:boolean =false;
-    currentGame!: Game;
-    ticketType!: TicketType;
     ticketForm! : FormGroup;
     ticketID!: string;
     clients!: any[];
+    ticketVipPrice:number = 5000;
     clientCtrl = new FormControl('');
     filteredClients$!: Observable<any[]>;
+    @Input() currentGame!:Game;
+    @Output() ticket = new EventEmitter<Ticket|TicketVip>();
 
     ngOnInit(): void {
       this.ticketForm = this.fb.group({
         type:["",[Validators.required]],
         buyer : [null,[Validators.required]],
       })
+
       this.buyerService.getAll().subscribe(
         (response: any) => {
           this.clients = response.content;
-          this.setupFilteredClients()
-          
+          this.setupFilteredClients()  
         }
       );
     }
-    
-
-    setType(event: any){
-      console.log(event.target.value)
-      event.target.value === 'GENERAL' ?  this.ticketType = TicketType.GENERAL : this.ticketType = TicketType.VIP;
-    }
     buyer!:Buyer;
     onSubmit() : void {
+      const type = this.ticketForm.get('type')?.value;
+      if(this.ticketForm.invalid){return}
 
-      if(this.ticketForm.invalid){
-        return;
-      }
-      if(this.ticketType === TicketType.GENERAL){
+      if(type === TicketType.GENERAL){
         const ticket: TicketRequest = {
           buyer: this.ticketForm.get('buyer')?.value,
           game: this.currentGame
         };
         this.service.createNormal(ticket).subscribe({
-          next: (data:any) => {this.ticketID=data},
+          next: (data:any) => {
+            this.ticketID=data.id
+            this.ticket.emit(data)
+          
+          },
           error: (err) => {console.log(err)},
-          complete:()=>{this.buyer=ticket.buyer,this.created=true}
+          complete:()=>{this.buyer=ticket.buyer,this.created=true
+          }
         });
       }else{
         const ticket: TicketVipRequest = {
@@ -74,9 +71,16 @@ export class AddTicketFormComponent implements OnInit{
           price: 5000.0,
         };
         this.service.createVip(ticket).subscribe({
-          next: (data:any) => {this.ticketID=data},
+          
+          next: (data:any) => {
+            this.ticketID=data.id
+            this.ticket.emit(data)
+          
+          }
+          
+          ,
           error: (err) => {console.log(err)},
-          complete:()=>{this.buyer=ticket.buyer,this.created=true}
+          complete:()=>{this.buyer=ticket.buyer,this.created=true,this.created=true}
         });
       }
     }
@@ -88,11 +92,6 @@ export class AddTicketFormComponent implements OnInit{
       return '';
     }
 
-  
-
-
-    
-  
     private setupFilteredClients(): void {
       this.filteredClients$ = this.ticketForm.get("buyer")!.valueChanges.pipe(
         startWith(""),
@@ -105,7 +104,6 @@ export class AddTicketFormComponent implements OnInit{
         })
       );
     }
-  
     private filterBuyers(value: string): Buyer[] {
       const filterValue = value.toLowerCase();
       return this.clients.filter(
@@ -114,9 +112,7 @@ export class AddTicketFormComponent implements OnInit{
           (clients.name && clients.name.toLowerCase().includes(filterValue))
       );
     }
-
     showTicket(type:string):void{
-
       if(type === TicketType.GENERAL){
       const dialogRef = this.dialog.open(GeneralTicketComponent, {
         width: '80%',
@@ -135,11 +131,6 @@ export class AddTicketFormComponent implements OnInit{
           ticketID:this.ticketID
         }
       });
-
     }
   }
-    
-
 }
-
-

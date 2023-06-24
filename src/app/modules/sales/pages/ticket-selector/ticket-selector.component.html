@@ -13,16 +13,7 @@
         <!-- input ticket count -->
         <div *ngIf="tickets.length<=0 " class="place-self-center">
             <div class=" flex gap-4 ">
-                <input class="
-                text-2xl  
-                w-[400px]
-                form-input
-                text-secondary
-                rounded-sm
-                p-1
-                border-gray-300
-                shadow-md
-                focus:border-green-600 caret-green focus:ring-2 focus:ring-green-600 focus:ring-opacity-5" type="number" min="0" max="10" id="ticket-count" placeholder="Ingrese cant. de tickets" [(ngModel)]="input">
+                <input class="text-2xl  w-[400px] form-input text-secondary rounded-sm p-1 border-gray-300 shadow-md focus:border-green-600 caret-green focus:ring-2 focus:ring-green-600 focus:ring-opacity-5" type="number" min="0" max="10" id="ticket-count" placeholder="Ingrese cant. de tickets" [(ngModel)]="input">
                 <button 
                 class="text-white bg-[#222D30] p-1 rounded-sm"
                 (click)="addTicketForms()">Aceptar</button>
@@ -31,14 +22,13 @@
         <!-- input ticket count -->
 
         <div *ngIf="show">
-
         <!-- form tickets -->
         <div class="flex">
         <div class="row flex-1">
-        <div class="col-6 w-9/12">
+        <div class="col-6 w-4/12">
             <div  *ngFor="let ticket of tickets; index as i" class="my-2 flex gap-3 items-center">
                 <span class="inline w-4 text-center">{{i+1 }}</span>
-                <app-add-ticket-form  ></app-add-ticket-form>
+                <app-add-ticket-form [currentGame]="game" (ticket)="send($event)"></app-add-ticket-form>
 
             </div>
         </div>
@@ -53,11 +43,9 @@
 
 
     <!-- resumen -->
-        <!-- <div class="row w-3/12">
-            <div class="col-6">
-                <p class="text-end">Total: {{totalPrice | currency }}</p>
-            </div>
-        </div> -->
+    <div class="w-6/12">
+        <app-summary [ticketData]="ticketData" [currentGame]="game"></app-summary>
+    </div>
     <!-- resumen -->
 
     </div>
