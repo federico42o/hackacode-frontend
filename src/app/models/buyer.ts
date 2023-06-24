@@ -3,5 +3,5 @@ export interface Buyer {
     dni: string,
     name: string,
     surname: string,
-    birthdate: Date,
+    birthdate: string,
 }

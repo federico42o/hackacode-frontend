@@ -1,36 +1,39 @@
-<div class="viewer container flex justify-center">
-    <div class="ticket relative border-2 border-[#9facbc] bg-white w-[650px] ring-offset-transparent ">
-        <img src="/assets/img/bg-ticket.png" class="absolute object-cover object-left top-0 left-0 w-full max-h-full opacity-[.15]"
-            alt="">
-        <div class="ticket-body w-full h-full ">
-            <div class="flex  justify-between">
-                <div class="flex flex-col p-4">
-                <header class="flex items-center gap-2">
-    
-                    <img src="/assets/img/java-svgrepo-com.svg" alt="" width="64">
-                    <h1 class="text-secondary text-5xl mt-2">BRAND</h1>
-                </header>
-                <div class="body my-10">
-                    <p class="text-3xl text-start text-secondary">NOMBRE DEL JUEGO</p>
-                    <p class="text-xl text-start text-secondary">Entrada general <span class="text-[14px] font-bold align-text-top">*</span></p>
-                    <p class="text-xl text-start text-secondary">Nombre Apellido</p>
-                    <p class="text-xl text-start text-secondary">Edad <span class="text-[14px] font-bold align-text-top">**</span></p>
+<div class="w-[750px] mx-auto">
+<button close class="text-end w-[100%]" (click)="close()">X</button>
+<div class="container flex justify-center bg-black">
+    <div class="ticket max-w-[750px]  ring-offset-transparent ">
+        <!-- <img src="/assets/img/gold-pattern.jpg" class="absolute object-cover object-left top-0 left-0 w-full max-h-full opacity-5"
+        alt=""> -->
+        <div class="ticket-body w-full h-full  ">
+            <div class="flex justify-between flex-1 text-white">
+                <div class="flex border-dashed border-r-2">
+                <!-- <img src="/assets/img/logo.png" class=" object-contain w-[19rem]" alt=""> -->
+                <div class="bg-[#fff] text-secondary text-center h-fit px-4 pb-6 ml-4" id="date">
+                    <p class="text-4xl p-2 ">{{day}}</p>
+                    <p class="text-2xl p-2">{{month | uppercase}}</p>
+                    <p class="text-2xl p-2">{{year}}</p>
                 </div>
-
-                <div class="ticket__timing text-secondary flex gap-6">
-                    <p>
-                        <span class="ticket__detail">{{currentDay }}</span>
-                    </p>
-                    <p>
-                        <span class="ticket__detail">{{currentTime}}</span>
-                    </p>
+                <div class="flex flex-col p-8 flex-1 text-white">
+                    <header class="flex flex-col items-center ">
+                        <h1 class="text-white text-6xl w-full text-center whitespace-nowrap font-ticket">{{game.name | uppercase}}</h1>
+                        <h2 class="text-white text-xl w-full whitespace-nowrap font-ticket text-end">CRAZY LAND</h2>
+                    </header>
+                <div class="body my-10">
+                    <p class="text-3xl text-start text-white">ENTRADA GENERAL {{game.price | currency}}</p>
+                    <p class="text-xl text-start text-white">{{this.data.buyer.name+" "+this.data.buyer.surname}}</p>
+                    <p class="text-xl text-start text-white">{{getAge(this.data.buyer.birthdate)> 18 ? 'Menor' : 'Adulto'}}</p>
                 </div>
             </div>
-            <div class="flex flex-col justify-between items-center bg-white z-[99] border-dashed border-l-4 border-l-green-400">
-                <p class=" text-xl  text-secondary">Valor: {{totalPrice | currency}}</p>
-                <img src="/assets/img/qr-code.svg" width="200">
+        </div>
+            <div class="flex justify-center items-center max-w-[150px] z-[99]   bg-white">
+                <div class="-rotate-90 w-fit h-fit ">
+                    <app-bar-code class="" [data]="this.data.ticketID"></app-bar-code>
+                    <p class=" text-xl text-center  text-secondary">Valor: {{game.price | currency}}</p>
+                </div>
             </div>
         </div>
         </div>
     </div>
+</div>
+
 </div>

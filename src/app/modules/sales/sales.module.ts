@@ -10,6 +10,7 @@ import { SharedModule } from 'src/app/shared';
 import { GameComponent } from './pages/game/game.component';
 import { GameFormComponent } from './components/game-form/game-form.component';
 import { AdministrationModule } from '../administration';
+import { SummaryComponent } from './components/summary/summary.component';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { AdministrationModule } from '../administration';
     TicketSelectorComponent,
     AddTicketFormComponent,
     GameComponent,
-    GameFormComponent
+    GameFormComponent,
+    SummaryComponent
   ],
   imports: [
     CommonModule,
