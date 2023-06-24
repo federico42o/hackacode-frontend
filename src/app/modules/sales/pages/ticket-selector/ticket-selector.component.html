@@ -1,4 +1,4 @@
-<section>
+<section class="">
     <div class="container mx-auto">
         <div class="row">
             <div class="col-12 flex flex-col gap-4 justify-end">
@@ -8,22 +8,22 @@
     </div>
 </section>
 
-<section class="h-full flex flex-col">
-    <div class="container gap-4 mx-auto flex-grow flex flex-col p-4">
+<section class="h-full flex flex-col ">
+    
+    <div class="container gap-4 mx-auto w-full flex-grow flex flex-col p-4">
         <!-- input ticket count -->
-        <div *ngIf="tickets.length<=0 " class="place-self-center">
-            <div class=" flex gap-4 ">
-                <input class="text-2xl  w-[400px] form-input text-secondary rounded-sm p-1 border-gray-300 shadow-md focus:border-green-600 caret-green focus:ring-2 focus:ring-green-600 focus:ring-opacity-5" type="number" min="0" max="10" id="ticket-count" placeholder="Ingrese cant. de tickets" [(ngModel)]="input">
-                <button 
-                class="text-white bg-[#222D30] p-1 rounded-sm"
-                (click)="addTicketForms()">Aceptar</button>
-        </div>
-        </div>
-        <!-- input ticket count -->
-
+        <div class="flex justify-between">
+            <!-- input ticket count -->
+            <div *ngIf="tickets.length<=0 " class="">
+                <div class=" flex gap-4 ">
+                    <input class="text-2xl  w-[400px] form-input text-secondary rounded-sm p-1 border-gray-300 shadow-md focus:border-green-600 caret-green focus:ring-2 focus:ring-green-600 focus:ring-opacity-5" type="number" min="0" max="10" id="ticket-count" placeholder="Ingrese cant. de tickets" [(ngModel)]="input">
+                    <button 
+                    class="text-white bg-[#222D30] p-1 rounded-sm"
+                    (click)="addTicketForms()">Aceptar</button>
+            </div>
+            </div>
         <div *ngIf="show">
         <!-- form tickets -->
-        <div class="flex">
         <div class="row flex-1">
         <div class="col-6 w-4/12">
             <div  *ngFor="let ticket of tickets; index as i" class="my-2 flex gap-3 items-center">
@@ -35,20 +35,20 @@
     </div>
     <!-- form tickets -->
 
-    <!-- divider -->
-    <div
-    class="inline-block h-[500px] min-h-[1em] w-0.5 self-stretch bg-neutral-100 opacity-100 dark:opacity-50">
-    </div>
-     <!-- divider -->
+    
+</div>
+<!-- divider -->
+<div
+class="inline-block h-[500px] min-h-[1em] w-0.5 self-stretch bg-neutral-100 opacity-100 dark:opacity-50">
+</div>
+ <!-- divider -->
 
 
-    <!-- resumen -->
-    <div class="w-6/12">
-        <app-summary [ticketData]="ticketData" [currentGame]="game"></app-summary>
-    </div>
-    <!-- resumen -->
-
-    </div>
+<!-- resumen -->
+<div class="w-6/12">
+    <app-summary [ticketData]="ticketData" [currentGame]="game"></app-summary>
+</div>
+<!-- resumen -->
     </div>
 </div>
 </section>
