@@ -33,7 +33,7 @@
 </div>
 </form>
 <div *ngIf="created">
-
-    Ticket ID: {{ticketID}}
+    <button (click)="showTicket(ticketForm.get('type')?.value)">TICKET ID: {{ticketID}}</button>
+    <!-- <app-general-ticket [ticketID]="ticketID" [buyer]="ticketForm.get('buyer')?.value"></app-general-ticket> -->
 
 </div>

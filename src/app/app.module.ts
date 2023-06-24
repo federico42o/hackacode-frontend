@@ -13,14 +13,14 @@ import { AdministrationModule, AuthModule, SalesModule } from "./modules";
 import { AuthInterceptor } from "./modules/auth/auth.interceptor";
 import { CookieService } from "ngx-cookie-service";
 import { MAT_DATE_LOCALE } from "@angular/material/core";
+import { BarCodeComponent } from './components/bar-code/bar-code.component';
 
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    GeneralTicketComponent,
-    VipTicketComponent,
+
 
   ],
   imports: [
@@ -32,7 +32,6 @@ import { MAT_DATE_LOCALE } from "@angular/material/core";
     BrowserAnimationsModule,
     SharedModule,
     SalesModule,
-    AdministrationModule,
 
   ],
   providers: [

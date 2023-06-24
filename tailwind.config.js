@@ -33,6 +33,7 @@ module.exports = {
       },
       fontFamily: {
         roboto: ['Roboto', 'sans-serif'],
+        ticket: ['Rubik Iso', 'Rubikso-Regular', 'cursive']
       },
     },
     backgroundImage: {

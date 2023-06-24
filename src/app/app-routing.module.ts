@@ -9,8 +9,8 @@ import { HomeComponent } from './shared/components/home/home.component';
 const routes: Routes = [
   { path: '', component: HomeComponent, canActivate: [AuthGuard]},
   { path: 'auth', loadChildren: () => import('./modules/auth/auth.module').then(m => m.AuthModule) },
-  {path:'ticket', component: GeneralTicketComponent},
-  {path:'vip-ticket', component: VipTicketComponent},
+  {path:'ticket', component: GeneralTicketComponent, canActivate: [AuthGuard]},
+  {path:'vip-ticket', component: VipTicketComponent, canActivate: [AuthGuard]},
   { path: 'sales', loadChildren: () => import('./modules/sales/sales.module').then(m => m.SalesModule),canActivate: [AuthGuard] },
   { path: 'administration', loadChildren: () => import('./modules/administration/administration.module').then(m => m.AdministrationModule), canActivate: [AuthGuard] },
 ];

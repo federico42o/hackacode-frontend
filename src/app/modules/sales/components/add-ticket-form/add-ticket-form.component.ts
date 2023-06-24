@@ -1,16 +1,16 @@
+import { Dialog } from '@angular/cdk/dialog';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { Buyer } from 'src/app/models/buyer';
-import { Ticket } from 'src/app/models/ticket';
-import { TicketType } from 'src/app/models/ticket-type';
-import { TicketService } from '../../services/ticket.service';
 import { Observable, map, startWith } from 'rxjs';
-import { BuyerService } from 'src/app/modules/administration/services/buyer.service';
-import { TicketVip } from 'src/app/models/ticket-vip';
-import { TicketRequest } from 'src/app/models/ticket-request';
-import { TicketVipRequest } from 'src/app/models/ticket-vip-request';
-import { AuthService } from 'src/app/modules/auth/services/auth.service';
+import { GeneralTicketComponent, VipTicketComponent } from 'src/app/components';
 import { Game } from 'src/app/models';
+import { Buyer } from 'src/app/models/buyer';
+import { TicketRequest } from 'src/app/models/ticket-request';
+import { TicketType } from 'src/app/models/ticket-type';
+import { TicketVipRequest } from 'src/app/models/ticket-vip-request';
+import { BuyerService } from 'src/app/modules/administration/services/buyer.service';
+import { AuthService } from 'src/app/modules/auth/services/auth.service';
+import { TicketService } from '../../services/ticket.service';
 
 @Component({
   selector: 'app-add-ticket-form',
@@ -19,7 +19,7 @@ import { Game } from 'src/app/models';
 })
 export class AddTicketFormComponent implements OnInit{
 
-  constructor(private fb: FormBuilder,private service: TicketService,private buyerService: BuyerService,private authService : AuthService) {
+  constructor(private fb: FormBuilder,private service: TicketService,private buyerService: BuyerService,private authService : AuthService,private dialog:Dialog) {
     authService.getCurrentGame().subscribe(
       (data) => this.currentGame = data 
       );
@@ -27,12 +27,12 @@ export class AddTicketFormComponent implements OnInit{
     created:boolean =false;
     currentGame!: Game;
     ticketType!: TicketType;
-    buyer!: Buyer;
     ticketForm! : FormGroup;
     ticketID!: string;
     clients!: any[];
     clientCtrl = new FormControl('');
     filteredClients$!: Observable<any[]>;
+
     ngOnInit(): void {
       this.ticketForm = this.fb.group({
         type:["",[Validators.required]],
@@ -52,7 +52,7 @@ export class AddTicketFormComponent implements OnInit{
       console.log(event.target.value)
       event.target.value === 'GENERAL' ?  this.ticketType = TicketType.GENERAL : this.ticketType = TicketType.VIP;
     }
-
+    buyer!:Buyer;
     onSubmit() : void {
 
       if(this.ticketForm.invalid){
@@ -66,7 +66,7 @@ export class AddTicketFormComponent implements OnInit{
         this.service.createNormal(ticket).subscribe({
           next: (data:any) => {this.ticketID=data},
           error: (err) => {console.log(err)},
-          complete:()=>{this.created=true}
+          complete:()=>{this.buyer=ticket.buyer,this.created=true}
         });
       }else{
         const ticket: TicketVipRequest = {
@@ -76,7 +76,7 @@ export class AddTicketFormComponent implements OnInit{
         this.service.createVip(ticket).subscribe({
           next: (data:any) => {this.ticketID=data},
           error: (err) => {console.log(err)},
-          complete:()=>{this.created=true}
+          complete:()=>{this.buyer=ticket.buyer,this.created=true}
         });
       }
     }
@@ -115,6 +115,29 @@ export class AddTicketFormComponent implements OnInit{
       );
     }
 
+    showTicket(type:string):void{
+
+      if(type === TicketType.GENERAL){
+      const dialogRef = this.dialog.open(GeneralTicketComponent, {
+        width: '80%',
+        height: '50%',
+        data:{
+          buyer:this.buyer,
+          ticketID:this.ticketID
+        }
+      });
+    }else{
+      const dialogRef = this.dialog.open(VipTicketComponent, {
+        width: '80%',
+        height: '50%',
+        data:{
+          buyer:this.buyer,
+          ticketID:this.ticketID
+        }
+      });
+
+    }
+  }
     
 
 }

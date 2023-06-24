@@ -5,7 +5,7 @@ export interface Employee {
     name: string,
     surname: string,
     dni: string,
-    birthdate: Date,
+    birthdate: string,
     game?: Game;
 
 }

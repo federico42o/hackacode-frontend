@@ -21,7 +21,6 @@ import { MatExpansionModule } from '@angular/material/expansion';
     TableComponent,
     UsersComponent,
     EmployeeFormComponent,
-    DialogComponent,
     TableUsersComponent,
     UserFormComponent,
     BuyerFormComponent,

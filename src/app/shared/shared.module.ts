@@ -12,6 +12,8 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import { HomeComponent } from './components/home/home.component';
 import { MatNativeDateModule } from '@angular/material/core';
 import {MatExpansionModule} from '@angular/material/expansion';
+import { GeneralTicketComponent, VipTicketComponent } from '../components';
+import { BarCodeComponent } from '../components/bar-code/bar-code.component';
 export function playerFactory(): any {  
   return import('lottie-web');
 }
@@ -25,6 +27,9 @@ export function playerFactory(): any {
     BuscadorClienteComponent,
     TabComponent,
     HomeComponent,
+    GeneralTicketComponent,
+    VipTicketComponent,
+    BarCodeComponent,
     
     
   ],
@@ -50,7 +55,10 @@ export function playerFactory(): any {
     ClockComponent,
     MatAutocompleteModule,
     BuscadorClienteComponent,
-    MatDatepickerModule
+    MatDatepickerModule,
+    GeneralTicketComponent,
+    VipTicketComponent,
+    BarCodeComponent,
   ]
 })
 export class SharedModule { }
