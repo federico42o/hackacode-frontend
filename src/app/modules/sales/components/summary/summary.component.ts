@@ -1,5 +1,7 @@
 import { ChangeDetectionStrategy, Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { Game, Ticket } from 'src/app/models';
+import { Data } from 'src/app/models/data';
+import { TicketType } from 'src/app/models/ticket-type';
 import { TicketVip } from 'src/app/models/ticket-vip';
 
 @Component({
@@ -11,7 +13,7 @@ import { TicketVip } from 'src/app/models/ticket-vip';
 export class SummaryComponent implements OnChanges{
   
   @Input() currentGame!: Game;
-  @Input() ticketData!: any[];
+  @Input() ticketData!: Data[];
   @Input() ticketCount:number = 0.0;
   total: number = 0;
 
@@ -25,20 +27,20 @@ export class SummaryComponent implements OnChanges{
     this.total = 0;
     if (this.ticketData) {
       for (const ticket of this.ticketData) {
-        if ('price' in ticket) {
-          this.total += ticket.price;
-        } else if (ticket.game && 'price' in ticket.game) {
-          this.total += ticket.game.price;
+        if (ticket.type === TicketType.VIP) {
+          this.total += ticket.amount;
+        } else {
+          this.total += this.currentGame.price;
         }
       }
     }
   }
 
-  displayPrice(ticket: Ticket | TicketVip): number {
-    if ('price' in ticket) {
-      return ticket.price;
+  displayPrice(ticket: Data): number {
+    if (ticket.type === TicketType.VIP) {
+      return ticket.amount;
     } else {
-      return ticket.game.price;
+      return this.currentGame.price;
     }
   }
 

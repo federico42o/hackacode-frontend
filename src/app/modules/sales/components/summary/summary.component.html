@@ -10,7 +10,7 @@
     </thead>
     <tbody class="flex-1">
         <tr *ngFor="let ticket of ticketData" class="w-full  flex gap-4">
-            <td  class="text-left text-primary w-[25%]"> {{ticket.game !== undefined ?   currentGame.name : 'ENTRADA VIP'}}</td>
+            <td  class="text-left text-primary w-[25%]"> {{ticket.type === 'GENERAL' ?  currentGame.name : 'ENTRADA VIP'}}</td>
             <td  class="text-left text-primary w-[25%]"> {{ticketCount}}</td>
             <td class="text-left w-[25%]">{{ticket.buyer.name + " " +ticket.buyer.surname}}</td>
             <td class="text-right w-[25%]">{{displayPrice(ticket) | currency}}</td>

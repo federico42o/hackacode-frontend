@@ -32,8 +32,8 @@ export class TicketSelectorComponent implements OnInit{
    this.tickets = Array(this.input).fill(0).map((x, i) => i);
     this.show = !this.show;
  }
- ticketData:any[] = [];
- send(data : TicketVip | Ticket){
+ ticketData:Data[] = [];
+ send(data : Data){
   
   this.ticketData = [...this.ticketData, data];
  }

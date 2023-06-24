@@ -24,7 +24,7 @@
         </thead>
         <tbody>
             <tr *ngFor="let ticket of data">
-                <td  class="text-left text-gray-700">1 {{ticket.game?.name || '' +" " +ticket.type}}</td>
+                <!-- <td  class="text-left text-gray-700">1 {{ticket.game?.name || '' +" " +ticket.type}}</td> -->
                 <td>{{ticket.buyer.name + " " +ticket.buyer.surname}}</td>
                 <td>{{ticket.amount | currency}}</td>
             </tr>

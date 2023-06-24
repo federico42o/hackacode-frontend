@@ -11,6 +11,7 @@ import { TicketVipRequest } from 'src/app/models/ticket-vip-request';
 import { BuyerService } from 'src/app/modules/administration/services/buyer.service';
 import { TicketService } from '../../services/ticket.service';
 import { TicketVip } from 'src/app/models/ticket-vip';
+import { Data } from 'src/app/models/data';
 
 
 @Component({
@@ -30,7 +31,7 @@ export class AddTicketFormComponent implements OnInit{
     clientCtrl = new FormControl('');
     filteredClients$!: Observable<any[]>;
     @Input() currentGame!:Game;
-    @Output() ticket = new EventEmitter<Ticket|TicketVip>();
+    @Output() ticket = new EventEmitter<Data>();
 
     ngOnInit(): void {
       this.ticketForm = this.fb.group({
@@ -57,8 +58,8 @@ export class AddTicketFormComponent implements OnInit{
         };
         this.service.createNormal(ticket).subscribe({
           next: (data:any) => {
-            this.ticketID=data.id
-            this.ticket.emit(data)
+            this.ticketID=data
+            this.ticket.emit({type:TicketType.GENERAL,buyer:ticket.buyer, amount:ticket.game.price})
           
           },
           error: (err) => {console.log(err)},
@@ -73,14 +74,14 @@ export class AddTicketFormComponent implements OnInit{
         this.service.createVip(ticket).subscribe({
           
           next: (data:any) => {
-            this.ticketID=data.id
-            this.ticket.emit(data)
+            this.ticketID=data
+            this.ticket.emit({type:TicketType.VIP,buyer:ticket.buyer, amount:ticket.price})
           
           }
           
           ,
           error: (err) => {console.log(err)},
-          complete:()=>{this.buyer=ticket.buyer,this.created=true,this.created=true}
+          complete:()=>{this.buyer=ticket.buyer,this.created=true}
         });
       }
     }
