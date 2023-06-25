@@ -18,7 +18,7 @@ export class UsersComponent implements OnInit {
   headers: string[] = ["Nombre", "Apellido", "DNI", "Usuario", "Roles"];
   columns: string[] = ["nombre", "apellido", "dni", "usuario", "roles"];
   data: any[] = []
-
+  currentTab:string = 'add';
   ngOnInit(): void {
     this._updateTable()
   }
@@ -36,15 +36,7 @@ export class UsersComponent implements OnInit {
     });
   }
 
-  openDialog() : void{
-    const dialogRef = this.dialog.open(UserFormComponent,{
-      width: '60%',
-      height: '50%',
-    });
-    dialogRef.closed.subscribe(result => {
-      this._updateTable()
-    });
-  }
+
 
   private _updateTable() : void{
     this.service.getAll().subscribe(
@@ -53,6 +45,10 @@ export class UsersComponent implements OnInit {
           this.data = this.setData(data.content)
         }
       })
+  }
+
+  onClientAdded():void{
+    this._updateTable();
   }
 
 

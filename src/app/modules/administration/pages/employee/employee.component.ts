@@ -17,31 +17,19 @@ export class EmployeeComponent implements OnInit, OnDestroy{
   employees$! : Subscription;
   constructor(private service : EmployeeService,public dialog: Dialog){}
 
-  headers : string[] = ["Nombre", "Apellido", "Fecha de nacimiento", "DNI", "Juego asignado"];
-  columns : string[] = ["name", "surname", "birthdate", "dni","game"];
+  headers : string[] = ["ID","Nombre", "Apellido","DNI", "Fecha de nacimiento",  "Juego asignado"];
+  columns : string[] = ["id","name", "surname","dni", "birthdate", "game"];
   employees : Employee[] = [];
+  currentTab:string = 'add';
   ngOnInit(): void {
     this._updateTable()
     
   }
 
-  openDialog(mode:string,id :number) : void{
-    const dialogRef = this.dialog.open(EmployeeFormComponent,{
-      width: '60%',
-      height: '50%',
-      data: {mode,id}
-    });
-    dialogRef.closed.subscribe(result => {
-      this._updateTable()
-    });
-  }
 
 
 
-
-  handleEdit(id: number): void {
-    this.openDialog('update',id);
-  }
+  handleEdit(id: number): void {}
 
   handleDelete(id:number): void{
     const dialogRef = this.dialog.open(DialogComponent,{
@@ -57,10 +45,10 @@ export class EmployeeComponent implements OnInit, OnDestroy{
           console.log(id)
           this.service.delete(id).subscribe({
             next: (data:any) => {
-              console.log(data)
             },
             complete: () => {
               this._updateTable();
+              this.dialog.closeAll();
             }
 
           });
@@ -83,7 +71,13 @@ export class EmployeeComponent implements OnInit, OnDestroy{
         }
       })
   }
+  onClientAdded():void{
+    this._updateTable()
+  }
 
+  setTab(tab:string){
+    this.currentTab = tab
+  }
   ngOnDestroy(): void {
     this.employees$.unsubscribe();
   }
