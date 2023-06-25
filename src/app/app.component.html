@@ -1,9 +1,9 @@
-<main class="main-container" [ngClass]="{'login-container': route.url === '/auth/login' }">
+<main class="main-container" [ngClass]="{'login-container': route.url.startsWith('/auth') }">
   <div class="header">
   <app-header></app-header>
     <app-clock></app-clock>
   </div>
-  <div class="navbar" *ngIf="route.url !== '/auth/login'">
+  <div class="navbar" *ngIf="!route.url.startsWith('/auth')">
     <app-navbar></app-navbar>
   </div>
   <div class="main">

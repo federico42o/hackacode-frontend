@@ -1,4 +1,4 @@
-<section class="p-4 h-full">
+<section class="p-4 h-full" #content>
 <table class="w-full mb-8 flex flex-col justify-between h-full">
     <thead class="border-b-2 border-b-gray-200">
         <tr class="w-full  flex gap-4">
@@ -27,7 +27,7 @@
 <div class="flex gap-4">
 
 <button class="text-[#CD4527] font-medium bg-white flex items-center gap-2 px-4 py-1 rounded-sm">
-    <img src="/assets/img/pdf.png" alt="" width="16" class="" (click)="generatePdf(ticketData)">
+    <img src="/assets/img/pdf.png" alt="" width="16" class="" (click)="generatePdf()">
     Ver PDF
 </button>
 <button class="text-[#CD4527] font-medium bg-white flex items-center gap-2 px-4 py-1 rounded-sm">

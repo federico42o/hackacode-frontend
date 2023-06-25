@@ -15,6 +15,7 @@ import {MatExpansionModule} from '@angular/material/expansion';
 import { GeneralTicketComponent, VipTicketComponent } from '../components';
 import { BarCodeComponent } from '../components/bar-code/bar-code.component';
 import { InvoiceComponent } from './components/invoice/invoice.component';
+import { PasswordCheckComponent } from './components/password-check/password-check.component';
 export function playerFactory(): any {  
   return import('lottie-web');
 }
@@ -32,6 +33,7 @@ export function playerFactory(): any {
     VipTicketComponent,
     BarCodeComponent,
     InvoiceComponent,
+    PasswordCheckComponent,
     
     
   ],
@@ -62,6 +64,7 @@ export function playerFactory(): any {
     VipTicketComponent,
     BarCodeComponent,
     InvoiceComponent,
+    PasswordCheckComponent,
   ]
 })
 export class SharedModule { }

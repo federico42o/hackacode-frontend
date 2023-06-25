@@ -1,8 +1,8 @@
-import { ChangeDetectionStrategy, Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, Input, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
 import { Game, Ticket } from 'src/app/models';
 import { Data } from 'src/app/models/data';
 import { TicketType } from 'src/app/models/ticket-type';
-import { TicketVip } from 'src/app/models/ticket-vip';
+import jspdf, { jsPDF } from 'jspdf';
 
 @Component({
   selector: 'app-summary',
@@ -11,12 +11,14 @@ import { TicketVip } from 'src/app/models/ticket-vip';
   changeDetection: ChangeDetectionStrategy.Default,
 })
 export class SummaryComponent implements OnChanges{
-  
+  @ViewChild('content') content!: ElementRef;
   @Input() currentGame!: Game;
   @Input() ticketData!: Data[];
   @Input() ticketCount:number = 0.0;
   total: number = 0;
-
+  constructor(){
+  console.log(this.content)
+  }
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['ticketData']) {
       this.calculateTotal();
@@ -43,8 +45,13 @@ export class SummaryComponent implements OnChanges{
       return this.currentGame.price;
     }
   }
-
-  generatePdf(tickets:any[]):void{
+  
+  generatePdf():void{
+    let doc = new jsPDF();
+    doc.html(this.content.nativeElement);
+    doc.save('test.pdf')
+    console.log(doc)
+    console.log(this.content)
 
   }
 
