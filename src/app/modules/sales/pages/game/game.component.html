@@ -1,2 +1,12 @@
-<!-- <app-table [data]="games" [headers]="headers" [columns]="columns" [actions]="true" (delete)="handleDelete($event)" (edit)="handleEdit($event)"></app-table> -->
-<app-game-card></app-game-card>
+<div class="container mx-auto w-full">
+    <div class="row">
+        <div class="flex flex-col gap-4">
+            <h1 class="text-7xl font-bold text-[#222D30] dark:text-[#E7DA7F]">Juegos registrados</h1>
+        </div>
+    </div>
+    <div class="flex my-4 gap-8 ">
+        <div class="flex gap-8 flex-wrap">
+            <app-game-card *ngFor="let game of games" [game]="game"></app-game-card>
+        </div>
+    </div>
+</div>

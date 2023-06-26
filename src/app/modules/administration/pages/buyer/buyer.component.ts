@@ -24,8 +24,8 @@ export class BuyerComponent implements OnInit,OnDestroy{
   buyerForm! : FormGroup;
   clients : any;
   page : any;
-  headers : string[] = ["Nombre", "Apellido", "Fecha de nacimiento", "DNI"];
-  columns : string[] = ["name", "surname", "birthdate", "dni"];
+  headers : string[] = ["Nombre", "Apellido", "Fecha de nacimiento", "DNI","Ult. visita"];
+  columns : string[] = ["name", "surname", "birthdate", "dni","lastVisit"];
   pageSize: number = 5;
 
   ngOnInit(): void {

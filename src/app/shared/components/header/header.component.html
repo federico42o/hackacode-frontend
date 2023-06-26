@@ -1,4 +1,4 @@
-<header class="w-full flex justify-between items-center px-4 bg-[#191919]">
+<header class="w-full flex justify-between items-center px-4 dark:bg-[#191919] bg-[#62a8a2]">
     <div class="">
         <img src="/assets/img/logo.png" class="w-[100px]">
     </div>
@@ -13,7 +13,7 @@
         </svg>
     <!-- user card -->
     </div>
-<div [@slideDown]="menuOpen ? 'in' : 'out'" class="flex flex-col p-5 md:p-0 w-full border-b border-[#5a5a5a] pb-10 cursor-pointer absolute top-[3.6rem] left-0 bg-[#191919]" *ngIf="menuOpen" >
+<div [@slideDown]="menuOpen ? 'in' : 'out'" class="flex flex-col p-5 md:p-0 w-full border-b  dark:border-[#5a5a5a] pb-10 cursor-pointer absolute top-[3.6rem] left-0 bg-[#191919]" *ngIf="menuOpen" >
     <button  class="flex gap-4 items-center px-4" (click)="logout()" >
 
         <div class="py-4">

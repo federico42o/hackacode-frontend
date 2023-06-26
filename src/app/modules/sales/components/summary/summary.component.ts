@@ -25,24 +25,25 @@ export class SummaryComponent implements OnChanges{
   }
 
   calculateTotal(): void {
-    this.total = 0;
-    if (this.ticketData) {
-      for (const ticket of this.ticketData) {
-        if (ticket.type === TicketType.VIP) {
-          this.total += ticket.amount;
-        } else {
-          this.total += this.currentGame.price;
-        }
-      }
-    }
+    // this.total = 0;
+    // if (this.ticketData) {
+    //   for (const ticket of this.ticketData) {
+    //     if (ticket.type === TicketType.VIP) {
+    //       this.total += ticket.amount;
+    //     } else {
+    //       this.total += this.currentGame.price;
+    //     }
+    //   }
+    // }
   }
 
   displayPrice(ticket: Data): number {
-    if (ticket.type === TicketType.VIP) {
-      return ticket.amount;
-    } else {
-      return this.currentGame.price;
-    }
+    // if (ticket.type === TicketType.VIP) {
+    //   return ticket.amount;
+    // } else {
+    //   return this.currentGame.price;
+    // }
+    return 0
   }
   
   cancel(tickets:any[]):void{

@@ -1,4 +1,4 @@
-<section class="h-full flex flex-col pb-4 ">
+<section class="h-full w-full flex flex-col pb-4 ">
     <div class="container mx-auto">
         <div class="row">
             <div class="col-12 flex flex-col gap-4 justify-end">
@@ -12,7 +12,7 @@
         <div class="flex justify-between w-full h-full">
             <!-- input ticket count -->
             <div *ngIf="tickets.length<=0 " class="">
-                <div class=" flex gap-4 ">
+                <div class=" flex gap-4 flex-1">
                     <input
                         class="text-2xl  w-[400px] form-input text-secondary rounded-sm p-1 border-gray-300 shadow-md focus:border-green-600 caret-green focus:ring-2 focus:ring-green-600 focus:ring-opacity-5"
                         type="number" min="0" max="10" id="ticket-count" placeholder="Ingrese cant. de tickets"
@@ -33,16 +33,15 @@
                 </div>
                 <!-- form tickets -->
 
-
             </div>
             <!-- divider -->
-            <div class="inline-block h-full min-h-[1em] w-0.5 self-stretch bg-[#5a5a5a] opacity-100 dark:opacity-50">
-            </div>
+            <div class="inline-block h-full min-h-[1em] w-0.5 self-stretch bg-[#5a5a5a] opacity-100 dark:opacity-50"></div>
             <!-- divider -->
 
-
-            <!-- resumen -->
-            <div class="w-6/12">
+                
+                
+                <!-- resumen -->
+                <div class="w-4/12">
                 <app-summary [ticketData]="ticketData" [currentGame]="game"></app-summary>
             </div>
             <!-- resumen -->

@@ -1,0 +1,62 @@
+<form  [formGroup]="ticketForm" class="text-secondary dark:text-primary flex justify-center" (ngSubmit)="onSubmit()">
+    <div class="flex flex-col gap-2">
+
+        <label for="">Descripción de la entrada</label>
+        <input
+        class="w-52 
+        form-input
+        text-secondary
+        rounded-sm
+        p-1
+        border-gray-300
+        shadow-md
+        focus:border-green-600 caret-green focus:ring-2 focus:ring-green-600 focus:ring-opacity-5"
+        type="text"
+        placeholder=""
+        formControlName="description"
+        >
+
+        <label for="">Precio</label>
+        <div class="flex flex-row relative items-center">
+        <span class="flex items-center rounded rounded-r-none px-3 font-bold text-secondary text-xl absolute top-[3px] right-0">$</span>
+        <input
+        class="w-52 
+        form-input
+        text-secondary
+        rounded-sm
+        p-1
+        border-gray-300
+        shadow-md
+        focus:border-green-600 caret-green focus:ring-2 focus:ring-green-600 focus:ring-opacity-5"
+        type="number"
+        placeholder="Precio"
+        formControlName="price"
+        >
+        </div>
+        <div class="flex gap-4 items-center">
+        <label for="vip" name="vip">VIP</label>
+        <input
+        name="vip"
+        id="vip"
+        class="
+        cursor-pointer
+        form-checkbox
+        text-secondary
+        rounded-sm
+        p-1
+        border-gray-300
+        shadow-md
+        focus:border-green-600 caret-green focus:ring-2 focus:ring-green-600 focus:ring-opacity-5"
+        type="checkbox"
+        placeholder="Precio"
+        formControlName="vip"
+        value="true"
+        >
+        
+        </div>
+
+
+
+    <button type="submit" class="bg-secondary text-white" >Guardar entrada</button>
+</div>
+</form>

@@ -1,0 +1,21 @@
+<div class="container mx-auto w-full">
+    <div class="row">
+        <div class="flex flex-col gap-4">
+            <h1 class="text-7xl font-bold text-[#222D30] dark:text-[#E7DA7F]">Entradas disponibles</h1>
+        </div>
+    </div>
+    <div class="flex my-4 gap-8 ">
+        <div class="flex gap-8 flex-wrap">
+        <app-ticket-card *ngFor="let ticket of tickets" [ticket]="ticket"></app-ticket-card>
+        </div>
+        <div class="ml-4 cursor-pointer  h-full">
+            <div class=" p-6 bg-white border-2 border-[#62A8A2] rounded-lg hover:scale-105 transition duration-500">
+                <div class="flex items-center">
+                    <span>🎫</span>
+                    <h3 class="my-2 ml-3 text-lg font-bold text-gray-800">Agregar</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

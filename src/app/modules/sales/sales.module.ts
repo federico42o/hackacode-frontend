@@ -12,6 +12,9 @@ import { GameFormComponent } from './components/game-form/game-form.component';
 import { AdministrationModule } from '../administration';
 import { SummaryComponent } from './components/summary/summary.component';
 import { GameCardComponent } from './components/game-card/game-card.component';
+import { TicketComponent } from './pages/ticket/ticket.component';
+import { CreateTicketComponent } from './components/create-ticket/create-ticket.component';
+import { TicketCardComponent } from './components/ticket-card/ticket-card.component';
 
 
 @NgModule({
@@ -21,7 +24,10 @@ import { GameCardComponent } from './components/game-card/game-card.component';
     GameComponent,
     GameFormComponent,
     SummaryComponent,
-    GameCardComponent
+    GameCardComponent,
+    TicketComponent,
+    CreateTicketComponent,
+    TicketCardComponent
   ],
   imports: [
     CommonModule,
@@ -29,14 +35,18 @@ import { GameCardComponent } from './components/game-card/game-card.component';
     ReactiveFormsModule,
     FormsModule,
     SharedModule,
-    AdministrationModule
+    AdministrationModule,
+    
   ],
   exports: [
     TicketSelectorComponent,
     AddTicketFormComponent,
     GameFormComponent,
     GameComponent,
-    GameCardComponent
+    GameCardComponent,
+    TicketComponent,
+    CreateTicketComponent,
+    TicketCardComponent
   ]
 })
 export class SalesModule { }

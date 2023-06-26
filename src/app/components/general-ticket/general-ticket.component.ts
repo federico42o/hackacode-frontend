@@ -12,9 +12,7 @@ import { AuthService } from 'src/app/modules/auth/services/auth.service';
 })
 export class GeneralTicketComponent implements OnInit{
 
-  constructor(private auth : AuthService,
-    public dialogRef: DialogRef<GeneralTicketComponent>,
-    @Inject(DIALOG_DATA) public data: any){}
+  constructor(private auth : AuthService){}
   date = new Date();
   day = this.date.getDate();
   month = this.date.toLocaleDateString('es-ES', { month: 'short' });
@@ -48,15 +46,13 @@ export class GeneralTicketComponent implements OnInit{
 
     return age;
   }
-
-  close():void{this.dialogRef.close()}
-  }
-  
+}
 
 export const buyer1 : Buyer = {
   id:1,
   dni:"12312312",
   name:"nombre",
   surname:"apellido",
-  birthdate:"2012-12-12"
+  birthdate:"2012-12-12",
+  "lastVisit":"2012-12-12"
 }

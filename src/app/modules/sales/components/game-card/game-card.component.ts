@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { GameService } from '../../services/game.service';
 import { Subscription } from 'rxjs';
 import { Game } from 'src/app/models';
@@ -11,14 +11,10 @@ import { Game } from 'src/app/models';
 export class GameCardComponent implements OnInit{
   
   constructor(private service: GameService){};
-  games$!:Subscription;
-  games!:Game[];
+  isHidden:boolean = false;
+  @Input() game!:Game;
   ngOnInit(): void {
-    this.games$ = this.service.getAll().subscribe({
-      next: (data:any) =>{
-        this.games = data.content;
-      }
-    }); 
+
   }
 
 }
