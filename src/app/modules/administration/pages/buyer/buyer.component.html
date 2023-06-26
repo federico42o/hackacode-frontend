@@ -1,6 +1,6 @@
-<section class="flex justify-center gap-4 w-full">
+<section class="flex justify-center items-start gap-4 w-full">
 
-    <div class="bg-zinc-100 dark:bg-[#191919] p-4 h-full" id="scrollbar">
+    <div class=" p-4 h-full" id="scrollbar">
         <app-table [data]="clients" [headers]="headers" [columns]="columns" [actions]="true" (edit)="onEdit($event)"></app-table>
         
     </div>
