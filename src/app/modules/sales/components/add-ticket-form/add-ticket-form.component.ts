@@ -48,42 +48,42 @@ export class AddTicketFormComponent implements OnInit{
     }
     buyer!:Buyer;
     onSubmit() : void {
-      const type = this.ticketForm.get('type')?.value;
-      if(this.ticketForm.invalid){return}
+      // const type = this.ticketForm.get('type')?.value;
+      // if(this.ticketForm.invalid){return}
 
-      if(type === TicketType.GENERAL){
-        const ticket: TicketRequest = {
-          buyer: this.ticketForm.get('buyer')?.value,
-          game: this.currentGame
-        };
-        this.service.createNormal(ticket).subscribe({
-          next: (data:any) => {
-            this.ticketID=data
-            this.ticket.emit({type:TicketType.GENERAL,buyer:ticket.buyer, amount:ticket.game.price})
+      // if(type === TicketType.GENERAL){
+      //   const ticket: TicketRequest = {
+      //     buyer: this.ticketForm.get('buyer')?.value,
+      //     game: this.currentGame
+      //   };
+      //   this.service.createNormal(ticket).subscribe({
+      //     next: (data:any) => {
+      //       this.ticketID=data
+      //       this.ticket.emit({type:TicketType.GENERAL,buyer:ticket.buyer, amount:ticket.game.price})
           
-          },
-          error: (err) => {console.log(err)},
-          complete:()=>{this.buyer=ticket.buyer,this.created=true
-          }
-        });
-      }else{
-        const ticket: TicketVipRequest = {
-          buyer: this.ticketForm.get('buyer')?.value,
-          price: 5000.0,
-        };
-        this.service.createVip(ticket).subscribe({
+      //     },
+      //     error: (err) => {console.log(err)},
+      //     complete:()=>{this.buyer=ticket.buyer,this.created=true
+      //     }
+      //   });
+      // }else{
+      //   const ticket: TicketVipRequest = {
+      //     buyer: this.ticketForm.get('buyer')?.value,
+      //     price: 5000.0,
+      //   };
+      //   this.service.createVip(ticket).subscribe({
           
-          next: (data:any) => {
-            this.ticketID=data
-            this.ticket.emit({type:TicketType.VIP,buyer:ticket.buyer, amount:ticket.price})
+      //     next: (data:any) => {
+      //       this.ticketID=data
+      //       this.ticket.emit({type:TicketType.VIP,buyer:ticket.buyer, amount:ticket.price})
           
-          }
+      //     }
           
-          ,
-          error: (err) => {console.log(err)},
-          complete:()=>{this.buyer=ticket.buyer,this.created=true}
-        });
-      }
+      //     ,
+      //     error: (err) => {console.log(err)},
+      //     complete:()=>{this.buyer=ticket.buyer,this.created=true}
+      //   });
+      // }
     }
 
     displayBuyer(buyer: Buyer | null): string {

@@ -1,9 +1,10 @@
 
-    <div class="">
-    <table class=" dark:text-[#F8F7E4] text-secondary " >
-    <thead class="dark:text-[#DED87B] text-lg border-b-2 border-b-[#373737]"  >
+
+    <section class="w-full h-full">
+    <table class=" dark:text-[#F8F7E4] text-secondary w-fit" >
+    <thead class="dark:text-[#DED87B] text-lg border-b-[.5px] border-b-[#5a5a5a]"  >
         <tr class="h-10 sticky top-0 ">
-            <th class="text-start  pl-2 " *ngFor="let header of headers; index as i" [ngClass]="{'pr-10':i !== headers.length-1}" [class.pr-2]="i===headers.length-1">
+            <th class="text-start whitespace-nowrap  pl-4 w-[1rem]" *ngFor="let header of headers; index as i" [ngClass]="{'pr-4':i !== headers.length-1}" [class.pr-4]="i===headers.length-1">
                 {{ header }}
             </th>
             <th *ngIf="actions" class="w-[14rem]">
@@ -11,29 +12,52 @@
             </th>
         </tr>
     </thead>
-    <tbody>
-        <tr *ngFor="let row of data; index as j" class="max-w-fit  hover:bg-[#EEE9DA] dark:hover:bg-[#1a1a1a]">
-            <td *ngFor="let column of columns;index as c" class="text-start w-fit pl-2 py-2"  [class.pr-2]="c===columns.length-1">
-                {{ getDisplayValue(row, column) }}
-            </td>
-            <td class="py-2 flex justify-center items-center" *ngIf="actions">
-
-                <button class="py-2 px-4 rounded-md" id="editButton" (click)="emitEdit(row.id)">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16"><g id="_01_align_center" class="dark:fill-[#DED87B]" data-name="01 align center"><path d="M22.94,1.06a3.626,3.626,0,0,0-5.124,0L0,18.876V24H5.124L22.94,6.184A3.627,3.627,0,0,0,22.94,1.06ZM4.3,22H2V19.7L15.31,6.4l2.3,2.3ZM21.526,4.77,19.019,7.277l-2.295-2.3L19.23,2.474a1.624,1.624,0,0,1,2.3,2.3Z"/></g></svg>
+    <tbody class="flex-1 h-full">
+        <tr *ngFor="let row of data; index as j" class="hover:bg-[#EEE9DA] dark:hover:bg-[#1a1a1a]">
+<td *ngFor="let column of columns; index as c" class="text-start pl-4 py-2" [class.pr-2]="c===columns.length-1">
+  <ng-container *ngIf="isEditMode && editableRow === row.id">
+    <ng-container *ngIf="column === 'birthdate'">
+      <input class="date-input  flex relative bg-transparent border-0 px-0" type="date" [(ngModel)]="row[column]"
+        [ngClass]="{'bg-[#1a1a1a] text-primary dark:bg-[#f1f1f1] rounded-sm dark:text-secondary': (isEditMode && editableRow === row?.id)}"
+        (ngModelChange)="editValue(row, column, $event)">
+    </ng-container>
+    <ng-container *ngIf="column === 'game'">
+      <select class="form-select text-secondary mt-1 block w-full rounded-md border-gray-300 shadow-md focus:border-green-600 focus:ring-2 caret-green focus:ring-green-600 focus:ring-opacity-5" [(ngModel)]="row[column]"
+        [ngClass]="{'bg-[#1a1a1a] text-primary dark:bg-[#f1f1f1] rounded-sm dark:text-secondary': (isEditMode && editableRow === row?.id)}"
+        (ngModelChange)="editValue(row, column, $event)">
+        <option *ngFor="let game of games" [value]="game ? (game | json) : 'sin asignar'">{{game.name}}</option>
+      </select>
+    </ng-container>
+    <ng-container *ngIf="column !== 'birthdate' && column !== 'game'">
+      <input class="form-input bg-transparent  border-0 px-0" type="text" [value]="getDisplayValue(row, column)" [disabled]="(!(editableRow === row.id)) || c<1"
+        [ngClass]="{'bg-[#1a1a1a] text-primary dark:bg-[#f1f1f1] rounded-sm dark:text-secondary': (isEditMode && editableRow === row.id)}"
+        (ngModelChange)="editValue(row, column, $event)">
+    </ng-container>
+  </ng-container>
+  <input *ngIf="!isEditMode" class="form-input bg-transparent  border-0 px-0" type="text" [value]="getDisplayValue(row, column)" disabled>
+</td>    
+            <td class="py-2 flex justify-center items-center" *ngIf="actions">  
+                <button   class="py-2 px-4 rounded-md" id="editButton" (click)="toggleEdit(row.id)" [disabled]="isEditMode && editableRow !== row.id">
+                    <svg *ngIf="!isEditMode " xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16"><g id="_01_align_center" class="dark:fill-[#DED87B]" data-name="01 align center"><path d="M22.94,1.06a3.626,3.626,0,0,0-5.124,0L0,18.876V24H5.124L22.94,6.184A3.627,3.627,0,0,0,22.94,1.06ZM4.3,22H2V19.7L15.31,6.4l2.3,2.3ZM21.526,4.77,19.019,7.277l-2.295-2.3L19.23,2.474a1.624,1.624,0,0,1,2.3,2.3Z"/></g></svg>
+                    <svg *ngIf="isEditMode && editableRow === row.id" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" class="dark:fill-[#DED87B]" x="0px" y="0px" viewBox="0 0 512.021 512.021" style="enable-background:new 0 0 512.021 512.021;" xml:space="preserve" width="16" height="16">
+                        <g><path d="M301.258,256.01L502.645,54.645c12.501-12.501,12.501-32.769,0-45.269c-12.501-12.501-32.769-12.501-45.269,0l0,0   L256.01,210.762L54.645,9.376c-12.501-12.501-32.769-12.501-45.269,0s-12.501,32.769,0,45.269L210.762,256.01L9.376,457.376   c-12.501,12.501-12.501,32.769,0,45.269s32.769,12.501,45.269,0L256.01,301.258l201.365,201.387   c12.501,12.501,32.769,12.501,45.269,0c12.501-12.501,12.501-32.769,0-45.269L301.258,256.01z"/></g></svg>
                 </button>
-                <button class="py-2 px-4 rounded-md" id="deleteButton" (click)="emitDelete(row.id)">
+                <button *ngIf="isEditMode && editableRow === row.id" class="py-2 px-4 rounded-md" id="cancelButton" (click)="emitEdit(row)">
+                <svg xmlns="http://www.w3.org/2000/svg" id="Isolation_Mode" data-name="Isolation Mode" viewBox="0 0 24 24" width="16" height="16" class="dark:fill-[#DED87B]"><path d="M7.8,21.425A2.542,2.542,0,0,1,6,20.679L.439,15.121,2.561,13,7.8,18.239,21.439,4.6l2.122,2.121L9.6,20.679A2.542,2.542,0,0,1,7.8,21.425Z"/></svg>
+                </button>
+                <button *ngIf="!isEditMode" class="py-2 px-4 rounded-md" id="deleteButton" (click)="emitDelete(row.id)">
                     <svg xmlns="http://www.w3.org/2000/svg" id="Outline" viewBox="0 0 24 24" width="16" height="16"
                     class="dark:fill-[#DED87B]"
                     ><path d="M21,4H17.9A5.009,5.009,0,0,0,13,0H11A5.009,5.009,0,0,0,6.1,4H3A1,1,0,0,0,3,6H4V19a5.006,5.006,0,0,0,5,5h6a5.006,5.006,0,0,0,5-5V6h1a1,1,0,0,0,0-2ZM11,2h2a3.006,3.006,0,0,1,2.829,2H8.171A3.006,3.006,0,0,1,11,2Zm7,17a3,3,0,0,1-3,3H9a3,3,0,0,1-3-3V6H18Z"/><path d="M10,18a1,1,0,0,0,1-1V11a1,1,0,0,0-2,0v6A1,1,0,0,0,10,18Z"/><path d="M14,18a1,1,0,0,0,1-1V11a1,1,0,0,0-2,0v6A1,1,0,0,0,14,18Z"/></svg>
                 </button>
             </td>
-        </tr>
+          </tr>
         
     </tbody>
     </table>
     <div class="px-5 pt-4 flex flex-col xs:flex-row  xs:justify-between">
-        <span class="text-xs xs:text-sm">
-            Mostrando {{pageSize}} de {{data ?  data.length : 0}} clientes
+        <span *ngIf="data" class="text-xs xs:text-sm">
+            Mostrando {{pageSize ? pageSize : data.length}} de {{data ?  data.length : 0}} entradas
         </span>
         <div class="inline-flex mt-2 xs:mt-0">
             <button
@@ -46,4 +70,4 @@
             </button>
         </div>
     </div>
-        </div>
+  </section>

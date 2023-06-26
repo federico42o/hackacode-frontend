@@ -1,10 +1,10 @@
-<div class="p-4 login-form mx-auto w-full h-full flex flex-col items-center justify-around gap-4 bg-primary dark:bg-secondary">
-    <p class="text-4xl block bg-primary dark:bg-secondary p-2">{{this.data.mode === 'create'  ? 'Registrar empleado' : 'Actualizar empleado'}}</p>
+<div class=" login-form mx-auto w-full h-full flex flex-col items-center  gap-4">
     <form class="flex flex-col gap-4" [formGroup]="employeeForm" (ngSubmit)="onSubmit()">
         <div class="flex flex-col gap-2">
-            <label class="blok whitespace-nowrap w-full">Nombre Completo <span class="text-red text-sm align-top">*</span></label>
+            <label class="blok whitespace-nowrap w-full">Nombre Completo <span
+                    class="text-red text-sm align-top">*</span></label>
             <div class="w-full flex gap-4">
-            <input class="
+                <input class="
         form-input
         text-secondary
         mt-1
@@ -14,9 +14,9 @@
         border-gray-300
         shadow-md
         focus:border-green-600 caret-green focus:ring-2 focus:ring-green-600 focus:ring-opacity-5" type="text"
-                id="name" placeholder="Nombre" formControlName="name">
+                    id="name" placeholder="Nombre" formControlName="name">
 
-            <input class="
+                <input class="
         form-input
         text-secondary
         mt-1
@@ -26,13 +26,14 @@
         border-gray-300
         shadow-md
         focus:border-green-600 focus:ring-2 caret-green focus:ring-green-600 focus:ring-opacity-5" type="text"
-                id="surname" placeholder="Apellido(s)" formControlName="surname">
+                    id="surname" placeholder="Apellido(s)" formControlName="surname">
             </div>
         </div>
         <div class="flex gap-2 items-center justify-between">
             <div class="flex flex-col gap-2 w-6/12">
-            <label for="birthdate" class="whitespace-nowrap">Fecha de nacimiento <span class="text-red text-sm align-top">*</span></label>
-            <input class="
+                <label for="birthdate" class="whitespace-nowrap">Fecha de nacimiento <span
+                        class="text-red text-sm align-top">*</span></label>
+                <input class="
             
         form-input
         text-secondary
@@ -43,11 +44,12 @@
         border-gray-300
         shadow-md
         focus:border-green-600 focus:ring-2 caret-green focus:ring-green-600 focus:ring-opacity-5" type="date"
-                id="birthdate" placeholder="Fecha de nacimiento" formControlName="birthdate">
+                    id="birthdate" placeholder="Fecha de nacimiento" formControlName="birthdate">
             </div>
-                <div class="flex flex-col gap-2 w-6/12">
-            <label for="DNI" class="whitespace-nowrap">DNI <span class="text-red text-sm align-top">*</span> </label>
-            <input class="
+            <div class="flex flex-col gap-2 w-6/12">
+                <label for="DNI" class="whitespace-nowrap">DNI <span class="text-red text-sm align-top">*</span>
+                </label>
+                <input class="
         form-input
         text-secondary
         mt-1
@@ -57,7 +59,7 @@
         border-gray-300
         shadow-md
         focus:border-green-600 focus:ring-2 caret-green focus:ring-green-600 focus:ring-opacity-5" type="text" id="dni"
-                placeholder="DNI" formControlName="dni">
+                    placeholder="DNI" formControlName="dni">
             </div>
         </div>
         <div class="flex flex-col gap-2 w-6/12">
@@ -73,10 +75,10 @@
             focus:border-green-600 focus:ring-2 caret-green focus:ring-green-600 focus:ring-opacity-5">
                 <option [value]="null">Sin asignar</option>
                 <option *ngFor="let game of games" [value]="game | json">{{game.name}}</option>
-              </select>
-            </div>
-            <button class="bg-blue-500 hover:bg-blue-400 dark:text-white font-medium py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded">
-                {{this.data.mode === 'create'  ? 'Registrar' : 'Actualizar'}}
-            </button>
+            </select>
+        </div>
+        <button class="bg-blue-500 hover:bg-blue-400 dark:text-white font-medium py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded">
+            aceptar
+        </button>
     </form>
 </div>

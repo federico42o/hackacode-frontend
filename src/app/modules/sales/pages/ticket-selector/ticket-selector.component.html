@@ -1,54 +1,50 @@
-<section class="">
+<section class="h-full w-full flex flex-col pb-4 ">
     <div class="container mx-auto">
         <div class="row">
             <div class="col-12 flex flex-col gap-4 justify-end">
-                <h1 class="text-7xl font-bold text-[#222D30] dark:text-[#E7DA7F]">{{game.name}}</h1>
+                <h1 class="text-7xl font-bold text-[#222D30] dark:text-[#E7DA7F]">{{game.name || 'NOMBRE JUEGO'}}</h1>
             </div>
         </div>
     </div>
-</section>
 
-<section class="h-full flex flex-col ">
-    
-    <div class="container gap-4 mx-auto w-full flex-grow flex flex-col p-4">
+    <div class="main container gap-4 mx-auto w-full h-full flex-grow flex flex-col p-4 ">
         <!-- input ticket count -->
-        <div class="flex justify-between">
+        <div class="flex justify-between w-full h-full">
             <!-- input ticket count -->
             <div *ngIf="tickets.length<=0 " class="">
-                <div class=" flex gap-4 ">
-                    <input class="text-2xl  w-[400px] form-input text-secondary rounded-sm p-1 border-gray-300 shadow-md focus:border-green-600 caret-green focus:ring-2 focus:ring-green-600 focus:ring-opacity-5" type="number" min="0" max="10" id="ticket-count" placeholder="Ingrese cant. de tickets" [(ngModel)]="input">
-                    <button 
-                    class="text-white bg-[#222D30] p-1 rounded-sm"
-                    (click)="addTicketForms()">Aceptar</button>
+                <div class=" flex gap-4 flex-1">
+                    <input
+                        class="text-2xl  w-[400px] form-input text-secondary rounded-sm p-1 border-gray-300 shadow-md focus:border-green-600 caret-green focus:ring-2 focus:ring-green-600 focus:ring-opacity-5"
+                        type="number" min="0" max="10" id="ticket-count" placeholder="Ingrese cant. de tickets"
+                        [(ngModel)]="input">
+                    <button class="text-white bg-[#222D30] p-1 rounded-sm" (click)="addTicketForms()">Aceptar</button>
+                </div>
             </div>
-            </div>
-        <div *ngIf="show">
-        <!-- form tickets -->
-        <div class="row flex-1">
-        <div class="col-6 w-4/12">
-            <div  *ngFor="let ticket of tickets; index as i" class="my-2 flex gap-3 items-center">
-                <span class="inline w-4 text-center">{{i+1 }}</span>
-                <app-add-ticket-form [currentGame]="game" (ticket)="send($event)"></app-add-ticket-form>
+            <div *ngIf="show">
+                <!-- form tickets -->
+                <div class="row flex-1">
+                    <div class="col-6 w-4/12">
+                        <div *ngFor="let ticket of tickets; index as i" class="my-2 flex gap-3 items-center">
+                            <span class="inline w-4 text-center">{{i+1 }}</span>
+                            <app-add-ticket-form [currentGame]="game" (ticket)="send($event)"></app-add-ticket-form>
+
+                        </div>
+                    </div>
+                </div>
+                <!-- form tickets -->
 
             </div>
+            <!-- divider -->
+            <div class="inline-block h-full min-h-[1em] w-0.5 self-stretch bg-[#5a5a5a] opacity-100 dark:opacity-50"></div>
+            <!-- divider -->
+
+                
+                
+                <!-- resumen -->
+                <div class="w-4/12">
+                <app-summary [ticketData]="ticketData" [currentGame]="game"></app-summary>
+            </div>
+            <!-- resumen -->
         </div>
     </div>
-    <!-- form tickets -->
-
-    
-</div>
-<!-- divider -->
-<div
-class="inline-block h-[500px] min-h-[1em] w-0.5 self-stretch bg-neutral-100 opacity-100 dark:opacity-50">
-</div>
- <!-- divider -->
-
-
-<!-- resumen -->
-<div class="w-6/12">
-    <app-summary [ticketData]="ticketData" [currentGame]="game"></app-summary>
-</div>
-<!-- resumen -->
-    </div>
-</div>
 </section>

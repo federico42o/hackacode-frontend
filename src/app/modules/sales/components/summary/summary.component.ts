@@ -1,8 +1,7 @@
-import { ChangeDetectionStrategy, Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, Input, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
 import { Game, Ticket } from 'src/app/models';
 import { Data } from 'src/app/models/data';
 import { TicketType } from 'src/app/models/ticket-type';
-import { TicketVip } from 'src/app/models/ticket-vip';
 
 @Component({
   selector: 'app-summary',
@@ -11,12 +10,14 @@ import { TicketVip } from 'src/app/models/ticket-vip';
   changeDetection: ChangeDetectionStrategy.Default,
 })
 export class SummaryComponent implements OnChanges{
-  
+  @ViewChild('content') content!: ElementRef;
   @Input() currentGame!: Game;
   @Input() ticketData!: Data[];
   @Input() ticketCount:number = 0.0;
   total: number = 0;
-
+  constructor(){
+  
+  }
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['ticketData']) {
       this.calculateTotal();
@@ -24,30 +25,27 @@ export class SummaryComponent implements OnChanges{
   }
 
   calculateTotal(): void {
-    this.total = 0;
-    if (this.ticketData) {
-      for (const ticket of this.ticketData) {
-        if (ticket.type === TicketType.VIP) {
-          this.total += ticket.amount;
-        } else {
-          this.total += this.currentGame.price;
-        }
-      }
-    }
+    // this.total = 0;
+    // if (this.ticketData) {
+    //   for (const ticket of this.ticketData) {
+    //     if (ticket.type === TicketType.VIP) {
+    //       this.total += ticket.amount;
+    //     } else {
+    //       this.total += this.currentGame.price;
+    //     }
+    //   }
+    // }
   }
 
   displayPrice(ticket: Data): number {
-    if (ticket.type === TicketType.VIP) {
-      return ticket.amount;
-    } else {
-      return this.currentGame.price;
-    }
+    // if (ticket.type === TicketType.VIP) {
+    //   return ticket.amount;
+    // } else {
+    //   return this.currentGame.price;
+    // }
+    return 0
   }
-
-  generatePdf(tickets:any[]):void{
-
-  }
-
+  
   cancel(tickets:any[]):void{
     
   }

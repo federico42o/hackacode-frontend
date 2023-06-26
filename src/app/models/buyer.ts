@@ -4,4 +4,5 @@ export interface Buyer {
     name: string,
     surname: string,
     birthdate: string,
+    lastVisit:string,
 }

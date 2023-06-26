@@ -7,11 +7,11 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { EmployeeComponent,BuyerComponent,UsersComponent } from './pages';
 import { TableComponent,EmployeeFormComponent } from './components';
 import { SharedModule } from 'src/app/shared';
-import { DialogComponent } from './components/dialog/dialog.component';
 import { TableUsersComponent } from './pages/users/table-users/table-users.component';
 import { UserFormComponent } from './components/user-form/user-form.component';
 import { BuyerFormComponent } from './components/buyer-form/buyer-form.component';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { BuyerEditFormComponent } from './components/buyer-edit-form/buyer-edit-form.component';
 
 
 @NgModule({
@@ -24,6 +24,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
     TableUsersComponent,
     UserFormComponent,
     BuyerFormComponent,
+    BuyerEditFormComponent,
     
   ],
   imports: [
@@ -40,7 +41,10 @@ import { MatExpansionModule } from '@angular/material/expansion';
     TableComponent,
     UsersComponent,
     EmployeeFormComponent,
-    TableUsersComponent
+    TableUsersComponent,
+    UserFormComponent,
+    BuyerFormComponent,
+    BuyerEditFormComponent,
   ]
 })
 export class AdministrationModule { }

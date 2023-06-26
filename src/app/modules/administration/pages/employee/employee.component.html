@@ -1,4 +1,20 @@
-<section class="mx-[2rem]">
-<button class="bg-green-400 text-white" (click)="openDialog('create',0)">AÑADIR EMPLEADO</button>
-<app-table [data]="employees" [headers]="headers" [columns]="columns" [actions]="true" (delete)="handleDelete($event)" (edit)="handleEdit($event)"></app-table>
+<section class="flex justify-center items-start  gap-4 w-full flex-wrap">
+
+        <div class=" bg-zinc-100 dark:bg-[#191919] p-4" id="scrollbar">
+            
+            <app-table [data]="employees" [games]="games" [headers]="headers" [columns]="columns" [actions]="true" (delete)="handleDelete($event)" (edit)="handleEdit($event)"></app-table>
+            
+        </div>
+        <div class="filters bg-zinc-100 dark:bg-[#191919] p-4 rounded-lg ">
+            <!-- <div class="flex gap-2">
+                <button class="rounded-xl bg-slate-50 text-secondary px-2" (click)="setTab('add')">Registrar cliente</button>
+                <button class="rounded-xl bg-slate-50 text-secondary px-2" (click)="setTab('filter')">Filtrar</button>
+                <button class="rounded-xl bg-slate-50 text-secondary px-2" (click)="setTab('idk')">Nose</button>
+            </div> -->
+            <app-employee-form *ngIf="currentTab == 'add'" (employeeAdded)="onClientAdded()"></app-employee-form>
+            <div *ngIf="currentTab == 'filter'">
+                filtros
+            </div>
+        </div>
+
 </section>

@@ -15,6 +15,7 @@ export class TableUsersComponent {
   @Output() delete = new EventEmitter();
   @Output() edit = new EventEmitter();
 
+  pageSize!:number;
   emitDelete(id: number){
     this.delete.emit(id);
   }

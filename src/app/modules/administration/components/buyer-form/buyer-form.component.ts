@@ -41,14 +41,13 @@ export class BuyerFormComponent implements OnInit{
       birthdate : this.clientForm.get('birthdate')?.value,
 
     }
-    console.log(this.clientForm.value)
     if(this.clientForm.invalid){
      console.log("invalid form")
     }else{
 
     this.service.create(this.clientForm.value).subscribe(
       {next:(data:any) => {
-        console.log(data)
+
       },
       error:(error:any) => {
         console.log(error)

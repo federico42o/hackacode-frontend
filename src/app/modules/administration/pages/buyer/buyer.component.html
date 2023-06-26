@@ -1,31 +1,19 @@
-<section class="flex justify-center items-center flex-wrap">
-<div class="mx-[2rem] flex justify-between bg-zinc-100 dark:bg-[#252525] p-6 gap-8 shadow-lg rounded-md flex-wrap">
-    <div class="sm:max-w-[60%] w-100" id="scrollbar">
-        <app-table [data]="clients" [headers]="headers" [columns]="columns" [actions]="true"></app-table>
+<section class="flex justify-center items-start gap-4 w-full">
+
+    <div class=" p-4 h-full" id="scrollbar">
+        <app-table [data]="clients" [headers]="headers" [columns]="columns" [actions]="true" (edit)="onEdit($event)"></app-table>
         
     </div>
-    <div class="filters">
+    <div class="filters bg-zinc-100 dark:bg-[#191919] p-4  rounded-lg ">
         <div class="flex gap-2">
             <button class="rounded-xl bg-slate-50 text-secondary px-2" (click)="setTab('add')">Registrar cliente</button>
             <button class="rounded-xl bg-slate-50 text-secondary px-2" (click)="setTab('filter')">Filtrar</button>
             <button class="rounded-xl bg-slate-50 text-secondary px-2" (click)="setTab('idk')">Nose</button>
         </div>
-        <app-buyer-form *ngIf="currentTab == 'add'" (clientAdded)="onClientAdded()"></app-buyer-form>
+        <app-buyer-form *ngIf="currentTab == 'add'" (clientAdded)="onClientAdded()" ></app-buyer-form>
         <div *ngIf="currentTab == 'filter'">
             filtros
         </div>
     </div>
-</div>  
+ 
 </section>
-            <!-- <button class="bg-green-400 text-white" (click)="openDialog()">AÑADIR COMPRADOR</button> -->
-            <!-- <div class="flex gap-2 mb-1  items-center">
-                <label for="entries"> Mostrar</label>
-                <select id="entries" class="text-secondary" [(ngModel)]="pageSize" (ngModelChange)="setPageSize()">
-                    <option [value]="clients && clients.length > 0 ? clients.length : 0">Todo</option>
-                    <option value="5">5</option>
-                    <option value="10">10</option>
-                    <option value="25">25</option>
-                    <option value="50">50</option>
-                </select>
-    
-            </div> -->

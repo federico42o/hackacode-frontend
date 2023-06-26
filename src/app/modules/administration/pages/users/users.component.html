@@ -1,4 +1,20 @@
-<section class="mx-[2rem]">
-    <button class="bg-green-400 text-white" (click)="openDialog()">CREAR USUARIO</button>
-<app-table-users [data]="data" [headers]="headers" [columns]="columns" [actions]="true"></app-table-users>
+
+<section class="flex justify-center items-start  gap-4 w-full ">
+
+        <div class=" bg-zinc-100 dark:bg-[#191919] p-4" id="scrollbar">
+            <app-table-users [data]="data" [headers]="headers" [columns]="columns" [actions]="true"></app-table-users>
+            
+        </div>
+        <div class="filters bg-zinc-100 dark:bg-[#191919] p-4 rounded-lg ">
+            <!-- <div class="flex gap-2">
+                <button class="rounded-xl bg-slate-50 text-secondary px-2" (click)="setTab('add')">Registrar cliente</button>
+                <button class="rounded-xl bg-slate-50 text-secondary px-2" (click)="setTab('filter')">Filtrar</button>
+                <button class="rounded-xl bg-slate-50 text-secondary px-2" (click)="setTab('idk')">Nose</button>
+            </div> -->
+            <app-user-form *ngIf="currentTab == 'add'" (employeeAdded)="onClientAdded()"></app-user-form>
+            <div *ngIf="currentTab == 'filter'">
+                filtros
+            </div>
+        </div>
+
 </section>
