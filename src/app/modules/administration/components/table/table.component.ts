@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { Game } from 'src/app/models';
 
 @Component({
   selector: 'app-table',
@@ -7,23 +8,33 @@ import { FormControl } from '@angular/forms';
   styleUrls: ['./table.component.css']
 })
 export class TableComponent implements OnInit{
-  ngOnInit(): void {
-  }
+
   
+  ngOnInit(): void {
+    
+  }
+  @Input() games!:Game[];
   @Input() headers!: string[];
   @Input() columns!: string[];
   @Input() data!: any[];
   @Input() actions!: boolean;
-
+  isEditMode: boolean = false;
   @Output() delete = new EventEmitter();
   @Output() edit = new EventEmitter();
-
+  editableRow:number = -1;
   emitDelete(id: number){
     this.delete.emit(id);
   }
 
-  emitEdit(id: number){
-    this.edit.emit(id);
+  emitEdit(row: any){
+    console.log(row)
+    this.edit.emit(row);
+  }
+  editValue(row: any, column: string, value: any) {
+    // Aquí puedes realizar las acciones necesarias para manejar la edición del valor
+    // Puedes actualizar el valor en el objeto 'row', enviarlo a través de un evento, etc.
+    // Por ejemplo, podrías actualizar el valor directamente en el objeto 'row':
+    row[column] = value;
   }
   
   pageSize!: any;
@@ -38,6 +49,14 @@ export class TableComponent implements OnInit{
       return row[column].toString();
     }
   }
+  toggleEdit(id:number):void{
+    this.editableRow = id;
+    this.isEditMode = !this.isEditMode
+  }
 
+  confirmButton(id:number):void{
+
+
+  }
 
 }

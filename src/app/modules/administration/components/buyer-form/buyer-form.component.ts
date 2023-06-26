@@ -47,7 +47,7 @@ export class BuyerFormComponent implements OnInit{
 
     this.service.create(this.clientForm.value).subscribe(
       {next:(data:any) => {
-        console.log(data)
+
       },
       error:(error:any) => {
         console.log(error)

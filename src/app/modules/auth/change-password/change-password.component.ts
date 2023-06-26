@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PasswordRecoveryService } from '../services/password-recovery.service';
@@ -17,13 +17,14 @@ export class ChangePasswordComponent implements OnInit {
   weak!:boolean;
   safe!:boolean;
   good!:boolean;
+  @Input() expirationTime!:Date;
 
   strength!:any;
   ngOnInit(): void {
     this.router.params.subscribe((params)=>{
       const token = params['token'];
       this.token = token;
-      console.log(this.token)
+
     })
     this.changeForm = this.fb.group({
       password: ['',[Validators.required,Validators.email,Validators.minLength(8)]],
@@ -33,8 +34,8 @@ export class ChangePasswordComponent implements OnInit {
   }
 
   onSubmit(){
-    console.log(this.changeForm.value)
-    this.passwordService.changePassword({password:this.changeForm.value.password,confirm:this.changeForm.value.confirm,token:this.token},this.token).subscribe(
+    
+    this.passwordService.changePassword({password:this.changeForm.value.password,repeatPassword:this.changeForm.value.confirm,token:this.token}).subscribe(
       {next:(data:any)=>{
         
       },
@@ -52,7 +53,7 @@ export class ChangePasswordComponent implements OnInit {
 
   passwordCheck() {
     this.changeForm.get('password')!.valueChanges.subscribe(input => {
-      console.log(input);
+      
   
       const passwordLength = input.length;
   

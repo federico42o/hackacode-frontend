@@ -53,10 +53,10 @@ export class GameComponent implements OnInit, OnDestroy {
       });
       dialogRef.componentInstance?.accept.subscribe({
         next: () => {
-          console.log(id)
+          
           this.service.delete(id).subscribe({
             next: (data:any) => {
-              console.log(data)
+             
             },
             complete: () => {
               this._updateTable();

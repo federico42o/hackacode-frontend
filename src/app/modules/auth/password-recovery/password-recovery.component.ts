@@ -14,7 +14,7 @@ export class PasswordRecoveryComponent implements OnInit{
 
   constructor(private fb: FormBuilder,private route : Router,private router:ActivatedRoute,private passwordService:PasswordRecoveryService) { }
   recoveryForm!:FormGroup;
-  
+  expiration!:Date;
 
   ngOnInit(): void {
 
@@ -27,14 +27,19 @@ export class PasswordRecoveryComponent implements OnInit{
   onSubmit(){
     this.passwordService.requestMail(this.recoveryForm.value).subscribe(
       {next:(data:any)=>{
-        
+
+        if(data.expiration){
+          this.expiration = data.expiration
+          console.log(this.expiration)
+        }
       },
 
         error:(error:any)=>{
           console.log(error);
         },
         complete:()=>{
-          this.route.navigate(['/auth/nueva-contrasena']);
+          
+          
           
         }
       }

@@ -14,7 +14,7 @@ export class PasswordRecoveryService {
     return this.http.post(this.baseUrl,request);
   }
 
-  changePassword(request:any,token:string):Observable<any>{
-    return this.http.post(this.baseUrl+"/"+token,request)
+  changePassword(request:any):Observable<any>{
+    return this.http.post("http://localhost:8080/token/cambiar_pass",request)
   }
 }

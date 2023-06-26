@@ -1,11 +1,12 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { EmployeeService } from '../../services/employee.service';
-import { Employee } from 'src/app/models';
+import { Employee, Game } from 'src/app/models';
 import { Dialog } from '@angular/cdk/dialog';
 import { EmployeeFormComponent } from '../../components';
 import { Subscription } from 'rxjs';
 import { DialogComponent } from '../../components/dialog/dialog.component';
+import { GameService } from '../../services/game.service';
 
 @Component({
   selector: 'app-employee',
@@ -15,14 +16,16 @@ import { DialogComponent } from '../../components/dialog/dialog.component';
 export class EmployeeComponent implements OnInit, OnDestroy{ 
   
   employees$! : Subscription;
-  constructor(private service : EmployeeService,public dialog: Dialog){}
+  constructor(private service : EmployeeService,public dialog: Dialog,private gameService: GameService,){}
 
-  headers : string[] = ["ID","Nombre", "Apellido","DNI", "Fecha de nacimiento",  "Juego asignado"];
-  columns : string[] = ["id","name", "surname","dni", "birthdate", "game"];
+  headers : string[] = ["Nombre", "Apellido","DNI", "Fecha de nacimiento",  "Juego asignado"];
+  columns : string[] = ["name", "surname","dni", "birthdate", "game"];
   employees : Employee[] = [];
   currentTab:string = 'add';
+  games!:Game[]
   ngOnInit(): void {
     this._updateTable()
+    this._loadGames();
     
   }
 
@@ -42,7 +45,7 @@ export class EmployeeComponent implements OnInit, OnDestroy{
       });
       dialogRef.componentInstance?.accept.subscribe({
         next: () => {
-          console.log(id)
+
           this.service.delete(id).subscribe({
             next: (data:any) => {
             },
@@ -66,10 +69,15 @@ export class EmployeeComponent implements OnInit, OnDestroy{
     this.employees$ = this.service.getAll().subscribe(
       {
         next:(data:any) => {
-          console.log(data)
+ 
           this.employees = data.content
         }
       })
+  }
+  private _loadGames():void{
+    this.gameService.getAll().subscribe({
+      next:(data:any) =>{this.games= data.content}
+    });
   }
   onClientAdded():void{
     this._updateTable()

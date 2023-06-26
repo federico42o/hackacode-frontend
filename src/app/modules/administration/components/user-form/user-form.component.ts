@@ -33,7 +33,6 @@ export class UserFormComponent implements OnInit {
 
     this.loadEmployees();
     this.loadRoles();
-    console.log(this.roles)
   }
 
   onSubmit(): void {

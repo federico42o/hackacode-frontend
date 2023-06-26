@@ -3,7 +3,7 @@
     <div class="mx-[2rem] flex  gap-4 bg-zinc-100 dark:bg-[#252525] p-6 shadow-lg rounded-md ">
         <div class="" id="scrollbar">
             
-            <app-table [data]="employees" [headers]="headers" [columns]="columns" [actions]="true" (delete)="handleDelete($event)" (edit)="handleEdit($event)"></app-table>
+            <app-table [data]="employees" [games]="games" [headers]="headers" [columns]="columns" [actions]="true" (delete)="handleDelete($event)" (edit)="handleEdit($event)"></app-table>
             
         </div>
         <div class="filters ">

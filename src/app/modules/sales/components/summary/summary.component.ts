@@ -2,7 +2,6 @@ import { ChangeDetectionStrategy, Component, ElementRef, Input, OnChanges, OnIni
 import { Game, Ticket } from 'src/app/models';
 import { Data } from 'src/app/models/data';
 import { TicketType } from 'src/app/models/ticket-type';
-import jspdf, { jsPDF } from 'jspdf';
 
 @Component({
   selector: 'app-summary',
@@ -17,7 +16,7 @@ export class SummaryComponent implements OnChanges{
   @Input() ticketCount:number = 0.0;
   total: number = 0;
   constructor(){
-  console.log(this.content)
+  
   }
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['ticketData']) {
@@ -46,15 +45,6 @@ export class SummaryComponent implements OnChanges{
     }
   }
   
-  generatePdf():void{
-    let doc = new jsPDF();
-    doc.html(this.content.nativeElement);
-    doc.save('test.pdf')
-    console.log(doc)
-    console.log(this.content)
-
-  }
-
   cancel(tickets:any[]):void{
     
   }

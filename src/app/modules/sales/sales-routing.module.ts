@@ -5,7 +5,7 @@ import { GameComponent } from './pages/game/game.component';
 
 const routes: Routes = [
   {path:'new-ticket', component: TicketSelectorComponent},
-  {path: 'game', component: GameComponent}
+  {path: 'game', component: GameComponent},
 ];
 
 @NgModule({

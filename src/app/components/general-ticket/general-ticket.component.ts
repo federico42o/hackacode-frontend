@@ -30,7 +30,7 @@ export class GeneralTicketComponent implements OnInit{
     this.auth.getCurrentGame().subscribe(
       (data) =>{
         this.game = data
-        console.log(data)
+
       
       }
     );    

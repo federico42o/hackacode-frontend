@@ -1,23 +1,14 @@
 .main-container {
   display: grid; 
-  grid-template-columns: 0.5fr 1.3fr 1fr; 
-  grid-template-rows: 0.3fr 1.7fr 1fr; 
+  grid-template-columns: 1.5fr 1.4fr; 
+  grid-template-rows: 0.1fr 0.2fr 1.8fr; 
   gap: 0px 0px; 
   grid-template-areas: 
-    "navbar header header"
-    "navbar main main"
-    "navbar main main"; 
+    "header header"
+    "navbar navbar"
+    "main main"; 
 }
-.navbar { grid-area: navbar; }
+
 .header { grid-area: header; }
+.navbar { grid-area: navbar; }
 .main { grid-area: main; }
-.login-container {
-  display: grid; 
-  grid-template-columns: 1fr 1fr 1fr; 
-  grid-template-rows: .2fr 1fr 1fr; 
-  gap: 0px 0px; 
-  grid-template-areas: 
-    "header header header"
-    "main main main"
-    "main main main"; 
-}

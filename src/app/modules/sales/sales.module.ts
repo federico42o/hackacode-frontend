@@ -11,6 +11,7 @@ import { GameComponent } from './pages/game/game.component';
 import { GameFormComponent } from './components/game-form/game-form.component';
 import { AdministrationModule } from '../administration';
 import { SummaryComponent } from './components/summary/summary.component';
+import { GameCardComponent } from './components/game-card/game-card.component';
 
 
 @NgModule({
@@ -19,7 +20,8 @@ import { SummaryComponent } from './components/summary/summary.component';
     AddTicketFormComponent,
     GameComponent,
     GameFormComponent,
-    SummaryComponent
+    SummaryComponent,
+    GameCardComponent
   ],
   imports: [
     CommonModule,
@@ -33,7 +35,8 @@ import { SummaryComponent } from './components/summary/summary.component';
     TicketSelectorComponent,
     AddTicketFormComponent,
     GameFormComponent,
-    GameComponent
+    GameComponent,
+    GameCardComponent
   ]
 })
 export class SalesModule { }

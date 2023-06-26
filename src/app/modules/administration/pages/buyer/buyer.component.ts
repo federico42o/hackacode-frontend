@@ -24,8 +24,8 @@ export class BuyerComponent implements OnInit,OnDestroy{
   buyerForm! : FormGroup;
   clients : any;
   page : any;
-  headers : string[] = ["ID","Nombre", "Apellido", "Fecha de nacimiento", "DNI"];
-  columns : string[] = ["id","name", "surname", "birthdate", "dni"];
+  headers : string[] = ["Nombre", "Apellido", "Fecha de nacimiento", "DNI"];
+  columns : string[] = ["name", "surname", "birthdate", "dni"];
   pageSize: number = 5;
 
   ngOnInit(): void {
@@ -34,6 +34,10 @@ export class BuyerComponent implements OnInit,OnDestroy{
 
   onClientAdded(): void {
     this._updateTable();
+  }
+
+  onEdit(data:any){
+
   }
 
   private _updateTable() : void{

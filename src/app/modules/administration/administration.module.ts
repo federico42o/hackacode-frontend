@@ -11,6 +11,7 @@ import { TableUsersComponent } from './pages/users/table-users/table-users.compo
 import { UserFormComponent } from './components/user-form/user-form.component';
 import { BuyerFormComponent } from './components/buyer-form/buyer-form.component';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { BuyerEditFormComponent } from './components/buyer-edit-form/buyer-edit-form.component';
 
 
 @NgModule({
@@ -23,6 +24,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
     TableUsersComponent,
     UserFormComponent,
     BuyerFormComponent,
+    BuyerEditFormComponent,
     
   ],
   imports: [
@@ -42,6 +44,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
     TableUsersComponent,
     UserFormComponent,
     BuyerFormComponent,
+    BuyerEditFormComponent,
   ]
 })
 export class AdministrationModule { }
