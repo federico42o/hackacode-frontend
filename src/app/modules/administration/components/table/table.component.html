@@ -1,9 +1,10 @@
 
 
-    <table class=" dark:text-[#F8F7E4] text-secondary " >
-    <thead class="dark:text-[#DED87B] text-lg border-b-2 border-b-[#373737]"  >
+    <section class="w-full h-full">
+    <table class=" flex flex-col dark:text-[#F8F7E4] text-secondary w-fit" >
+    <thead class="dark:text-[#DED87B] text-lg border-b-[.5px] border-b-[#5a5a5a]"  >
         <tr class="h-10 sticky top-0 ">
-            <th class="text-start  pl-4 w-[1rem]" *ngFor="let header of headers; index as i" [ngClass]="{'pr-4':i !== headers.length-1}" [class.pr-4]="i===headers.length-1">
+            <th class="text-start whitespace-nowrap  pl-4 w-[1rem]" *ngFor="let header of headers; index as i" [ngClass]="{'pr-4':i !== headers.length-1}" [class.pr-4]="i===headers.length-1">
                 {{ header }}
             </th>
             <th *ngIf="actions" class="w-[14rem]">
@@ -11,7 +12,7 @@
             </th>
         </tr>
     </thead>
-    <tbody>
+    <tbody class="flex-1 h-full">
         <tr *ngFor="let row of data; index as j" class="hover:bg-[#EEE9DA] dark:hover:bg-[#1a1a1a]">
 <td *ngFor="let column of columns; index as c" class="text-start pl-4 py-2" [class.pr-2]="c===columns.length-1">
   <ng-container *ngIf="isEditMode && editableRow === row.id">
@@ -69,3 +70,4 @@
             </button>
         </div>
     </div>
+  </section>

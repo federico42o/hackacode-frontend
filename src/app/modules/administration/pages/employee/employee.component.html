@@ -1,12 +1,11 @@
+<section class="flex justify-between items-center flex-wrap">
 
-<section class="justify-center items-center overflow-auto" >
-    <div class="mx-[2rem] flex  gap-4 bg-zinc-100 dark:bg-[#252525] p-6 shadow-lg rounded-md ">
-        <div class="" id="scrollbar">
+        <div class=" bg-zinc-100 dark:bg-[#191919] p-4" id="scrollbar">
             
             <app-table [data]="employees" [games]="games" [headers]="headers" [columns]="columns" [actions]="true" (delete)="handleDelete($event)" (edit)="handleEdit($event)"></app-table>
             
         </div>
-        <div class="filters ">
+        <div class="filters bg-zinc-100 dark:bg-[#191919] p-4 rounded-lg ">
             <!-- <div class="flex gap-2">
                 <button class="rounded-xl bg-slate-50 text-secondary px-2" (click)="setTab('add')">Registrar cliente</button>
                 <button class="rounded-xl bg-slate-50 text-secondary px-2" (click)="setTab('filter')">Filtrar</button>
@@ -17,5 +16,5 @@
                 filtros
             </div>
         </div>
-    </div>  
-    </section>
+
+</section>

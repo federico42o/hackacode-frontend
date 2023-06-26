@@ -1,4 +1,4 @@
-<main class="main-container" [ngClass]="{'login-container': route.url.startsWith('/auth') }">
+<div class="main-container h-full" [ngClass]="{'login-container': route.url.startsWith('/auth') }">
   <div class="header">
   <app-header></app-header>
     <!-- <app-clock></app-clock> -->
@@ -6,7 +6,7 @@
   <div class="navbar" *ngIf="!route.url.startsWith('/auth')">
     <app-navbar></app-navbar>
   </div>
-  <div class="main">
+  <main class="main h-full">
     <router-outlet></router-outlet>
-  </div>
-</main>
+  </main>
+</div>
