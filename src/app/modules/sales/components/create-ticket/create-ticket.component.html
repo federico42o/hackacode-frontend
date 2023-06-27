@@ -1,11 +1,11 @@
-<form  [formGroup]="ticketForm" class="text-secondary dark:text-primary flex justify-center" (ngSubmit)="onSubmit()">
+<form  [formGroup]="ticketForm" class="text-dark-primary dark:text-light-primary flex justify-center" (ngSubmit)="onSubmit()">
     <div class="flex flex-col gap-2">
 
         <label for="">Descripción de la entrada</label>
         <input
         class="w-52 
         form-input
-        text-secondary
+        text-dark-primary
         rounded-sm
         p-1
         border-gray-300
@@ -18,11 +18,11 @@
 
         <label for="">Precio</label>
         <div class="flex flex-row relative items-center">
-        <span class="flex items-center rounded rounded-r-none px-3 font-bold text-secondary text-xl absolute top-[3px] right-0">$</span>
+        <span class="flex items-center rounded rounded-r-none px-3 font-bold text-dark-primary text-xl absolute top-[3px] right-0">$</span>
         <input
         class="w-52 
         form-input
-        text-secondary
+        text-dark-primary
         rounded-sm
         p-1
         border-gray-300
@@ -41,7 +41,7 @@
         class="
         cursor-pointer
         form-checkbox
-        text-secondary
+        text-dark-primary
         rounded-sm
         p-1
         border-gray-300
@@ -57,6 +57,6 @@
 
 
 
-    <button type="submit" class="bg-secondary text-white" >Guardar entrada</button>
+    <button type="submit" class="bg-dark-primary text-white" >Guardar entrada</button>
 </div>
 </form>

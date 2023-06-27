@@ -5,30 +5,30 @@
         <!-- <img src="/assets/img/gold-pattern.jpg" class="absolute object-cover object-left top-0 left-0 w-full max-h-full opacity-5"
         alt=""> -->
         <div class="ticket-body w-full h-full">
-            <div class="flex justify-between flex-1 text-secondary">
+            <div class="flex justify-between flex-1 text-dark-primary">
                 <div class="flex border-dashed border-r-2">
                 <!-- <img src="/assets/img/logo.png" class=" object-contain w-[19rem]" alt=""> -->
-                <div class="bg-[#fff] text-secondary text-center h-fit px-4 pb-6 ml-4" id="date">
+                <div class="bg-[#fff] text-dark-primary text-center h-fit px-4 pb-6 ml-4" id="date">
                     <p class="text-4xl p-2 ">{{day}}</p>
                     <p class="text-2xl p-2">{{month | uppercase}}</p>
                     <p class="text-2xl p-2">{{year}}</p>
                 </div>
-                <div class="flex flex-col p-8 flex-1 text-secondary">
+                <div class="flex flex-col p-8 flex-1 text-dark-primary">
                     <header class="flex flex-col items-center ">
-                        <h1 class="text-secondary text-6xl w-full text-center whitespace-nowrap font-ticket">ENTRADA VIP</h1>
-                        <h2 class="text-secondary text-xl w-full whitespace-nowrap font-ticket text-end">CRAZY LAND</h2>
+                        <h1 class="text-dark-primary text-6xl w-full text-center whitespace-nowrap font-ticket">ENTRADA VIP</h1>
+                        <h2 class="text-dark-primary text-xl w-full whitespace-nowrap font-ticket text-end">CRAZY LAND</h2>
                     </header>
                 <div class="body my-10">
-                    <p class="text-3xl text-start text-secondary">{{price | currency}}</p>
-                    <p class="text-xl text-start text-secondary">{{this.data.buyer.name+" "+this.data.buyer.surname}}</p>
-                    <p class="text-xl text-start text-secondary">{{getAge(this.data.buyer.birthdate)> 18 ? 'Menor' : 'Adulto'}}</p>
+                    <p class="text-3xl text-start text-dark-primary">{{price | currency}}</p>
+                    <p class="text-xl text-start text-dark-primary">{{this.data.buyer.name+" "+this.data.buyer.surname}}</p>
+                    <p class="text-xl text-start text-dark-primary">{{getAge(this.data.buyer.birthdate)> 18 ? 'Menor' : 'Adulto'}}</p>
                 </div>
             </div>
         </div>
             <div class="flex justify-center items-center max-w-[150px] z-[99]   bg-white">
                 <div class="-rotate-90 w-fit h-fit ">
                     <app-bar-code class="" [data]="this.data.ticketID"></app-bar-code>
-                    <p class=" text-xl text-center  text-secondary">Valor: {{price | currency}}</p>
+                    <p class=" text-xl text-center  text-dark-primary">Valor: {{price | currency}}</p>
                 </div>
             </div>
         </div>

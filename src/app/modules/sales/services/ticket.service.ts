@@ -3,7 +3,6 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Ticket } from 'src/app/models';
 import { TicketRequest } from 'src/app/models/ticket-request';
-import { TicketVipRequest } from 'src/app/models/ticket-vip-request';
 
 @Injectable({
   providedIn: 'root'

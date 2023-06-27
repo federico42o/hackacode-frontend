@@ -1,10 +1,10 @@
 <div class="w-100 pt-4">
-<form *ngIf="!created" [formGroup]="ticketForm" class="text-secondary flex justify-between" (ngSubmit)="onSubmit()">
+<form *ngIf="!created" [formGroup]="ticketForm" class="text-dark-primary flex justify-between" (ngSubmit)="onSubmit()">
     <div class="flex flex-2 gap-2">
         <input
         class="w-52 
         form-input
-        text-secondary
+        text-dark-primary
         rounded-sm
         p-1
         border-gray-300
@@ -21,7 +21,7 @@
             </mat-option>
         </mat-autocomplete>
 
-    <button type="submit" class="bg-secondary text-white" >GENERAR TICKET</button>
+    <button type="submit" class="bg-dark-primary text-white" >GENERAR TICKET</button>
 </div>
 </form>
 <div *ngIf="created">

@@ -1,49 +1,61 @@
-
-<section class="w-full h-full">
-<table class="  dark:text-[#F8F7E4] text-secondary  " >
-    <thead class="dark:text-[#DED87B] text-lg border-b-[.5px] border-b-[#5a5a5a] pr-8"  >
-        <tr class="h-10 sticky top-0 ">
-            <th class="text-start whitespace-nowrap px-4 " *ngFor="let header of headers; index as i" [ngClass]="{'pr-10':i !== headers.length-1}" [class.pr-2]="i===headers.length-1">
-                {{ header }}
-            </th>
-            <th *ngIf="actions" class="w-[14rem]">
-               Acciones
-            </th>
+<section class="max-w-full h-full">
+    <table class="dark:text-yellow-100 text-dark-primary overflow-x-auto">
+      <thead class="dark:text-yellow-300 text-lg border-b-[.5px] border-b-[#5a5a5a] pr-8">
+        <tr class="h-10 sticky top-0">
+          <th class="text-start whitespace-nowrap px-4" *ngFor="let header of headers; index as i"
+            [ngClass]="{'pr-10':i !== headers.length-1}" [class.pr-2]="i===headers.length-1">
+            {{ header }}
+          </th>
+          <th *ngIf="actions" class="w-[14rem]">
+            Acciones
+          </th>
         </tr>
-    </thead>
-    <tbody class="flex-1 h-full">
-        <tr *ngFor="let row of data; index as j" class="max-w-fit  hover:bg-[#EEE9DA] dark:hover:bg-[#1a1a1a]">
-            <td *ngFor="let column of columns;index as c" class="text-start w-fit px-4 py-2"  [class.pr-2]="c===columns.length-1">
-                {{ row[column] == null ? 'No disponible' : row[column]  }}
-            </td>
-            <td class="py-2 flex justify-center items-center" *ngIf="actions">
-
-                <button class="py-2 px-4 rounded-md" id="editButton" (click)="emitEdit(row.id)">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16"><g id="_01_align_center" class="dark:fill-[#DED87B]" data-name="01 align center"><path d="M22.94,1.06a3.626,3.626,0,0,0-5.124,0L0,18.876V24H5.124L22.94,6.184A3.627,3.627,0,0,0,22.94,1.06ZM4.3,22H2V19.7L15.31,6.4l2.3,2.3ZM21.526,4.77,19.019,7.277l-2.295-2.3L19.23,2.474a1.624,1.624,0,0,1,2.3,2.3Z"/></g></svg>
-                </button>
-                <button class="py-2 px-4 rounded-md" id="deleteButton" (click)="emitDelete(row.id)">
-                    <svg xmlns="http://www.w3.org/2000/svg" id="Outline" viewBox="0 0 24 24" width="16" height="16"
-                    class="dark:fill-[#DED87B]"
-                    ><path d="M21,4H17.9A5.009,5.009,0,0,0,13,0H11A5.009,5.009,0,0,0,6.1,4H3A1,1,0,0,0,3,6H4V19a5.006,5.006,0,0,0,5,5h6a5.006,5.006,0,0,0,5-5V6h1a1,1,0,0,0,0-2ZM11,2h2a3.006,3.006,0,0,1,2.829,2H8.171A3.006,3.006,0,0,1,11,2Zm7,17a3,3,0,0,1-3,3H9a3,3,0,0,1-3-3V6H18Z"/><path d="M10,18a1,1,0,0,0,1-1V11a1,1,0,0,0-2,0v6A1,1,0,0,0,10,18Z"/><path d="M14,18a1,1,0,0,0,1-1V11a1,1,0,0,0-2,0v6A1,1,0,0,0,14,18Z"/></svg>
-                </button>
-            </td>
+      </thead>
+      <tbody class="flex-1 h-full">
+        <tr *ngFor="let row of data; index as j"
+          class="max-w-fit hover:bg-light-hover dark:hover:bg-dark-hover">
+          <td *ngFor="let column of columns; index as c"
+            class="text-start w-fit px-4 py-2" [class.pr-2]="c===columns.length-1">
+            {{ row[column] == null ? 'No disponible' : row[column] }}
+          </td>
+          <td class="py-2 flex justify-center items-center" *ngIf="actions">
+            <button class="py-2 px-4 rounded-md" id="editButton" (click)="emitEdit(row.id)">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16">
+                <g id="_01_align_center" class="dark:fill-yellow-300"
+                  data-name="01 align center">
+                  <path
+                    d="M22.94,1.06a3.626,3.626,0,0,0-5.124,0L0,18.876V24H5.124L22.94,6.184A3.627,3.627,0,0,0,22.94,1.06ZM4.3,22H2V19.7L15.31,6.4l2.3,2.3ZM21.526,4.77,19.019,7.277l-2.295-2.3L19.23,2.474a1.624,1.624,0,0,1,2.3,2.3Z" />
+                </g>
+              </svg>
+            </button>
+            <button class="py-2 px-4 rounded-md" id="deleteButton" (click)="emitDelete(row.id)">
+              <svg xmlns="http://www.w3.org/2000/svg" id="Outline" viewBox="0 0 24 24" width="16" height="16"
+                class="dark:fill-yellow-300">
+                <path
+                  d="M21,4H17.9A5.009,5.009,0,0,0,13,0H11A5.009,5.009,0,0,0,6.1,4H3A1,1,0,0,0,3,6H4V19a5.006,5.006,0,0,0,5,5h6a5.006,5.006,0,0,0,5-5V6h1a1,1,0,0,0,0-2ZM11,2h2a3.006,3.006,0,0,1,2.829,2H8.171A3.006,3.006,0,0,1,11,2Zm7,17a3,3,0,0,1-3,3H9a3,3,0,0,1-3-3V6H18Z" />
+                <path
+                  d="M10,18a1,1,0,0,0,1-1V11a1,1,0,0,0-2,0v6A1,1,0,0,0,10,18Z" />
+                <path
+                  d="M14,18a1,1,0,0,0,1-1V11a1,1,0,0,0-2,0v6A1,1,0,0,0,14,18Z" />
+              </svg>
+            </button>
+          </td>
         </tr>
-        
-    </tbody>
+      </tbody>
     </table>
-    <div class="px-5 pt-4 flex flex-col xs:flex-row  xs:justify-between">
-        <span *ngIf="data" class="text-xs xs:text-sm">
-            Mostrando {{pageSize ? pageSize : data.length}} de {{data ?  data.length : 0}} entradas
-        </span>
-        <div class="inline-flex mt-2 xs:mt-0">
-            <button
-            class="text-sm hover:bg-[#EEE9DA] bg-[#f5f5f5] dark:hover:bg-[#252525] dark:bg-[#1a1a1a] font-semibold py-2 px-4 rounded-l">
-                Anterior
-            </button>
-            <button 
-                class="text-sm hover:bg-[#EEE9DA] bg-[#f5f5f5] dark:hover:bg-[#252525] dark:bg-[#1a1a1a] font-semibold py-2 px-4 rounded-r">
-                Siguiente
-            </button>
-        </div>
+    <div class="px-5 pt-4 flex flex-col xs:flex-row xs:justify-between">
+      <span *ngIf="data" class="text-xs xs:text-sm text-light-primary dark:text-dark-primary">
+        Mostrando {{pageSize ? pageSize : data.length}} de {{data ? data.length : 0}} entradas
+      </span>
+      <div class="inline-flex mt-2 xs:mt-0">
+        <button
+        class="text-sm text-light-primary dark:text-dark-primary hover:bg-hover bg-white dark:hover:bg-dark-hover dark:bg-black font-semibold py-2 px-4 rounded-l">
+            Anterior
+        </button>
+        <button 
+            class="text-sm text-light-primary dark:text-dark-primary hover:bg-hover bg-white dark:hover:bg-dark-hover dark:bg-black font-semibold py-2 px-4 rounded-r">
+            Siguiente
+        </button>
+      </div>
     </div>
-</section>
+  </section>
