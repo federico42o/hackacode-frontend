@@ -29,8 +29,7 @@ import { SharedModule } from './shared';
     AuthModule,
     BrowserAnimationsModule,
     SharedModule,
-    SalesModule,
-
+    SalesModule
   ],
   providers: [
     {provide: MAT_DATE_LOCALE, useValue: "es-ES"},

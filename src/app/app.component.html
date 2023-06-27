@@ -1,5 +1,5 @@
 <div class="main-container h-full" [ngClass]="{'login-container': route.url.startsWith('/auth') }">
-  <div class="header">
+  <div class="header" *ngIf="!route.url.startsWith('/auth')">
   <app-header></app-header>
     <!-- <app-clock></app-clock> -->
   </div>
