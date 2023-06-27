@@ -1,19 +1,29 @@
+<div class="row">
+    <div class="flex flex-col gap-4">
+        <h1 class="text-7xl font-bold text-[#222D30] dark:text-yellow-200 px-8">CLIENTES</h1>
+    </div>
+</div>
 <section class="flex justify-center items-start gap-4 w-full">
 
     <div class=" p-4 h-full" id="scrollbar">
         <app-table [data]="clients" [headers]="headers" [columns]="columns" [actions]="true" (edit)="onEdit($event)"></app-table>
         
     </div>
-    <div class="filters bg-zinc-100 dark:bg-[#191919] p-4  rounded-lg ">
-        <div class="flex gap-2">
-            <button class="rounded-xl bg-slate-50 text-secondary px-2" (click)="setTab('add')">Registrar cliente</button>
-            <button class="rounded-xl bg-slate-50 text-secondary px-2" (click)="setTab('filter')">Filtrar</button>
-            <button class="rounded-xl bg-slate-50 text-secondary px-2" (click)="setTab('idk')">Nose</button>
-        </div>
+    <div class="filters  p-4  rounded-lg border-l-2 border-[#1d1d1d] ">
+        <div class="flex flex-col gap-2">
+        <div class="text-light-primary dark:text-dark-primary border-b-2 border-[#b6b6b6] font-semibold text-xl">REGISTRAR CLIENTE</div>
+        <!-- <div class="flex gap-2">
+            <button class="rounded-xl bg-slate-50 text-dark-primary px-2" (click)="setTab('add')">Registrar cliente</button>
+            <button class="rounded-xl bg-slate-50 text-dark-primary px-2" (click)="setTab('filter')">Filtrar</button>
+            <button class="rounded-xl bg-slate-50 text-dark-primary px-2" (click)="setTab('idk')">Nose</button>
+        </div> -->
+        
         <app-buyer-form *ngIf="currentTab == 'add'" (clientAdded)="onClientAdded()" ></app-buyer-form>
         <div *ngIf="currentTab == 'filter'">
             filtros
         </div>
     </div>
+    </div>
+    
  
 </section>

@@ -1,17 +1,15 @@
 import { Dialog } from '@angular/cdk/dialog';
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { Observable, map, startWith } from 'rxjs';
+import { Observable, Subscription, map, startWith } from 'rxjs';
 import { GeneralTicketComponent, VipTicketComponent } from 'src/app/components';
 import { Game, Ticket } from 'src/app/models';
 import { Buyer } from 'src/app/models/buyer';
-import { TicketRequest } from 'src/app/models/ticket-request';
+import { Data } from 'src/app/models/data';
 import { TicketType } from 'src/app/models/ticket-type';
-import { TicketVipRequest } from 'src/app/models/ticket-vip-request';
 import { BuyerService } from 'src/app/modules/administration/services/buyer.service';
 import { TicketService } from '../../services/ticket.service';
-import { TicketVip } from 'src/app/models/ticket-vip';
-import { Data } from 'src/app/models/data';
+import { TicketDetail } from 'src/app/models/ticket-detail';
 
 
 @Component({
@@ -19,7 +17,7 @@ import { Data } from 'src/app/models/data';
   templateUrl: './add-ticket-form.component.html',
   styleUrls: ['./add-ticket-form.component.css']
 })
-export class AddTicketFormComponent implements OnInit{
+export class AddTicketFormComponent implements OnInit,OnDestroy{
 
   constructor(private fb: FormBuilder,private service: TicketService,private buyerService: BuyerService,private dialog:Dialog) {
     }
@@ -27,19 +25,18 @@ export class AddTicketFormComponent implements OnInit{
     ticketForm! : FormGroup;
     ticketID!: string;
     clients!: any[];
-    ticketVipPrice:number = 5000;
+    clients$!:Subscription;
     clientCtrl = new FormControl('');
     filteredClients$!: Observable<any[]>;
     @Input() currentGame!:Game;
-    @Output() ticket = new EventEmitter<Data>();
+    @Output() ticket = new EventEmitter<TicketDetail>();
 
     ngOnInit(): void {
       this.ticketForm = this.fb.group({
-        type:["",[Validators.required]],
         buyer : [null,[Validators.required]],
       })
 
-      this.buyerService.getAll().subscribe(
+      this.clients$ = this.buyerService.getAll().subscribe(
         (response: any) => {
           this.clients = response.content;
           this.setupFilteredClients()  
@@ -48,6 +45,11 @@ export class AddTicketFormComponent implements OnInit{
     }
     buyer!:Buyer;
     onSubmit() : void {
+      if(this.ticketForm.valid){
+        this.service.save(this.ticketForm.value as Ticket);
+      }else{
+        this.ticketForm.markAllAsTouched();
+      }
       // const type = this.ticketForm.get('type')?.value;
       // if(this.ticketForm.invalid){return}
 
@@ -133,5 +135,9 @@ export class AddTicketFormComponent implements OnInit{
         }
       });
     }
+  }
+
+  ngOnDestroy():void{
+
   }
 }

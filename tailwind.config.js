@@ -6,18 +6,25 @@ module.exports = {
     extend: {
 
       colors : {
-        'primary': "#f5f5f5",
-        'secondary': "#1e1e1e",
+        'light':{
+          'primary': "#1e1e1e",
+          
+        },
+        'dark':{
+          'primary': "#62a8a2",
+          
+        },
+        
         'hover': "#404040",
         'indigo': '#5c6ac4',
         'blue': '#007ace',
-        'red': '#de3618',
-        'yellow': '#fbbf24',
-        'green': {
-          '300':'#10b981',
-          '400':'#059669',
-          '500':'#047857',
-          '600':'#42855B'
+        'red': '#B01F21',
+        'dark-red':'#1d0000',
+
+        'yellow': {
+          '100':'#F8F7E4',
+          '200':'#E7DA7F',
+          '300':'#DED87B',
                 },
         'white': '#ffffff',
         'black': '#000000',
@@ -28,8 +35,18 @@ module.exports = {
         },
       },
       backgroundColor:{
-        'light': "#f5f5f5",
-        'dark': "#1e1e1e",
+        'white':'#f5f5f5',
+        'black':'#161616',
+        'primary': "#62a8a2",
+        'secondary': "#18181B",
+        'light':{
+          'active':'#bdbdbd3b',
+          'hover':'#EEE9DA'
+        },
+        'dark':{
+          'active':'#43434365',
+          'hover':'#1a1a1a'
+        }
       },
       fontFamily: {
         roboto: ['Roboto', 'sans-serif'],

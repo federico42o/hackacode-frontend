@@ -2,37 +2,42 @@
     <table class="w-full flex flex-col justify-between flex-1">
         <thead class="border-b-[.5px] border-[#5a5a5a]">
             <tr class="w-full  flex gap-4">
-                <th class="text-left font-bold text-primary w-[25%]">Descripcion</th>
-                <th class="text-left font-bold text-primary w-[25%]">Cantidad</th>
-                <th class="text-left font-bold text-primary w-[25%]">Comprador</th>
-                <th class="text-right font-bold text-primary w-[25%]">Precio</th>
+                <th class="text-left text-light-primary font-bold dark:text-dark-primary w-[20%]">Descripcion</th>
+                <th class="text-left text-light-primary font-bold dark:text-dark-primary w-[20%]">Juego</th>
+                <th class="text-left text-light-primary font-bold dark:text-dark-primary w-[20%]">Cantidad</th>
+                <th class="text-left text-light-primary font-bold dark:text-dark-primary w-[20%]">Comprador</th>
+                <th class="text-right text-light-primary font-bold dark:text-dark-primary w-[20%]">Precio</th>
             </tr>
         </thead>
         <tbody class="">
-            <tr *ngFor="let ticket of ticketData" class="w-full  flex gap-4">
-                <td  class="text-left text-primary w-[25%]"> {{ticket.type === 'GENERAL' ?  currentGame.name : 'ENTRADA VIP'}}</td>
-                <td  class="text-left text-primary w-[25%]"> {{ticketCount}}</td>
-                <td class="text-left w-[25%]">{{ticket.buyer.name + " " +ticket.buyer.surname}}</td>
-                <td class="text-right w-[25%]">{{displayPrice(ticket) | currency}}</td>
+            <tr *ngFor="let detail of ticketData" class="w-full  flex gap-4">
+                <td  class="text-left text-light-primary dark:text-dark-primary w-[20%]"> {{detail.ticket.description}}</td>
+                <td  class="text-left text-light-primary dark:text-dark-primary w-[20%]"> {{detail.ticket.vip ?  currentGame.name : 'Todos'}}</td>
+                <td  class="text-left text-light-primary dark:text-dark-primary w-[20%]"> {{ticketCount}}</td>
+                <td class="text-left  text-light-primary w-[20%]">{{detail.buyer.name + " " +detail.buyer.surname}}</td>
+                <td class="text-right text-light-primary w-[20%]">{{detail.ticket.price | currency}}</td>
             </tr>
         </tbody>
         <tfoot>
             <tr class="w-full  flex gap-4">
-                <td class="text-left font-bold text-primary w-[25%]">Total</td>
-                <td class="text-left font-bold text-primary min-w-[50%]"></td>
-                <td class="text-right font-bold text-primary w-[25%]">{{total | currency}}</td>
+                <td class="text-left  text-light-primary font-bold dark:text-dark-primary w-[20%]">Total</td>
+                <td class="text-left  text-light-primary font-bold dark:text-dark-primary min-w-[60%]"></td>
+                <td class="text-right  text-light-primary font-bold dark:text-dark-primary w-[20%]">{{total | currency}}</td>
             </tr>
         </tfoot>
     </table>
-<div class="flex gap-4 pt-4">
+<div class="flex gap-4 pt-4 justify-between">
 
-<button class="text-[#15723f] font-medium bg-white flex items-center gap-2 px-4 py-1 rounded-sm">
-    <svg class="fill-[#15723f]" xmlns="http://www.w3.org/2000/svg" id="Isolation_Mode" data-name="Isolation Mode" viewBox="0 0 24 24" width="16" height="16"><path d="M7.8,21.425A2.542,2.542,0,0,1,6,20.679L.439,15.121,2.561,13,7.8,18.239,21.439,4.6l2.122,2.121L9.6,20.679A2.542,2.542,0,0,1,7.8,21.425Z"/></svg>
+    <button (click)="cancel(ticketData)" class="text-[light-primary] font-medium  dark:text-dark-primary flex items-center gap-2 px-5 py-2 rounded-lg border-b border-[#1d1d1d] dark:border-dark-primary dark:hover:bg-[#2f2f2f44] hover:bg-[#b2dddab7]">
+        <svg class="fill-primary" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 512.021 512.021" style="enable-background:new 0 0 512.021 512.021;" xml:space="preserve" width="16" height="16">
+            <g>
+                <path d="M301.258,256.01L502.645,54.645c12.501-12.501,12.501-32.769,0-45.269c-12.501-12.501-32.769-12.501-45.269,0l0,0   L256.01,210.762L54.645,9.376c-12.501-12.501-32.769-12.501-45.269,0s-12.501,32.769,0,45.269L210.762,256.01L9.376,457.376   c-12.501,12.501-12.501,32.769,0,45.269s32.769,12.501,45.269,0L256.01,301.258l201.365,201.387   c12.501,12.501,32.769,12.501,45.269,0c12.501-12.501,12.501-32.769,0-45.269L301.258,256.01z"/>
+            </g></svg>
+        Cancelar compra
+    </button>
+<button class="text-[light-primary] font-medium  dark:text-dark-primary flex items-center gap-2 px-5 py-2 rounded-lg border-b border-[#1d1d1d] dark:border-dark-primary  dark:hover:bg-[#2f2f2f44] hover:bg-[#b2dddab7]">
+    <svg class="fill-primary" xmlns="http://www.w3.org/2000/svg" id="Isolation_Mode" data-name="Isolation Mode" viewBox="0 0 24 24" width="16" height="16"><path d="M7.8,21.425A2.542,2.542,0,0,1,6,20.679L.439,15.121,2.561,13,7.8,18.239,21.439,4.6l2.122,2.121L9.6,20.679A2.542,2.542,0,0,1,7.8,21.425Z"/></svg>
     Procesar compra
-</button>
-<button class="text-[#CD4527] font-medium bg-white flex items-center gap-2 px-4 py-1 rounded-sm">
-    <img src="/assets/img/close.png" alt="" width="16" class="" (click)="cancel(ticketData)">
-    Cancelar compra
 </button>
 </div>
 </section>

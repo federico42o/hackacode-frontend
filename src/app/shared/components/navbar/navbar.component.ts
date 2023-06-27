@@ -15,11 +15,11 @@ export class NavbarComponent implements OnInit{
   
   user!: User;
   roles : string[] = [];
-  currentTab!:string;
+  currentTab:string = '';
   constructor(private route: Router,private service : AuthService,private router: ActivatedRoute) { }
   ngOnInit(): void {
 
-      console.log(this.router.snapshot.url)
+
 
       this.service.getCurrentUser().subscribe((user:User)=>{
         this.user = user;
@@ -33,37 +33,31 @@ export class NavbarComponent implements OnInit{
       
   }
 
-  tabFromUrl():void{
-    const segments = this.router.snapshot.url;
-    if (segments.length > 0) {
-      const role = segments[segments.length - 1].path;
-      console.log(role);
-  
-      switch (role) {
-        case 'employee':
-          this.currentTab = 'EMPLEADO';
-          break;
-        case 'new-ticket':
-          this.currentTab = 'VENTAS';
-          break;
-        case 'users':
-          this.currentTab = 'USUARIOS';
-          break;
-        case 'buyer':
-          this.currentTab = 'CLIENTES';
-          break;
-        case 'game':
-          this.currentTab = 'JUEGOS';
-          break;
-        default:
-          this.currentTab = ''; 
-          break;
-      }
-    }
-}
+
 
   selectTab(tab:string):void{
-    this.currentTab = tab;
+    switch (tab) {
+      case 'EMPLEADO':
+        this.currentTab = 'EMPLEADO';
+        console.log(this.currentTab)
+        break;
+        case 'VENTAS':
+          this.currentTab = 'VENTAS';
+          console.log(this.currentTab)
+          break;
+          case 'USUARIOS':
+            this.currentTab = 'USUARIOS';
+            console.log(this.currentTab)
+            break;
+      case 'CLIENTES':
+        this.currentTab = 'CLIENTES';
+        break;
+      case 'JUEGOS':
+        this.currentTab = 'JUEGOS';
+        break;
+      default:
+        this.currentTab = ''; 
+    }
   }
   logout() {
     this.service.logout();

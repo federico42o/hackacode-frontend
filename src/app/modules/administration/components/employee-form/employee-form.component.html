@@ -1,4 +1,4 @@
-<div class=" login-form mx-auto w-full h-full flex flex-col items-center  gap-4">
+<div class=" login-form mx-auto w-full h-full flex flex-col items-center  gap-4 text-light-primary dark:text-dark-primary">
     <form class="flex flex-col gap-4" [formGroup]="employeeForm" (ngSubmit)="onSubmit()">
         <div class="flex flex-col gap-2">
             <label class="blok whitespace-nowrap w-full">Nombre Completo <span
@@ -6,7 +6,7 @@
             <div class="w-full flex gap-4">
                 <input class="
         form-input
-        text-secondary
+        text-dark-primary
         mt-1
         block
         w-6/12
@@ -18,7 +18,7 @@
 
                 <input class="
         form-input
-        text-secondary
+        text-dark-primary
         mt-1
         block
         w-6/12
@@ -36,7 +36,7 @@
                 <input class="
             
         form-input
-        text-secondary
+        text-dark-primary
         mt-1
         block
         w-full
@@ -51,7 +51,7 @@
                 </label>
                 <input class="
         form-input
-        text-secondary
+        text-dark-primary
         mt-1
         block
         w-full
@@ -65,7 +65,7 @@
         <div class="flex flex-col gap-2 w-6/12">
             <label for="DNI" class="whitespace-nowrap">Juego</label>
             <select formControlName="game" class="form-select
-            text-secondary
+            text-dark-primary
             mt-1
             block
             w-full

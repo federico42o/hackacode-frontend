@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, ElementRef, Input, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
 import { Game, Ticket } from 'src/app/models';
 import { Data } from 'src/app/models/data';
+import { TicketDetail } from 'src/app/models/ticket-detail';
 import { TicketType } from 'src/app/models/ticket-type';
 
 @Component({
@@ -12,7 +13,7 @@ import { TicketType } from 'src/app/models/ticket-type';
 export class SummaryComponent implements OnChanges{
   @ViewChild('content') content!: ElementRef;
   @Input() currentGame!: Game;
-  @Input() ticketData!: Data[];
+  @Input() ticketData!: TicketDetail[];
   @Input() ticketCount:number = 0.0;
   total: number = 0;
   constructor(){
@@ -37,7 +38,7 @@ export class SummaryComponent implements OnChanges{
     // }
   }
 
-  displayPrice(ticket: Data): number {
+  displayPrice(ticket: TicketDetail): number {
     // if (ticket.type === TicketType.VIP) {
     //   return ticket.amount;
     // } else {
