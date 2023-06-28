@@ -8,6 +8,7 @@ module.exports = {
       colors : {
         'light':{
           'primary': "#1e1e1e",
+          'navbar': "#33485f"
           
         },
         'dark':{
