@@ -16,6 +16,7 @@ import { GeneralTicketComponent, VipTicketComponent } from '../components';
 import { BarCodeComponent } from '../components/bar-code/bar-code.component';
 import { InvoiceComponent } from './components/invoice/invoice.component';
 import { PasswordCheckComponent } from './components/password-check/password-check.component';
+import { LoaderComponent } from './components/loader/loader.component';
 export function playerFactory(): any {  
   return import('lottie-web');
 }
@@ -34,6 +35,7 @@ export function playerFactory(): any {
     BarCodeComponent,
     InvoiceComponent,
     PasswordCheckComponent,
+    LoaderComponent,
     
     
   ],
@@ -65,6 +67,7 @@ export function playerFactory(): any {
     BarCodeComponent,
     InvoiceComponent,
     PasswordCheckComponent,
+    LoaderComponent,
   ]
 })
 export class SharedModule { }

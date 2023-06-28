@@ -2,14 +2,14 @@
 <form *ngIf="!created" [formGroup]="ticketForm" class="text-dark-primary flex justify-between" (ngSubmit)="onSubmit()">
     <div class="flex flex-2 gap-2">
         <input
-        class="w-52 
-        form-input
-        text-dark-primary
-        rounded-sm
-        p-1
+        class="form-input text-dark-primary
+      
+        block
+        w-52
+        rounded-md
         border-gray-300
         shadow-md
-        focus:border-green-600 caret-green focus:ring-2 focus:ring-green-600 focus:ring-opacity-5"
+        focus:border-dark-primary focus:ring-2 caret-green focus:ring-dark-primary focus:ring-opacity-5"
         type="text"
         placeholder="DNI del cliente"
         [matAutocomplete]="auto"
@@ -21,10 +21,23 @@
             </mat-option>
         </mat-autocomplete>
 
-    <button type="submit" class="bg-dark-primary text-white" >GENERAR TICKET</button>
+        <select formControlName="ticket" class="form-select
+        text-dark-primary
+        
+        block
+        w-52
+        rounded-md
+        border-gray-300
+        shadow-md
+        focus:border-dark-primary focus:ring-2 caret-green focus:ring-dark-primary focus:ring-opacity-5">
+            <option [value]="null">Sin asignar</option>
+            <option *ngFor="let ticket of tickets" [ngValue]="ticket">{{ticket.description}}</option>
+        </select>
+
+    <button type="submit" class="bg-dark-primary text-white w-full whitespace-nowrap px-2 rounded-md" >GENERAR TICKET</button>
 </div>
 </form>
 <div *ngIf="created">
-    <button (click)="showTicket(ticketForm.get('type')?.value)">TICKET ID: {{ticketID}}</button>
+    <!-- <button (click)="showTicket(ticketForm.get('type')?.value)">TICKET ID: {{ticketID}}</button> -->
 </div>
 </div>

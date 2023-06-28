@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable, map, of, startWith } from 'rxjs';
-import { ClientService } from '../../services/client.service';
 import { FormControl } from '@angular/forms';
+import { Observable, map, startWith } from 'rxjs';
 import { BuyerService } from 'src/app/modules/administration/services/buyer.service';
 
 @Component({

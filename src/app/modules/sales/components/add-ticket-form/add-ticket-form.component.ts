@@ -10,6 +10,8 @@ import { TicketType } from 'src/app/models/ticket-type';
 import { BuyerService } from 'src/app/modules/administration/services/buyer.service';
 import { TicketService } from '../../services/ticket.service';
 import { TicketDetail } from 'src/app/models/ticket-detail';
+import { TicketDetailService } from '../../services/ticket-detail.service';
+import { TicketDetailRequest } from 'src/app/models/ticket-detail-request';
 
 
 @Component({
@@ -19,13 +21,13 @@ import { TicketDetail } from 'src/app/models/ticket-detail';
 })
 export class AddTicketFormComponent implements OnInit,OnDestroy{
 
-  constructor(private fb: FormBuilder,private service: TicketService,private buyerService: BuyerService,private dialog:Dialog) {
+  constructor(private fb: FormBuilder) {
     }
     created:boolean =false;
     ticketForm! : FormGroup;
     ticketID!: string;
-    clients!: any[];
-    clients$!:Subscription;
+    @Input() buyers!: Buyer[];
+    @Input() tickets!:Ticket[];
     clientCtrl = new FormControl('');
     filteredClients$!: Observable<any[]>;
     @Input() currentGame!:Game;
@@ -34,58 +36,27 @@ export class AddTicketFormComponent implements OnInit,OnDestroy{
     ngOnInit(): void {
       this.ticketForm = this.fb.group({
         buyer : [null,[Validators.required]],
+        ticket : [null,[Validators.required]]
       })
-
-      this.clients$ = this.buyerService.getAll().subscribe(
-        (response: any) => {
-          this.clients = response.content;
-          this.setupFilteredClients()  
-        }
-      );
+      this.setupFilteredClients()
     }
     buyer!:Buyer;
     onSubmit() : void {
+      const detail:TicketDetail = {
+        id:'',
+        ticket: this.ticketForm.get('ticket')?.value,
+        buyer: this.ticketForm.get('buyer')?.value
+      }
       if(this.ticketForm.valid){
-        this.service.save(this.ticketForm.value as Ticket);
+
+
+        this.ticket.emit(detail)
+
       }else{
+        console.log('error')
         this.ticketForm.markAllAsTouched();
       }
-      // const type = this.ticketForm.get('type')?.value;
-      // if(this.ticketForm.invalid){return}
 
-      // if(type === TicketType.GENERAL){
-      //   const ticket: TicketRequest = {
-      //     buyer: this.ticketForm.get('buyer')?.value,
-      //     game: this.currentGame
-      //   };
-      //   this.service.createNormal(ticket).subscribe({
-      //     next: (data:any) => {
-      //       this.ticketID=data
-      //       this.ticket.emit({type:TicketType.GENERAL,buyer:ticket.buyer, amount:ticket.game.price})
-          
-      //     },
-      //     error: (err) => {console.log(err)},
-      //     complete:()=>{this.buyer=ticket.buyer,this.created=true
-      //     }
-      //   });
-      // }else{
-      //   const ticket: TicketVipRequest = {
-      //     buyer: this.ticketForm.get('buyer')?.value,
-      //     price: 5000.0,
-      //   };
-      //   this.service.createVip(ticket).subscribe({
-          
-      //     next: (data:any) => {
-      //       this.ticketID=data
-      //       this.ticket.emit({type:TicketType.VIP,buyer:ticket.buyer, amount:ticket.price})
-          
-      //     }
-          
-      //     ,
-      //     error: (err) => {console.log(err)},
-      //     complete:()=>{this.buyer=ticket.buyer,this.created=true}
-      //   });
-      // }
     }
 
     displayBuyer(buyer: Buyer | null): string {
@@ -100,7 +71,7 @@ export class AddTicketFormComponent implements OnInit,OnDestroy{
         startWith(""),
         map((value: string | Buyer) => {
           if (typeof value === "string") {
-            return value ? this.filterBuyers(value) : this.clients.slice();
+            return value ? this.filterBuyers(value) : this.buyers.slice();
           } else {
             return [];
           }
@@ -109,33 +80,33 @@ export class AddTicketFormComponent implements OnInit,OnDestroy{
     }
     private filterBuyers(value: string): Buyer[] {
       const filterValue = value.toLowerCase();
-      return this.clients.filter(
-        (clients) =>
-          (clients.dni && clients.dni.includes(filterValue)) ||
-          (clients.name && clients.name.toLowerCase().includes(filterValue))
+      return this.buyers.filter(
+        (buyers) =>
+          (buyers.dni && buyers.dni.includes(filterValue)) ||
+          (buyers.name && buyers.name.toLowerCase().includes(filterValue))
       );
     }
-    showTicket(type:string):void{
-      if(type === TicketType.GENERAL){
-      const dialogRef = this.dialog.open(GeneralTicketComponent, {
-        width: '80%',
-        height: '50%',
-        data:{
-          buyer:this.buyer,
-          ticketID:this.ticketID
-        }
-      });
-    }else{
-      const dialogRef = this.dialog.open(VipTicketComponent, {
-        width: '80%',
-        height: '50%',
-        data:{
-          buyer:this.buyer,
-          ticketID:this.ticketID
-        }
-      });
-    }
-  }
+  //   showTicket(type:string):void{
+  //     if(type === TicketType.GENERAL){
+  //     const dialogRef = this.dialog.open(GeneralTicketComponent, {
+  //       width: '80%',
+  //       height: '50%',
+  //       data:{
+  //         buyer:this.buyer,
+  //         ticketID:this.ticketID
+  //       }
+  //     });
+  //   }else{
+  //     const dialogRef = this.dialog.open(VipTicketComponent, {
+  //       width: '80%',
+  //       height: '50%',
+  //       data:{
+  //         buyer:this.buyer,
+  //         ticketID:this.ticketID
+  //       }
+  //     });
+  //   }
+  // }
 
   ngOnDestroy():void{
 

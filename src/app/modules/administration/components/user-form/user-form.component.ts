@@ -3,11 +3,10 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable, map, startWith } from 'rxjs';
 import { Employee, UserRole } from 'src/app/models';
 import { UserRequest } from 'src/app/models/user-request';
-import { EmployeeService } from '../../services/employee.service';
-import { UserEmployeeService } from '../../services/user-employee.service';
-import { RoleService } from '../../services/role.service';
 import { randomPassword } from 'src/app/shared/utils/genPw';
-import { randomEmail } from 'src/app/shared/utils/generateEmail';
+import { EmployeeService } from '../../services/employee.service';
+import { RoleService } from '../../services/role.service';
+import { UserEmployeeService } from '../../services/user-employee.service';
 
 @Component({
   selector: 'app-user-form',
