@@ -13,6 +13,7 @@ import { AuthModule, SalesModule } from "./modules";
 import { AuthInterceptor } from "./modules/auth/auth.interceptor";
 import { SharedModule } from './shared';
 import { LoaderInterceptor } from "./shared/interceptor/loader.interceptor";
+import { RoleGuard } from "./modules/auth/guard/role.guard";
 
 
 
@@ -41,6 +42,7 @@ import { LoaderInterceptor } from "./shared/interceptor/loader.interceptor";
       multi: true,
     },
     CookieService,
+    RoleGuard
   ],
   bootstrap: [AppComponent]
 })

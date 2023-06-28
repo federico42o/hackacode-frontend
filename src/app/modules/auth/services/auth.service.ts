@@ -2,9 +2,10 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable, OnInit } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 import { BehaviorSubject, Observable, Subscription, catchError, switchMap, tap, throwError } from 'rxjs';
-import { Game, User } from 'src/app/models';
+import { Game, User, UserRole } from 'src/app/models';
 
 import jwt_decode from 'jwt-decode';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -12,6 +13,15 @@ export class AuthService {
 
   private currentUserSubject: BehaviorSubject<User> = new BehaviorSubject<User>({} as User);
   private currentGameSubject: BehaviorSubject<Game> = new BehaviorSubject<Game>({} as Game);
+  private rolePermissions = {
+    'ADMINISTRADOR': ['administration' ],
+    'VENTAS': ['sales' ],
+    'GERENTE': [ 'reports' ]
+  };
+
+
+
+
   constructor(private http: HttpClient, private cookies: CookieService) { 
     const token = cookies.get('token');
     if (token !== '' && token !== null) {
@@ -75,5 +85,29 @@ export class AuthService {
   isLogged(): boolean {
     const token = this.cookies.get('token');
     return token !== '' && token !== null;
+  }
+  getUserRoles():string[]{
+
+  const currentUser:User = this.currentUserSubject.value;
+
+  if (currentUser && currentUser.roles) {
+    return currentUser.roles.map((role) => role.role);
+  } else {
+    return [];
+  }
+  }
+
+  hasPermission(module: string): boolean {
+    const userRoles = this.getUserRoles();
+
+    for (const role of userRoles) {
+
+      const modules = this.rolePermissions[role as keyof typeof this.rolePermissions];
+
+      if (modules && modules.includes(module)) {
+        return true;
+      }
+    }
+    return false;
   }
 }
