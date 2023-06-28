@@ -1,6 +1,7 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { User } from 'src/app/models';
 import { AuthService } from 'src/app/modules/auth/services/auth.service';
 
@@ -22,21 +23,26 @@ import { AuthService } from 'src/app/modules/auth/services/auth.service';
     ])
   ],
 })
-export class HeaderComponent implements OnInit{
+export class HeaderComponent implements OnInit,OnDestroy{
   
   constructor(private service : AuthService,private route: Router) {}
   user!:User;
   menuOpen:boolean = false;
-  
+  subscription$!: Subscription;
+  logged:boolean = false;
   
   ngOnInit(): void {
-    this.service.getCurrentUser().subscribe((user)=>{
-      this.user = user;
-    });
+    this.subscription$ = this.service.getCurrentUser().subscribe({
+      next:(user:User)=>{
+      this.user = user;  
+    }
+  });
+    this.logged = this.service.isLogged();
   }
 
 
   logout():void{
+    this.logged = false;
     this.service.logout();
     this.route.navigate(['/auth/login']);
     
@@ -45,7 +51,12 @@ export class HeaderComponent implements OnInit{
 
   toggleTab():void{
     this.menuOpen = !this.menuOpen;
-   
+  }
+
+  ngOnDestroy():void{
+    if(this.subscription$){
+      this.subscription$.unsubscribe();
+    }
   }
 
 }
