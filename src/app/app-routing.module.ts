@@ -19,13 +19,13 @@ const routes: Routes = [
   loadChildren: () => import('./modules/sales/sales.module').then(m => m.SalesModule),
   canActivate: [AuthGuard],
   data:{module:'sales'},
-  canActivateChild : [RoleGuard]
+  // canActivateChild : [RoleGuard] momentaneamente
 },
   { path: 'administration', 
   loadChildren: () => import('./modules/administration/administration.module').then(m => m.AdministrationModule), 
   canActivate: [AuthGuard],
   data:{module:'administration'},
-  canActivateChild : [RoleGuard] 
+  // canActivateChild : [RoleGuard] 
    
 },
 ];

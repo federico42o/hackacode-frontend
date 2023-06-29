@@ -27,17 +27,20 @@ export class HeaderComponent implements OnInit,OnDestroy{
   
   constructor(private service : AuthService,private route: Router) {}
   user!:User;
-  menuOpen:boolean = false;
   subscription$!: Subscription;
-  logged:boolean = false;
+  logged!:boolean;
+  menuOpen!:boolean;
   
   ngOnInit(): void {
+    this.menuOpen=false;
     this.subscription$ = this.service.getCurrentUser().subscribe({
       next:(user:User)=>{
-      this.user = user;  
+        this.user = user;  
+        this.logged = this.service.isLogged();
+    },complete:()=>{
+
     }
   });
-    this.logged = this.service.isLogged();
   }
 
 
@@ -57,6 +60,7 @@ export class HeaderComponent implements OnInit,OnDestroy{
     if(this.subscription$){
       this.subscription$.unsubscribe();
     }
+    this.menuOpen = false;
   }
 
 }

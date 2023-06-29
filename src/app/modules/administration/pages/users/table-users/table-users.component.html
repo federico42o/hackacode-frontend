@@ -1,5 +1,5 @@
 <section class="max-w-full h-full">
-    <table class="dark:text-yellow-100 text-dark-primary overflow-x-auto">
+    <table class="dark:text-yellow-100 text-dark-primary overflow-x-auto h-full">
       <thead class="dark:text-yellow-300 text-lg border-b-[.5px] border-b-[#5a5a5a] pr-8">
         <tr class="h-10 sticky top-0">
           <th class="text-start whitespace-nowrap px-4" *ngFor="let header of headers; index as i"
@@ -11,7 +11,7 @@
           </th>
         </tr>
       </thead>
-      <tbody class="flex-1 h-full">
+      <tbody class="h-full" style="height: fit-content;">
         <tr *ngFor="let row of data; index as j"
           class="max-w-fit hover:bg-light-hover dark:hover:bg-dark-hover">
           <td *ngFor="let column of columns; index as c"

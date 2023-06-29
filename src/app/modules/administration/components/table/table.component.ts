@@ -31,10 +31,8 @@ export class TableComponent implements OnInit{
     this.edit.emit(row);
   }
   editValue(row: any, column: string, value: any) {
-    // Aquí puedes realizar las acciones necesarias para manejar la edición del valor
-    // Puedes actualizar el valor en el objeto 'row', enviarlo a través de un evento, etc.
-    // Por ejemplo, podrías actualizar el valor directamente en el objeto 'row':
     row[column] = value;
+    console.log(value)
   }
   
   pageSize!: any;

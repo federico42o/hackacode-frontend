@@ -5,24 +5,24 @@
 </div>
 <section class="flex justify-center items-start  gap-4 w-full flex-wrap">
 
-        <div class="  p-4" id="scrollbar">
+        <div class=" min-w-[100%] mx-4 p-4" id="scrollbar">
             
-            <app-table [data]="employees" [games]="games" [headers]="headers" [columns]="columns" [actions]="true" (delete)="handleDelete($event)" (edit)="handleEdit($event)"></app-table>
-            
+            <!-- <app-table [data]="employees" [games]="games" [headers]="headers" [columns]="columns" [actions]="true" (delete)="handleDelete($event)" (edit)="handleEdit($event)"></app-table> -->
+            <app-shared-table [columnsSchema]="columns" [dataSource]="employees" [games]="games" (save)="onDataSave($event)" ></app-shared-table>
         </div>
-        <div class="filters  p-4  rounded-lg border-l-2 border-[#1d1d1d] ">
-            <div class="flex flex-col gap-2">
-            <div class=" text-light-primary dark:text-dark-primary border-b-2 border-[#b6b6b6] font-semibold text-xl">REGISTRAR EMPLEADO</div>
+        <!-- <div class="filters  p-4  rounded-lg border-l-2 border-[#1d1d1d] "> -->
+            <!-- <div class="flex flex-col gap-2"> -->
+            <!-- <div class=" text-light-primary dark:text-dark-primary border-b-2 border-[#b6b6b6] font-semibold text-xl">REGISTRAR EMPLEADO</div> -->
             <!-- <div class="flex gap-2">
                 <button class="rounded-xl bg-slate-50 text-dark-primary px-2" (click)="setTab('add')">Registrar cliente</button>
                 <button class="rounded-xl bg-slate-50 text-dark-primary px-2" (click)="setTab('filter')">Filtrar</button>
                 <button class="rounded-xl bg-slate-50 text-dark-primary px-2" (click)="setTab('idk')">Nose</button>
             </div> -->
             <app-employee-form *ngIf="currentTab == 'add'" (employeeAdded)="onClientAdded()"></app-employee-form>
-            <div *ngIf="currentTab == 'filter'">
+            <!-- <div *ngIf="currentTab == 'filter'">
                 filtros
-            </div>
-        </div>
-    </div>
+            </div> -->
+        <!-- </div> -->
+    <!-- </div> -->
 
 </section>

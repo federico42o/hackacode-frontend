@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { User } from 'src/app/models';
 import { UserRequest } from 'src/app/models/user-request';
 
 @Injectable({
@@ -16,5 +17,9 @@ export class UserEmployeeService {
 
   create(user:UserRequest):Observable<any>{
     return this.http.post(this.baseUrl, user);
+  }
+
+  update(user:User):Observable<any>{
+    return this.http.put(this.baseUrl, user);
   }
 }

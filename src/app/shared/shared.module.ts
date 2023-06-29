@@ -18,6 +18,10 @@ import { InvoiceComponent } from './components/invoice/invoice.component';
 import { PasswordCheckComponent } from './components/password-check/password-check.component';
 import { LoaderComponent } from './components/loader/loader.component';
 import { ForbiddenComponent } from './components/forbidden/forbidden.component';
+import { SharedTableComponent } from './components/shared-table/shared-table.component';
+import {MatTableModule} from '@angular/material/table';
+import {MatPaginatorModule} from '@angular/material/paginator';
+import {MatSortModule} from '@angular/material/sort';
 export function playerFactory(): any {  
   return import('lottie-web');
 }
@@ -38,7 +42,8 @@ export function playerFactory(): any {
     PasswordCheckComponent,
     LoaderComponent,
     ForbiddenComponent,
-    
+    SharedTableComponent,
+
     
   ],
   imports: [
@@ -51,6 +56,10 @@ export function playerFactory(): any {
     MatExpansionModule,
     MatNativeDateModule,
     MatDatepickerModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule,
+    
     LottieModule.forRoot({ player: playerFactory }),
   ],
   exports: [
@@ -71,6 +80,11 @@ export function playerFactory(): any {
     PasswordCheckComponent,
     LoaderComponent,
     ForbiddenComponent,
+    SharedTableComponent,
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule
+    
   ]
 })
 export class SharedModule { }

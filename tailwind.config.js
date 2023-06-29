@@ -15,7 +15,7 @@ module.exports = {
           'primary': "#62a8a2",
           
         },
-        
+        'logo':'#CACDDD',
         'hover': "#404040",
         'indigo': '#5c6ac4',
         'blue': '#007ace',
