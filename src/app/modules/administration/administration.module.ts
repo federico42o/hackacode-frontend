@@ -1,26 +1,25 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
 
 import { AdministrationRoutingModule } from './administration-routing.module';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { EmployeeComponent,BuyerComponent,UsersComponent } from './pages';
-import { TableComponent,EmployeeFormComponent } from './components';
-import { SharedModule } from 'src/app/shared';
-import { TableUsersComponent } from './pages/users/table-users/table-users.component';
-import { UserFormComponent } from './components/user-form/user-form.component';
-import { BuyerFormComponent } from './components/buyer-form/buyer-form.component';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { SharedModule } from 'src/app/shared';
+import { EmployeeFormComponent } from './components';
 import { BuyerEditFormComponent } from './components/buyer-edit-form/buyer-edit-form.component';
-import { EmployeeTableComponent } from './pages/employee/employee-table/employee-table.component';
+import { BuyerFormComponent } from './components/buyer-form/buyer-form.component';
+import { UserFormComponent } from './components/user-form/user-form.component';
+import { BuyerComponent, EmployeeComponent, UsersComponent } from './pages';
 import { BuyerTableComponent } from './pages/buyer/buyer-table/buyer-table.component';
+import { EmployeeTableComponent } from './pages/employee/employee-table/employee-table.component';
+import { TableUsersComponent } from './pages/users/table-users/table-users.component';
 
 
 @NgModule({
   declarations: [
     BuyerComponent,
     EmployeeComponent,
-    TableComponent,
     UsersComponent,
     EmployeeFormComponent,
     TableUsersComponent,
@@ -42,7 +41,6 @@ import { BuyerTableComponent } from './pages/buyer/buyer-table/buyer-table.compo
   exports:[
     BuyerComponent,
     EmployeeComponent,
-    TableComponent,
     UsersComponent,
     EmployeeFormComponent,
     TableUsersComponent,
