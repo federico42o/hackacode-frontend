@@ -17,44 +17,6 @@ export class EmployeeComponent implements OnInit, OnDestroy{
   
   employees$! : Subscription;
   constructor(private service : EmployeeService,public dialog: Dialog,private gameService: GameService,){}
-
-  headers : string[] = ["Nombre", "Apellido","DNI", "Fecha de nacimiento",  "Juego asignado"];
-  columns1: string[] = ["name", "surname","dni", "birthdate", "game"];
-  columns = [
-    {
-      key: "name",
-      type: "text",
-      label: "Nombre"
-  },
-  {
-      key: "surname",
-      type: "text",
-      label: "Apellido"
-  },
-  {
-      key: "dni",
-      type: "text",
-      label: "DNI"
-  },
-  {
-      key: "birthdate",
-      type: "date",
-      label: "Fecha de nacimiento"
-  },
-  {
-    key: "game",
-    type: "select",
-    label: "Juego asignado"
-  },
-  {
-    key: "isEdit",
-    type: "isEdit",
-    label: "Acciones"
-  }
-  ]
-
-
-
   employees : Employee[] = [];
   currentTab:string = 'add';
   games!:Game[]
@@ -64,21 +26,7 @@ export class EmployeeComponent implements OnInit, OnDestroy{
     
   }
 
-
-  onDataSave(data:any){
-    this.service.update(data,data.id).subscribe({
-      error:(err)=>{
-        console.log(err)
-      },
-      complete:()=>{
-        this._updateTable()
-      }
-    })
-  }
-
-  handleEdit(id: number): void {}
-
-  handleDelete(id:number): void{
+  onDelete(id:number){
     const dialogRef = this.dialog.open(DialogComponent,{
       width: '30%',
       height: '10%',
@@ -93,6 +41,10 @@ export class EmployeeComponent implements OnInit, OnDestroy{
           this.service.delete(id).subscribe({
             next: (data:any) => {
             },
+            error:(err:any)=>{
+              console.log(err)
+            }
+              ,
             complete: () => {
               this._updateTable();
               this.dialog.closeAll();
@@ -109,6 +61,52 @@ export class EmployeeComponent implements OnInit, OnDestroy{
         }
       });  
   }
+
+
+  onEdit(data:any){
+    this.service.update(data,data.id).subscribe({
+      error:(err)=>{
+        console.log(err)
+      },
+      complete:()=>{
+        this._updateTable()
+      }
+    })
+  }
+
+  // handleEdit(id: number): void {}
+
+  // handleDelete(id:number): void{
+  //   const dialogRef = this.dialog.open(DialogComponent,{
+  //     width: '30%',
+  //     height: '10%',
+  //     data: {
+  //       message: "¿Desea borrar este empleado?",
+  //       id,
+  //     }
+  //     });
+  //     dialogRef.componentInstance?.accept.subscribe({
+  //       next: () => {
+
+  //         this.service.delete(id).subscribe({
+  //           next: (data:any) => {
+  //           },
+  //           complete: () => {
+  //             this._updateTable();
+  //             this.dialog.closeAll();
+  //           }
+
+  //         });
+          
+  //       },
+  //       error: (err:any) => {
+  //         console.log(err);
+  //       },
+  //       complete: () => {
+  //         this._updateTable();
+  //       }
+  //     });  
+  // }
   private _updateTable() : void{
     this.employees$ = this.service.getAll().subscribe(
       {

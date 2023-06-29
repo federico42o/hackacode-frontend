@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { UserRole } from 'src/app/models';
+import { environment } from 'src/environments/environment.development';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +10,7 @@ import { UserRole } from 'src/app/models';
 export class RoleService {
 
   constructor(private http: HttpClient) { }
-  baseUrl = 'http://localhost:8080/api/roles';
+  baseUrl = environment.apiUrl+'roles';
 
   create(role:UserRole):Observable<any>{ 
     return this.http.post(this.baseUrl, role);

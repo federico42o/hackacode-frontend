@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { User, UserRequest } from 'src/app/models';
+import { environment } from 'src/environments/environment.development';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +10,7 @@ import { User, UserRequest } from 'src/app/models';
 export class UserEmployeeService {
 
   constructor(private http: HttpClient) { }
-  baseUrl = 'http://localhost:8080/api/usuarios';
+  baseUrl = environment.apiUrl+'usuarios';
   getAll() : Observable<any>{
     return this.http.get(this.baseUrl);
   }
@@ -20,5 +21,9 @@ export class UserEmployeeService {
 
   update(user:User):Observable<any>{
     return this.http.put(this.baseUrl, user);
+  }
+
+  delete(id:number):Observable<any>{
+    return this.http.delete(this.baseUrl+"/"+id);
   }
 }

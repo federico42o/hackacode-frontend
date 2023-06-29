@@ -58,16 +58,25 @@ export class UsersComponent implements OnInit {
     });
     this._updateTable()
   }
-  onDataSave(data:UserTable):void{
+  onEdit(data:UserTable):void{
 
       if (data) {
-        this.service.update(data).subscribe({
-          next: () => {
-            this._updateTable();
-          }
-        });
+        // this.service.update(data).subscribe({
+        //   next: () => {
+        //     this._updateTable();
+        //   }
+        // });
+        console.log(data)
       }
-
+  }
+  onDelete(id:number):void{
+    if (id) {
+      this.service.delete(id).subscribe({
+        next: () => {
+          this._updateTable();
+        }
+      });
+    }
   }
 
   setData(userList: User[]): UserTable[] {
@@ -104,3 +113,4 @@ export class UsersComponent implements OnInit {
 
 
 }
+

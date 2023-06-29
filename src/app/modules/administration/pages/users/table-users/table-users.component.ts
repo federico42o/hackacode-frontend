@@ -17,14 +17,14 @@ export class TableUsersComponent implements OnInit {
 
   @Input() roles!: UserRole[];
   
-  @Output() save = new EventEmitter();
+  @Output() delete = new EventEmitter();
   @Output() edit = new EventEmitter();
   dataSource!: MatTableDataSource<UserTable>;
   
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  displayedColumns: string[]  = ['name','surname','dni','username','roles'];
+  displayedColumns: string[]  = ['name','surname','dni','username','roles','actions'];
   data: UserTable[] = []
   users!:User[];
   currentTab:string = 'add';
@@ -72,12 +72,12 @@ export class TableUsersComponent implements OnInit {
     });
   }
 
-  emitSave(user:User){
-    this.save.emit(user);
+  emitDelete(id:number){
+    this.delete.emit(id);
   }
 
-  emitEdit(id: number){
-    this.edit.emit(id);
+  emitEdit(user: User){
+    this.edit.emit(user);
   }
 
 

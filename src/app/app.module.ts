@@ -14,6 +14,7 @@ import { AuthInterceptor } from "./modules/auth/auth.interceptor";
 import { SharedModule } from './shared';
 import { LoaderInterceptor } from "./shared/interceptor/loader.interceptor";
 import { RoleGuard } from "./modules/auth/guard/role.guard";
+import { ReportsModule } from "./modules/reports/reports.module";
 
 
 
@@ -31,7 +32,8 @@ import { RoleGuard } from "./modules/auth/guard/role.guard";
     AuthModule,
     BrowserAnimationsModule,
     SharedModule,
-    SalesModule
+    SalesModule,
+    ReportsModule
   ],
   providers: [
     {provide: MAT_DATE_LOCALE, useValue: "es-ES"},

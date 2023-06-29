@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Ticket, TicketRequest } from 'src/app/models';
+import { environment } from 'src/environments/environment.development';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +10,7 @@ import { Ticket, TicketRequest } from 'src/app/models';
 export class TicketService {
 
   constructor(private http: HttpClient) { }
-  baseUrl = 'http://localhost:8080/api/tickets';
+  baseUrl = environment.apiUrl+'tickets';
 
   save(ticket:TicketRequest) : Observable<any>{
     return this.http.post(this.baseUrl, ticket);

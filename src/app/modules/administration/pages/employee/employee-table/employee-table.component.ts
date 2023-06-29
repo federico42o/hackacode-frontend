@@ -22,7 +22,7 @@ export class EmployeeTableComponent implements AfterViewInit,OnInit{
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  displayedColumns: string[]  = ['name','surname','dni','birthdate','game'];
+  displayedColumns: string[]  = ['name','surname','dni','birthdate','game','actions'];
   employees: Employee[] = []
 
 
@@ -69,4 +69,10 @@ export class EmployeeTableComponent implements AfterViewInit,OnInit{
     }
   }
 
+  emitDelete(id: number) {
+    this.delete.emit(id);
+  }
+  emitEdit(data: Employee) {
+    this.edit.emit(data);
+  }
 }

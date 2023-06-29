@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { environment } from 'src/environments/environment.development';
 
 @Injectable({
   providedIn: 'root'
@@ -7,7 +8,7 @@ import { Injectable } from '@angular/core';
 export class GameService {
 
   constructor(private http: HttpClient) { }
-  baseUrl = 'http://localhost:8080/api/juegos';
+  baseUrl = environment.apiUrl+'juegos';
 
   getAll(): any {
     return this.http.get(this.baseUrl);

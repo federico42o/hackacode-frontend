@@ -6,17 +6,8 @@
   <section class="flex justify-center items-start  gap-4 w-full flex-wrap">
   
         <div class=" min-w-[90%] p-4" id="scrollbar">
-          <app-buyer-table  ></app-buyer-table>
-        </div>
-    <!-- <div class="filters p-4  rounded-lg ">
-        <div class="flex gap-2">
-            <button class="rounded-xl bg-slate-50 text-secondary px-2" (click)="setTab('add')">Registrar cliente</button>
-            <button class="rounded-xl bg-slate-50 text-secondary px-2" (click)="setTab('filter')">Filtrar</button>
-            <button class="rounded-xl bg-slate-50 text-secondary px-2" (click)="setTab('idk')">Nose</button>
+          <app-buyer-table (edit)="onEdit($event)" (delete)="onDelete($event)" ></app-buyer-table>
         </div>
         <app-buyer-form *ngIf="currentTab == 'add'" (clientAdded)="onClientAdded()" ></app-buyer-form>
-        <div *ngIf="currentTab == 'filter'">
-            filtros
-        </div>
-    </div> -->
+
 </section>

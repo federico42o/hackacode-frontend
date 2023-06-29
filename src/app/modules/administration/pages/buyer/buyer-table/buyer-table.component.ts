@@ -19,7 +19,7 @@ export class BuyerTableComponent implements OnInit{
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  displayedColumns: string[]  = ['name','surname','dni','birthdate','lastVisit'];
+  displayedColumns: string[]  = ['name','surname','dni','birthdate','lastVisit','actions'];
   buyers: Buyer[] = []
 
 
@@ -60,5 +60,11 @@ export class BuyerTableComponent implements OnInit{
       this.dataSource.paginator.firstPage();
     }
   }
+  emitEdit(data:Buyer):void{
+    this.edit.emit(data)
+  }
 
+  emitDelete(id:number):void{
+    this.delete.emit(id)
+  }
 }
