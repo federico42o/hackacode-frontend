@@ -1,8 +1,14 @@
+import { Employee } from "./employee";
+import { UserRole } from "./user-role";
+
 export interface UserTable {
-    nombre: string,
-    apellido: string,
+    id:number,
+    password:string,
+    name: string,
+    surname: string,
+    username:string,
+    employee:Employee,
     dni: string,
-    usuario: string
-    roles: string,
+    roles: UserRole[],
    
 }

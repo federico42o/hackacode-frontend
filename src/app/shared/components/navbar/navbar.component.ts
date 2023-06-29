@@ -39,15 +39,13 @@ export class NavbarComponent implements OnInit{
     switch (tab) {
       case 'EMPLEADO':
         this.currentTab = 'EMPLEADO';
-        console.log(this.currentTab)
+
         break;
         case 'VENTAS':
           this.currentTab = 'VENTAS';
-          console.log(this.currentTab)
           break;
           case 'USUARIOS':
             this.currentTab = 'USUARIOS';
-            console.log(this.currentTab)
             break;
       case 'CLIENTES':
         this.currentTab = 'CLIENTES';

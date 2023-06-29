@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BuyerRequest } from '../pages';
 import { Observable } from 'rxjs';
+import { Buyer } from 'src/app/models/buyer';
 
 @Injectable({
   providedIn: 'root'
@@ -24,8 +25,8 @@ export class BuyerService {
     this.http.delete(this.baseUrl +"/"+ id);
   }
 
-  update(buyer: any, id: number): void {
-    this.http.put(this.baseUrl +"/"+ id, buyer);
+  update(user:Buyer):Observable<any>{
+    return this.http.put(this.baseUrl, user);
   }
 
 

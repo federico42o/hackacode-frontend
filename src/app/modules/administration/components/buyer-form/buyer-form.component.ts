@@ -1,6 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ClientService } from 'src/app/shared/services/client.service';
 import { BuyerService } from '../../services/buyer.service';
 import { BuyerRequest } from '../../pages';
 

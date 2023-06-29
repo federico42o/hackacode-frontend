@@ -19,7 +19,42 @@ export class EmployeeComponent implements OnInit, OnDestroy{
   constructor(private service : EmployeeService,public dialog: Dialog,private gameService: GameService,){}
 
   headers : string[] = ["Nombre", "Apellido","DNI", "Fecha de nacimiento",  "Juego asignado"];
-  columns : string[] = ["name", "surname","dni", "birthdate", "game"];
+  columns1: string[] = ["name", "surname","dni", "birthdate", "game"];
+  columns = [
+    {
+      key: "name",
+      type: "text",
+      label: "Nombre"
+  },
+  {
+      key: "surname",
+      type: "text",
+      label: "Apellido"
+  },
+  {
+      key: "dni",
+      type: "text",
+      label: "DNI"
+  },
+  {
+      key: "birthdate",
+      type: "date",
+      label: "Fecha de nacimiento"
+  },
+  {
+    key: "game",
+    type: "select",
+    label: "Juego asignado"
+  },
+  {
+    key: "isEdit",
+    type: "isEdit",
+    label: "Acciones"
+  }
+  ]
+
+
+
   employees : Employee[] = [];
   currentTab:string = 'add';
   games!:Game[]
@@ -30,7 +65,16 @@ export class EmployeeComponent implements OnInit, OnDestroy{
   }
 
 
-
+  onDataSave(data:any){
+    this.service.update(data,data.id).subscribe({
+      error:(err)=>{
+        console.log(err)
+      },
+      complete:()=>{
+        this._updateTable()
+      }
+    })
+  }
 
   handleEdit(id: number): void {}
 
@@ -69,7 +113,7 @@ export class EmployeeComponent implements OnInit, OnDestroy{
     this.employees$ = this.service.getAll().subscribe(
       {
         next:(data:any) => {
- 
+          console.log(data.content)
           this.employees = data.content
         }
       })

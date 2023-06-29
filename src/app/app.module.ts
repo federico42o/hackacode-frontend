@@ -12,6 +12,8 @@ import { CookieService } from "ngx-cookie-service";
 import { AuthModule, SalesModule } from "./modules";
 import { AuthInterceptor } from "./modules/auth/auth.interceptor";
 import { SharedModule } from './shared';
+import { LoaderInterceptor } from "./shared/interceptor/loader.interceptor";
+import { RoleGuard } from "./modules/auth/guard/role.guard";
 
 
 
@@ -34,7 +36,13 @@ import { SharedModule } from './shared';
   providers: [
     {provide: MAT_DATE_LOCALE, useValue: "es-ES"},
     {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: LoaderInterceptor,
+      multi: true,
+    },
     CookieService,
+    RoleGuard
   ],
   bootstrap: [AppComponent]
 })

@@ -1,12 +1,14 @@
-<section class="flex flex-col justify-center items-center gap-4 w-full">
-    <div class="flex flex-col gap-4">
-      <h1 class="text-7xl font-bold text-[#222D30] dark:text-yellow-200 px-8">USUARIOS</h1>
-    </div>
-    <div class="flex flex-col lg:flex-row justify-center items-start gap-4 w-full lg:flex-wrap">
-      <div class=" p-4">
-        <app-table-users [data]="data" [headers]="headers" [columns]="columns" [actions]="true"></app-table-users>
+<div class="row">
+  <div class="flex flex-col gap-4">
+      <h1 class="text-7xl font-bold text-[#222D30] dark:text-yellow-200 px-8">EMPLEADOS</h1>
+  </div>
+</div>
+<section class="flex justify-center items-start  gap-4 w-full flex-wrap">
+
+      <div class=" min-w-[90%] p-4" id="scrollbar">
+        <app-shared-table [dataSource]="data"  [columnsSchema]="columns" [roles]="roles" (save)="onDataSave($event)"></app-shared-table>
       </div>
-      <div class="filters  p-4 rounded-lg border-l-2 border-[#1d1d1d]">
+      <!-- <div class="filters  p-4 rounded-lg border-l-2 border-[#1d1d1d]">
         <div class="flex flex-col gap-2">
           <div class="text-light-primary dark:text-dark-primary border-b-2 border-[#b6b6b6] font-semibold text-xl">REGISTRAR USUARIO</div>
           <app-user-form *ngIf="currentTab == 'add'" (employeeAdded)="onClientAdded()"></app-user-form>
@@ -14,6 +16,6 @@
             filtros
           </div>
         </div>
-      </div>
-    </div>
+      </div> -->
+
   </section>

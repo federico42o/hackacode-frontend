@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { BuyerFormComponent } from '../../components/buyer-form/buyer-form.component';
 import { BuyerService } from '../../services/buyer.service';
+import { Buyer } from 'src/app/models/buyer';
 
 export interface BuyerRequest {
   name: string;
@@ -22,10 +23,42 @@ export class BuyerComponent implements OnInit,OnDestroy{
   currentTab = 'add';
   subscription$! : Subscription;
   buyerForm! : FormGroup;
-  clients : any;
+  clients!: Buyer[];
   page : any;
-  headers : string[] = ["Nombre", "Apellido", "Fecha de nacimiento", "DNI","Ult. visita"];
-  columns : string[] = ["name", "surname", "birthdate", "dni","lastVisit"];
+  columns = [
+    {
+      key: "name",
+      type: "text",
+      label: "Nombre"
+  },
+  {
+      key: "surname",
+      type: "text",
+      label: "Apellido"
+  },
+  {
+      key: "dni",
+      type: "text",
+      label: "DNI"
+  },
+  {
+      key: "birthdate",
+      type: "date",
+      label: "Fecha de nacimiento"
+  },
+  {
+    key: "lastVisit",
+    type: "lastVisit",
+    label: "Ult. visita"
+  },
+  {
+    key: "isEdit",
+    type: "isEdit",
+    label: "Acciones"
+  }
+  ]
+
+
   pageSize: number = 5;
 
   ngOnInit(): void {
@@ -36,8 +69,18 @@ export class BuyerComponent implements OnInit,OnDestroy{
     this._updateTable();
   }
 
-  onEdit(data:any){
+  onDataSave(data:Buyer):void{
+    console.log(data)
+    this.buyerService.update(data).subscribe({
+      next:()=>{
+        this._updateTable()
+      },
+      error:(err:any)=>{
+        console.log(err)
+      }
 
+
+    });
   }
 
   private _updateTable() : void{
