@@ -6,7 +6,7 @@
 <section class="flex justify-center items-start  gap-4 w-full flex-wrap">
 
         <div class=" min-w-[100%] mx-4 p-4" id="scrollbar">
-            <app-employee-table (save)="onDataSave($event)"></app-employee-table>
+            <app-employee-table (edit)="onEdit($event)" (delete)="onDelete($event)"></app-employee-table>
         </div>
             <app-employee-form *ngIf="currentTab == 'add'" (employeeAdded)="onClientAdded()"></app-employee-form>
  

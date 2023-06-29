@@ -69,6 +69,13 @@ export class BuyerComponent implements OnInit,OnDestroy{
     this._updateTable();
   }
 
+  onEdit(data:any):void {
+    console.log(data)
+  }
+  onDelete(data:any):void{
+    console.log(data)
+  }
+
   onDataSave(data:Buyer):void{
 
     this.buyerService.update(data).subscribe({
