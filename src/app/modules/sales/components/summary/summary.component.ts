@@ -46,7 +46,6 @@ export class SummaryComponent implements OnChanges{
   onSubmit(): void {
     this.tickets = [];
     this.isLoading = true;
-    console.log(this.tickets);
   
     const saveTicketDetailsObservables = this.ticketData.map((detail: TicketDetail) =>
       this.detailService.save(detail)
@@ -63,10 +62,8 @@ export class SummaryComponent implements OnChanges{
           ticketsDetail: this.tickets,
           game: this.currentGame
         };
-        console.log(saleDTO);
         this.saleService.save(saleDTO).subscribe({
           next: (data) => {
-            console.log(data);
           },
           error: (error) => {
             console.log(error);

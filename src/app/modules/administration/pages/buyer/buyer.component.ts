@@ -70,7 +70,7 @@ export class BuyerComponent implements OnInit,OnDestroy{
   }
 
   onDataSave(data:Buyer):void{
-    console.log(data)
+
     this.buyerService.update(data).subscribe({
       next:()=>{
         this._updateTable()

@@ -12,6 +12,8 @@ import { UserFormComponent } from './components/user-form/user-form.component';
 import { BuyerFormComponent } from './components/buyer-form/buyer-form.component';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { BuyerEditFormComponent } from './components/buyer-edit-form/buyer-edit-form.component';
+import { EmployeeTableComponent } from './pages/employee/employee-table/employee-table.component';
+import { BuyerTableComponent } from './pages/buyer/buyer-table/buyer-table.component';
 
 
 @NgModule({
@@ -25,6 +27,8 @@ import { BuyerEditFormComponent } from './components/buyer-edit-form/buyer-edit-
     UserFormComponent,
     BuyerFormComponent,
     BuyerEditFormComponent,
+    EmployeeTableComponent,
+    BuyerTableComponent,
     
   ],
   imports: [
@@ -45,6 +49,8 @@ import { BuyerEditFormComponent } from './components/buyer-edit-form/buyer-edit-
     UserFormComponent,
     BuyerFormComponent,
     BuyerEditFormComponent,
+    EmployeeTableComponent,
+    BuyerTableComponent,
   ]
 })
 export class AdministrationModule { }

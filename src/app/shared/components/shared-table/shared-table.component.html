@@ -1,7 +1,7 @@
 
 <input type="text" class="bg-white   text-dark-primary mb-2   ring-1 block rounded-md  px-3 py-2 mx-2 focus:ring-1 focus:ring-gray-500 active:ring-0 focus:ring-opacity-5 outline-none " [formControl]="rowCtrl" placeholder="Filtrar">
-<table mat-table [dataSource]="filteredRows$" class="w-full  h-full shadow-sm dark:bg-transparent dark:text-white" #table>
-    <ng-container [matColumnDef]="col.key" *ngFor="let col of columnsSchema" class="w-full">
+<table mat-table [dataSource]="filteredRows$" class="w-full  h-full shadow-sm dark:bg-transparent dark:text-white overflow-auto" #table>
+    <ng-container [matColumnDef]="col.key" *ngFor="let col of columnsSchema" class="w-full ">
       <th mat-header-cell *matHeaderCellDef class="dark:text-yellow-200 text-light-navbar"  >
         {{col.label}}
       </th>
@@ -80,3 +80,5 @@
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
+  <mat-paginator [length]="(filteredRows$ | async)?.length" [pageSize]=" 10" [pageIndex]=" 1"
+  (page)="onPageChange($event)" showFirstLastButtons></mat-paginator>

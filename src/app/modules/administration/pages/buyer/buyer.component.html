@@ -1,12 +1,12 @@
 <div class="row">
     <div class="flex flex-col gap-4">
-        <h1 class="text-7xl font-bold text-[#222D30] dark:text-yellow-200 px-8">EMPLEADOS</h1>
+        <h1 class="text-7xl font-bold text-[#222D30] dark:text-yellow-200 px-8">Clientes</h1>
     </div>
   </div>
   <section class="flex justify-center items-start  gap-4 w-full flex-wrap">
   
         <div class=" min-w-[90%] p-4" id="scrollbar">
-          <app-shared-table [dataSource]="clients"  [columnsSchema]="columns"  (save)="onDataSave($event)"></app-shared-table>
+          <app-buyer-table  ></app-buyer-table>
         </div>
     <!-- <div class="filters p-4  rounded-lg ">
         <div class="flex gap-2">

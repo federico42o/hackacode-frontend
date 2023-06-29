@@ -55,17 +55,13 @@ export class UsersComponent implements OnInit {
   ngOnInit(): void {
     this.roleService.getAll().subscribe({
       next:(data:UserRole[])=>{
-        console.log(data)
         this.roles = data
       }
     });
     this._updateTable()
   }
   onDataSave(data:UserTable):void{
-    // if(this.users){
 
-    //   const userToUpdate = this.users.find(user => user.id === data.id);
-    //   console.log(userToUpdate)
       if (data) {
         this.service.update(data).subscribe({
           next: () => {
@@ -73,9 +69,6 @@ export class UsersComponent implements OnInit {
           }
         });
       }
-    // }else{
-    //   console.log("asd")
-    // }
 
   }
 

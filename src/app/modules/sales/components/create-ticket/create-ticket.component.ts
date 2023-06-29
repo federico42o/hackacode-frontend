@@ -25,7 +25,7 @@ export class CreateTicketComponent implements OnInit {
     }
     this.service.save(this.ticketForm.value).subscribe(
       (data) => {
-        console.log(data)
+
       }
     )
   }

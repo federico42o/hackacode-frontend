@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, EventEmitter, Input, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { MatPaginator } from '@angular/material/paginator';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTable, MatTableDataSource } from '@angular/material/table';
 import { Observable, map, startWith } from 'rxjs';
@@ -19,17 +19,20 @@ export class SharedTableComponent implements OnInit {
   @Input() roles!:UserRole[];
 
   @Output() save = new EventEmitter<any>(); 
-  displayedColumns!:any;
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
-  @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatTable) table!: MatTable<any>;
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  displayedColumns!:any;
+  dataSourceT!: MatTableDataSource<any>;
   rowCtrl = new FormControl('');
   filteredRows$!: Observable<any[]>;
+  currentPage = 0;
+  pageSize = 10; // Tamaño de página por defecto, puedes ajustarlo según tus necesidades
+  totalItems = 0;
+  constructor(){ }
   ngOnInit(): void {
     if(this.columnsSchema){ 
       this.displayedColumns = this.columnsSchema.map(c => c.key);
     }
-    console.log(this.dataSource);
   }
   ngOnChanges(changes: SimpleChanges) {
     if (changes['dataSource'] && changes['dataSource'].currentValue) {
@@ -42,12 +45,13 @@ export class SharedTableComponent implements OnInit {
     this.setupFilteredRows();
     this.table.renderRows();
   }
-
   setupFilteredRows() {
     this.filteredRows$ = this.rowCtrl.valueChanges.pipe(
       startWith(''),
       map(row => (row ? this._filterRows(row) : this.dataSource))
     );
+
+
   }
 
   ngAfterViewInit() {
@@ -55,7 +59,12 @@ export class SharedTableComponent implements OnInit {
       this.updateTableData();
     }
   }
-
+  
+  onPageChange(event: PageEvent): void {
+    this.paginator.pageIndex = event.pageIndex;
+    this.paginator.pageSize = event.pageSize;
+    this.setupFilteredRows();
+  }
 
   emitSave(row:any){
     row.isEdit = false;
