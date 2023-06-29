@@ -113,7 +113,6 @@ export class EmployeeComponent implements OnInit, OnDestroy{
     this.employees$ = this.service.getAll().subscribe(
       {
         next:(data:any) => {
-          console.log(data.content)
           this.employees = data.content
         }
       })

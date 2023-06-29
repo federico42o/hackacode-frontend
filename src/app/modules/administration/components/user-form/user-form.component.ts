@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable, map, startWith } from 'rxjs';
-import { Employee, UserRole } from 'src/app/models';
-import { UserRequest } from 'src/app/models/user-request';
+import { Employee, UserRole,UserRequest } from 'src/app/models';
 import { randomPassword } from 'src/app/shared/utils/genPw';
 import { EmployeeService } from '../../services/employee.service';
 import { RoleService } from '../../services/role.service';

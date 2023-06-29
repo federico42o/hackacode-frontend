@@ -1,5 +1,4 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Data } from 'src/app/models/data';
 
 @Component({
   selector: 'app-invoice',
@@ -13,7 +12,7 @@ export class InvoiceComponent implements OnInit{
   currentDay = this.date.getDate() + " de " + this.date.toLocaleDateString('es-ES', { month: 'short' }) + " del " + this.date.getFullYear() ;
   currentTime = this.date.toLocaleTimeString();
   total!:number;
-  @Input() data!:Data[];
+  @Input() data!:any[];
 
   ngOnInit(): void {
     if(this.data){

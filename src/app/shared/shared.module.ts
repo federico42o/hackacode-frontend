@@ -12,13 +12,11 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import { HomeComponent } from './components/home/home.component';
 import { MatNativeDateModule } from '@angular/material/core';
 import {MatExpansionModule} from '@angular/material/expansion';
-import { GeneralTicketComponent, VipTicketComponent } from '../components';
 import { BarCodeComponent } from '../components/bar-code/bar-code.component';
 import { InvoiceComponent } from './components/invoice/invoice.component';
 import { PasswordCheckComponent } from './components/password-check/password-check.component';
 import { LoaderComponent } from './components/loader/loader.component';
 import { ForbiddenComponent } from './components/forbidden/forbidden.component';
-import { SharedTableComponent } from './components/shared-table/shared-table.component';
 import {MatTableModule} from '@angular/material/table';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatSortModule} from '@angular/material/sort';
@@ -35,14 +33,11 @@ export function playerFactory(): any {
     BuscadorClienteComponent,
     TabComponent,
     HomeComponent,
-    GeneralTicketComponent,
-    VipTicketComponent,
     BarCodeComponent,
     InvoiceComponent,
     PasswordCheckComponent,
     LoaderComponent,
     ForbiddenComponent,
-    SharedTableComponent,
 
     
   ],
@@ -73,14 +68,11 @@ export function playerFactory(): any {
     MatAutocompleteModule,
     BuscadorClienteComponent,
     MatDatepickerModule,
-    GeneralTicketComponent,
-    VipTicketComponent,
     BarCodeComponent,
     InvoiceComponent,
     PasswordCheckComponent,
     LoaderComponent,
     ForbiddenComponent,
-    SharedTableComponent,
     MatTableModule,
     MatPaginatorModule,
     MatSortModule

@@ -1,8 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Ticket } from 'src/app/models';
-import { TicketRequest } from 'src/app/models/ticket-request';
+import { Ticket, TicketRequest } from 'src/app/models';
 
 @Injectable({
   providedIn: 'root'

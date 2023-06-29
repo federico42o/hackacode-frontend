@@ -1,13 +1,10 @@
-import { ChangeDetectionStrategy, Component, ElementRef, Input, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
-import { Game, Ticket } from 'src/app/models';
-import { Data } from 'src/app/models/data';
-import { TicketDetail } from 'src/app/models/ticket-detail';
-import { TicketType } from 'src/app/models/ticket-type';
-import { TicketDetailService } from '../../services/ticket-detail.service';
-import { SaleService } from '../../services/sale.service';
-import { SaleRequest } from 'src/app/models/sale-request';
-import { TicketDetailRequest } from 'src/app/models/ticket-detail-request';
+import { ChangeDetectionStrategy, Component, ElementRef, Input, OnChanges, SimpleChanges, ViewChild } from '@angular/core';
 import { forkJoin } from 'rxjs';
+import { Game } from 'src/app/models';
+import { TicketDetail } from 'src/app/models/detail/ticket-detail';
+import { SaleService } from '../../services/sale.service';
+import { TicketDetailService } from '../../services/ticket-detail.service';
+import { SaleRequest } from 'src/app/models/sale';
 
 @Component({
   selector: 'app-summary',
@@ -46,7 +43,6 @@ export class SummaryComponent implements OnChanges{
   onSubmit(): void {
     this.tickets = [];
     this.isLoading = true;
-    console.log(this.tickets);
   
     const saveTicketDetailsObservables = this.ticketData.map((detail: TicketDetail) =>
       this.detailService.save(detail)
@@ -63,10 +59,8 @@ export class SummaryComponent implements OnChanges{
           ticketsDetail: this.tickets,
           game: this.currentGame
         };
-        console.log(saleDTO);
         this.saleService.save(saleDTO).subscribe({
           next: (data) => {
-            console.log(data);
           },
           error: (error) => {
             console.log(error);

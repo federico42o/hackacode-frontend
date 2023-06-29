@@ -30,7 +30,6 @@ export class PasswordRecoveryComponent implements OnInit{
 
         if(data.expiration){
           this.expiration = data.expiration
-          console.log(this.expiration)
         }
       },
 

@@ -16,7 +16,6 @@ export class RoleGuard  {
       const module = childRoute.data['module'];
 
       if(module && !this.authService.hasPermission(module)){
-        console.log(module)
         this.router.navigate(['/forbidden'])
         return false
       }

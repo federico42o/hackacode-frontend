@@ -1,17 +1,9 @@
-import { Dialog } from '@angular/cdk/dialog';
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { Observable, Subscription, map, startWith } from 'rxjs';
-import { GeneralTicketComponent, VipTicketComponent } from 'src/app/components';
+import { Observable, map, startWith } from 'rxjs';
 import { Game, Ticket } from 'src/app/models';
 import { Buyer } from 'src/app/models/buyer';
-import { Data } from 'src/app/models/data';
-import { TicketType } from 'src/app/models/ticket-type';
-import { BuyerService } from 'src/app/modules/administration/services/buyer.service';
-import { TicketService } from '../../services/ticket.service';
-import { TicketDetail } from 'src/app/models/ticket-detail';
-import { TicketDetailService } from '../../services/ticket-detail.service';
-import { TicketDetailRequest } from 'src/app/models/ticket-detail-request';
+import { TicketDetail } from 'src/app/models/detail/ticket-detail';
 
 
 @Component({
@@ -86,27 +78,6 @@ export class AddTicketFormComponent implements OnInit,OnDestroy{
           (buyers.name && buyers.name.toLowerCase().includes(filterValue))
       );
     }
-  //   showTicket(type:string):void{
-  //     if(type === TicketType.GENERAL){
-  //     const dialogRef = this.dialog.open(GeneralTicketComponent, {
-  //       width: '80%',
-  //       height: '50%',
-  //       data:{
-  //         buyer:this.buyer,
-  //         ticketID:this.ticketID
-  //       }
-  //     });
-  //   }else{
-  //     const dialogRef = this.dialog.open(VipTicketComponent, {
-  //       width: '80%',
-  //       height: '50%',
-  //       data:{
-  //         buyer:this.buyer,
-  //         ticketID:this.ticketID
-  //       }
-  //     });
-  //   }
-  // }
 
   ngOnDestroy():void{
 

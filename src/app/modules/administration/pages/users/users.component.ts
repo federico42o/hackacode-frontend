@@ -1,10 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { User, UserRole } from 'src/app/models';
-import { UserEmployeeService } from '../../services/user-employee.service';
-import { UserTable } from 'src/app/models/user-table';
-import { UserFormComponent } from '../../components/user-form/user-form.component';
 import { Dialog } from '@angular/cdk/dialog';
+import { Component, OnInit } from '@angular/core';
+import { User, UserRole, UserTable } from 'src/app/models';
 import { RoleService } from '../../services/role.service';
+import { UserEmployeeService } from '../../services/user-employee.service';
 
 @Component({
   selector: 'app-users',
@@ -55,17 +53,13 @@ export class UsersComponent implements OnInit {
   ngOnInit(): void {
     this.roleService.getAll().subscribe({
       next:(data:UserRole[])=>{
-        console.log(data)
         this.roles = data
       }
     });
     this._updateTable()
   }
   onDataSave(data:UserTable):void{
-    // if(this.users){
 
-    //   const userToUpdate = this.users.find(user => user.id === data.id);
-    //   console.log(userToUpdate)
       if (data) {
         this.service.update(data).subscribe({
           next: () => {
@@ -73,9 +67,6 @@ export class UsersComponent implements OnInit {
           }
         });
       }
-    // }else{
-    //   console.log("asd")
-    // }
 
   }
 

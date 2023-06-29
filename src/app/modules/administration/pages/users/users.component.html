@@ -1,21 +1,12 @@
 <div class="row">
   <div class="flex flex-col gap-4">
-      <h1 class="text-7xl font-bold text-[#222D30] dark:text-yellow-200 px-8">EMPLEADOS</h1>
+      <h1 class="text-7xl font-bold text-[#222D30] dark:text-yellow-200 px-8">Usuarios</h1>
   </div>
 </div>
 <section class="flex justify-center items-start  gap-4 w-full flex-wrap">
 
       <div class=" min-w-[90%] p-4" id="scrollbar">
-        <app-shared-table [dataSource]="data"  [columnsSchema]="columns" [roles]="roles" (save)="onDataSave($event)"></app-shared-table>
+        <app-table-users [roles]="roles" (save)="onDataSave($event)"></app-table-users>
       </div>
-      <!-- <div class="filters  p-4 rounded-lg border-l-2 border-[#1d1d1d]">
-        <div class="flex flex-col gap-2">
-          <div class="text-light-primary dark:text-dark-primary border-b-2 border-[#b6b6b6] font-semibold text-xl">REGISTRAR USUARIO</div>
-          <app-user-form *ngIf="currentTab == 'add'" (employeeAdded)="onClientAdded()"></app-user-form>
-          <div *ngIf="currentTab == 'filter'">
-            filtros
-          </div>
-        </div>
-      </div> -->
 
   </section>
