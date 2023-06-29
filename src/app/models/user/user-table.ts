@@ -1,5 +1,6 @@
-import { Employee } from "./employee";
+import { Employee } from "../employee";
 import { UserRole } from "./user-role";
+
 
 export interface UserTable {
     id:number,

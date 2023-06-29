@@ -4,7 +4,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { User, UserRole } from 'src/app/models';
 import { UserEmployeeService } from '../../../services/user-employee.service';
-import { UserTable } from 'src/app/models/user-table';
+import { UserTable } from 'src/app/models/user';
 import { RoleService } from '../../../services/role.service';
 
 @Component({

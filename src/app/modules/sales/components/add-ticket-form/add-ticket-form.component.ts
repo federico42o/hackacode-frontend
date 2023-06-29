@@ -3,7 +3,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { Observable, map, startWith } from 'rxjs';
 import { Game, Ticket } from 'src/app/models';
 import { Buyer } from 'src/app/models/buyer';
-import { TicketDetail } from 'src/app/models/ticket-detail';
+import { TicketDetail } from 'src/app/models/detail/ticket-detail';
 
 
 @Component({

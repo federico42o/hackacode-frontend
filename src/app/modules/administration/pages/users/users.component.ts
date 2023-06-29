@@ -1,10 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { User, UserRole } from 'src/app/models';
-import { UserEmployeeService } from '../../services/user-employee.service';
-import { UserTable } from 'src/app/models/user-table';
-import { UserFormComponent } from '../../components/user-form/user-form.component';
 import { Dialog } from '@angular/cdk/dialog';
+import { Component, OnInit } from '@angular/core';
+import { User, UserRole, UserTable } from 'src/app/models';
 import { RoleService } from '../../services/role.service';
+import { UserEmployeeService } from '../../services/user-employee.service';
 
 @Component({
   selector: 'app-users',
