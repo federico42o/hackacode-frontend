@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Employee } from 'src/app/models';
+import { environment } from 'src/environments/environment.development';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +10,7 @@ import { Employee } from 'src/app/models';
 export class EmployeeService {
 
   constructor(private http: HttpClient) { }
-  baseUrl = 'http://localhost:8080/api/empleados';
+  baseUrl = environment.apiUrl+'empleados';
 
 
   getAll(): Observable<any>  {

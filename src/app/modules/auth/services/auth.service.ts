@@ -5,6 +5,7 @@ import { BehaviorSubject, Observable, Subscription, catchError, switchMap, tap, 
 import { Game, User, UserRole } from 'src/app/models';
 
 import jwt_decode from 'jwt-decode';
+import { environment } from 'src/environments/environment.development';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +19,7 @@ export class AuthService {
     'VENTAS': ['sales' ],
     'GERENTE': [ 'reports' ]
   };
-
+  apiUrl = environment.apiUrl
 
 
 
@@ -47,7 +48,7 @@ export class AuthService {
   }
 
   getUserByUsername(username: string): Observable<User> {
-    return this.http.get<User>("http://localhost:8080/api/usuarios/por_nombre/" + username);
+    return this.http.get<User>(this.apiUrl+"usuarios/por_nombre/" + username);
   }
 
   login(username: string, password: string): Observable<any> {
