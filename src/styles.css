@@ -18,3 +18,63 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; overflow: h
     
 
 }
+
+.mdc-text-field--outlined .mdc-notched-outline  {
+    display: none;
+  }
+.mdc-text-field--outlined .mdc-notched-outline  {
+    display: none;
+}
+ .mat-mdc-paginator{
+    
+    background-color: #18181bab;
+    color: #fff;
+    border-radius: 12px;
+}
+:not(.dark).mat-mdc-paginator{
+    
+    background-color: #1e1a1ae1;
+    color: #fff;
+    border-radius: 12px;
+}
+ .mat-mdc-paginator .mat-mdc-select-value{
+    color: #fff;
+}
+:not(.dark).mat-mdc-paginator .mat-mdc-select-value{
+    color: #fff;
+}
+:not(.dark).mat-mdc-select-arrow{
+    color: #f5f0f0;
+}.mat-mdc-select-arrow{
+    color: #000000;
+}
+ .mat-mdc-select-arrow{
+    color: #ffffff;
+}
+:not(.dark).mat-mdc-form-field.mat-focused.mat-primary .mat-mdc-select-arrow{
+    color: #ffffff;
+}
+ .mat-mdc-form-field.mat-focused.mat-primary .mat-mdc-select-arrow{
+    color: #ffffff;
+}
+
+ .mat-mdc-paginator-icon{
+    fill: #fff;
+    stroke: #fff;
+}
+ .mat-mdc-icon-button:disabled svg{
+    color: #fff;
+    opacity: 0.38;
+}
+:not(.dark).mat-mdc-paginator-icon{
+    fill: #fff9f9;
+
+}
+:not(.dark) .mat-mdc-icon-button:disabled svg{
+    color: #575757;
+    opacity: 0.38;
+}
+
+.actions{
+    text-align: end !important;
+}

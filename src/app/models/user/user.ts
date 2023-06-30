@@ -5,6 +5,7 @@ export interface User {
     id: number;
     password: string;
     username: string;
+    enable: boolean;
     roles: UserRole[];
     employee: Employee;
 

@@ -1,13 +1,18 @@
-<div class="row">
-    <div class="flex flex-col gap-4">
-        <h1 class="text-7xl font-bold text-[#222D30] dark:text-yellow-200 px-8">Clientes</h1>
+<section class="flex items-start gap-4 w-full flex-wrap">
+  <div class="mt-4 mx-8 ">
+    <div class="dark:text-white self-start flex gap-8 w-full sticky top-0 left-0">
+      <button (click)="changeTab('view')">Ver usuarios</button>
+      <button (click)="changeTab('add')">Agregar usuario</button>
     </div>
   </div>
-  <section class="flex justify-center items-start  gap-4 w-full flex-wrap">
   
-        <div class=" min-w-[90%] p-4" id="scrollbar">
-          <app-buyer-table (edit)="onEdit($event)" (delete)="onDelete($event)" ></app-buyer-table>
-        </div>
-        <app-buyer-form *ngIf="currentTab == 'add'" (clientAdded)="onClientAdded()" ></app-buyer-form>
-
+  <div class="min-w-[90%] p-4 flex flex-col justify-center" id="scrollbar">
+    <ng-container *ngIf="currentTab === 'add'" >
+      <app-buyer-form (clientAdded)="onClientAdded()"></app-buyer-form>
+    </ng-container>
+    
+    <ng-container *ngIf="currentTab === 'view'">
+      <app-buyer-table  (edit)="onEdit($event)" (delete)="onDelete($event)"></app-buyer-table>
+    </ng-container>
+  </div>
 </section>

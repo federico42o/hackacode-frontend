@@ -23,12 +23,12 @@ export class ToggleThemeBtnComponent implements OnInit {
   ngOnInit(): void {
     this.theme.getDarkMode().subscribe((res: boolean) => {
       this.isDarkTheme = res;
-      this.setInitialFrame(); // Update the initial animation frame when the theme changes
+      this.setInitialFrame(); 
     });
   }
 
   toggleTheme(): void {
-    this.theme.toggleTheme(); // Use toggleTheme() instead of changeTheme()
+    this.theme.toggleTheme(); 
 
     if (this.isDarkTheme) {
       this.animationItem.playSegments([0, 255], true);
@@ -44,11 +44,10 @@ export class ToggleThemeBtnComponent implements OnInit {
 
   setInitialFrame(): void {
     if (!this.animationItem) return;
-
     if (this.isDarkTheme) {
-      this.animationItem.goToAndStop(255, true); // Start at frame 255 for dark mode
+      this.animationItem.goToAndStop(255, true); 
     } else {
-      this.animationItem.goToAndStop(0, true); // Start at frame 0 for light mode
+      this.animationItem.goToAndStop(0, true); 
     }
   }
 }

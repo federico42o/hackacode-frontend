@@ -20,6 +20,8 @@ import { ForbiddenComponent } from './components/forbidden/forbidden.component';
 import {MatTableModule} from '@angular/material/table';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatSortModule} from '@angular/material/sort';
+import {MatTooltipModule} from '@angular/material/tooltip';
+import {MatChipsModule} from '@angular/material/chips';
 export function playerFactory(): any {  
   return import('lottie-web');
 }
@@ -54,6 +56,8 @@ export function playerFactory(): any {
     MatTableModule,
     MatPaginatorModule,
     MatSortModule,
+    MatTooltipModule,
+    MatChipsModule,
     
     LottieModule.forRoot({ player: playerFactory }),
   ],
@@ -75,7 +79,9 @@ export function playerFactory(): any {
     ForbiddenComponent,
     MatTableModule,
     MatPaginatorModule,
-    MatSortModule
+    MatSortModule,
+    MatChipsModule,
+    TabComponent,
     
   ]
 })

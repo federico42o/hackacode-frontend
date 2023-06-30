@@ -1,51 +1,134 @@
+<input class="ml-auto
+form-input
+text-gray-900
+mt-1
+block
+self-end
+rounded-md
+border-gray-300
+shadow-md
+focus:border-light-navbar caret-green focus:ring-2 focus:ring-light-navbar focus:ring-opacity-5"
+  (keyup)="applyFilter($event)" placeholder="Filtrar" #input>
 
 
-<input  (keyup)="applyFilter($event)" placeholder="Ex. Mia" #input>
-
-
-<div class="mat-elevation-z8">
-  <table mat-table [dataSource]="dataSource" matSort>
-
+<div class=" h-full min-h-[500px]">
+  <table mat-table [dataSource]="dataSource" matSort class="h-full  dark:bg-transparent bg-opacity-30 border-collapse">
+    <div [formGroup]="userForm">
     <ng-container matColumnDef="name">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Nombre </th>
-      <td mat-cell *matCellDef="let row"> {{row.name}} </td>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header class="dark:text-white"> Nombre </th>
+      <td mat-cell *matCellDef="let row" class="dark:text-white ">
+
+        <span >
+          {{row.name}}
+        </span>
+
+
+      </td>
     </ng-container>
 
     <ng-container matColumnDef="surname">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Apellido </th>
-      <td mat-cell *matCellDef="let row"> {{row.surname}} </td>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header class="dark:text-white"> Apellido </th>
+      <td mat-cell *matCellDef="let row" class="dark:text-white">
+
+        <span >
+          {{row.surname}}
+        </span>
+
+      </td>
     </ng-container>
 
     <ng-container matColumnDef="dni">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> DNI </th>
-      <td mat-cell *matCellDef="let row"> {{row.dni}} </td>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header class="dark:text-white"> DNI </th>
+      <td mat-cell *matCellDef="let row" class="dark:text-white">
+        <span >
+          {{row.dni}}
+        </span>
+      </td>
     </ng-container>
 
     <ng-container matColumnDef="username">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Usuario </th>
-      <td mat-cell *matCellDef="let row"> {{row.username}} </td>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header class="dark:text-white"> Usuario </th>
+      <td mat-cell *matCellDef="let row" class="dark:text-white">
+        <span *ngIf="!isEditMode || editRowId !== row.id">
+          {{row.username}}
+        </span>
+
+        <input
+          formControlName="username"
+          class="form-input text-gray-900 mt-1 block rounded-md border-gray-300 shadow-md focus:border-light-navbar caret-green focus:ring-2 focus:ring-light-navbar focus:ring-opacity-5"
+          type="text" *ngIf="isEditMode && editRowId === row.id" [value]="row.username">
+          <div *ngIf="userForm.get('username')?.invalid && 
+          userForm.get('username')?.errors && 
+          (userForm.get('username')?.dirty || userForm.get('username')?.touched)
+          && isEditMode && editRowId === row.id
+          ">
+            <small class="dark:text-yellow-200 text-light-primary"
+            *ngIf="userForm.get('username')?.hasError('required')">
+            Este campo no puede estar vacío.
+        </small>
+        <small class="dark:text-yellow-200 text-light-primary"
+            *ngIf="userForm.get('username')?.hasError('email')">
+            Debe ingresar un email valido. Ej: username@gmail.com
+        </small>
+          </div>
+      </td>
     </ng-container>
     <ng-container matColumnDef="roles">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Roles </th>
-      <td mat-cell *matCellDef="let row">
-        <ul>
-         <li *ngFor="let role of row.roles">{{role.role}}</li> 
+      <th mat-header-cell *matHeaderCellDef mat-sort-header class="dark:text-white"> Roles </th>
+      <td mat-cell *matCellDef="let row" class="dark:text-white">
+        <ul class="" *ngIf="!isEditMode || editRowId !== row.id">
+          <li *ngFor="let role of row.roles">{{role.role}}</li>
         </ul>
-        </td>
-    </ng-container>
-    <ng-container matColumnDef="actions">
-      <th mat-header-cell *matHeaderCellDef class="pl-4"> Acciones </th>
-      <td mat-cell *matCellDef="let row" class=""> 
-        <div class="flex gap-4">
-        <button (click)="emitEdit(row)">
-          Editar
-        </button>
 
-        <button id="delete" (click)="emitDelete(row.id)">
-          Borrar
-        </button>
-      </div>
-        
+        <select
+        formControlName="roles"
+          class="form-input text-gray-900 mt-1 block rounded-md border-gray-300 shadow-md focus:border-light-navbar caret-green focus:ring-2 focus:ring-light-navbar focus:ring-opacity-5 h-full "
+          *ngIf="isEditMode && editRowId === row.id" multiple="multiple">
+          <option  class="text-[1rem]" *ngFor="let role of roles"  [value]="role">{{role.role}}
+          </option>
+        </select>
+        <div *ngIf="userForm.get('roles')?.invalid && 
+        userForm.get('roles')?.errors && 
+        (userForm.get('roles')?.dirty || userForm.get('roles')?.touched)
+        && isEditMode && editRowId === row.id
+        ">
+    <small class="dark:text-yellow-200 text-light-primary"
+        *ngIf="userForm.get('roles')?.hasError('required')">
+        Se debe seleccionar al menos un rol
+    </small>
+    </div>
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="enable">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header class="dark:text-white"> Estado </th>
+      <ng-container>
+        <td mat-cell *matCellDef="let row" class="text-white">
+          <span class="rounded-3xl px-4 text-center py-[3px] dark:bg-opacity-50  "
+            [ngClass]="{'bg-light-navbar  ':row.enable, 'bg-gray-500  ':!row.enable}">
+            {{row.enable ? 'Activo': 'Inactivo'}}
+          </span>
+        </td>
+      </ng-container>
+    </ng-container>
+    <ng-container matColumnDef="actions" >
+      <th mat-header-cell *matHeaderCellDef class="pl-4 dark:text-white text-right actions"> Acciones </th>
+
+      <td mat-cell *matCellDef="let row" class="text-right ">
+        <div class="flex gap-4 justify-end items-center dark:text-white">
+          <button (click)="enterEditMode(row.id)" *ngIf="!isEditMode || editRowId !== row.id">
+            Editar
+          </button>
+          <button (click)="confirmEdit(row)" *ngIf="isEditMode && editRowId === row.id" [disabled]="userForm.invalid" [class.opacity-5]="userForm.invalid">
+            Confirmar
+          </button>
+          <button (click)="exitEditMode()" *ngIf="isEditMode && editRowId === row.id">
+            Cancelar
+          </button>
+
+          <button id="delete" (click)="setEnable(row)" *ngIf="!isEditMode">
+            {{row.enable ? 'Desactivar' : 'Activar'}}
+          </button>
+        </div>
       </td>
     </ng-container>
 
@@ -53,9 +136,13 @@
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 
     <tr class="mat-row" *matNoDataRow>
-      <td class="mat-cell" colspan="4">No se encontraron registros de  "{{input.value}}"</td>
+      <td class="mat-cell" colspan="4">No se encontraron registros de "{{input.value}}"</td>
     </tr>
+  </div>
   </table>
 
-  <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+</div>
+<div class="paginator  text-light-primary dark:text-white mt-10">
+  <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons>
+  </mat-paginator>
 </div>

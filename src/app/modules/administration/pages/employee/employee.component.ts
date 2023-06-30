@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { EmployeeService } from '../../services/employee.service';
 import { Employee, Game } from 'src/app/models';
@@ -20,11 +20,8 @@ export class EmployeeComponent implements OnInit, OnDestroy{
   employees : Employee[] = [];
   currentTab:string = 'add';
   games!:Game[]
-  ngOnInit(): void {
-    this._updateTable()
-    this._loadGames();
-    
-  }
+  ngOnInit(): void {}
+  
 
   onDelete(id:number){
     const dialogRef = this.dialog.open(DialogComponent,{
@@ -46,7 +43,6 @@ export class EmployeeComponent implements OnInit, OnDestroy{
             }
               ,
             complete: () => {
-              this._updateTable();
               this.dialog.closeAll();
             }
 
@@ -57,77 +53,14 @@ export class EmployeeComponent implements OnInit, OnDestroy{
           console.log(err);
         },
         complete: () => {
-          this._updateTable();
         }
       });  
-  }
-
-
-  onEdit(data:any){
-    this.service.update(data,data.id).subscribe({
-      error:(err)=>{
-        console.log(err)
-      },
-      complete:()=>{
-        this._updateTable()
-      }
-    })
-  }
-
-  // handleEdit(id: number): void {}
-
-  // handleDelete(id:number): void{
-  //   const dialogRef = this.dialog.open(DialogComponent,{
-  //     width: '30%',
-  //     height: '10%',
-  //     data: {
-  //       message: "¿Desea borrar este empleado?",
-  //       id,
-  //     }
-  //     });
-  //     dialogRef.componentInstance?.accept.subscribe({
-  //       next: () => {
-
-  //         this.service.delete(id).subscribe({
-  //           next: (data:any) => {
-  //           },
-  //           complete: () => {
-  //             this._updateTable();
-  //             this.dialog.closeAll();
-  //           }
-
-  //         });
-          
-  //       },
-  //       error: (err:any) => {
-  //         console.log(err);
-  //       },
-  //       complete: () => {
-  //         this._updateTable();
-  //       }
-  //     });  
-  // }
-  private _updateTable() : void{
-    this.employees$ = this.service.getAll().subscribe(
-      {
-        next:(data:any) => {
-          this.employees = data.content
-        }
-      })
-  }
-  private _loadGames():void{
-    this.gameService.getAll().subscribe({
-      next:(data:any) =>{this.games= data.content}
-    });
-  }
-  onClientAdded():void{
-    this._updateTable()
   }
 
   setTab(tab:string){
     this.currentTab = tab
   }
   ngOnDestroy(): void {
-    this.employees$.unsubscribe();
+  
   }
 }

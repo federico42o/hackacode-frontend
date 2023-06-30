@@ -1,4 +1,4 @@
-.main-container {
+/* .main-container {
   display: grid; 
   grid-template-columns: 1.5fr 1.4fr; 
   grid-template-rows: 0.1fr 0.2fr 1.8fr; 
@@ -11,4 +11,17 @@
 
 .header { grid-area: header; }
 .navbar { grid-area: navbar; }
+.main { grid-area: main; } */
+.main-container {
+  display: grid; 
+  grid-template-columns: 0.1fr 1.7fr 1fr 1fr; 
+  grid-template-rows: 0.2fr 2.8fr 1fr; 
+  gap: 0px 0px; 
+  grid-template-areas: 
+    "header header header header"
+    "sidebar main main main"
+    "sidebar main main main"; 
+}
+.header { grid-area: header; }
+.sidebar { grid-area: sidebar; }
 .main { grid-area: main; }
