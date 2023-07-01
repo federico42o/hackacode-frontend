@@ -15,9 +15,8 @@ import { BuyerService } from 'src/app/modules/administration/services/buyer.serv
   styleUrls: ['./ticket-selector.component.css']
 })
 export class TicketSelectorComponent implements OnInit, CanComponentDeactivate{
- constructor(private authService : AuthService,private service: TicketService,private buyerService: BuyerService) { }
- buyers!: Buyer[];
- buyers$!:Subscription[];
+ constructor(private authService : AuthService,private service: TicketService) { }
+
  tickets$!:Subscription;
  tickets!:Ticket[];
  formTickets:any[] =[];
@@ -61,6 +60,9 @@ export class TicketSelectorComponent implements OnInit, CanComponentDeactivate{
 }
 
 changeTab(tab:string){
-  this.tab = tab;
+  if(this.canDeactivate()){
+
+    this.tab = tab;
+  }
 }
 }

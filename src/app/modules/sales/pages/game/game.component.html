@@ -1,10 +1,16 @@
-<div class="container mx-auto w-full">
-    <div class="row">
-        <div class="flex flex-col gap-4">
-            <h1 class="text-7xl font-bold text-[#222D30] dark:text-yellow-200">Juegos registrados</h1>
+<div class="mt-4 px-8 flex justify-between items-center w-full">
+    <div class="w-full">
+        <div class="dark:text-white flex gap-8 w-full whitespace-nowrap">
+            <button (click)="changeTab('view')">Ver empleados</button>
+            <button (click)="changeTab('add')">Agregar empleado</button>
         </div>
     </div>
-    <div class="flex my-4 gap-8 ">
+</div>
+<div class="container mx-auto w-full flex flex-col justify-center-center h-full">
+    <div class="block w-full">
+        <h1 class="text-3xl font-bold text-[#222D30] dark:text-yellow-200">Juegos registrados</h1>
+    </div>
+    <div class="flex my-4 gap-8 flex-1">
         <div class="flex gap-8 flex-wrap">
             <app-game-card *ngFor="let game of games" [game]="game"></app-game-card>
         </div>
