@@ -11,12 +11,12 @@
         </div>
     </div>
 </div>
-    <div class="min-w-[90%] p-4 flex flex-col justify-center max-h-[600px]" id="scrollbar">
-        <ng-container *ngIf="currentTab ==='view'">
+    <div class="w-full p-4 flex flex-col justify-center max-h-[400px]" id="scrollbar">
+        <div *ngIf="currentTab ==='view'">
         <app-table-users [roles]="roles"></app-table-users>
-        </ng-container>
-        <ng-container *ngIf="currentTab ==='add'">
+        </div>
+        <div *ngIf="currentTab ==='add'">
           <app-user-form></app-user-form>
-        </ng-container>
+        </div>
       </div>
   </section>

@@ -65,18 +65,19 @@ export class SalesComponent implements OnInit,OnDestroy,AfterViewInit,AfterViewC
     });
   }
 
-  setData(data:Sale[]):SaleTable[]{
-    return data.map((sale) => {
-      const saleTable:SaleTable = {
-        id: sale.id,
-        game: sale.game.name,
-        purchaseDate: sale.purchaseDate,
-        ticketsDetail: sale.ticketsDetail,
-        totalPrice: sale.totalPrice,
-
-      };
-      return saleTable;
-    });
+  setData(data: Sale[]): SaleTable[] {
+    return data
+      .filter((sale) => sale.game.id === this.game.id)
+      .map((sale) => {
+        const saleTable: SaleTable = {
+          id: sale.id,
+          game: sale.game.name,
+          purchaseDate: sale.purchaseDate,
+          ticketsDetail: sale.ticketsDetail,
+          totalPrice: sale.totalPrice,
+        };
+        return saleTable;
+      });
   }
 
   applyFilter(event: Event) {
@@ -87,35 +88,7 @@ export class SalesComponent implements OnInit,OnDestroy,AfterViewInit,AfterViewC
       this.dataSource.paginator.firstPage();
     }
   }
-
-
-
-
-  enterEditMode(data:Sale):void{
-    // this.isEditMode = true;
-    // this.editRowId = data.id;
-    // const buyer = this.buyers.find((buyer)=>buyer.id === this.editRowId)
-    // console.log(buyer)
-    // this.buyerForm.patchValue({
-    //   name:buyer?.name,
-    //   surname:buyer?.surname,
-    //   dni:buyer?.dni,
-    //   birthdate:buyer?.birthdate,
-    // })
-  }
-
-
-    // this.service.update(edited).subscribe({
-    //   next:()=>{
-    //     this._updateTable()
-    //     this.exitEditMode()
-    //   }
-    // })
-
-
-
-
-  
+ 
 
   cancel(id:any):void{
     this.service.delete(id).subscribe({

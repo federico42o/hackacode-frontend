@@ -5,7 +5,7 @@
     x
 </button>
 </div>
-<div class=" h-full min-h-[500px] max-h-[500px] overflow-auto my-4">
+<div class=" h-full min-h-[400px] max-h-[400px] overflow-auto my-4">
   <table mat-table [dataSource]="dataSource" matSort class="dark:bg-transparent bg-opacity-30 overflow-auto">
     <ng-container matColumnDef="id">
       <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-white"> Id </th>
@@ -69,7 +69,7 @@
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 
     <tr class="mat-row" *matNoDataRow>
-      <td class="mat-cell" colspan="4">No se encontraron registros de  "{{input.value}}"</td>
+      <td class="mat-cell" colspan="4">No se encontraron registros </td>
     </tr>
 
   </table>
@@ -81,3 +81,4 @@
                  #paginator
                  >
   </mat-paginator>
+</div>

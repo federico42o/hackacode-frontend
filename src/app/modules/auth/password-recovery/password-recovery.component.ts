@@ -15,7 +15,9 @@ export class PasswordRecoveryComponent implements OnInit{
   constructor(private fb: FormBuilder,private route : Router,private router:ActivatedRoute,private passwordService:PasswordRecoveryService) { }
   recoveryForm!:FormGroup;
   expiration!:Date;
-
+  sended:boolean = false;
+  isLoading:boolean = false;
+  errorMessage:string ='';
   ngOnInit(): void {
 
     this.recoveryForm = this.fb.group({
@@ -25,6 +27,11 @@ export class PasswordRecoveryComponent implements OnInit{
   }
 
   onSubmit(){
+    if(this.recoveryForm.invalid){
+      return;
+    }
+
+    this.isLoading = true;
     this.passwordService.requestMail(this.recoveryForm.value).subscribe(
       {next:(data:any)=>{
 
@@ -34,10 +41,16 @@ export class PasswordRecoveryComponent implements OnInit{
       },
 
         error:(error:any)=>{
-          console.log(error);
+          this.isLoading = false;
+          if(error.status == 404){
+            console.log(error.error.message)
+            this.errorMessage = error.error.message;
+            
+          }
         },
         complete:()=>{
-          
+          this.sended = true;
+          this.isLoading = false;
           
           
         }
