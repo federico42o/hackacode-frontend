@@ -134,7 +134,7 @@ focus:border-light-navbar caret-green focus:ring-2 focus:ring-light-navbar focus
             Cancelar
           </button>
 
-          <button id="delete" (click)="delete(row)" *ngIf="!isEditMode">
+          <button id="delete" (click)="emitDelete(row)" *ngIf="!isEditMode">
             Borrar
           </button>
         </div>
@@ -150,7 +150,7 @@ focus:border-light-navbar caret-green focus:ring-2 focus:ring-light-navbar focus
   </div>
   </table>
 </div>
-<div class="custom-dark  text-light-primary dark:text-white mt-10">
+<div class="custom-dark  text-light-primary dark:text-white mt-5">
   <mat-paginator  [pageSizeOptions]="[5, 10, 20]"
                  showFirstLastButtons
                  

@@ -1,13 +1,18 @@
 
 <section class="flex justify-center items-start  gap-4 w-full flex-wrap h-full">
-    <div class="mt-4 mx-8 ">
-        <div class="dark:text-white self-start flex gap-8 w-full sticky top-0 left-0">
-          <button (click)="changeTab('view')">Ver empleados</button>
-          <button (click)="changeTab('add')">Agregar empleado</button>
+  <div class="mt-4 px-8 flex justify-between items-center w-full ">
+    <div class="w-full">
+        <div class="dark:text-white flex gap-8 w-full whitespace-nowrap pb-5">
+            <button (click)="changeTab('view')">Lista de empleados</button>
+            <button (click)="changeTab('add')">Agregar empleado</button>
         </div>
-      </div>
-      <div class="min-w-[90%] p-4 flex flex-col justify-center max-h-[600px]" id="scrollbar">
-        <ng-container class=" min-w-[100%] mx-4 p-4" id="scrollbar" *ngIf="currentTab == 'view'">
+        <div class="block w-full text-center">
+            <h1 class="text-3xl font-bold text-[#222D30] dark:text-yellow-200">{{currentTab=='add'?'Registrar empleado':'Empleados registrados'}}</h1>
+        </div>
+    </div>
+</div>
+      <div class="min-w-[80%] max-w-[80%] p-4 flex flex-col justify-center max-h-[600px]" id="scrollbar">
+        <ng-container class="mx-4 p-4" id="scrollbar" *ngIf="currentTab == 'view'">
             <app-employee-table></app-employee-table>
         </ng-container>
         <ng-container *ngIf="currentTab === 'add'">

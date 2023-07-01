@@ -29,4 +29,8 @@ export class SaleService {
     return this.http.delete(this.apiURL+"/"+id)
   }
 
+  getByGame(gameId:number):Observable<any>{
+    return this.http.get(`${this.apiURL}ventas/juego/${gameId}`)
+  }
+
 }

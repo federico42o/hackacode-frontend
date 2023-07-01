@@ -14,74 +14,86 @@ import { DialogComponent } from 'src/app/modules/administration/components/dialo
 export class GameComponent implements OnInit, OnDestroy {
 
   games$! : Subscription;
+  currentPage: number = 1;
+
   constructor(private service : GameService,public dialog: Dialog){}
 
-  headers : string[] = ["Juego", "Price", "Edad Requerida", "Horario"];
-  columns : string[] = ["name", "price", "requiredAge", "schedule"];
   games : Game[] = [];
+  pageableGames: Game[] = [];
+  isHidden:boolean = false;
+  editMode:boolean = false;
+  selectedGame!: Game;
   ngOnInit(): void {
-    this._updateTable()
+    this._updateGames()
+    console.log(this.games)
     
   }
+  array: any[] = []; 
+  itemsPerPage = 5; 
+  currentTab:string = 'form';
+
+  // Calcula el número total de páginas
+  get totalPages(): number {
+    return Math.ceil(this.array.length / this.itemsPerPage);
+  }
+
+  // Obtiene los elementos para la página actual
+  getItemsForCurrentPage(): any[] {
+    const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+    const endIndex = startIndex + this.itemsPerPage;
+    return this.array.slice(startIndex, endIndex);
+  }
+
+
 
   openDialog(mode:string,id :number) : void{
+    
     const dialogRef = this.dialog.open(GameFormComponent,{
       width: '60%',
       height: '50%',
       data: {mode,id}
     });
     dialogRef.closed.subscribe(result => {
-      this._updateTable()
+      this._updateGames()
     });
   }
 
 
-
-
-  handleEdit(id: number): void {
-    this.openDialog('update',id);
+  handleEdit(data:Game) {
+    this.selectedGame = data;
+    this.changeTab('form')
+    
   }
 
-  handleDelete(id:number): void{
-    const dialogRef = this.dialog.open(DialogComponent,{
-      width: '30%',
-      height: '10%',
-      data: {
-        message: "¿Desea borrar este Juego?",
-        id,
-      }
-      });
-      dialogRef.componentInstance?.accept.subscribe({
-        next: () => {
-          
-          this.service.delete(id).subscribe({
-            next: (data:any) => {
-             
-            },
-            complete: () => {
-              this._updateTable();
-            }
-
-          });
-          
-        },
-        error: (err:any) => {
-          console.log(err);
-        },
-        complete: () => {
-          this._updateTable();
-        }
-      });  
+  handleDelete(data:any){
+    console.log(data)
+    
   }
-  private _updateTable() : void{
+  onGameAdded():void{
+
+  }
+private _updateGames() : void{
     this.games$ = this.service.getAll().subscribe(
       {
         next:(data:any) => {
           this.games = data.content
+          this.array = this.games;
         }
       })
   }
+  prevPage(): void {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+    }
+  }
+
+  nextPage(): void {
+    if (this.currentPage < this.totalPages) {
+      this.currentPage++;
+    }
+  }
   changeTab(tab:string):void{
+    this.currentTab = tab;
 
   }
 

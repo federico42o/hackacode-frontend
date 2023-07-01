@@ -1,13 +1,13 @@
-<div class=" login-form mx-auto w-full h-full flex flex-col items-center  gap-4 text-light-primary dark:text-white">
-    <form class="flex flex-col gap-4" [formGroup]="employeeForm" (ngSubmit)="onSubmit()">
-        <div class="flex flex-col gap-2">
+<div class=" login-form mx-auto max-w-[400px] container w-full h-full flex flex-col items-center  gap-4 text-light-primary dark:text-white">
+    <form class="flex flex-col gap-4 w-full" [formGroup]="employeeForm" (ngSubmit)="onSubmit()">
+        <div class="flex flex-col gap-2 w-full">
             <label class="blok whitespace-nowrap w-full">Nombre Completo <span
                     class="text-red text-sm align-top">*</span></label>
-            <div class="w-full flex gap-4">
-                <input class="form-input text-gray-900 mt-1 block rounded-md border-gray-300 shadow-md focus:border-light-navbar caret-green focus:ring-2 focus:ring-light-navbar focus:ring-opacity-5" type="text"
+            <div class="w-full flex flex-col gap-4 xl:flex-nowrap lg:flex-nowrap md:flex-nowrap  ">
+                <input class="form-input text-gray-900 mt-1  rounded-md border-gray-300 shadow-md focus:border-light-navbar caret-green focus:ring-2 focus:ring-light-navbar focus:ring-opacity-5" type="text"
                     id="name" placeholder="Nombre" formControlName="name" [class.border-red]="employeeForm.get('name')?.errors && employeeForm.get('name')?.touched">
 
-                <input class="form-input text-gray-900 mt-1 block rounded-md border-gray-300 shadow-md focus:border-light-navbar caret-green focus:ring-2 focus:ring-light-navbar focus:ring-opacity-5" type="text"
+                <input class="form-input text-gray-900 mt-1  rounded-md border-gray-300 shadow-md focus:border-light-navbar caret-green focus:ring-2 focus:ring-light-navbar focus:ring-opacity-5" type="text"
                     id="surname" placeholder="Apellido(s)" formControlName="surname" [class.border-red]="employeeForm.get('surname')?.errors && employeeForm.get('surname')?.touched">
 
                 </div>

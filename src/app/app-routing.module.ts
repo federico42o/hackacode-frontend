@@ -13,13 +13,13 @@ const routes: Routes = [
   {path:'forbidden', component:ForbiddenComponent},
   { path: 'sales', 
   loadChildren: () => import('./modules/sales/sales.module').then(m => m.SalesModule),
-  // canActivate: [AuthGuard],
+  canActivate: [AuthGuard],
   data:{module:'sales'},
   // canActivateChild : [RoleGuard] momentaneamente
 },
   { path: 'administration', 
   loadChildren: () => import('./modules/administration/administration.module').then(m => m.AdministrationModule), 
-  // canActivate: [AuthGuard],
+  canActivate: [AuthGuard],
   data:{module:'administration'},
   // canActivateChild : [RoleGuard] 
    

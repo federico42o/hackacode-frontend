@@ -1,18 +1,45 @@
-<div class="mt-4 px-8 flex justify-between items-center w-full">
+<section class="" >
+<div class="mt-4 px-8 flex justify-between items-center w-full ">
     <div class="w-full">
-        <div class="dark:text-white flex gap-8 w-full whitespace-nowrap">
-            <button (click)="changeTab('view')">Ver empleados</button>
-            <button (click)="changeTab('add')">Agregar empleado</button>
+        <div class="dark:text-white flex gap-8 w-full whitespace-nowrap pb-5">
+            <button (click)="changeTab('view')">Lista de juegos</button>
+            <button (click)="changeTab('form')">Agregar juego</button>
+        </div>
+        <div class="block w-full text-center">
+            <h1 class="text-3xl font-bold text-[#222D30] dark:text-yellow-200">{{currentTab=='form'?'Agregar juego':'Juegos registrados'}}</h1>
         </div>
     </div>
 </div>
-<div class="container mx-auto w-full flex flex-col justify-center-center h-full">
-    <div class="block w-full">
-        <h1 class="text-3xl font-bold text-[#222D30] dark:text-yellow-200">Juegos registrados</h1>
-    </div>
-    <div class="flex my-4 gap-8 flex-1">
-        <div class="flex gap-8 flex-wrap">
-            <app-game-card *ngFor="let game of games" [game]="game"></app-game-card>
+<div class="container mx-auto w-full flex flex-col justify-center-center overflow-auto" *ngIf="currentTab === 'view'" >
+    <div class="flex flex-col my-4 gap-8 flex-1 min-h-[400px] max-h-[600px]">
+        <div class="flex justify-center gap-8 flex-wrap mx-auto px-8 ">
+            
+            <app-game-card *ngFor="let game of getItemsForCurrentPage()" [game]="game" (edit)="handleEdit($event)" (delete)="handleDelete($event)"></app-game-card>
+            <div class="relative cursor-pointer w-[300px] " (mouseenter)="isHidden = !isHidden" (mouseleave)="isHidden = !isHidden" (click)="changeTab('form')">
+                <span class="absolute top-0 left-0 w-full h-full mt-1 ml-1 bg-[#a8a662] rounded-lg"></span>
+                <div class="relative text-light-primary font-roboto text-4xl p-6 bg-white border-2 border-[#a8a662] rounded-lg  h-[150px]">
+                   AÑADIR JUEGO
+                </div>
+                  <div class="text-9xl absolute top-[5px] right-[45px] text-light-navbar opacity-20 hover:scale-150 transition duration-500">
+                    +
+                  </div>
+              </div>
+
+ 
         </div>
     </div>
 </div>
+</section>
+<div class="flex w-full gap-4" *ngIf="currentTab === 'view'">
+    <button (click)="prevPage()" [disabled]="currentPage === 1" [class.opacity-5]="currentPage === 1">Anterior</button>
+    <span>{{ currentPage }} / {{ totalPages }}</span>
+    <button (click)="nextPage()" [disabled]="currentPage === totalPages" [class.opacity-5]="currentPage===totalPages">Siguiente</button>
+</div>
+<section class="flex justify-center gap-4 flex-1 w-full flex-wrap h-full">
+
+      <div class="w-full p-4 flex flex-col justify-center items-center max-h-[600px]" id="scrollbar">
+      <ng-container *ngIf="currentTab === 'form'" >
+        <app-game-form (clientAdded)="onGameAdded()" [game]="selectedGame"></app-game-form>
+      </ng-container>
+    </div>
+  </section>
