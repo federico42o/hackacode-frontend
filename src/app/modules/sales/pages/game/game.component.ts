@@ -81,6 +81,9 @@ export class GameComponent implements OnInit, OnDestroy {
         }
       })
   }
+  changeTab(tab:string):void{
+
+  }
 
   ngOnDestroy(): void {
     this.games$.unsubscribe();

@@ -5,6 +5,7 @@ import { Employee, Game } from 'src/app/models';
 import { DIALOG_DATA, DialogRef } from '@angular/cdk/dialog';
 import { Subscription } from 'rxjs';
 import { GameService } from '../../services/game.service';
+import { DateValidator } from 'src/app/shared/utils/date-validator';
 
 
 @Component({
@@ -24,6 +25,7 @@ export class EmployeeFormComponent implements OnInit,OnDestroy{
   employee! : Employee;
   games$!: Subscription;
   games!: Game[];
+  date!: Date;
   ngOnInit(): void {
     this.games$ = this.gameService.getAll().subscribe({
       next: (data: any) => {
@@ -31,21 +33,33 @@ export class EmployeeFormComponent implements OnInit,OnDestroy{
       },
     });
     this.employeeForm = this.fb.group({
-      name:["", [Validators.required,Validators.pattern("[a-zA-Z ]*")]],
-      surname:["",[Validators.required, Validators.pattern("[a-zA-Z ]*")]],
-      birthdate:["",[Validators.required]],
+      name:["", [Validators.required,Validators.minLength(3),Validators.maxLength(50),Validators.pattern("[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ ]*")]],
+      surname:["",[Validators.required,Validators.minLength(3),Validators.maxLength(50), Validators.pattern("[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ ]*")]],
+      birthdate:["",[Validators.required,DateValidator.isAfter]],
       dni:["",[Validators.required, Validators.pattern("[0-9]{8}")]],
       game:[null,]
     });
+    this.date = new Date();
   }
 
 
 
   onSubmit():void{
     if(this.employeeForm.invalid){
-      return;
-    }      
+      console.log(this.employeeForm.errors)
     }
+    this.service.create(this.employeeForm.value).subscribe({
+      next: (data:any) => {
+      },
+      error: (err:any) => {
+        console.log(err);
+      },
+      complete: () => {
+        this.employeeAdded.emit();
+        this.employeeForm.reset();
+      }
+    });
+  }
   ngOnDestroy(): void {
     this.games$.unsubscribe();
   }

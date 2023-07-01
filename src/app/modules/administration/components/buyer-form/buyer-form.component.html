@@ -1,47 +1,81 @@
 <div
-    class="login-form mx-auto flex flex-col items-center justify-around gap-4 text-light-primary dark:text-dark-primary">
+    class="login-form mx-auto flex flex-col items-center justify-around gap-4 text-light-primary dark:text-white">
     <form class="flex flex-col gap-4" [formGroup]="clientForm" (ngSubmit)="onSubmit()">
-        <div class="flex  gap-2">
-            <div class="flex flex-col ">
-                <label class="blok whitespace-nowrap w-6/12">Nombre del comprador <span
-                        class="text-red text-sm align-top">*</span></label>
-                <div class="w-full flex gap-4">
-                        <input class="form-input text-dark-primary mt-1 block w-full rounded-md border-gray-300 shadow-md focus:border-green-600 caret-green focus:ring-4 focus:ring-green-600 focus:ring-opacity-5" type="text"
-                            id="name" placeholder="Nombre(s)" formControlName="name">
-                            <input class="form-input text-dark-primary mt-1 block w-full rounded-md border-gray-300 shadow-md focus:border-green-600 caret-green focus:ring-4 focus:ring-green-600 focus:ring-opacity-5" type="text"
-                            id="surname" placeholder="Apellido(s)" formControlName="surname">
+        <div class="flex flex-col gap-2">
+            <label class="blok whitespace-nowrap w-full">Nombre completo del comprador <span
+                    class="text-red text-sm align-top">*</span></label>
+            <div class="w-full flex gap-4">
+                <input class="form-input text-gray-900 mt-1 block rounded-md border-gray-300 shadow-md focus:border-light-navbar caret-green focus:ring-2 focus:ring-light-navbar focus:ring-opacity-5" type="text"
+                    id="name" placeholder="Nombre" formControlName="name" [class.border-red]="clientForm.get('name')?.errors && clientForm.get('name')?.touched">
+
+                <input class="form-input text-gray-900 mt-1 block rounded-md border-gray-300 shadow-md focus:border-light-navbar caret-green focus:ring-2 focus:ring-light-navbar focus:ring-opacity-5" type="text"
+                    id="surname" placeholder="Apellido(s)" formControlName="surname" [class.border-red]="clientForm.get('surname')?.errors && clientForm.get('surname')?.touched">
+
                 </div>
+                <div *ngIf="(clientForm.get('surname')?.invalid &&
+                clientForm.get('surname')?.errors && 
+                (clientForm.get('surname')?.dirty || clientForm.get('surname')?.touched) 
+                || 
+                (clientForm.get('name')?.invalid &&
+                clientForm.get('name')?.errors && 
+                (clientForm.get('name')?.dirty || clientForm.get('name')?.touched)
+                ))"
+                
+                >
+                <div class="w-full flex flex-col gap-4">
+                <small class="dark:text-yellow-200 text-light-primary" *ngIf="clientForm.get('name')?.hasError('required') || clientForm.get('surname')?.hasError('required') ">Estos campos no pueden estar vacíos.</small>
+                <small class="dark:text-yellow-200 text-light-primary" *ngIf="clientForm.get('name')?.errors?.['minlength']">La longitud debe ser de 3 hasta 50 caracteres.</small>
+                <small class="dark:text-yellow-200 text-light-primary" *ngIf="clientForm.get('name')?.hasError('pattern') ">El nombre solo puede contener letras.</small>
+                <small class="dark:text-yellow-200 text-light-primary" *ngIf="clientForm.get('surname')?.errors?.['minlength']">La longitud debe ser de 3 hasta 50 caracteres.</small>
+                <small class="dark:text-yellow-200 text-light-primary" *ngIf="clientForm.get('surname')?.hasError('pattern') ">El apellido solo puede contener letras.</small>
+                </div>
+              </div>
+        </div>
+        <div class="flex flex-col gap-2 w-full">
+            <label for="DNI" class="whitespace-nowrap">DNI <span class="text-red text-sm align-top">*</span>
+            </label>
+            <input class="form-input text-gray-900 mt-1 block rounded-md border-gray-300 shadow-md focus:border-light-navbar caret-green focus:ring-2 focus:ring-light-navbar focus:ring-opacity-5" type="text" id="dni"
+                placeholder="DNI" formControlName="dni" [class.border-red]="clientForm.get('dni')?.errors && clientForm.get('dni')?.touched">
+                <div *ngIf="clientForm.get('dni')?.invalid &&
+                clientForm.get('dni')?.errors && 
+                (clientForm.get('dni')?.dirty || clientForm.get('dni')?.touched)
+                ">
+                <small class="dark:text-yellow-200 text-light-primary" *ngIf="clientForm.get('dni')?.hasError('required') ">Este campo no puede estar vacío.</small>
+                <small class="dark:text-yellow-200 text-light-primary" *ngIf="clientForm.get('dni')?.errors?.['minlength'] || clientForm.get('dni')?.errors?.['maxlength'] ">La longitud debe ser de 3 hasta 50 caracteres.</small>
+                <small class="dark:text-yellow-200 text-light-primary" *ngIf="clientForm.get('dni')?.hasError('pattern') ">Ingrese un DNI válido.</small>
+              
+              </div>
+        </div>
+        <div class="flex flex-col gap-2  justify-between">
+
+            <div class="flex flex-col gap-2 w-full">
+                <label for="birthdate" class="whitespace-nowrap">Fecha de nacimiento <span
+                        class="text-red text-sm align-top">*</span></label>
+                <input class="form-input text-gray-900 mt-1 block rounded-md border-gray-300 shadow-md focus:border-light-navbar caret-green focus:ring-2 focus:ring-light-navbar focus:ring-opacity-5" type="date"
+                    id="birthdate" placeholder="Fecha de nacimiento" formControlName="birthdate" [class.border-red]="clientForm.get('birthdate')?.errors && clientForm.get('birthdate')?.touched">
+
+            </div>
+
+            <div class="errors">
+                <div *ngIf="(clientForm.get('birthdate')?.invalid &&
+                clientForm.get('birthdate')?.errors && 
+                (clientForm.get('birthdate')?.dirty || clientForm.get('birthdate')?.touched))"
+                
+                >
+                <div class="w-full flex flex-col gap-4">
+                <small class="dark:text-yellow-200 text-light-primary" *ngIf="clientForm.get('birthdate')?.hasError('required')">Estos campos no pueden estar vacíos.</small>
+            <small class="dark:text-yellow-200 text-light-primary" *ngIf="clientForm.get('birthdate')?.errors?.['isAfter']">
+                La fecha no debe ser posterior a {{date | date}}.
+                    <br>
+                    Ingrese una fecha válida
+                  </small>
+
+                </div>
+              </div>
             </div>
         </div>
-        <div class="flex flex-col">
-            <label class="blok whitespace-nowrap w-6/12">D.N.I. <span
-                class="text-red text-sm align-top">*</span></label>
-            <div class="flex">
-            <input class="form-input text-dark-primary mt-1 block w-full rounded-md border-gray-300 shadow-md focus:border-green-600 focus:ring-2 caret-green focus:ring-green-600 focus:ring-opacity-5" type="text"
-                id="dni" placeholder="Ej. 12345678" formControlName="dni" #password>
-            </div>
-        </div>
-        <label class="block">Fecha de nacimiento <span
-            class="text-red text-sm align-top">*</span></label>
-    <div class="date-input w-full flex relative">
-    <input class="
-        text-dark-primary
-        w-full
-        flex-1
-        form-input 
-        mt-1
-        block
-        rounded-md
-        border-green-200
-        shadow-sm
-        focus:border-[#009688] focus:ring focus:ring-[#009688] focus:ring-opacity-30" [matDatepicker]="picker"
-      placeholder="Ej. 01/01/1990" formControlName="birthdate" autocomplete="off">
-      <mat-datepicker-toggle matSuffix [for]="picker" class="absolute right-0 top-0 h-100"></mat-datepicker-toggle>
-    <mat-datepicker #picker class="w-100"></mat-datepicker>
-    </div>
-        <button
-            class="bg-blue-500 hover:bg-blue-400 dark:text-white font-medium py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded">
-            Registrar
+        <button class="bg-blue-500 hover:bg-blue-400 dark:text-white font-medium py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded" [disabled]="clientForm.invalid" [class.opacity-5]="clientForm.invalid" [class.cursor-not-allowed]="clientForm.invalid">
+            Agregar
         </button>
     </form>
 

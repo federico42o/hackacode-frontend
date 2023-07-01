@@ -1,9 +1,13 @@
-import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { Observable, map, startWith } from 'rxjs';
+import { Observable, Subscription, combineLatest, map, startWith } from 'rxjs';
 import { Game, Ticket } from 'src/app/models';
 import { Buyer } from 'src/app/models/buyer';
 import { TicketDetail } from 'src/app/models/detail/ticket-detail';
+import { BuyerService } from 'src/app/modules/administration/services/buyer.service';
+import { AuthService } from 'src/app/modules/auth/services/auth.service';
+import { TicketService } from '../../services/ticket.service';
+import { ToastrService } from 'ngx-toastr';
 
 
 @Component({
@@ -13,26 +17,37 @@ import { TicketDetail } from 'src/app/models/detail/ticket-detail';
 })
 export class AddTicketFormComponent implements OnInit,OnDestroy{
 
-  constructor(private fb: FormBuilder) {
-    }
+  constructor(private fb: FormBuilder,private authService:AuthService,private buyerService: BuyerService,private ticketService:TicketService,private toastr: ToastrService) { }
     created:boolean =false;
     ticketForm! : FormGroup;
     ticketID!: string;
-    @Input() buyers!: Buyer[];
-    @Input() tickets!:Ticket[];
+    buyers!: Buyer[];
+    buyers$!:Subscription;
+    tickets!:Ticket[];
     clientCtrl = new FormControl('');
-    filteredClients$!: Observable<any[]>;
-    @Input() currentGame!:Game;
+    filteredClients$!: Observable<Buyer[]>;
+    currentGame!:Game;
+    game$!:Subscription;
     @Output() ticket = new EventEmitter<TicketDetail>();
 
     ngOnInit(): void {
       this.ticketForm = this.fb.group({
-        buyer : [null,[Validators.required]],
-        ticket : [null,[Validators.required]]
-      })
-      this.setupFilteredClients()
+        buyer: [null, [Validators.required]],
+        ticket: [null, [Validators.required]]
+      });
+    
+      combineLatest([
+        this.authService.getCurrentGame(),
+        this.buyerService.getAll(),
+        this.ticketService.getAll()
+      ]).subscribe(([game, buyers, tickets]) => {
+        this.currentGame = game;
+        this.buyers = buyers.content;
+        this.setupFilteredClients();
+        this.tickets = tickets.content;
+      });
     }
-    buyer!:Buyer;
+    
     onSubmit() : void {
       const detail:TicketDetail = {
         id:'',
@@ -40,12 +55,12 @@ export class AddTicketFormComponent implements OnInit,OnDestroy{
         buyer: this.ticketForm.get('buyer')?.value
       }
       if(this.ticketForm.valid){
-
-
         this.ticket.emit(detail)
-
+        this.created = !this.created;
+        this.ticketForm.reset();
+        this.setupFilteredClients();
+        
       }else{
-        console.log('error')
         this.ticketForm.markAllAsTouched();
       }
 
@@ -63,7 +78,7 @@ export class AddTicketFormComponent implements OnInit,OnDestroy{
         startWith(""),
         map((value: string | Buyer) => {
           if (typeof value === "string") {
-            return value ? this.filterBuyers(value) : this.buyers.slice();
+            return value ? this.filterBuyers(value) : [...this.buyers];
           } else {
             return [];
           }

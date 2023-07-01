@@ -6,12 +6,7 @@ import { BuyerFormComponent } from '../../components/buyer-form/buyer-form.compo
 import { BuyerService } from '../../services/buyer.service';
 import { Buyer } from 'src/app/models/buyer';
 
-export interface BuyerRequest {
-  name: string;
-  surname: string;
-  birthdate: string;
-  dni: string;
-}
+
 @Component({
   selector: 'app-buyer',
   templateUrl: './buyer.component.html',
@@ -20,44 +15,15 @@ export interface BuyerRequest {
 export class BuyerComponent implements OnInit,OnDestroy{
   
   constructor(private fb : FormBuilder, private buyerService: BuyerService, public dialog : Dialog){}
-  currentTab = 'add';
+  currentTab = 'view';
   subscription$! : Subscription;
   buyerForm! : FormGroup;
   clients!: Buyer[];
   page : any;
-  columns = [
-    {
-      key: "name",
-      type: "text",
-      label: "Nombre"
-  },
-  {
-      key: "surname",
-      type: "text",
-      label: "Apellido"
-  },
-  {
-      key: "dni",
-      type: "text",
-      label: "DNI"
-  },
-  {
-      key: "birthdate",
-      type: "date",
-      label: "Fecha de nacimiento"
-  },
-  {
-    key: "lastVisit",
-    type: "lastVisit",
-    label: "Ult. visita"
-  },
-  {
-    key: "isEdit",
-    type: "isEdit",
-    label: "Acciones"
+  
+  changeTab(tab:string){
+    this.currentTab = tab;
   }
-  ]
-
 
   pageSize: number = 5;
 

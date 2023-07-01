@@ -3,10 +3,11 @@
   <app-header></app-header>
     <!-- <app-clock></app-clock> -->
   </div>
-  <div class="navbar" *ngIf="!route.url.startsWith('/auth')">
+  <div class="sidebar h-full" *ngIf="!route.url.startsWith('/auth')">
     <app-navbar></app-navbar>
   </div>
   <main class="main h-full">
     <router-outlet></router-outlet>
   </main>
+
 </div>

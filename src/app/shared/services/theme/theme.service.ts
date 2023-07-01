@@ -11,7 +11,7 @@ export class ThemeService {
     const darkMode = localStorage.getItem('darkMode');
     this.isDarkMode = new BehaviorSubject<boolean>(darkMode ? JSON.parse(darkMode) : true);
 
-    // Apply initial theme
+
     this.applyTheme();
   }
 

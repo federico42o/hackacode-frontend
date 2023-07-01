@@ -9,12 +9,13 @@ import { AppComponent } from './app.component';
 
 import { MAT_DATE_LOCALE } from "@angular/material/core";
 import { CookieService } from "ngx-cookie-service";
-import { AuthModule, SalesModule } from "./modules";
+import { AdministrationModule, AuthModule, SalesModule } from "./modules";
 import { AuthInterceptor } from "./modules/auth/auth.interceptor";
 import { SharedModule } from './shared';
 import { LoaderInterceptor } from "./shared/interceptor/loader.interceptor";
 import { RoleGuard } from "./modules/auth/guard/role.guard";
 import { ReportsModule } from "./modules/reports/reports.module";
+import { MatPaginatorIntl } from "@angular/material/paginator";
 
 
 
@@ -33,7 +34,9 @@ import { ReportsModule } from "./modules/reports/reports.module";
     BrowserAnimationsModule,
     SharedModule,
     SalesModule,
-    ReportsModule
+    ReportsModule,
+    AdministrationModule,
+    
   ],
   providers: [
     {provide: MAT_DATE_LOCALE, useValue: "es-ES"},
@@ -44,7 +47,8 @@ import { ReportsModule } from "./modules/reports/reports.module";
       multi: true,
     },
     CookieService,
-    RoleGuard
+    RoleGuard,
+    MatPaginatorIntl
   ],
   bootstrap: [AppComponent]
 })

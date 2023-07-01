@@ -1,50 +1,28 @@
-<section class="h-full w-full flex flex-col pb-4 ">
-    <div class="container mx-auto">
-        <div class="row">
-            <div class="col-12 flex flex-col gap-4 justify-end">
-                <h1 class="text-7xl font-bold text-[#222D30] dark:text-yellow-200">{{game.name || 'NOMBRE JUEGO'}}</h1>
-            </div>
+<section class="h-full w-full flex flex-col pb-4 overflow-y-auto overflow-x-hidden ">
+    <div class="mt-4 mx-8 flex justify-between lg:flex-nowrap flex-wrap-reverse">
+        <div class="dark:text-white self-start flex gap-8 w-full">
+            <button (click)="changeTab('ticket')">Vender entradas</button>
+            <button (click)="changeTab('sales')">Ver ventas</button>
+        </div>
+        <div class=" whitespace-nowrap">
+
+            <h1 class="text-3xl font-bold text-[#222D30] dark:text-yellow-200">{{game.name || 'NOMBRE JUEGO'}}</h1>
+
         </div>
     </div>
 
-    <div class="main container gap-4 mx-auto w-full h-full flex-grow flex flex-col p-4 ">
+    <div class="main container gap-4 w-full h-full p-8 mx-auto" *ngIf="tab === 'ticket'">
 
-        <div class="flex justify-between w-full h-full">
+        <div class="flex flex-wrap lg:flex-row md:flex-col w-full h-full gap-4">
 
-            <div *ngIf="!show" class="">
-                <div class=" flex gap-4 flex-1">
-                    <input
-                        class="text-2xl  w-[400px] form-input text-dark-primary dark:text-light-primary rounded-sm p-1 border-gray-300 shadow-md focus:border-green-600 caret-green focus:ring-2 focus:ring-green-600 focus:ring-opacity-5"
-                        type="number" min="0" max="10" id="ticket-count" placeholder="Ingrese cant. de tickets"
-                        [(ngModel)]="input">
-                    <button class="text-white bg-[#222D30] p-1 rounded-sm " (click)="addTicketForms()">Aceptar</button>
-                </div>
+            <div class="lg:w-96 w-full mx-auto">
+            <app-add-ticket-form (ticket)="send($event)"></app-add-ticket-form>
             </div>
-            <div *ngIf="show">
-
-                <div class="row flex-1">
-                    <div class="col-6 w-4/12">
-                        <div *ngFor="let ticket of formTickets; index as i" class="my-2 flex gap-3 items-center">
-                            <span class="inline w-4 text-center pt-4 text-dark-primary">{{i+1 }}</span>
-                            <app-add-ticket-form [currentGame]="game" (ticket)="send($event)" [tickets]="tickets" [buyers]="buyers"></app-add-ticket-form>
-
-                        </div>
-                    </div>
-                </div>
-
-
-            </div>
-
-            <div class="inline-block h-full min-h-[1em] w-0.5 self-stretch bg-[#5a5a5a] opacity-100 dark:opacity-50"></div>
-
-
-                
-                
-
-                <div class="w-4/12">
+                <div class="lg:w-8/12 w-full min-w-[500px] min-h-[500px] mx-auto">
                 <app-summary [ticketData]="ticketData" [currentGame]="game"></app-summary>
             </div>
-
         </div>
+
     </div>
+    
 </section>

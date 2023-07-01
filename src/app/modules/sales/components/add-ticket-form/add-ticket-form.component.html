@@ -1,15 +1,9 @@
-<div class="w-100 pt-4">
-<form *ngIf="!created" [formGroup]="ticketForm" class="text-dark-primary flex justify-between" (ngSubmit)="onSubmit()">
-    <div class="flex flex-2 gap-2">
+<div class="w-full">
+<form  [formGroup]="ticketForm" class="dark:text-white flex justify-between" (ngSubmit)="onSubmit()">
+    <div class="flex flex-col flex-2 gap-2 w-full">
+
         <input
-        class="form-input text-dark-primary
-      
-        block
-        w-52
-        rounded-md
-        border-gray-300
-        shadow-md
-        focus:border-dark-primary focus:ring-2 caret-green focus:ring-dark-primary focus:ring-opacity-5"
+        class="form-input text-gray-900 mt-1 mx-0 h-10 block rounded-md border-gray-300 shadow-md focus:border-light-navbar caret-green focus:ring-2 focus:ring-light-navbar focus:ring-opacity-5"
         type="text"
         placeholder="DNI del cliente"
         [matAutocomplete]="auto"
@@ -20,24 +14,19 @@
                 {{ client.name +' '+ client.surname }},({{client.dni}})
             </mat-option>
         </mat-autocomplete>
-
-        <select formControlName="ticket" class="form-select
-        text-dark-primary
-        
-        block
-        w-52
-        rounded-md
-        border-gray-300
-        shadow-md
-        focus:border-dark-primary focus:ring-2 caret-green focus:ring-dark-primary focus:ring-opacity-5">
+    
+        <select formControlName="ticket" class="form-select text-gray-900 mt-1 block rounded-md border-gray-300 shadow-md focus:border-light-navbar caret-green focus:ring-2 focus:ring-light-navbar focus:ring-opacity-5 h-10" >
             <option [value]="null">Sin asignar</option>
-            <option *ngFor="let ticket of tickets" [ngValue]="ticket">{{ticket.description}}</option>
+            <option *ngFor="let ticket of tickets " [ngValue]="ticket">{{ticket.description}}</option>
         </select>
 
-    <button type="submit" class="bg-dark-primary text-white w-full whitespace-nowrap px-2 rounded-md" >GENERAR TICKET</button>
+
+    <button type="submit" class="bg-light-navbar text-white w-full whitespace-nowrap px-2 rounded-md"  >
+        GENERAR TICKET
+    </button>
 </div>
 </form>
 <div *ngIf="created">
-    <!-- <button (click)="showTicket(ticketForm.get('type')?.value)">TICKET ID: {{ticketID}}</button> -->
+    <button >TICKET ID: {{ticketID}}</button>
 </div>
 </div>

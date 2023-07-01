@@ -15,9 +15,8 @@ import { BuyerService } from 'src/app/modules/administration/services/buyer.serv
   styleUrls: ['./ticket-selector.component.css']
 })
 export class TicketSelectorComponent implements OnInit, CanComponentDeactivate{
- constructor(private authService : AuthService,private service: TicketService,private buyerService: BuyerService) { }
- buyers!: Buyer[];
- buyers$!:Subscription[];
+ constructor(private authService : AuthService,private service: TicketService) { }
+
  tickets$!:Subscription;
  tickets!:Ticket[];
  formTickets:any[] =[];
@@ -26,20 +25,13 @@ export class TicketSelectorComponent implements OnInit, CanComponentDeactivate{
  game!: Game;
  game$!: Subscription;
  changes:boolean = true;
+ tab:string = 'ticket';
  ngOnInit(): void {
    this.game$ = this.authService.getCurrentGame().subscribe({
       next: game => {
         this.game = game;
       }
    });
-   this.buyers$ = this.buyerService.getAll().subscribe(
-    (response: any) => {
-      this.buyers = response.content;
-      
-    }
-  ),
-
-
   this.tickets$ = this.service.getAll().subscribe({
     next: (data:any)=>{
       this.tickets = data.content;
@@ -65,5 +57,12 @@ export class TicketSelectorComponent implements OnInit, CanComponentDeactivate{
     return confirm('¿Estás seguro de que deseas salir? Se perderán los cambios sin guardar.');
   }
   return true;
+}
+
+changeTab(tab:string){
+  if(this.canDeactivate()){
+
+    this.tab = tab;
+  }
 }
 }

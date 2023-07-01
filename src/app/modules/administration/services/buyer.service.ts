@@ -1,8 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BuyerRequest } from '../pages';
 import { Observable } from 'rxjs';
-import { Buyer } from 'src/app/models/buyer';
+import { BuyerRequest } from 'src/app/models';
 import { environment } from 'src/environments/environment.development';
 
 @Injectable({
@@ -13,7 +12,7 @@ export class BuyerService {
   constructor(private http: HttpClient) { }
   baseUrl = environment.apiUrl+'compradores';
 
-  getAll(): any {
+  getAll(): Observable<any> {
     return this.http.get(this.baseUrl);
   }
 
@@ -22,11 +21,11 @@ export class BuyerService {
 
   }
 
-  delete(id: number): void {
-    this.http.delete(this.baseUrl +"/"+ id);
+  delete(id: number): Observable<any> {
+    return this.http.delete(this.baseUrl +"/"+ id);
   }
 
-  update(user:Buyer):Observable<any>{
+  update(user:BuyerRequest):Observable<any>{
     return this.http.put(this.baseUrl, user);
   }
 

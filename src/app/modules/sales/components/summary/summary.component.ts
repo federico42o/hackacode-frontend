@@ -5,6 +5,7 @@ import { TicketDetail } from 'src/app/models/detail/ticket-detail';
 import { SaleService } from '../../services/sale.service';
 import { TicketDetailService } from '../../services/ticket-detail.service';
 import { SaleRequest } from 'src/app/models/sale';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-summary',
@@ -19,7 +20,7 @@ export class SummaryComponent implements OnChanges{
   @Input() ticketCount:number = 0.0;
   isLoading:boolean=false;
   total: number = 0;
-  constructor(private detailService:TicketDetailService,private saleService:SaleService){
+  constructor(private detailService:TicketDetailService,private saleService:SaleService,private toastr:ToastrService){
   
   }
   ngOnChanges(changes: SimpleChanges): void {
@@ -50,6 +51,7 @@ export class SummaryComponent implements OnChanges{
   
     forkJoin(saveTicketDetailsObservables).subscribe({
       next: (data: string[]) => {
+
         data.forEach((ticketId: string, i: number) => {
           const detail: TicketDetail = this.ticketData[i];
           detail.id = ticketId;
@@ -63,7 +65,13 @@ export class SummaryComponent implements OnChanges{
           next: (data) => {
           },
           error: (error) => {
-            console.log(error);
+            this.cancelTickets(this.tickets,error);
+            this.toastr.error("Hubo un error al procesar la compra","Intente nuevamente",{
+              timeOut: 3000,
+              progressAnimation:'decreasing',
+              progressBar:true,
+              
+            });
           },
           complete:()=>{
             this.isLoading = false;
@@ -81,5 +89,22 @@ export class SummaryComponent implements OnChanges{
     location.reload();
   }
 
+  cancelTickets(detail:TicketDetail[],error:Error): void {
+    detail.forEach((ticket: TicketDetail) => {
+      this.detailService.delete(ticket.id).subscribe({
+        next: (data) => {
+          this.ticketData = this.ticketData.filter((t) => t.id !== ticket.id);
+          this.calculateTotal();
+        },
+        error: (error) => {
+          
+        },
+        complete:()=>{
+          this.isLoading = false;
+
+        }
+      });
+    })
+  }
 
 }

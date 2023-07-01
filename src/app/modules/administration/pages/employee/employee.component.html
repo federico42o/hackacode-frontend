@@ -1,14 +1,17 @@
-<div class="row">
-    <div class="flex flex-col gap-4">
-        <h1 class="text-7xl font-bold text-[#222D30] dark:text-yellow-200 px-8">Empleados</h1>
-    </div>
-</div>
-<section class="flex justify-center items-start  gap-4 w-full flex-wrap">
 
-        <div class=" min-w-[100%] mx-4 p-4" id="scrollbar">
-            <app-employee-table (edit)="onEdit($event)" (delete)="onDelete($event)"></app-employee-table>
+<section class="flex justify-center items-start  gap-4 w-full flex-wrap h-full">
+    <div class="mt-4 mx-8 ">
+        <div class="dark:text-white self-start flex gap-8 w-full sticky top-0 left-0">
+          <button (click)="changeTab('view')">Ver empleados</button>
+          <button (click)="changeTab('add')">Agregar empleado</button>
         </div>
-            <app-employee-form *ngIf="currentTab == 'add'" (employeeAdded)="onClientAdded()"></app-employee-form>
- 
-
+      </div>
+      <div class="min-w-[90%] p-4 flex flex-col justify-center max-h-[600px]" id="scrollbar">
+        <ng-container class=" min-w-[100%] mx-4 p-4" id="scrollbar" *ngIf="currentTab == 'view'">
+            <app-employee-table></app-employee-table>
+        </ng-container>
+        <ng-container *ngIf="currentTab === 'add'">
+            <app-employee-form ></app-employee-form>
+        </ng-container>
+    </div>
 </section>

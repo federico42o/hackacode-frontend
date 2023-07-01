@@ -4,11 +4,11 @@ import { UserRole } from "./user-role";
 
 export interface UserTable {
     id:number,
-    password:string,
     name: string,
     surname: string,
     username:string,
     employee:Employee,
+    enable:boolean;
     dni: string,
     roles: UserRole[],
    

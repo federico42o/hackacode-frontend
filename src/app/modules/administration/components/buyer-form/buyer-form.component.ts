@@ -1,7 +1,9 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BuyerService } from '../../services/buyer.service';
-import { BuyerRequest } from '../../pages';
+import { BuyerRequest } from 'src/app/models';
+import { DateValidator } from 'src/app/shared/utils/date-validator';
+
 
 @Component({
   selector: 'app-buyer-form',
@@ -13,13 +15,15 @@ export class BuyerFormComponent implements OnInit{
   constructor(private fb: FormBuilder, private service: BuyerService) { }
   @Output() clientAdded: EventEmitter<void> = new EventEmitter<void>();
   clientForm! : FormGroup;
+  date!:Date;
   ngOnInit(): void {
     this.clientForm = this.fb.group({
-      name:["",[Validators.required]],
-      surname:["",[Validators.required]],
-      birthdate:["",[Validators.required]],
-      dni:["",[Validators.required]],
+      name:["", [Validators.required,Validators.minLength(3),Validators.maxLength(50),Validators.pattern("[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ ]*")]],
+      surname:["",[Validators.required,Validators.minLength(3),Validators.maxLength(50), Validators.pattern("[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ ]*")]],
+      birthdate:["",[Validators.required,DateValidator.isAfter]],
+      dni:["",[Validators.required, Validators.pattern("[0-9]{8}")]],
     });
+    this.date = new Date();
   }
 
   showPw():void{
@@ -44,7 +48,7 @@ export class BuyerFormComponent implements OnInit{
      console.log("invalid form")
     }else{
 
-    this.service.create(this.clientForm.value).subscribe(
+    this.service.create(buyer).subscribe(
       {next:(data:any) => {
 
       },
