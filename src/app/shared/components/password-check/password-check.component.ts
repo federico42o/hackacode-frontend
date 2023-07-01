@@ -29,7 +29,7 @@ export class PasswordCheckComponent {
     } else if (passwordLength >= 5 && passwordLength < 8) {
       this.passwordStrength = {
         strength: 'safe',
-        color: 'bg-yellow',
+        color: 'bg-yellow-200',
         width: 'w-1/2',
         message: 'Contraseña segura'
       };
