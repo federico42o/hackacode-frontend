@@ -4,6 +4,7 @@
         <div class="dark:text-white flex gap-8 w-full whitespace-nowrap pb-5">
             <button (click)="changeTab('view')">Lista de juegos</button>
             <button (click)="changeTab('form')">Agregar juego</button>
+            
         </div>
         <div class="block w-full text-center">
             <h1 class="text-3xl font-bold text-[#222D30] dark:text-yellow-200">{{currentTab=='form'?'Agregar juego':'Juegos registrados'}}</h1>
@@ -35,11 +36,11 @@
     <span>{{ currentPage }} / {{ totalPages }}</span>
     <button (click)="nextPage()" [disabled]="currentPage === totalPages" [class.opacity-5]="currentPage===totalPages">Siguiente</button>
 </div>
-<section class="flex justify-center gap-4 flex-1 w-full flex-wrap h-full">
+<section class="flex justify-center gap-4 flex-1 w-full flex-wrap mt-5">
 
       <div class="w-full p-4 flex flex-col justify-center items-center max-h-[600px]" id="scrollbar">
       <ng-container *ngIf="currentTab === 'form'" >
         <app-game-form (clientAdded)="onGameAdded()" [game]="selectedGame"></app-game-form>
       </ng-container>
     </div>
-  </section>
+</section>

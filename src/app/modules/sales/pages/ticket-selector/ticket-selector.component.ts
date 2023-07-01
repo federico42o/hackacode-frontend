@@ -25,7 +25,7 @@ export class TicketSelectorComponent implements OnInit, CanComponentDeactivate{
  game!: Game;
  game$!: Subscription;
  changes:boolean = true;
- tab:string = 'ticket';
+ tab:string = 'sales';
  ngOnInit(): void {
    this.game$ = this.authService.getCurrentGame().subscribe({
       next: game => {
@@ -60,9 +60,14 @@ export class TicketSelectorComponent implements OnInit, CanComponentDeactivate{
 }
 
 changeTab(tab:string){
+  if(tab === 'sales'){
+    this.tab = tab;
+  }else{
+
   if(this.canDeactivate()){
 
     this.tab = tab;
   }
+}
 }
 }

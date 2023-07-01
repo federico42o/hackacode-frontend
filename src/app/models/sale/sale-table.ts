@@ -1,10 +1,10 @@
 import { TicketDetail } from "../detail";
 import { Game } from "../game";
 
-export interface Sale {
+export interface SaleTable {
     id:number,
     ticketsDetail: TicketDetail[],
-    game: Game,
+    game: string,
     purchaseDate: Date,
     totalPrice: number,
 }

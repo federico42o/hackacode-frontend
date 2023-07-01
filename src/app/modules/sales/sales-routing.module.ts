@@ -9,8 +9,7 @@ import { SalesComponent } from './pages/sales/sales.component';
 const routes: Routes = [
   {path:'new-ticket', component: TicketSelectorComponent,canDeactivate: [ConfirmExitGuard]},
   {path: 'game', component: GameComponent},
-  {path: 'entrada', component: TicketComponent},
-  {path: '', component: SalesComponent}
+  {path: 'entrada', component: TicketComponent}
 ];
 
 @NgModule({
