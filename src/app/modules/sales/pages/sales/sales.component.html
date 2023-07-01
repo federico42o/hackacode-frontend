@@ -1,19 +1,12 @@
-<input class="
-ml-auto
-form-input
-text-gray-900
-mt-1
-block
-self-end
-rounded-md
-border-gray-300
-shadow-md
-focus:border-light-navbar caret-green focus:ring-2 focus:ring-light-navbar focus:ring-opacity-5"  (keyup)="applyFilter($event)" placeholder="Filtrar" #input>
-
-
+<div class="flex gap-4 justify-end">
+<input class=" form-input text-gray-900 mt-1 block self-end rounded-md border-gray-300 shadow-md focus:border-light-navbar caret-green focus:ring-2 focus:ring-light-navbar focus:ring-opacity-5"  (keyup)="applyFilter($event)" placeholder="Filtrar" #input>
+<input type="date" class=" form-input text-gray-900 mt-1 block self-end rounded-md border-gray-300 shadow-md focus:border-light-navbar caret-green focus:ring-2 focus:ring-light-navbar focus:ring-opacity-5"  (change)="applyFilter($event)" placeholder="Filtrar" #inputDate>
+<button class="" (click)="inputDate.value = '' ; input.value = '' ; applyFilter($event)" >
+    x
+</button>
+</div>
 <div class=" h-full min-h-[500px] max-h-[500px] overflow-auto my-4">
-  <table mat-table [dataSource]="dataSource" matSort class="h-full dark:bg-transparent bg-opacity-30 overflow-auto">
-    <div >
+  <table mat-table [dataSource]="dataSource" matSort class="dark:bg-transparent bg-opacity-30 overflow-auto">
     <ng-container matColumnDef="id">
       <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-white"> Id </th>
       <td mat-cell *matCellDef="let row" class="dark:text-white"> 
@@ -78,7 +71,7 @@ focus:border-light-navbar caret-green focus:ring-2 focus:ring-light-navbar focus
     <tr class="mat-row" *matNoDataRow>
       <td class="mat-cell" colspan="4">No se encontraron registros de  "{{input.value}}"</td>
     </tr>
-  </div>
+
   </table>
 </div>
 <div class="custom-dark  text-light-primary dark:text-white mt-5">
