@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Observable, map, startWith } from 'rxjs';
-import { Employee, UserRole,UserRequest } from 'src/app/models';
+import { Observable, forkJoin, map, startWith } from 'rxjs';
+import { Employee, UserRole,UserRequest, User } from 'src/app/models';
 import { randomPassword } from 'src/app/shared/utils/genPw';
 import { EmployeeService } from '../../services/employee.service';
 import { RoleService } from '../../services/role.service';
@@ -20,13 +20,14 @@ export class UserFormComponent implements OnInit {
   employees!: Employee[];
   filteredEmployees$!: Observable<Employee[]>;
   roles!: UserRole[]
-
+  users!:User[]
+  view:boolean = false;
   ngOnInit(): void {
     this.userForm = this.fb.group({
-      username: ["", [Validators.required, Validators.email]],
-      password: [randomPassword(), [Validators.required]],
+      username: ["", [Validators.required,  Validators.minLength(4),Validators.maxLength(10),Validators.pattern("[a-zA-Z0-9._-]*")]],
+      password: [randomPassword(), [Validators.required, Validators.minLength(8)]],
       employee: [null, [Validators.required]],
-      roles: ["", [Validators.required]],
+      roles: [[], [Validators.required, Validators.minLength(0)]],
     });
 
     this.loadEmployees();
@@ -35,12 +36,12 @@ export class UserFormComponent implements OnInit {
 
   onSubmit(): void {
     const user: UserRequest = {
-      username: this.userForm.get("username")?.value.concat("@crazyland.com"),
+      username: this.userForm.get("username")?.value.concat("@gmail.com"),
       password: this.userForm.get("password")?.value,
       employee: this.userForm.get("employee")?.value,
       roles: this.userForm.get("roles")?.value,
     };
-    if(this.userForm.valid){
+
       this.userService.create(user).subscribe({
         next: () => {
           this.userForm.reset();
@@ -49,28 +50,29 @@ export class UserFormComponent implements OnInit {
           console.log(err)
         },
         complete:()=> {
-          console.log("complete")
+          this.loadEmployees();
+          location.reload();
 
         }
       });
-    }
+    
   }
 
-  showPw():void{
-    const input = document.getElementById("password") as HTMLInputElement;
-    if(input.type === "password"){
-      input.type = "text";
-    }else{
-      input.type = "password";
-    }
-  }
+
 
   loadEmployees(): void {
-    this.employeeService.getAll().subscribe({
-      next: (data: any) => {
-        this.employees = data.content;
+    forkJoin([
+      this.userService.getAll(),
+      this.employeeService.getAll()
+    ]).subscribe({
+      next: ([userData, employeeData]) => {
+        this.users = userData.content;
+        this.employees = employeeData.content.filter((employee: Employee) => !this.users.some((user: User) => user.employee?.id === employee.id));
         this.setupFilteredEmployees();
       },
+      error: (error) => {
+        console.error('Error loading employees', error);
+      }
     });
   }
 

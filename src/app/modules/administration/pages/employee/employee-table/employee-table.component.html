@@ -1,3 +1,4 @@
+<section class="min-w-full">
 <input class="
 ml-auto
 form-input
@@ -11,11 +12,11 @@ shadow-md
 focus:border-light-navbar caret-green focus:ring-2 focus:ring-light-navbar focus:ring-opacity-5"  (keyup)="applyFilter($event)" placeholder="Filtrar" #input>
 
 
-<div class=" h-full min-h-[500px]">
-  <table mat-table [dataSource]="dataSource" matSort class="h-full dark:bg-transparent bg-opacity-30">
+<div class="w-full min-h-[500px] max-h-[500px] overflow-auto my-4">
+  <table mat-table [dataSource]="dataSource" matSort class="h-full  dark:bg-transparent  overflow-auto ">
     <div [formGroup]="employeeForm">
-    <ng-container matColumnDef="name">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header class="dark:text-white"> Nombre </th>
+    <ng-container matColumnDef="name" >
+      <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-white" > Nombre </th>
       <td mat-cell *matCellDef="let row" class="dark:text-white"> 
         <span *ngIf="!isEditMode || editRowId !== row.id">
         {{row.name}} 
@@ -41,7 +42,7 @@ focus:border-light-navbar caret-green focus:ring-2 focus:ring-light-navbar focus
     </ng-container>
 
     <ng-container matColumnDef="surname">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header class="dark:text-white"> Apellido </th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-white"> Apellido </th>
       <td mat-cell *matCellDef="let row" class="dark:text-white"> 
         <span *ngIf="!isEditMode || editRowId !== row.id">
           {{row.surname}} 
@@ -65,7 +66,7 @@ focus:border-light-navbar caret-green focus:ring-2 focus:ring-light-navbar focus
     </ng-container>
 
     <ng-container matColumnDef="dni">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header class="dark:text-white"> DNI </th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-white"> DNI </th>
       <td mat-cell *matCellDef="let row" class="dark:text-white"> 
         
         <span *ngIf="!isEditMode || editRowId !== row.id">
@@ -89,7 +90,7 @@ focus:border-light-navbar caret-green focus:ring-2 focus:ring-light-navbar focus
     </ng-container>
 
     <ng-container matColumnDef="birthdate">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header class="dark:text-white"> Fecha de nacimiento </th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-white"> Fecha de nacimiento </th>
       <td mat-cell *matCellDef="let row" class="dark:text-white"> 
         <span *ngIf="!isEditMode || editRowId !== row.id">
         {{row.birthdate | date:'dd-MM-YYYY'}} 
@@ -110,13 +111,13 @@ focus:border-light-navbar caret-green focus:ring-2 focus:ring-light-navbar focus
       </td>
     </ng-container>
     <ng-container matColumnDef="game">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header class="dark:text-white"> Juego asignado </th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-white"> Juego asignado </th>
       <td mat-cell *matCellDef="let row" class="dark:text-white">
         <span *ngIf="!isEditMode || editRowId !== row.id">
             {{ row.game ? row.game.name : 'Sin Asignar'  }}
         </span>
         <select formControlName="game"
-        class="form-input text-gray-900 mt-1 block rounded-md border-gray-300 shadow-md focus:border-light-navbar caret-green focus:ring-2 focus:ring-light-navbar focus:ring-opacity-5 h-12"
+        class="form-select text-gray-900 mt-1 block rounded-md border-gray-300 shadow-md focus:border-light-navbar caret-green focus:ring-2 focus:ring-light-navbar focus:ring-opacity-5 h-12"
         *ngIf="isEditMode && editRowId === row.id">
         <option [ngValue]="null">Sin Asignar</option>
         <option *ngFor="let game of games" [ngValue]="game" >
@@ -126,7 +127,7 @@ focus:border-light-navbar caret-green focus:ring-2 focus:ring-light-navbar focus
       </td>
     </ng-container>
     <ng-container matColumnDef="actions">
-      <th mat-header-cell *matHeaderCellDef class="pl-4 dark:text-white text-right actions"> Acciones </th>
+      <th mat-header-cell *matHeaderCellDef class=" pl-4 text-white text-right actions"> Acciones </th>
 
       <td mat-cell *matCellDef="let row" class="text-right">
         <div class="flex gap-4 justify-end dark:text-white">
@@ -147,7 +148,7 @@ focus:border-light-navbar caret-green focus:ring-2 focus:ring-light-navbar focus
       </td>
     </ng-container>
 
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns;sticky:true"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 
     <tr class="mat-row" *matNoDataRow>
@@ -164,3 +165,4 @@ focus:border-light-navbar caret-green focus:ring-2 focus:ring-light-navbar focus
   </mat-paginator>
   </div>
 
+</section>

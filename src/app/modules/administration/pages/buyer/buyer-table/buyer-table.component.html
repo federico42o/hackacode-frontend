@@ -11,11 +11,11 @@ shadow-md
 focus:border-light-navbar caret-green focus:ring-2 focus:ring-light-navbar focus:ring-opacity-5"  (keyup)="applyFilter($event)" placeholder="Filtrar" #input>
 
 
-<div class=" h-full min-h-[500px]">
-  <table mat-table [dataSource]="dataSource" matSort class="h-full dark:bg-transparent bg-opacity-30">
+<div class=" h-full min-h-[500px] max-h-[500px] overflow-auto my-4">
+  <table mat-table [dataSource]="dataSource" matSort class="h-full dark:bg-transparent bg-opacity-30 overflow-auto">
     <div [formGroup]="buyerForm">
     <ng-container matColumnDef="name">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header class="dark:text-white"> Nombre </th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-white"> Nombre </th>
       <td mat-cell *matCellDef="let row" class="dark:text-white"> 
         <span *ngIf="!isEditMode || editRowId !== row.id">
           {{row.name}} 
@@ -39,7 +39,7 @@ focus:border-light-navbar caret-green focus:ring-2 focus:ring-light-navbar focus
     </ng-container>
 
     <ng-container matColumnDef="surname" class="bg-white">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header class="dark:text-white"> Apellido </th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-white"> Apellido </th>
       <td mat-cell *matCellDef="let row" class="dark:text-white"> 
         <span *ngIf="!isEditMode || editRowId !== row.id">
           {{row.surname}} 
@@ -63,7 +63,7 @@ focus:border-light-navbar caret-green focus:ring-2 focus:ring-light-navbar focus
     </ng-container>
 
     <ng-container matColumnDef="dni">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header class="dark:text-white"> DNI </th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-white"> DNI </th>
       <td mat-cell *matCellDef="let row" class="dark:text-white"> 
         <span *ngIf="!isEditMode || editRowId !== row.id">
           {{row.dni}} 
@@ -80,14 +80,14 @@ focus:border-light-navbar caret-green focus:ring-2 focus:ring-light-navbar focus
         ">
         <small class="dark:text-yellow-200 text-light-primary" *ngIf="buyerForm.get('dni')?.hasError('required') ">Este campo no puede estar vacío.</small>
         <small class="dark:text-yellow-200 text-light-primary" *ngIf="buyerForm.get('dni')?.errors?.['minlength'] || buyerForm.get('dni')?.errors?.['maxlength'] ">La longitud debe ser de 3 hasta 50 caracteres.</small>
-        <small class="dark:text-yellow-200 text-light-primary" *ngIf="buyerForm.get('dni')?.hasError('pattern') ">El nombre solo puede contener letras.</small>
+        <small class="dark:text-yellow-200 text-light-primary" *ngIf="buyerForm.get('dni')?.hasError('pattern') ">Ingrese un DNI válido.</small>
       
       </div>
       </td>
     </ng-container>
 
     <ng-container matColumnDef="birthdate">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header class="dark:text-white"> Fecha de nacimiento </th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-white"> Fecha de nacimiento </th>
       <td mat-cell *matCellDef="let row" class="dark:text-white"> 
         <span *ngIf="!isEditMode || editRowId !== row.id">
         {{row.birthdate | date:'dd-MM-YYYY'}} 
@@ -113,7 +113,7 @@ focus:border-light-navbar caret-green focus:ring-2 focus:ring-light-navbar focus
       </td>
     </ng-container>
     <ng-container matColumnDef="lastVisit">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header class="dark:text-white"> Ult. visita </th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-white"> Ult. visita </th>
       <td mat-cell *matCellDef="let row" class="dark:text-white">
         <span >
             {{ row.lastVisit}}
@@ -121,7 +121,7 @@ focus:border-light-navbar caret-green focus:ring-2 focus:ring-light-navbar focus
         </td>
     </ng-container>
     <ng-container matColumnDef="actions">
-      <th mat-header-cell *matHeaderCellDef class="pl-4 dark:text-white text-right actions"> Acciones </th>
+      <th mat-header-cell *matHeaderCellDef class=" pl-4 text-white text-right actions"> Acciones </th>
       <td mat-cell *matCellDef="let row" class="text-right">
         <div class="flex gap-4 justify-end dark:text-white">
           <button (click)="enterEditMode(row)" *ngIf="!isEditMode || editRowId !== row.id">
@@ -141,7 +141,7 @@ focus:border-light-navbar caret-green focus:ring-2 focus:ring-light-navbar focus
       </td>
     </ng-container>
 
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns;sticky:true"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 
     <tr class="mat-row" *matNoDataRow>

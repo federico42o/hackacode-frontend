@@ -1,84 +1,87 @@
-<div class=" login-form mx-auto w-full h-full flex flex-col items-center  gap-4 text-light-primary dark:text-dark-primary">
+<div class=" login-form mx-auto w-full h-full flex flex-col items-center  gap-4 text-light-primary dark:text-white">
     <form class="flex flex-col gap-4" [formGroup]="employeeForm" (ngSubmit)="onSubmit()">
         <div class="flex flex-col gap-2">
             <label class="blok whitespace-nowrap w-full">Nombre Completo <span
                     class="text-red text-sm align-top">*</span></label>
             <div class="w-full flex gap-4">
-                <input class="
-        form-input
-        text-dark-primary
-        mt-1
-        block
-        w-6/12
-        rounded-md
-        border-gray-300
-        shadow-md
-        focus:border-green-600 caret-green focus:ring-2 focus:ring-green-600 focus:ring-opacity-5" type="text"
-                    id="name" placeholder="Nombre" formControlName="name">
+                <input class="form-input text-gray-900 mt-1 block rounded-md border-gray-300 shadow-md focus:border-light-navbar caret-green focus:ring-2 focus:ring-light-navbar focus:ring-opacity-5" type="text"
+                    id="name" placeholder="Nombre" formControlName="name" [class.border-red]="employeeForm.get('name')?.errors && employeeForm.get('name')?.touched">
 
-                <input class="
-        form-input
-        text-dark-primary
-        mt-1
-        block
-        w-6/12
-        rounded-md
-        border-gray-300
-        shadow-md
-        focus:border-green-600 focus:ring-2 caret-green focus:ring-green-600 focus:ring-opacity-5" type="text"
-                    id="surname" placeholder="Apellido(s)" formControlName="surname">
-            </div>
+                <input class="form-input text-gray-900 mt-1 block rounded-md border-gray-300 shadow-md focus:border-light-navbar caret-green focus:ring-2 focus:ring-light-navbar focus:ring-opacity-5" type="text"
+                    id="surname" placeholder="Apellido(s)" formControlName="surname" [class.border-red]="employeeForm.get('surname')?.errors && employeeForm.get('surname')?.touched">
+
+                </div>
+                <div *ngIf="(employeeForm.get('surname')?.invalid &&
+                employeeForm.get('surname')?.errors && 
+                (employeeForm.get('surname')?.dirty || employeeForm.get('surname')?.touched) 
+                || 
+                (employeeForm.get('name')?.invalid &&
+                employeeForm.get('name')?.errors && 
+                (employeeForm.get('name')?.dirty || employeeForm.get('name')?.touched)
+                ))"
+                
+                >
+                <div class="w-full flex flex-col gap-4">
+                <small class="dark:text-yellow-200 text-light-primary" *ngIf="employeeForm.get('name')?.hasError('required') || employeeForm.get('surname')?.hasError('required') ">Estos campos no pueden estar vacíos.</small>
+                <small class="dark:text-yellow-200 text-light-primary" *ngIf="employeeForm.get('name')?.errors?.['minlength']">La longitud debe ser de 3 hasta 50 caracteres.</small>
+                <small class="dark:text-yellow-200 text-light-primary" *ngIf="employeeForm.get('name')?.hasError('pattern') ">El nombre solo puede contener letras.</small>
+                <small class="dark:text-yellow-200 text-light-primary" *ngIf="employeeForm.get('surname')?.errors?.['minlength']">La longitud debe ser de 3 hasta 50 caracteres.</small>
+                <small class="dark:text-yellow-200 text-light-primary" *ngIf="employeeForm.get('surname')?.hasError('pattern') ">El apellido solo puede contener letras.</small>
+                </div>
+              </div>
         </div>
-        <div class="flex gap-2 items-center justify-between">
-            <div class="flex flex-col gap-2 w-6/12">
+        <div class="flex flex-col gap-2  justify-between">
+
+            <div class="flex flex-col gap-2 w-full">
                 <label for="birthdate" class="whitespace-nowrap">Fecha de nacimiento <span
                         class="text-red text-sm align-top">*</span></label>
-                <input class="
-            
-        form-input
-        text-dark-primary
-        mt-1
-        block
-        w-full
-        rounded-md
-        border-gray-300
-        shadow-md
-        focus:border-green-600 focus:ring-2 caret-green focus:ring-green-600 focus:ring-opacity-5" type="date"
-                    id="birthdate" placeholder="Fecha de nacimiento" formControlName="birthdate">
+                <input class="form-input text-gray-900 mt-1 block rounded-md border-gray-300 shadow-md focus:border-light-navbar caret-green focus:ring-2 focus:ring-light-navbar focus:ring-opacity-5" type="date"
+                    id="birthdate" placeholder="Fecha de nacimiento" formControlName="birthdate" [class.border-red]="employeeForm.get('birthdate')?.errors && employeeForm.get('birthdate')?.touched">
+
             </div>
-            <div class="flex flex-col gap-2 w-6/12">
-                <label for="DNI" class="whitespace-nowrap">DNI <span class="text-red text-sm align-top">*</span>
-                </label>
-                <input class="
-        form-input
-        text-dark-primary
-        mt-1
-        block
-        w-full
-        rounded-md
-        border-gray-300
-        shadow-md
-        focus:border-green-600 focus:ring-2 caret-green focus:ring-green-600 focus:ring-opacity-5" type="text" id="dni"
-                    placeholder="DNI" formControlName="dni">
+
+            <div class="errors">
+                <div *ngIf="(employeeForm.get('birthdate')?.invalid &&
+                employeeForm.get('birthdate')?.errors && 
+                (employeeForm.get('birthdate')?.dirty || employeeForm.get('birthdate')?.touched))"
+                
+                >
+                <div class="w-full flex flex-col gap-4">
+                <small class="dark:text-yellow-200 text-light-primary" *ngIf="employeeForm.get('birthdate')?.hasError('required')">Estos campos no pueden estar vacíos.</small>
+            <small class="dark:text-yellow-200 text-light-primary" *ngIf="employeeForm.get('birthdate')?.errors?.['isAfter']">
+                La fecha no debe ser posterior a {{date | date}}.
+                    <br>
+                    Ingrese una fecha válida
+                  </small>
+
+                </div>
+              </div>
             </div>
+        </div>
+        <div class="flex flex-col gap-2 w-full">
+            <label for="DNI" class="whitespace-nowrap">DNI <span class="text-red text-sm align-top">*</span>
+            </label>
+            <input class="form-input text-gray-900 mt-1 block rounded-md border-gray-300 shadow-md focus:border-light-navbar caret-green focus:ring-2 focus:ring-light-navbar focus:ring-opacity-5" type="text" id="dni"
+                placeholder="DNI" formControlName="dni" [class.border-red]="employeeForm.get('dni')?.errors && employeeForm.get('dni')?.touched">
+                <div *ngIf="employeeForm.get('dni')?.invalid &&
+                employeeForm.get('dni')?.errors && 
+                (employeeForm.get('dni')?.dirty || employeeForm.get('dni')?.touched)
+                ">
+                <small class="dark:text-yellow-200 text-light-primary" *ngIf="employeeForm.get('dni')?.hasError('required') ">Este campo no puede estar vacío.</small>
+                <small class="dark:text-yellow-200 text-light-primary" *ngIf="employeeForm.get('dni')?.errors?.['minlength'] || employeeForm.get('dni')?.errors?.['maxlength'] ">La longitud debe ser de 3 hasta 50 caracteres.</small>
+                <small class="dark:text-yellow-200 text-light-primary" *ngIf="employeeForm.get('dni')?.hasError('pattern') ">Ingrese un DNI válido.</small>
+              
+              </div>
         </div>
         <div class="flex flex-col gap-2 w-6/12">
             <label for="DNI" class="whitespace-nowrap">Juego</label>
-            <select formControlName="game" class="form-select
-            text-dark-primary
-            mt-1
-            block
-            w-full
-            rounded-md
-            border-gray-300
-            shadow-md
-            focus:border-green-600 focus:ring-2 caret-green focus:ring-green-600 focus:ring-opacity-5">
-                <option [value]="null">Sin asignar</option>
-                <option *ngFor="let game of games" [value]="game | json">{{game.name}}</option>
+            <select formControlName="game" class="form-select text-gray-900 mt-1 block rounded-md border-gray-300 shadow-md focus:border-light-navbar caret-green focus:ring-2 focus:ring-light-navbar focus:ring-opacity-5">
+                <option [value]="null" >Sin asignar</option>
+                <option *ngFor="let game of games" [ngValue]="game">{{game.name}}</option>
             </select>
         </div>
-        <button class="bg-blue-500 hover:bg-blue-400 dark:text-white font-medium py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded">
-            aceptar
+        <button class="bg-blue-500 hover:bg-blue-400 dark:text-white font-medium py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded" [disabled]="employeeForm.invalid" [class.opacity-5]="employeeForm.invalid" [class.cursor-not-allowed]="employeeForm.invalid">
+            Agregar
         </button>
     </form>
 </div>

@@ -25,6 +25,9 @@ export class UsersComponent implements OnInit {
     });
     
   }
+  changeTab(tab:string){
+    this.currentTab = tab;
+  }
 
 }
 

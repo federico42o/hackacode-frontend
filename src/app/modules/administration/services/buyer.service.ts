@@ -12,7 +12,7 @@ export class BuyerService {
   constructor(private http: HttpClient) { }
   baseUrl = environment.apiUrl+'compradores';
 
-  getAll(): any {
+  getAll(): Observable<any> {
     return this.http.get(this.baseUrl);
   }
 

@@ -36,6 +36,7 @@ import { MatPaginatorIntl } from "@angular/material/paginator";
     SalesModule,
     ReportsModule,
     AdministrationModule,
+    
   ],
   providers: [
     {provide: MAT_DATE_LOCALE, useValue: "es-ES"},

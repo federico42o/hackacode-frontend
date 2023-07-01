@@ -6,7 +6,6 @@ import { User, UserRole } from 'src/app/models';
 import { UserEmployeeService } from '../../../services/user-employee.service';
 import { UserTable, UserUpdate } from 'src/app/models/user';
 import { RoleService } from '../../../services/role.service';
-import { ThemeService } from 'src/app/shared';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
@@ -133,13 +132,13 @@ export class TableUsersComponent implements OnInit {
 
     } else{
       const editedRow:UserUpdate = {
-        id : this.editRowId!,
+        id : data.id,
         username : data.username,
         roles : data.roles,
         employee : data.employee
   
       }
-      this.service.update(data.id).subscribe({
+      this.service.update(editedRow).subscribe({
         error:(err:any)=>{
           console.log(err)
         },

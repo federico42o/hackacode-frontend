@@ -18,4 +18,7 @@ export class TicketDetailService {
   getAll():Observable<any>{
     return this.http.get(this.apiURL)
   }
+  delete(id:string):Observable<any>{
+    return this.http.delete(this.apiURL+"/"+id)
+  }
 }

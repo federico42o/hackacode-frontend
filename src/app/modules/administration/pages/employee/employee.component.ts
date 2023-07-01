@@ -18,7 +18,7 @@ export class EmployeeComponent implements OnInit, OnDestroy{
   employees$! : Subscription;
   constructor(private service : EmployeeService,public dialog: Dialog,private gameService: GameService,){}
   employees : Employee[] = [];
-  currentTab:string = 'add';
+  currentTab:string = 'view';
   games!:Game[]
   ngOnInit(): void {}
   
@@ -56,8 +56,8 @@ export class EmployeeComponent implements OnInit, OnDestroy{
         }
       });  
   }
-
-  setTab(tab:string){
+  
+  changeTab(tab:string){
     this.currentTab = tab
   }
   ngOnDestroy(): void {

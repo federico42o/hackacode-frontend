@@ -1,12 +1,12 @@
-<section class="flex items-start gap-4 w-full flex-wrap">
+
+<section class="flex justify-center items-start  gap-4 w-full flex-wrap h-full">
   <div class="mt-4 mx-8 ">
-    <div class="dark:text-white self-start flex gap-8 w-full sticky top-0 left-0">
-      <button (click)="changeTab('view')">Ver usuarios</button>
-      <button (click)="changeTab('add')">Agregar usuario</button>
+      <div class="dark:text-white self-start flex gap-8 w-full sticky top-0 left-0">
+        <button (click)="changeTab('view')">Ver clientes</button>
+        <button (click)="changeTab('add')">Agregar cliente</button>
+      </div>
     </div>
-  </div>
-  
-  <div class="min-w-[90%] p-4 flex flex-col justify-center" id="scrollbar">
+    <div class="min-w-[90%] p-4 flex flex-col justify-center max-h-[600px]" id="scrollbar">
     <ng-container *ngIf="currentTab === 'add'" >
       <app-buyer-form (clientAdded)="onClientAdded()"></app-buyer-form>
     </ng-container>
