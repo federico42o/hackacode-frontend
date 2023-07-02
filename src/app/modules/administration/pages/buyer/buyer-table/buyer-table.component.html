@@ -11,7 +11,7 @@ shadow-md
 focus:border-light-navbar caret-green focus:ring-2 focus:ring-light-navbar focus:ring-opacity-5"  (keyup)="applyFilter($event)" placeholder="Filtrar" #input>
 
 
-<div class=" h-full min-h-[500px] max-h-[500px] overflow-auto my-4">
+<div class=" h-full min-h-[400px] max-h-[400px] overflow-auto my-4">
   <table mat-table [dataSource]="dataSource" matSort class="h-full dark:bg-transparent bg-opacity-30 overflow-auto">
     <div [formGroup]="buyerForm">
     <ng-container matColumnDef="name">
@@ -134,7 +134,7 @@ focus:border-light-navbar caret-green focus:ring-2 focus:ring-light-navbar focus
             Cancelar
           </button>
 
-          <button id="delete" (click)="delete(row)" *ngIf="!isEditMode">
+          <button id="delete" (click)="emitDelete(row)" *ngIf="!isEditMode">
             Borrar
           </button>
         </div>
@@ -150,10 +150,11 @@ focus:border-light-navbar caret-green focus:ring-2 focus:ring-light-navbar focus
   </div>
   </table>
 </div>
-<div class="custom-dark  text-light-primary dark:text-white mt-10">
+<div class="custom-dark  text-light-primary dark:text-white mt-5">
   <mat-paginator  [pageSizeOptions]="[5, 10, 20]"
                  showFirstLastButtons
                  
                  #paginator
                  >
   </mat-paginator>
+</div>

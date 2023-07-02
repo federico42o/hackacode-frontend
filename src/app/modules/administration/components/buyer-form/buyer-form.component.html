@@ -1,10 +1,10 @@
 <div
-    class="login-form mx-auto flex flex-col items-center justify-around gap-4 text-light-primary dark:text-white">
-    <form class="flex flex-col gap-4" [formGroup]="clientForm" (ngSubmit)="onSubmit()">
-        <div class="flex flex-col gap-2">
+    class="login-form mx-auto flex flex-col items-center justify-around gap-4 text-light-primary dark:text-white ">
+    <form class="flex flex-col gap-4 w-full max-w-[500px]" [formGroup]="clientForm" (ngSubmit)="onSubmit()">
+        <div class="flex flex-col gap-2 w-full">
             <label class="blok whitespace-nowrap w-full">Nombre completo del comprador <span
                     class="text-red text-sm align-top">*</span></label>
-            <div class="w-full flex gap-4">
+            <div class="w-full flex flex-col gap-4">
                 <input class="form-input text-gray-900 mt-1 block rounded-md border-gray-300 shadow-md focus:border-light-navbar caret-green focus:ring-2 focus:ring-light-navbar focus:ring-opacity-5" type="text"
                     id="name" placeholder="Nombre" formControlName="name" [class.border-red]="clientForm.get('name')?.errors && clientForm.get('name')?.touched">
 

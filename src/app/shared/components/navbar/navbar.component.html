@@ -1,14 +1,14 @@
 <!-- <nav class="min-h-screen   h-full w-full bg-gray-900 rounded-md bg-clip-padding backdrop-filter batext-dark-primaryckdrop-blur-lg bg-opacity-10"> -->
-<nav class="h-full justify-center items-center mb-4 dark:bg-secondary bg-light-navbar flex-wrap">
+<nav class="xl:mt-0 lg:mt-0 md:mt-0  sm:mt-8 h-full justify-center items-center mb-4 dark:bg-secondary bg-light-navbar flex-wrap z-[9999]">
     <!-- dark:bg-[#132226] -->
     <div class=" mx-4 items-center flex flex-col rounded-bl-lg rounded-br-lg border-t-[.5px] border-[#afece7] dark:border-[#5a5a5a]">
 
-        <div class=" text-logo flex flex-col items-center gap-4  text-xl flex-1 mt-2">
+        <div class=" text-logo flex md:flex-col sm:flex items-center gap-4  text-xl flex-1 mt-2">
             <div 
                 class="flex gap-2 cursor-pointer rounded-md text-center px-4 py-2 " routerLink="/sales/new-ticket"
                 matTooltip="Ventas"
                 [matTooltipHideDelay]="200"
-                [matTooltipPosition]="'right'"
+                [matTooltipPosition]="tooltipPosition"
                 (click)="selectTab('VENTAS')"
                 [ngClass]="{'bg-light-active dark:bg-dark-active ': currentTab === 'VENTAS'}">
                 <svg xmlns="http://www.w3.org/2000/svg" id="Outline" viewBox="0 0 24 24" width="24" height="24"
@@ -22,7 +22,7 @@
             <div class="flex gap-2 cursor-pointer rounded-md  px-4 py-2"
                 matTooltip="Atracciones"
                 [matTooltipHideDelay]="200"
-                [matTooltipPosition]="'right'"
+                [matTooltipPosition]="tooltipPosition"
                 routerLink="/sales/game" (click)="selectTab('JUEGOS')"
                 [ngClass]="{'bg-light-active dark:bg-dark-active ': currentTab === 'JUEGOS'}">
                 <svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-name="Layer 1" viewBox="0 0 24 24" width="24"
@@ -40,7 +40,7 @@
                 routerLink="/sales/game" (click)="selectTab('REPORTES')"
                 matTooltip="Reportes"
                 [matTooltipHideDelay]="200"
-                [matTooltipPosition]="'right'"
+                [matTooltipPosition]="tooltipPosition"
                 [ngClass]="{'bg-light-active dark:bg-dark-active ' : currentTab === 'REPORTES'}">
                 <svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-name="Layer 1" viewBox="0 0 24 24" width="24"
                     height="24" class="fill-logo">
@@ -55,7 +55,7 @@
                 routerLink="/administration/buyer" (click)="selectTab('CLIENTES')"
                 matTooltip="Clientes"
                 [matTooltipHideDelay]="200"
-                [matTooltipPosition]="'right'"
+                [matTooltipPosition]="tooltipPosition"
                 [ngClass]="{'bg-light-active dark:bg-dark-active ': currentTab === 'CLIENTES'}">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"
                     class="fill-logo">
@@ -74,7 +74,7 @@
                 routerLink="/administration/employee" (click)="selectTab('EMPLEADO')"
                 matTooltip="Empleados"
                 [matTooltipHideDelay]="200"
-                [matTooltipPosition]="'right'"
+                [matTooltipPosition]="tooltipPosition"
                 [ngClass]="{'bg-light-active dark:bg-dark-active  ': currentTab === 'EMPLEADO'}">
                 <svg id="Layer_1" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"
                     data-name="Layer 1" class="fill-logo">
@@ -89,7 +89,7 @@
                 routerLink="/administration/users" (click)="selectTab('USUARIOS')"
                 matTooltip="Usuarios"
                 [matTooltipHideDelay]="200"
-                [matTooltipPosition]="'right'"
+                [matTooltipPosition]="tooltipPosition"
                 [ngClass]="{'bg-light-active dark:bg-dark-active ': currentTab === 'USUARIOS'}">
                 <svg xmlns="http://www.w3.org/2000/svg" id="Outline" viewBox="0 0 24 24" width="24" height="24"
                     class="fill-logo">

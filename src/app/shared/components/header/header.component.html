@@ -7,7 +7,7 @@
             <app-toggle-theme-btn></app-toggle-theme-btn>
         </div>
 <div class="relative px-4" *ngIf="logged">
-    <div class="flex text-logo cursor-pointer" *ngIf="user.username !== undefined" (click)="toggleTab()">
+    <div class="flex text-logo cursor-pointer" *ngIf="user.username" (click)="toggleTab()">
         {{user.username}}
         <svg class="cursor-pointer" fill="none" height="24" shape-rendering="geometricPrecision" stroke="currentColor"  [ngClass]="{'-rotate-180':menuOpen}" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" width="24"><path d="M6 9l6 6 6-6" ></path>
         </svg>

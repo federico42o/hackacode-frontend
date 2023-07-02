@@ -25,3 +25,18 @@
 .header { grid-area: header; }
 .sidebar { grid-area: sidebar; }
 .main { grid-area: main; }
+
+
+@media screen and (max-width:768px){
+  .main-container {
+    display: grid; 
+    grid-template-columns: 0.2fr 0.9fr 1fr; 
+    grid-template-rows: 0.2fr 3.5fr 0.3fr; 
+    gap: 0px 0px; 
+    grid-template-areas: 
+      "header header header"
+      "main main main"
+      "sidebar sidebar sidebar"; 
+  }
+
+}

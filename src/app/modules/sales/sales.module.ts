@@ -14,6 +14,7 @@ import { GameCardComponent } from './components/game-card/game-card.component';
 import { TicketComponent } from './pages/ticket/ticket.component';
 import { CreateTicketComponent } from './components/create-ticket/create-ticket.component';
 import { TicketCardComponent } from './components/ticket-card/ticket-card.component';
+import { SalesComponent } from './pages/sales/sales.component';
 
 
 
@@ -27,7 +28,8 @@ import { TicketCardComponent } from './components/ticket-card/ticket-card.compon
     GameCardComponent,
     TicketComponent,
     CreateTicketComponent,
-    TicketCardComponent
+    TicketCardComponent,
+    SalesComponent
   ],
   imports: [
     CommonModule,
@@ -46,7 +48,8 @@ import { TicketCardComponent } from './components/ticket-card/ticket-card.compon
     GameCardComponent,
     TicketComponent,
     CreateTicketComponent,
-    TicketCardComponent
+    TicketCardComponent,
+    SalesComponent
   ]
 })
 export class SalesModule { }

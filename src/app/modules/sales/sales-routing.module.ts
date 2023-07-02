@@ -4,11 +4,12 @@ import { TicketSelectorComponent } from './pages';
 import { GameComponent } from './pages/game/game.component';
 import { TicketComponent } from './pages/ticket/ticket.component';
 import { ConfirmExitGuard } from 'src/app/shared/guard/confirm-exit.guard';
+import { SalesComponent } from './pages/sales/sales.component';
 
 const routes: Routes = [
   {path:'new-ticket', component: TicketSelectorComponent,canDeactivate: [ConfirmExitGuard]},
   {path: 'game', component: GameComponent},
-  {path: 'entrada', component: TicketComponent},
+  {path: 'entrada', component: TicketComponent}
 ];
 
 @NgModule({

@@ -1,11 +1,12 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Injectable, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
-import { BehaviorSubject, Observable, Subscription, catchError, switchMap, tap, throwError } from 'rxjs';
-import { Game, User, UserRole } from 'src/app/models';
+import { BehaviorSubject, Observable, catchError, switchMap, tap, throwError } from 'rxjs';
+import { Game, User } from 'src/app/models';
 
 import jwt_decode from 'jwt-decode';
 import { environment } from 'src/environments/environment.development';
+import { LoginRequest } from 'src/app/models/user/login-request';
 
 @Injectable({
   providedIn: 'root'
@@ -24,8 +25,9 @@ export class AuthService {
 
 
   constructor(private http: HttpClient, private cookies: CookieService) { 
-    const token = cookies.get('token');
-    if (token !== '' && token !== null) {
+    const isToken = cookies.check('token');
+    if (isToken) {
+      const token = cookies.get('token');
       const decoded: any = jwt_decode(token);
       this.getUserByUsername(decoded.sub).subscribe({
         next: (user: User) => {
@@ -51,8 +53,8 @@ export class AuthService {
     return this.http.get<User>(this.apiUrl+"usuarios/por_nombre/" + username);
   }
 
-  login(username: string, password: string): Observable<any> {
-    return this.http.post('http://localhost:8080/token', { username, password }).pipe(
+  login(request:LoginRequest): Observable<any> {
+    return this.http.post('http://localhost:8080/token', request).pipe(
       switchMap((res: any) => {
         this.cookies.set('token', res.token);
         const decoded: any = jwt_decode(res.token);
@@ -62,15 +64,14 @@ export class AuthService {
         this.setCurrentUser(user);
       }),
       catchError((err: any) => {
-        console.log('Error retrieving user:', err);
-        this.cookies.delete('token');
-        return throwError(()=> new Error('Error retrieving user'));
+        this.cookies.delete('token', '/');
+        return throwError(()=> new Error('Usuario o contraseña incorrectos.'));
       })
     );
   }
 
   logout(): void {
-    this.cookies.delete('token');
+    this.cookies.deleteAll('/');
     this.setCurrentUser({} as User);
   }
 

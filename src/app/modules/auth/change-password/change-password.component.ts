@@ -17,6 +17,8 @@ export class ChangePasswordComponent implements OnInit {
   weak!:boolean;
   safe!:boolean;
   good!:boolean;
+  isLoading:boolean = false;
+  errorMessage:string ='';
   @Input() expirationTime!:Date;
 
   strength!:any;
@@ -27,21 +29,26 @@ export class ChangePasswordComponent implements OnInit {
 
     })
     this.changeForm = this.fb.group({
-      password: ['',[Validators.required,Validators.email,Validators.minLength(8)]],
-      confirm: ['',[Validators.required,Validators.email,Validators.minLength(8)]],
+      password: ['',[Validators.required,Validators.minLength(8)]],
+      confirm: ['',[Validators.required,Validators.minLength(8)]],
     });
     
   }
 
   onSubmit(){
-    
+    if(this.changeForm.invalid){
+      return;
+    }
+    this.isLoading = !this.isLoading;
     this.passwordService.changePassword({password:this.changeForm.value.password,repeatPassword:this.changeForm.value.confirm,token:this.token}).subscribe(
       {next:(data:any)=>{
         
       },
 
         error:(error:any)=>{
-          console.log(error);
+          this.isLoading = false;
+          this.errorMessage = "El link ha expirado. Por favor, solicite un nuevo link de recuperación de contraseña";
+          
         },
         complete:()=>{
           this.route.navigate(['/auth/login']);
@@ -51,15 +58,4 @@ export class ChangePasswordComponent implements OnInit {
     );
   }
 
-  passwordCheck() {
-    this.changeForm.get('password')!.valueChanges.subscribe(input => {
-      
-  
-      const passwordLength = input.length;
-  
-      this.weak = passwordLength < 5;
-      this.safe = passwordLength >= 5 && passwordLength < 8;
-      this.good = passwordLength >= 8;
-    });
-  }
 }
