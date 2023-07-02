@@ -1,5 +1,4 @@
 import { Buyer } from "./buyer";
-import { Employee } from "./employee";
 
 export interface Dataset {
     date?: string | null;
@@ -9,14 +8,14 @@ export interface Dataset {
     earningsOnMonth?: number | null;
     topBuyer?: Buyer | null;
     topGame?: GameWithMoreTickets | null;
-    historicSales?: historicSales | null;
+    historicSales?: HistoricSales | null;
 }
 export interface GameWithMoreTickets{
     gameName?: string | null;
     totalTicketsSold?: number | null;
 }
 
-export interface historicSales {
+export interface HistoricSales {
     earnings?: number | null;
     ticketsSold: number | null;
 }

@@ -5,15 +5,15 @@
     <div class="w-full"><app-widget [title]="'Ventas este año1'" [value]="currentValue"></app-widget></div>
 </div>
 
-<form  [formGroup]="date" class="text-light-primary" (ngSubmit)="onDateSelected()">
+<form  [formGroup]="filter" class="text-light-primary" (ngSubmit)="onDateSelected()">
     <input type="date" formControlName="date">
-    <select type="date" formControlName="game">
+    <select  formControlName="game">
         <option *ngFor="let game of games" [ngValue]="game">{{game.name}}</option>
         
     </select>
-<button >
+<button class="bg-black text-white px-6 py-2">
 
-    aver
+    Buscar
 </button>
 </form>
 
