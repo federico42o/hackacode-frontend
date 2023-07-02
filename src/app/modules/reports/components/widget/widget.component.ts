@@ -1,10 +1,19 @@
-import { Component } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-widget',
   templateUrl: './widget.component.html',
   styleUrls: ['./widget.component.css']
 })
-export class WidgetComponent {
+export class WidgetComponent implements OnInit {
+  
+  
+  @Input() title!:string;
+  @Input() value!:number;
+  @Input() icon!:string;
+  @Input() description!:string;
 
+  
+  ngOnInit(): void {
+  }
 }

@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { WidgetComponent } from './widget.component';
+import { BigChartComponent } from './big-chart.component';
 
-describe('WidgetComponent', () => {
-  let component: WidgetComponent;
-  let fixture: ComponentFixture<WidgetComponent>;
+describe('BigChartComponent', () => {
+  let component: BigChartComponent;
+  let fixture: ComponentFixture<BigChartComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ WidgetComponent ]
+      declarations: [ BigChartComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(WidgetComponent);
+    fixture = TestBed.createComponent(BigChartComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

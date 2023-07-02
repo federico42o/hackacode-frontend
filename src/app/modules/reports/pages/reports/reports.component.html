@@ -1,9 +1,24 @@
 <section class="w-full h-full p-4">
-    <div class="flex justify-between w-2/3">
-<app-widget>
-
-</app-widget>
-<app-widget></app-widget>
-<app-widget></app-widget>
+<div class=" flex gap-4 w-2/5">
+    <div class="w-full"><app-widget [title]="'Ventas este año2'" [value]="currentValue"></app-widget></div>
+    <div class="w-full"><app-widget [title]="'Ventas este año3'" [value]="currentValue"></app-widget></div>
+    <div class="w-full"><app-widget [title]="'Ventas este año1'" [value]="currentValue"></app-widget></div>
 </div>
+
+<form  [formGroup]="date" class="text-light-primary" (ngSubmit)="onDateSelected()">
+    <input type="date" formControlName="date">
+    <select type="date" formControlName="game">
+        <option *ngFor="let game of games" [ngValue]="game">{{game.name}}</option>
+        
+    </select>
+<button >
+
+    aver
+</button>
+</form>
+
+<div class="flex justify-between w-[600px] h-[500px]">
+<app-big-chart></app-big-chart>
+</div>
+
 </section>
