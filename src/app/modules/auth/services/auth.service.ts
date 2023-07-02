@@ -24,19 +24,27 @@ export class AuthService {
 
 
 
-  constructor(private http: HttpClient, private cookies: CookieService) { 
-    const isToken = cookies.check('token');
-    if (isToken) {
-      const token = cookies.get('token');
+  constructor(private http: HttpClient, private cookies: CookieService) {}
+  
+  initializeCurrentUser(): void {
+    const tokenKey = 'token';
+    const usernameKey = 'sub';
+
+    if (this.cookies.check(tokenKey)) {
+      const token = this.cookies.get(tokenKey);
       const decoded: any = jwt_decode(token);
-      this.getUserByUsername(decoded.sub).subscribe({
+      const username = decoded[usernameKey];
+
+      this.getUserByUsername(username).subscribe({
         next: (user: User) => {
-          if(user.employee.game !== null){this.setCurrentGame(user.employee.game||{} as Game)}
           this.setCurrentUser(user);
+          if (user.employee && user.employee.game) {
+            this.setCurrentGame(user.employee.game || {} as Game);
+          }
         },
         error: (err: any) => {
           console.log('Error retrieving user:', err);
-          cookies.delete('token');
+          this.cookies.delete(tokenKey);
         }
       });
     }

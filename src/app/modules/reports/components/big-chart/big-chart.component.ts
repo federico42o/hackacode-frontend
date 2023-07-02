@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Chart,registerables } from 'chart.js';
+import { Chart,ChartData,registerables } from 'chart.js';
 import { ReportService } from '../../services/report.service';
 Chart.register(...registerables);
 
@@ -11,44 +11,44 @@ Chart.register(...registerables);
 })
 export class BigChartComponent implements OnInit {
   constructor(private service:ReportService) {}
-
+  dataLoaded: boolean = false;
   labelData!: any;
   mainData!: any;
+  chart!: any;
   colors!: string[];
   today:Date = new Date();
+  ctx:string = 'pie-chart'
   yesterday:Date = new Date(this.today.getFullYear(),this.today.getMonth(),this.today.getDate()-1);
   ngOnInit(): void {
 
       this.loadData();
-    
+      console.log(this.mainData)
+      
+        
 
-    this.RenderChart(this.labelData, '# de tickets vendidos', this.mainData, 'bar', 'piechart');
-
-  }
-
-  RenderChart(labels: any, label: string, data: any, type: any, id: string): void {
-    new Chart(id, {
-      type: type,
+    }
+  
+  createChart(labels:any,data:any,id:any): void {
+    new  Chart(id, {
+      type: 'bar',
       data: {
         labels: labels,
-        datasets: [
-          {
-            label: label,
-            data: data,
-            borderWidth: 1,
-          },
-        ],
+        datasets: [{
+          label: '# tickets vendidos',
+          data: data,
+          borderWidth: 1
+        }]
       },
       options: {
         scales: {
           y: {
-            beginAtZero: false,
-          },
-        },
-      },
+            beginAtZero: true
+          }
+        }
+      }
     });
+    
   }
-
   setLabels(data: any[]): void {
     this.labelData = data.map((d: any) => d.game);
     console.log(this.labelData)
@@ -61,9 +61,16 @@ export class BigChartComponent implements OnInit {
   loadData(): void {
     this.service.ticketsCountForGamesInDate(this.yesterday.toISOString().substring(0, 10)).subscribe({
       next:(data:any)=>{
-        this.setLabels(data);
         this.setMainData(data);
+        this.setLabels(data);
+        this.createChart(this.labelData,this.mainData,this.ctx);
+      },
+      complete:()=>{
+        this.createChart(this.labelData,this.mainData,this.ctx);
+       
+        
       }
     })
   }
+  
 }

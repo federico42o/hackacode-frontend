@@ -34,20 +34,15 @@ export class LoginComponent implements OnInit{
       password:this.loginForm.value.password
     }
 
-    this.loginService.login(loginRequest).subscribe(
-      {next:(data:any)=>{
-        
+    this.loginService.login(loginRequest).subscribe({
+      next: () => {
+        this.loginService.initializeCurrentUser();
+        this.route.navigate(['/']);
       },
-
-        error:(error:any)=>{
-          this.isLoading = false;
-          this.errorMessage = error.message;
-        },
-        complete:()=>{
-          this.route.navigate(['/']);
-          
-        }
+      error: (error: any) => {
+        this.isLoading = false;
+        this.errorMessage = error.message;
       }
-    );
+    });
   }
 }

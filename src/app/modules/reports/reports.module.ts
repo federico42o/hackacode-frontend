@@ -9,6 +9,7 @@ import { SharedModule } from 'src/app/shared';
 import { ReactiveFormsModule } from '@angular/forms';
 
 
+
 @NgModule({
   declarations: [
     ReportsComponent,
@@ -19,12 +20,12 @@ import { ReactiveFormsModule } from '@angular/forms';
     CommonModule,
     ReportsRoutingModule,
     ReactiveFormsModule,
-    SharedModule
+    SharedModule,
   ],
   exports:[
     ReportsComponent,
     WidgetComponent,
-    BigChartComponent
+    BigChartComponent,
   ]
 })
 export class ReportsModule { }
