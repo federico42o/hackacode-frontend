@@ -30,7 +30,7 @@ export class LoginComponent implements OnInit{
     this.isLoading = !this.isLoading;
 
     const loginRequest:LoginRequest = {
-      username:this.loginForm.value.email,
+      username:this.loginForm.value.username,
       password:this.loginForm.value.password
     }
 
