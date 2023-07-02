@@ -46,6 +46,7 @@ export class HeaderComponent implements OnInit,OnDestroy{
 
   logout():void{
     this.logged = false;
+    this.menuOpen = false;
     this.service.logout();
     this.route.navigate(['/auth/login']);
     

@@ -1,28 +1,89 @@
 <div
 class="background z-[-9999] absolute top-0 left-0 flex bg-[url(/assets/img/login_modo_claro.webp)] dark:bg-[url(/assets/img/login_modo_oscuro.webp)] bg-cover h-screen w-screen items-center justify-center">
 </div>
-<div class="flex items-center justify-center h-screen">
+<div class="flex flex-col items-center justify-center h-screen " >
+    <div class="flex flex-col justify-center items-center rounded-lg bg-light-navbar dark:bg-light-primary dark:bg-opacity-60  bg-opacity-60  dark:backdrop-filter backdrop-filter dark:backdrop-blur-[10px] backdrop-blur-[10px] lg:w-2/6 sm:w-1/2  h-3/5 p-8">
+        <div *ngIf="isLoading" class="w-full ">
+            <app-loader></app-loader>
+          </div>
+    <div *ngIf="!isLoading && errorMessage !== ''" class="self-center w-full">
+        <span class="text-xl text-white text-center w-full">
+            {{errorMessage}}
+        </span>
+    </div>
 
     <form
-        class="flex flex-col gap-8 bg-light-navbar bg-opacity-40 bg-clip-padding backdrop-filter backdrop-blur-[2px] rounded-lg w-1/3 h-3/5 items-center justify-center"
+        *ngIf="!isLoading"
+        class="flex flex-col gap-8 w-full items-center "
         [formGroup]="loginForm" (ngSubmit)="onSubmit()">
 
-        <h1 class="text-3xl text-center text-white dark:text-white">Iniciar sesión</h1>
+        <h1 class="text-3xl text-center text-white dark:text-white w-full">Iniciar sesión</h1>
 
-        <div>
+        <div class="w-full">
             <input
-                class="form-input text-dark-primary mt-1 block w-full rounded-md border-gray-300 shadow-md focus:border-dark-primary caret-green focus:ring-2 focus:ring-dark-primary focus:ring-opacity-5"
-                type="email" id="email" placeholder="example@fantasyk.com " formControlName="email">
+            class="form-input w-full text-gray-900 mt-1 block rounded-md border-gray-300 shadow-md focus:border-light-navbar caret-green focus:ring-2 focus:ring-light-navbar focus:ring-opacity-5"
+                type="email" id="username" placeholder="example@fantasyk.com " formControlName="username">
+            
+                <div
+                class="flex flex-col mt-1"
+            *ngIf="
+              loginForm.get('username')?.invalid &&
+              loginForm.get('username')?.errors &&
+              (loginForm.get('username')?.dirty ||
+                loginForm.get('username')?.touched)
+            "
+          >
+            <small
+              class="dark:text-yellow-200 text-light-primary"
+              *ngIf="loginForm.get('username')?.hasError('required')"
+              >Este campo no puede estar vacío.</small
+            >
+            <small
+            class="dark:text-yellow-200 text-light-primary"
+            *ngIf="loginForm.get('username')?.hasError('email') || loginForm.get('username')?.hasError('pattern') "
+            >Ingrese un email válido.</small
+          >            
+
+            <small
+              class="dark:text-yellow-200 text-light-primary"
+              *ngIf="loginForm.get('username')?.hasError('minlength')"
+              >
+              El nombre de usuario debe tener al menos 8 caracteres.
+              </small
+            >
+          </div>
         </div>
 
-        <div>
+        <div class="w-full">
             <input
-                class="form-input text-dark-primary mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-dark-primary focus:ring-2 caret-green focus:ring-dark-primary focus:ring-opacity-5"
+            class="form-input w-full text-gray-900 mt-1 block rounded-md border-gray-300 shadow-md focus:border-light-navbar caret-green focus:ring-2 focus:ring-light-navbar focus:ring-opacity-5"
                 type="password" id="password" placeholder="contraseña" formControlName="password">
+                <div
+                class="flex flex-col mt-1"
+            *ngIf="
+              loginForm.get('password')?.invalid &&
+              loginForm.get('password')?.errors &&
+              (loginForm.get('password')?.dirty ||
+                loginForm.get('password')?.touched)
+            "
+          >
+            <small
+              class="dark:text-yellow-200 text-light-primary"
+              *ngIf="loginForm.get('password')?.hasError('required')"
+              >Este campo no puede estar vacío.</small
+            >
+            <small
+              class="dark:text-yellow-200 text-light-primary"
+              *ngIf="loginForm.get('password')?.hasError('minlength')"
+              >
+              La contraseña debe tener al menos 8 caracteres.
+              </small
+            >
+          </div>
         </div>
         <div >
             <button
-                class="text-white text-sm font-medium  text-center hover:bg-white hover:text-light-navbar bg-light-navbar dark:hover:bg-slate-500 dark:bg-[#1a1a1a] dark:text-white transition duration-200 py-2 px-4 rounded-md w-full"
+                class="text-white text-sm font-medium  text-center hover:bg-[#577b96]  bg-light-navbar dark:hover:bg-[#252527] dark:bg-[#18181B] dark:text-white transition duration-200 ease-in py-2 px-4 rounded-md w-full"
                 type="submit">Iniciar sesión</button>
         </div>
 
@@ -31,4 +92,5 @@ class="background z-[-9999] absolute top-0 left-0 flex bg-[url(/assets/img/login
         <a class="text-md font-medium text-center text-white dark:text-white" routerLink="/auth/recuperar">Olvidé mi
             contraseña</a>
     </form>
+</div>
 </div>
