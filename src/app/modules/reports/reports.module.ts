@@ -7,6 +7,7 @@ import { WidgetComponent } from './components/widget/widget.component';
 import { BigChartComponent } from './components/big-chart/big-chart.component';
 import { SharedModule } from 'src/app/shared';
 import { ReactiveFormsModule } from '@angular/forms';
+import { LineSalesChartComponent } from './components/line-sales-chart/line-sales-chart.component';
 
 
 
@@ -14,7 +15,8 @@ import { ReactiveFormsModule } from '@angular/forms';
   declarations: [
     ReportsComponent,
     WidgetComponent,
-    BigChartComponent
+    BigChartComponent,
+    LineSalesChartComponent
   ],
   imports: [
     CommonModule,
@@ -26,6 +28,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     ReportsComponent,
     WidgetComponent,
     BigChartComponent,
+    LineSalesChartComponent
   ]
 })
 export class ReportsModule { }

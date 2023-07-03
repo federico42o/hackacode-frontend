@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, forkJoin, map } from 'rxjs';
+import { Observable, forkJoin, map, of, tap } from 'rxjs';
 import { Dataset, GameWithMoreTickets, HistoricSales } from 'src/app/models/dataset';
 import { environment } from 'src/environments/environment.development';
 
@@ -43,20 +43,29 @@ export class ReportService {
     return this.http.get(`${this.apiUrl}informes/historico/juegos_monto?date=${date}`);
   }
 
+  getAllBuyersCount() : Observable<any>{
+    return this.http.get(`${this.apiUrl}compradores`);
+  }
+  getAllSalesCount() : Observable<any>{
+    return this.http.get(`${this.apiUrl}ventas`);
+  }
 
-  fetchData(date:string,gameName:string):Observable<Dataset>{
+
+  fetchData(date:string,gameName:string| null = null):Observable<Dataset>{
     const [year, month] = date.split('-');
-    
+    const dataset: Dataset = {};
     if (date) {
-      // this.dataset.date = date;
+      dataset.date = date;
+      // dataset.date = date;
       this.getTicketsByDate(date).subscribe({
         next: (data: any) => {
           // console.log({"tickets por dia:":data.totalTicketsSold})
-          this.dataset.ticketsSold = data.totalTicketsSold
+          dataset.ticketsSoldInDate = data.totalTicketsSold
           
         }
       });
-  
+      
+      if(gameName !== null){
       this.getTicketsByDateAndGame(date, gameName).subscribe({
         next: (data: any) => {
           // console.log({"tickets por juego": {"game":data.gameName,"tickets":data.totalTicketsSold}})
@@ -64,16 +73,17 @@ export class ReportService {
             gameName: data.gameName,
             totalTicketsSold: data.totalTicketsSold
           }
-          this.dataset.ticketsByGame =  ticketsSold
+          dataset.ticketsByGame =  ticketsSold
           
-          console.log(this.dataset)
+          console.log(dataset)
         }
       });
+        }
   
       this.getSalesByDate(date).subscribe({
         next: (data: any) => {
           // console.log({"ventas por dia":data.totalAmountSaleDay})
-          this.dataset.earningsInDate= data.totalAmountSaleDay
+          dataset.earningsInDate= data.totalAmountSaleDay
           
 
         }
@@ -82,7 +92,7 @@ export class ReportService {
       this.getSalesByMonthAndYear(year, month).subscribe({
         next: (data: any) => {
           // console.log({"ventas en un mes":data.totalAmountSaleMonthAndYear})
-          this.dataset.earningsOnMonth= data.totalAmountSaleMonthAndYear
+          dataset.earningsOnMonth= data.totalAmountSaleMonthAndYear
           
         }
       });
@@ -90,7 +100,7 @@ export class ReportService {
       this.getBuyerWithMoreTickets(year, month).subscribe({
         next: (data: any) => {
           // console.log({"comprador con mas entradas compradas en un mes":data})
-          this.dataset.topBuyer= data
+          dataset.topBuyer= data
           
         }
       });
@@ -99,13 +109,23 @@ export class ReportService {
         next: (data: any) => {
           // console.log({"juego con mas entradas vendidas":{game:data.gameName,"tickets":data.totalTicketsSold}})
           const topGame: GameWithMoreTickets = {
-            gameName: data.gameName,
+            gameName: data.game,
             totalTicketsSold: data.totalTicketsSold
           }
-          this.dataset.topGame= topGame
+          dataset.topGame= topGame
           
         }
       });
+      this.getAllBuyersCount().subscribe({
+        next: (data: any) => {
+          dataset.clientsCount = data.numberOfElements
+        }
+      })
+      this.getAllSalesCount().subscribe({
+        next: (data: any) => {
+          dataset.salesCount = data.numberOfElements
+        }
+      })
   
       this.getHistoricSalesByDate(date).subscribe({
         next: (data: any) => {
@@ -115,19 +135,51 @@ export class ReportService {
             ticketsSold:data.totalTicketsSold
           }
           
-          this.dataset.historicSales = historicSales
+          dataset.historicSales = historicSales
+          dataset.ticketsCount = data.totalTicketsSold
           
         }
       });
     }
     return new Observable<Dataset>(observer => {
-      observer.next(this.dataset);
+      observer.next(dataset);
       observer.complete();
     });
 
     
   }
 
+  
+  fetchDataForAllMonths(year: string): Observable<salesAllMonths[]> {
+    const currentDate = new Date();
+    const currentMonth = currentDate.getMonth() + 1;
+  
+    const months = Array.from({ length: currentMonth }, (_, index) =>
+      (index + 1 < 10 ? '0' : '') + (index + 1)
+    );
+  
+    const requests = months.map(month => this.getSalesByMonthAndYear(year, month));
+  
+    return forkJoin(requests).pipe(
+      map((data: any[]) => {
+        return data.map((monthData, index) => {
+          return {
+            month: months[index],
+            totalAmountSaleMonthAndYear: monthData.totalAmountSaleMonthAndYear,
+            totalTicketsSold: monthData.totalTicketsSold
+          };
+        });
+      })
+    );
+  }
 
 
 }
+
+export interface salesAllMonths {
+  month: string;
+  totalAmountSaleMonthAndYear: number;
+  totalTicketsSold: number;
+
+}
+

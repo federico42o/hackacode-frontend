@@ -1,24 +1,58 @@
-<section class="w-full h-full p-4">
-<div class=" flex gap-4 w-2/5">
-    <div class="w-full"><app-widget [title]="'Ventas este año2'" [value]="currentValue"></app-widget></div>
-    <div class="w-full"><app-widget [title]="'Ventas este año3'" [value]="currentValue"></app-widget></div>
-    <div class="w-full"><app-widget [title]="'Ventas este año1'" [value]="currentValue"></app-widget></div>
+<section class="flex flex-col w-full h-full p-4 ga-4 overflow-y-auto overflow-x-hidden" >
+  <div class="flex gap-4">
+    <div class="w-full mx-auto" >
+      <app-widget title="Ventas" [data]="widgetData"  [past]="pastMonthData"></app-widget>
+    </div>
+  </div>
+    <div class="w-full flex lg:flex-row sm:flex-col-reverse items-center flex-wrap-reverse">
+      <!-- <div class="form ml-auto">
+        <form [formGroup]="filter" class="text-light-primary flex flex-col gap-4 items-end justify-end-end ml-auto" (ngSubmit)="onDateSelected()">
+          <div class="flex  ml-auto">
+            <input type="date" class=" form-input text-gray-900 mt-1 block self-end rounded-md border-gray-300 shadow-md focus:border-light-navbar caret-green focus:ring-2 focus:ring-light-navbar focus:ring-opacity-5"  (change)="applyFilter($event)" placeholder="Filtrar" #inputDate>
+          <input type="date" formControlName="date"
+            class="form-input text-gray-900 mt-1 block self-end rounded-md border-gray-300 focus:border-light-navbar caret-green focus:ring-2 focus:ring-light-navbar focus:ring-opacity-5" />
+          <select formControlName="game"
+            class="form-select text-gray-900 mt-1 block self-end rounded-md border-gray-300 focus:border-light-navbar caret-green focus:ring-2 focus:ring-light-navbar focus:ring-opacity-5">
+            <option [ngValue]="null" [selected]="true">Juego</option>
+            <option *ngFor="let game of games" [ngValue]="game">
+              {{ game.name }}
+            </option>
+          </select>
+          </div>
+            <button class="bg-black text-white px-[2.5rem] pb-2 pt-[.6rem] block rounded-md">
+              Buscar
+            </button>
+     
+        </form>
+      </div> -->
+      <div class="block w-full lg:text-end sm:text-center">
+        <h1 class="text-3xl font-bold text-[#222D30] dark:text-yellow-200">REPORTES</h1>
+    </div>
 </div>
+  <div class="tabs">
+    <div class="flex gap-4">
+      <button>
+        <a class="text-light-primary" (click)="currentTab='tickets'">Entradas</a>
+      </button>
+      <button>
+        <a class="text-light-primary" (click)="currentTab='sales'">Ventas</a>
+      </button>
+      <button>
+        <a class="text-light-primary" (click)="currentTab='sales'">Juegos</a>
+      </button>
+      <button>
+        <a class="text-light-primary" (click)="currentTab='sales'">Compradores</a>
+      </button>
 
-<form  [formGroup]="filter" class="text-light-primary" (ngSubmit)="onDateSelected()">
-    <input type="date" formControlName="date">
-    <select  formControlName="game">
-        <option *ngFor="let game of games" [ngValue]="game">{{game.name}}</option>
-        
-    </select>
-<button class="bg-black text-white px-6 py-2">
-
-    Buscar
-</button>
-</form>
-
-<div class="flex justify-between w-[600px] h-[500px]">
-<app-big-chart></app-big-chart>
+    </div>
+    <app-chart-skeleton *ngIf="isLoading"></app-chart-skeleton>
+  <div class="flex w-full h-full p-4" *ngIf="!isLoading">
+    <div class="flex justify-between" *ngIf="currentTab==='tickets'">
+    <app-big-chart></app-big-chart>
+  </div>
+  <div class="flex flex-col gap-8 justify-start items-center sm:w-4/5 mx-auto" *ngIf="currentTab==='sales'">
+    <app-line-sales-chart></app-line-sales-chart>
+  </div>
 </div>
-
+</div>
 </section>

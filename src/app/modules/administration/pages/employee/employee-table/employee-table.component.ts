@@ -60,7 +60,7 @@ export class EmployeeTableComponent implements AfterViewInit,OnInit{
       surname:['',[Validators.required,Validators.minLength(3),Validators.maxLength(50),Validators.pattern('[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ ]*')]],
       dni:['',[Validators.required,Validators.minLength(7),Validators.maxLength(8),Validators.pattern('[0-9]*')]],
       birthdate:['',[Validators.required,DateValidator.isAfter]],
-      game:[this.games],
+      game:[],
     })
     this.date = new Date();
   }
@@ -99,7 +99,7 @@ export class EmployeeTableComponent implements AfterViewInit,OnInit{
       surname:employee?.surname,
       dni:employee?.dni,
       birthdate:employee?.birthdate,
-      game: employee?.game || null 
+      game: data.game?.name
     })
   }
   exitEditMode() :void {

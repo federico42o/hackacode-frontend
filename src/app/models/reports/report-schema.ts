@@ -9,4 +9,5 @@ export interface ReportSchema {
     employees?: Employee[] | null ;
     buyer?: Buyer | null ;
     gameName?: string | null;
+
 }

@@ -7,27 +7,45 @@ import { RoleGuard } from './modules/auth/guard/role.guard';
 import { ForbiddenComponent } from './shared/components/forbidden/forbidden.component';
 
 const routes: Routes = [
-  // { path: '', component: HomeComponent, canActivate: [AuthGuard]},
-  { path: 'auth', loadChildren: () => import('./modules/auth/auth.module').then(m => m.AuthModule) },
-  {path:'invoice',component: InvoiceComponent},
-  {path:'forbidden', component:ForbiddenComponent},
-  { path: 'sales', 
-  loadChildren: () => import('./modules/sales/sales.module').then(m => m.SalesModule),
-  canActivate: [AuthGuard],
-  data:{module:'sales'},
-  // canActivateChild : [RoleGuard] momentaneamente
-},
-  { path: 'administration', 
-  loadChildren: () => import('./modules/administration/administration.module').then(m => m.AdministrationModule), 
-  canActivate: [AuthGuard],
-  data:{module:'administration'},
-  // canActivateChild : [RoleGuard] 
-   
-},
+  { path: '', component: HomeComponent, canActivate: [AuthGuard] },
+  {
+    path: 'auth',
+    loadChildren: () =>
+      import('./modules/auth/auth.module').then((m) => m.AuthModule),
+  },
+  { path: 'invoice', component: InvoiceComponent },
+  { path: 'forbidden', component: ForbiddenComponent },
+  {
+    path: 'sales',
+    loadChildren: () =>
+      import('./modules/sales/sales.module').then((m) => m.SalesModule),
+    canActivate: [AuthGuard],
+    data: { module: 'sales' },
+    
+    
+  },
+  {
+    path: 'administration',
+    loadChildren: () =>
+      import('./modules/administration/administration.module').then(
+        (m) => m.AdministrationModule
+      ),
+    canActivate: [AuthGuard],
+    data: { module: 'administration' },
+    
+  },
+  {
+    path: 'reports',
+    loadChildren: () =>
+      import('./modules/reports/reports.module').then((m) => m.ReportsModule),
+    canActivate: [AuthGuard],
+    data: { module: 'reports' },
+    
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

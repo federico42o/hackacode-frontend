@@ -25,7 +25,9 @@ import { AuthService } from 'src/app/modules/auth/services/auth.service';
 })
 export class HeaderComponent implements OnInit,OnDestroy{
   
-  constructor(private service : AuthService,private route: Router) {}
+  constructor(private service : AuthService,private route: Router) {
+    this.service.initializeCurrentUser();
+  }
   user!:User;
   subscription$!: Subscription;
   logged!:boolean;

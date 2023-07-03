@@ -1,0 +1,7 @@
+<select name="" id=""   (change)="applyFilter($event)">
+    <option *ngFor="let year of years" [value]="year">{{year}}</option>
+
+</select>
+<div class="chart-container" style="position: relative; height:40vh; width:80vw">
+    <canvas id="line-chart"></canvas>
+</div>

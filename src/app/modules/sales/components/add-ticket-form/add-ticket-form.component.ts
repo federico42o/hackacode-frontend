@@ -31,6 +31,7 @@ export class AddTicketFormComponent implements OnInit,OnDestroy{
     @Output() ticket = new EventEmitter<TicketDetail>();
 
     ngOnInit(): void {
+      this.authService.initializeCurrentUser();
       this.ticketForm = this.fb.group({
         buyer: [null, [Validators.required]],
         ticket: [null, [Validators.required]]

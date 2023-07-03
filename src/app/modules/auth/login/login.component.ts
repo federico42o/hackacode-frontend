@@ -37,12 +37,15 @@ export class LoginComponent implements OnInit{
     this.loginService.login(loginRequest).subscribe({
       next: () => {
         this.loginService.initializeCurrentUser();
-        this.route.navigate(['/']);
       },
       error: (error: any) => {
         this.isLoading = false;
         this.errorMessage = error.message;
+      },complete:()=>{
+        this.route.navigate(['/']);
+        this.isLoading = false;
       }
+
     });
   }
 }

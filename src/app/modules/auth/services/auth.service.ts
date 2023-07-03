@@ -24,12 +24,14 @@ export class AuthService {
 
 
 
-  constructor(private http: HttpClient, private cookies: CookieService) {}
+  constructor(private http: HttpClient, private cookies: CookieService) {
+    
+  }
   
   initializeCurrentUser(): void {
     const tokenKey = 'token';
     const usernameKey = 'sub';
-
+    
     if (this.cookies.check(tokenKey)) {
       const token = this.cookies.get(tokenKey);
       const decoded: any = jwt_decode(token);
@@ -39,12 +41,13 @@ export class AuthService {
         next: (user: User) => {
           this.setCurrentUser(user);
           if (user.employee && user.employee.game) {
+            console.log(user.employee.game)
             this.setCurrentGame(user.employee.game || {} as Game);
           }
         },
         error: (err: any) => {
           console.log('Error retrieving user:', err);
-          this.cookies.delete(tokenKey);
+          this.cookies.deleteAll();
         }
       });
     }
@@ -79,7 +82,7 @@ export class AuthService {
   }
 
   logout(): void {
-    this.cookies.deleteAll('/');
+    this.cookies.deleteAll();
     this.setCurrentUser({} as User);
   }
 
@@ -96,24 +99,12 @@ export class AuthService {
     const token = this.cookies.get('token');
     return token !== '' && token !== null;
   }
-  getUserRoles():string[]{
 
-  const currentUser:User = this.currentUserSubject.value;
-
-  if (currentUser && currentUser.roles) {
-    return currentUser.roles.map((role) => role.role);
-  } else {
-    return [];
-  }
-  }
-
-  hasPermission(module: string): boolean {
-    const userRoles = this.getUserRoles();
-
+  
+  hasPermission(module: string,currentUser:User): boolean {
+    const userRoles = (currentUser && currentUser.roles) ?  currentUser.roles.map((role) => role.role) : [];
     for (const role of userRoles) {
-
       const modules = this.rolePermissions[role as keyof typeof this.rolePermissions];
-
       if (modules && modules.includes(module)) {
         return true;
       }

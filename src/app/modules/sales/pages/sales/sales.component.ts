@@ -1,14 +1,11 @@
 import { AfterViewChecked, AfterViewInit, Component, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { SaleService } from '../../services/sale.service';
-import { Sale } from 'src/app/models/sale';
-import { AuthService } from 'src/app/modules/auth/services/auth.service';
-import { Game } from 'src/app/models';
-import { switchMap } from 'rxjs';
 import { MatPaginator, MatPaginatorIntl } from '@angular/material/paginator';
-import { FormBuilder } from '@angular/forms';
-import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
+import { Game } from 'src/app/models';
+import { Sale } from 'src/app/models/sale';
 import { SaleTable } from 'src/app/models/sale/sale-table';
+import { SaleService } from '../../services/sale.service';
 
 @Component({
   selector: 'app-sales',

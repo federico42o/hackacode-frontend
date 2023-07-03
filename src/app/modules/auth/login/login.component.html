@@ -6,8 +6,8 @@ class="background z-[-9999] absolute top-0 left-0 flex bg-[url(/assets/img/login
         <div *ngIf="isLoading" class="w-full ">
             <app-loader></app-loader>
           </div>
-    <div *ngIf="!isLoading && errorMessage !== ''" class="self-center w-full">
-        <span class="text-xl text-white text-center w-full">
+    <div *ngIf="!isLoading && errorMessage !== ''" class="text-center w-full">
+        <span class="text-xl text-white  w-full">
             {{errorMessage}}
         </span>
     </div>
