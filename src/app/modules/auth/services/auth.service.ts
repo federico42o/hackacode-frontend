@@ -21,6 +21,7 @@ export class AuthService {
     'GERENTE': [ 'reports' ]
   };
   apiUrl = environment.apiUrl
+  tokenUrl = environment.tokenUrl
 
 
 
@@ -65,7 +66,7 @@ export class AuthService {
   }
 
   login(request:LoginRequest): Observable<any> {
-    return this.http.post('http://localhost:8080/token', request).pipe(
+    return this.http.post(this.tokenUrl, request).pipe(
       switchMap((res: any) => {
         this.cookies.set('token', res.token);
         const decoded: any = jwt_decode(res.token);
