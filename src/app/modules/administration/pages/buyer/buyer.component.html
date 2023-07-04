@@ -17,7 +17,7 @@
     </ng-container>
     
     <ng-container *ngIf="currentTab === 'view'">
-      <app-buyer-table  (edit)="onEdit($event)" (delete)="onDelete($event)"></app-buyer-table>
+      <app-buyer-table [isRowDeleted]="isRowDeleted" (edit)="onEdit($event)" (deleteConfirm)="onDelete($event)"></app-buyer-table>
     </ng-container>
   </div>
 </section>

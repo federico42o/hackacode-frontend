@@ -7,6 +7,7 @@ import { UserEmployeeService } from '../../../services/user-employee.service';
 import { UserTable, UserUpdate } from 'src/app/models/user';
 import { RoleService } from '../../../services/role.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AuthService } from 'src/app/modules/auth/services/auth.service';
 
 @Component({
   selector: 'app-table-users',
@@ -29,7 +30,7 @@ export class TableUsersComponent implements OnInit {
   isEditMode:boolean = false;
   editRowId!: number | null;
   userForm!:FormGroup;
-  constructor(private service:UserEmployeeService,private roleService:RoleService,public _MatPaginatorIntl: MatPaginatorIntl,private fb:FormBuilder) {
+  constructor(private service:UserEmployeeService,private roleService:RoleService,public _MatPaginatorIntl: MatPaginatorIntl,private fb:FormBuilder,private authService:AuthService) {
     
       this._MatPaginatorIntl.itemsPerPageLabel = 'Items por página';
 
@@ -100,18 +101,19 @@ export class TableUsersComponent implements OnInit {
       employee : data.employee
 
     }
-    console.log(editedRow)
+
     if(this.userForm.invalid){
       this.userForm.markAllAsTouched()
     }else{
 
       this.service.update(editedRow).subscribe({
         error:(err:any)=>{
-          console.log(err)
+       
         },
         complete:()=>{
           this.isEditMode = false;
           this._updateTable()
+          this.authService.initializeCurrentUser();
         }
   
       })
@@ -122,7 +124,7 @@ export class TableUsersComponent implements OnInit {
 
       this.service.delete(data.id).subscribe({
         error:(err:any)=>{
-          console.log(err)
+         
         },
         complete:()=>{
           this._updateTable()
@@ -140,7 +142,7 @@ export class TableUsersComponent implements OnInit {
       }
       this.service.update(editedRow).subscribe({
         error:(err:any)=>{
-          console.log(err)
+         
         },
         complete:()=>{
           this._updateTable()

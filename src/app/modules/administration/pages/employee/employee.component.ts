@@ -39,7 +39,7 @@ export class EmployeeComponent implements OnInit, OnDestroy{
             next: (data:any) => {
             },
             error:(err:any)=>{
-              console.log(err)
+             
             }
               ,
             complete: () => {
@@ -50,7 +50,7 @@ export class EmployeeComponent implements OnInit, OnDestroy{
           
         },
         error: (err:any) => {
-          console.log(err);
+          
         },
         complete: () => {
         }

@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -8,13 +9,13 @@ import { Observable } from 'rxjs';
 export class PasswordRecoveryService {
 
   constructor(private http: HttpClient) { }
-  baseUrl = 'http://localhost:8080/token/recuperar_pass'
+  tokenUrl = environment.tokenUrl;
 
   requestMail(request:any): Observable<any>{
-    return this.http.post(this.baseUrl,request);
+    return this.http.post(this.tokenUrl+'/recuperar_pass',request);
   }
 
   changePassword(request:any):Observable<any>{
-    return this.http.post("http://localhost:8080/token/cambiar_pass",request)
+    return this.http.post(this.tokenUrl+"/cambiar_pass",request)
   }
 }

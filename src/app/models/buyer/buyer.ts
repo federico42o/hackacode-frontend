@@ -5,4 +5,6 @@ export interface Buyer {
     surname: string,
     birthdate: string,
     lastVisit:string,
+    age: number,
+    banned?: boolean,
 }

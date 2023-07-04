@@ -45,7 +45,7 @@ export class BuyerFormComponent implements OnInit{
 
     }
     if(this.clientForm.invalid){
-     console.log("invalid form")
+
     }else{
 
     this.service.create(buyer).subscribe(
@@ -53,7 +53,7 @@ export class BuyerFormComponent implements OnInit{
 
       },
       error:(error:any) => {
-        console.log(error)
+        
       },
       complete: () =>{
         this.clientForm.reset();

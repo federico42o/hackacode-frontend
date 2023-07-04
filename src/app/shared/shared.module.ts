@@ -23,6 +23,8 @@ import {MatSortModule} from '@angular/material/sort';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatChipsModule} from '@angular/material/chips';
 import { ToastrModule } from 'ngx-toastr';
+import { NaturalTimePipe } from './pipe/natural-time.pipe';
+import { ChartSkeletonComponent } from './components/chart-skeleton/chart-skeleton.component';
 export function playerFactory(): any {  
   return import('lottie-web');
 }
@@ -41,6 +43,8 @@ export function playerFactory(): any {
     PasswordCheckComponent,
     LoaderComponent,
     ForbiddenComponent,
+    NaturalTimePipe,
+    ChartSkeletonComponent,
 
     
   ],
@@ -83,6 +87,8 @@ export function playerFactory(): any {
     MatSortModule,
     MatChipsModule,
     TabComponent,
+    NaturalTimePipe,
+    ChartSkeletonComponent,
     
   ]
 })

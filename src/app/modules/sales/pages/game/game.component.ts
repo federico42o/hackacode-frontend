@@ -25,7 +25,7 @@ export class GameComponent implements OnInit, OnDestroy {
   selectedGame!: Game;
   ngOnInit(): void {
     this._updateGames()
-    console.log(this.games)
+
     
   }
   array: any[] = []; 
@@ -66,7 +66,7 @@ export class GameComponent implements OnInit, OnDestroy {
   }
 
   handleDelete(data:any){
-    console.log(data)
+   
     
   }
   onGameAdded():void{

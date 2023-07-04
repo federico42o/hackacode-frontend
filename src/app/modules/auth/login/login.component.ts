@@ -14,7 +14,7 @@ export class LoginComponent implements OnInit{
   loginForm!:FormGroup;
   isLoading:boolean = false;
   errorMessage:string ='';
-
+  viewPassword:boolean = false;
   ngOnInit(): void {
     this.loginForm = this.fb.group({
       username: ['',[Validators.required,Validators.email,Validators.minLength(8),Validators.pattern('[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}')]],
@@ -34,20 +34,18 @@ export class LoginComponent implements OnInit{
       password:this.loginForm.value.password
     }
 
-    this.loginService.login(loginRequest).subscribe(
-      {next:(data:any)=>{
-        
+    this.loginService.login(loginRequest).subscribe({
+      next: () => {
+        this.loginService.initializeCurrentUser();
       },
-
-        error:(error:any)=>{
-          this.isLoading = false;
-          this.errorMessage = error.message;
-        },
-        complete:()=>{
-          this.route.navigate(['/']);
-          
-        }
+      error: (error: any) => {
+        this.isLoading = false;
+        this.errorMessage = error.message;
+      },complete:()=>{
+        this.route.navigate(['/']);
+        this.isLoading = false;
       }
-    );
+
+    });
   }
 }

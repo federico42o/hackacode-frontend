@@ -1,0 +1,43 @@
+<div
+  *ngIf="topGame"
+  class="flex flex-col justify-center items-center gap-8 p-4 w-full"
+>
+  <div class="flex gap-8 items-center justify-start">
+    <div class="flex flex-col justify-end items-end">
+    <p class="xl:text-6xl lg:text-6xl md:text-4xl text-2xl whitespace-nowrap">JUEGO MAS
+
+    </p>
+    <p class="xl:text-6xl lg:text-6xl md:text-4xl text-2xl font-bold text-[#222D30] dark:text-yellow-200">VENDIDO</p>
+  </div>
+    <!-- <input
+      type="month"
+      [value]="currentMonthAndYear"
+      [max]="currentMonthAndYear"
+      class="dark:text-white text-2xl bg-slate-400 bg-opacity-40 form-input mt-1 block self-start rounded-md  border-gray-300 shadow-md focus:border-light-navbar caret-green focus:ring-2 focus:ring-light-navbar focus:ring-opacity-5 custom-month-input"
+      (change)="applyFilter($event)"
+      placeholder="Filtrar"
+      #inputDate
+    />
+  </div> -->
+
+  <div class="flex w-full items-center xl:flex-nowrap lg:flex-nowrap md:flex-nowrap  sm:flex-col flex-col">
+      <div
+      class="flex gap-6 justify-center items-center text-4xl w-full flex-1 "
+      >
+    <img
+      src="/assets/img/fire.png"
+      class="rounded-full m-0 animate-wiggle"
+      width="64"
+    />
+  </div>
+  <div class="flex-col justify-start items-center gap-2">
+  <p class="text-center">
+      {{ (topGame.gameName ?? 'No hay registros')| uppercase }}
+  </p>
+      <div class="flex gap-6 text-2xl">
+        <p class="text-center">Entradas vendidas: {{ topGame.totalTicketsSold ?? 0 }}</p>
+      </div>
+    </div>
+  </div>
+</div>
+</div>

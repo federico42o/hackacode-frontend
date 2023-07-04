@@ -1,0 +1,10 @@
+<div class="flex gap-4">
+<p class="text-light-primary dark:text-white">Año</p>
+<select name="" id=""   (change)="applyFilter($event, 'year')" class="text-light-primary">
+    <option *ngFor="let year of years" [value]="year">{{year}}</option>
+</select>
+</div>
+<app-chart-skeleton style="position: relative; height:40vh; width:80vw" *ngIf="isLoading"></app-chart-skeleton>
+<div class="chart-container" style="position: relative; height:40vh; width:80vw"  [class.hidden]="isLoading">
+    <canvas id="line-chart"></canvas>
+</div>

@@ -1,0 +1,1 @@
+export type ROLE = 'ADMINISTRADOR' | 'VENTAS' | 'GERENTE';

@@ -27,6 +27,7 @@ export class TicketSelectorComponent implements OnInit, CanComponentDeactivate{
  changes:boolean = true;
  tab:string = 'sales';
  ngOnInit(): void {
+  this.authService.initializeCurrentUser();
    this.game$ = this.authService.getCurrentGame().subscribe({
       next: game => {
         this.game = game;

@@ -19,6 +19,7 @@ export class NavbarComponent implements OnInit{
   constructor(private route: Router,private service : AuthService,private router: ActivatedRoute) {
     this.tooltipPosition = 'right';
     this.adjustTooltipPosition();
+    this.service.initializeCurrentUser();
    }
    adjustTooltipPosition() {
     if (window.innerWidth <= 768) {

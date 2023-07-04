@@ -12,7 +12,7 @@ module.exports = {
           
         },
         'dark':{
-          'primary': "#62a8a2",
+          'primary': "#f5f5f5",
           
         },
         'logo':'#CACDDD',

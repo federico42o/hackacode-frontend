@@ -2,11 +2,12 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 import { BehaviorSubject, Observable, catchError, switchMap, tap, throwError } from 'rxjs';
-import { Game, User } from 'src/app/models';
+import { Game, User, UserRole } from 'src/app/models';
 
 import jwt_decode from 'jwt-decode';
-import { environment } from 'src/environments/environment.development';
+import { environment } from 'src/environments/environment'
 import { LoginRequest } from 'src/app/models/user/login-request';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -21,22 +22,34 @@ export class AuthService {
     'GERENTE': [ 'reports' ]
   };
   apiUrl = environment.apiUrl
+  tokenUrl = environment.tokenUrl
 
 
 
-  constructor(private http: HttpClient, private cookies: CookieService) { 
-    const isToken = cookies.check('token');
-    if (isToken) {
-      const token = cookies.get('token');
+  constructor(private http: HttpClient, private cookies: CookieService,private router:Router) {
+    
+  }
+  
+  initializeCurrentUser(): void {
+    const tokenKey = 'token';
+    const usernameKey = 'sub';
+    
+    if (this.cookies.check(tokenKey)) {
+      const token = this.cookies.get(tokenKey);
       const decoded: any = jwt_decode(token);
-      this.getUserByUsername(decoded.sub).subscribe({
+      const username = decoded[usernameKey];
+
+      this.getUserByUsername(username).subscribe({
         next: (user: User) => {
-          if(user.employee.game !== null){this.setCurrentGame(user.employee.game||{} as Game)}
           this.setCurrentUser(user);
+          if (user.employee && user.employee.game) {
+
+            this.setCurrentGame(user.employee.game || {} as Game);
+          }
         },
         error: (err: any) => {
-          console.log('Error retrieving user:', err);
-          cookies.delete('token');
+
+          this.cookies.deleteAll();
         }
       });
     }
@@ -54,7 +67,7 @@ export class AuthService {
   }
 
   login(request:LoginRequest): Observable<any> {
-    return this.http.post('http://localhost:8080/token', request).pipe(
+    return this.http.post(this.tokenUrl, request).pipe(
       switchMap((res: any) => {
         this.cookies.set('token', res.token);
         const decoded: any = jwt_decode(res.token);
@@ -62,16 +75,18 @@ export class AuthService {
       }),
       tap((user: User) => {
         this.setCurrentUser(user);
+        this.redirectBasedOnRole(user);
       }),
       catchError((err: any) => {
         this.cookies.delete('token', '/');
         return throwError(()=> new Error('Usuario o contraseña incorrectos.'));
       })
+      
     );
   }
 
   logout(): void {
-    this.cookies.deleteAll('/');
+    this.cookies.deleteAll();
     this.setCurrentUser({} as User);
   }
 
@@ -88,28 +103,33 @@ export class AuthService {
     const token = this.cookies.get('token');
     return token !== '' && token !== null;
   }
-  getUserRoles():string[]{
 
-  const currentUser:User = this.currentUserSubject.value;
-
-  if (currentUser && currentUser.roles) {
-    return currentUser.roles.map((role) => role.role);
-  } else {
-    return [];
-  }
-  }
-
-  hasPermission(module: string): boolean {
-    const userRoles = this.getUserRoles();
-
+  
+  hasPermission(module: string,currentUser:User): boolean {
+    const userRoles = (currentUser && currentUser.roles) ?  currentUser.roles.map((role) => role.role) : [];
     for (const role of userRoles) {
-
       const modules = this.rolePermissions[role as keyof typeof this.rolePermissions];
-
       if (modules && modules.includes(module)) {
         return true;
       }
     }
     return false;
+  }
+  private redirectBasedOnRole(user: User): void {
+    const roleRoutes: { [key: string]: string } = {
+      admin: '/administration/users',
+      manager: '/reports',
+      user: '/sales/new-ticket',
+    };
+    
+    const userRoles = user.roles.map((role) => role.role);
+    const userRole = userRoles.find((role) => role in roleRoutes);
+    
+    if (userRole) {
+      const route = roleRoutes[userRole];
+      this.router.navigate([route]);
+    } else {
+      this.router.navigate(['/forbidden']);
+    }
   }
 }
