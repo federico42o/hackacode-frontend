@@ -58,7 +58,7 @@ export class GameFormComponent implements OnInit{
       }
       this.service.update(game).subscribe(
         {next:(data:any) => {
-          console.log(data)
+    
         },
         error:(err:any) => {
           this.toastr.error("Error al actualizar el juego")
@@ -74,7 +74,7 @@ export class GameFormComponent implements OnInit{
     
     this.service.create(game).subscribe(
       {next:(data:any) => {
-        console.log(data)
+   
       },
       error:(err:any) => {
         this.toastr.error("Error al crear el juego")

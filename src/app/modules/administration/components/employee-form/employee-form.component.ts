@@ -46,13 +46,13 @@ export class EmployeeFormComponent implements OnInit,OnDestroy{
 
   onSubmit():void{
     if(this.employeeForm.invalid){
-      console.log(this.employeeForm.errors)
+      return
     }
     this.service.create(this.employeeForm.value).subscribe({
       next: (data:any) => {
       },
       error: (err:any) => {
-        console.log(err);
+
       },
       complete: () => {
         this.employeeAdded.emit();

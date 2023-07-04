@@ -8,6 +8,8 @@ import { BigChartComponent } from './components/big-chart/big-chart.component';
 import { SharedModule } from 'src/app/shared';
 import { ReactiveFormsModule } from '@angular/forms';
 import { LineSalesChartComponent } from './components/line-sales-chart/line-sales-chart.component';
+import { BestBuyerComponent } from './components/best-buyer/best-buyer.component';
+import { TopGameComponent } from './components/top-game/top-game.component';
 
 
 
@@ -16,7 +18,9 @@ import { LineSalesChartComponent } from './components/line-sales-chart/line-sale
     ReportsComponent,
     WidgetComponent,
     BigChartComponent,
-    LineSalesChartComponent
+    LineSalesChartComponent,
+    BestBuyerComponent,
+    TopGameComponent
   ],
   imports: [
     CommonModule,
@@ -28,7 +32,9 @@ import { LineSalesChartComponent } from './components/line-sales-chart/line-sale
     ReportsComponent,
     WidgetComponent,
     BigChartComponent,
-    LineSalesChartComponent
+    LineSalesChartComponent,
+    BestBuyerComponent,
+    TopGameComponent
   ]
 })
 export class ReportsModule { }

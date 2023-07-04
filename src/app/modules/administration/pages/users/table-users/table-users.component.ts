@@ -101,14 +101,14 @@ export class TableUsersComponent implements OnInit {
       employee : data.employee
 
     }
-    console.log(editedRow)
+
     if(this.userForm.invalid){
       this.userForm.markAllAsTouched()
     }else{
 
       this.service.update(editedRow).subscribe({
         error:(err:any)=>{
-          console.log(err)
+       
         },
         complete:()=>{
           this.isEditMode = false;
@@ -124,7 +124,7 @@ export class TableUsersComponent implements OnInit {
 
       this.service.delete(data.id).subscribe({
         error:(err:any)=>{
-          console.log(err)
+         
         },
         complete:()=>{
           this._updateTable()
@@ -142,7 +142,7 @@ export class TableUsersComponent implements OnInit {
       }
       this.service.update(editedRow).subscribe({
         error:(err:any)=>{
-          console.log(err)
+         
         },
         complete:()=>{
           this._updateTable()

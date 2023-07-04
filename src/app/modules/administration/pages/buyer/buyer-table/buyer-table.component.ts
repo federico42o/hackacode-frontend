@@ -1,4 +1,4 @@
-import { AfterViewChecked, AfterViewInit, Component, ElementRef, EventEmitter, OnDestroy, OnInit, Output, ViewChild, ViewEncapsulation } from '@angular/core';
+import { AfterViewChecked, AfterViewInit, Component, ElementRef, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges, ViewChild, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatPaginator, MatPaginatorIntl } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -16,8 +16,9 @@ import { DateValidator } from 'src/app/shared/utils/date-validator';
   styleUrls: ['./buyer-table.component.css'],
   encapsulation: ViewEncapsulation.None
 })
-export class BuyerTableComponent implements OnInit,OnDestroy,AfterViewInit,AfterViewChecked{
+export class BuyerTableComponent implements OnInit,OnDestroy,AfterViewInit,AfterViewChecked,OnChanges{
 
+  @Input() isRowDeleted!: boolean;
   @Output() deleteConfirm = new EventEmitter();
   @Output() edit = new EventEmitter();
   dataSource!: MatTableDataSource<Buyer>;
@@ -37,11 +38,17 @@ export class BuyerTableComponent implements OnInit,OnDestroy,AfterViewInit,After
       
       
   }
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['isRowDeleted'] && changes['isRowDeleted'].currentValue === true) {
+      this._updateTable()
+      this.isRowDeleted = false;
+    }
+  }
   ngAfterViewChecked(): void {
     if(this.birthdate){
 
       restrictionDate(this.birthdate);
-      console.log(this.birthdate)
+      
     }
   }
   
@@ -67,8 +74,8 @@ export class BuyerTableComponent implements OnInit,OnDestroy,AfterViewInit,After
     this.service.getAll().subscribe(
       {
         next: (data: any) => {
-          this.buyers = data.content;
-          this.dataSource = new MatTableDataSource(data.content)
+          this.buyers = data.content.filter((client: Buyer) => !client.banned);
+          this.dataSource = new MatTableDataSource(data.content.filter((client: Buyer) => !client.banned))
           
         this.dataSource.paginator = this.paginator;
 
@@ -99,7 +106,7 @@ export class BuyerTableComponent implements OnInit,OnDestroy,AfterViewInit,After
     this.isEditMode = true;
     this.editRowId = data.id;
     const buyer = this.buyers.find((buyer)=>buyer.id === this.editRowId)
-    console.log(buyer)
+ 
     this.buyerForm.patchValue({
       name:buyer?.name,
       surname:buyer?.surname,

@@ -41,12 +41,12 @@ export class AuthService {
         next: (user: User) => {
           this.setCurrentUser(user);
           if (user.employee && user.employee.game) {
-            console.log(user.employee.game)
+
             this.setCurrentGame(user.employee.game || {} as Game);
           }
         },
         error: (err: any) => {
-          console.log('Error retrieving user:', err);
+
           this.cookies.deleteAll();
         }
       });

@@ -1,17 +1,19 @@
 import { Buyer } from "./buyer";
+import { TopBuyer } from "./buyer/top-buyer";
 
 export interface Dataset {
-    date?: string | null;
-    ticketsSoldInDate?: number | null;
-    ticketsByGame?: GameWithMoreTickets | null;
-    earningsInDate?: number | null;
-    earningsOnMonth?: number | null;
-    topBuyer?: Buyer | null;
-    topGame?: GameWithMoreTickets | null;
-    historicSales?: HistoricSales | null;
-    clientsCount?: number | null;
-    ticketsCount?:number | null;
-    salesCount?:number | null;
+    date?: string 
+    ticketsSoldInDate?: number 
+    ticketsByGame?: GameWithMoreTickets 
+    earningsInDate?: number 
+    earningsOnMonth?: number 
+    topBuyer?: TopBuyer 
+    topGame?: GameWithMoreTickets 
+    historicSales?: HistoricSales 
+    clientsCount?: number 
+    ticketsCount?:number 
+    salesCount?:number 
+    salesToday?:number 
 }
 export interface GameWithMoreTickets{
     gameName?: string | null;

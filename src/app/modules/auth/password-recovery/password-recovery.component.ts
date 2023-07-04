@@ -43,7 +43,7 @@ export class PasswordRecoveryComponent implements OnInit{
         error:(error:any)=>{
           this.isLoading = false;
           if(error.status == 404){
-            console.log(error.error.message)
+
             this.errorMessage = error.error.message;
             
           }

@@ -79,7 +79,7 @@ export class SummaryComponent implements OnChanges{
         });
       },
       error: (err: any) => {
-        console.log(err);
+        
         this.isLoading = false;
       }
     });

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { Chart } from 'chart.js';
 import { ReportService } from '../../services/report.service';
 
@@ -7,7 +7,7 @@ import { ReportService } from '../../services/report.service';
   templateUrl: './line-sales-chart.component.html',
   styleUrls: ['./line-sales-chart.component.css']
 })
-export class LineSalesChartComponent implements OnInit {
+export class LineSalesChartComponent implements OnInit,AfterViewInit {
   constructor(private service:ReportService) {}
   allMonthsData: any;
   dataLoaded: boolean = false;
@@ -17,12 +17,17 @@ export class LineSalesChartComponent implements OnInit {
   colors!: string[];
   today:Date = new Date();
   ctx:string = 'line-chart'
+  isLoading:boolean = false;
   years:string[] = Array.from({length: 5}, (v, k) => (this.today.getFullYear()-k).toString());
   yesterday:Date = new Date(this.today.getFullYear(),this.today.getMonth(),this.today.getDate()-1);
   ngOnInit(): void {
 
-      this.loadData(this.today.getFullYear().toString());
-    }
+    this.loadData(this.today.getFullYear().toString());
+  }
+  
+  ngAfterViewInit(): void {
+    
+  }
   
   createChart(labels:any,data:any,id:any): void {
     this.chart = new Chart(id, {
@@ -47,8 +52,9 @@ export class LineSalesChartComponent implements OnInit {
     });
     
   }
-  applyFilter(event:Event):void{
+  applyFilter(event:Event,type:string):void{
     this.chart.destroy();
+    this.isLoading = true;
     const year = (event.target as HTMLInputElement).value;
     this.loadData(year);
   }
@@ -67,12 +73,14 @@ export class LineSalesChartComponent implements OnInit {
     this.mainData = data.map((d: any) => d.totalAmountSaleMonthAndYear);
   }
   loadData(date:string): void {
+    this.isLoading = true;
     this.service.fetchDataForAllMonths(date).subscribe({
       next:(data:any)=>{
         this.setLabels(data);
         this.setMainData(data);
     },complete:()=>{
       this.createChart(this.labelData,this.mainData,this.ctx);
+      this.isLoading = false;
     }
   })
   }

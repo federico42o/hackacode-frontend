@@ -92,8 +92,7 @@ export class EmployeeTableComponent implements AfterViewInit,OnInit{
     this.isEditMode = true;
     this.editRowId = data.id;
     const employee = this.employees.find((employee)=>employee.id === this.editRowId)
-    console.log(this.games)
-    console.log(employee)
+
     this.employeeForm.patchValue({
       name:employee?.name,
       surname:employee?.surname,

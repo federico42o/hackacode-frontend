@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, forkJoin, map, of, tap } from 'rxjs';
+import { TopBuyer } from 'src/app/models/buyer/top-buyer';
 import { Dataset, GameWithMoreTickets, HistoricSales } from 'src/app/models/dataset';
 import { environment } from 'src/environments/environment.development';
 
@@ -28,8 +29,8 @@ export class ReportService {
     return this.http.get(`${this.apiUrl}informes/ventas/totales_por_mes?month=${month}&year=${year}`);
   }
 
-  getBuyerWithMoreTickets(year:string,month:string):Observable<any>{
-    return this.http.get(`${this.apiUrl}informes/comprador/con_mas_entradas_vedidas_al_mes?month=${month}&year=${year}`);
+  getBuyerWithMoreTickets(year:string,month:string):Observable<TopBuyer>{
+    return this.http.get<TopBuyer>(`${this.apiUrl}informes/comprador/con_mas_entradas_vedidas_al_mes?month=${month}&year=${year}`);
   }
   getGameWithMoreTickets(date:string):Observable<any>{
     return this.http.get(`${this.apiUrl}informes/juego/con_mas_entradas_vendidas_hasta?date=${date}`);
@@ -75,19 +76,17 @@ export class ReportService {
           }
           dataset.ticketsByGame =  ticketsSold
           
-          console.log(dataset)
+       
         }
       });
         }
   
-      this.getSalesByDate(date).subscribe({
-        next: (data: any) => {
-          // console.log({"ventas por dia":data.totalAmountSaleDay})
+      this.getSalesByDate(date).pipe(
+        tap((data:any) =>{
           dataset.earningsInDate= data.totalAmountSaleDay
-          
-
-        }
-      });
+          }
+ 
+      )).subscribe();
   
       this.getSalesByMonthAndYear(year, month).subscribe({
         next: (data: any) => {
@@ -123,9 +122,12 @@ export class ReportService {
       })
       this.getAllSalesCount().subscribe({
         next: (data: any) => {
-          dataset.salesCount = data.numberOfElements
+          const dateString = new Date(date).toISOString().substring(0, 10);
+          const filteredData = data.content.filter((item: any) => item.purchaseDate.startsWith(dateString));
+          dataset.salesToday = filteredData.length;
+          dataset.salesCount = data.numberOfElements;
         }
-      })
+      });
   
       this.getHistoricSalesByDate(date).subscribe({
         next: (data: any) => {
@@ -141,6 +143,7 @@ export class ReportService {
         }
       });
     }
+   
     return new Observable<Dataset>(observer => {
       observer.next(dataset);
       observer.complete();
@@ -173,7 +176,6 @@ export class ReportService {
     );
   }
 
-
 }
 
 export interface salesAllMonths {
@@ -181,5 +183,16 @@ export interface salesAllMonths {
   totalAmountSaleMonthAndYear: number;
   totalTicketsSold: number;
 
+}
+
+export interface DataThisMonth {
+  earningsOnMonth: number;
+  ticketsCount: number;
+  clientsCount: number;
+  salesCount: number;
+  earningsPastMonth: number;
+  ticketsCountPastMonth: number;
+  salesCountPastMonth: number;
+  clientsCountPastMonth: number;
 }
 

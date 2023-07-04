@@ -5,6 +5,8 @@ import { Subscription } from 'rxjs';
 import { BuyerFormComponent } from '../../components/buyer-form/buyer-form.component';
 import { BuyerService } from '../../services/buyer.service';
 import { Buyer } from 'src/app/models/buyer';
+import { ToastrService } from 'ngx-toastr';
+import { DialogComponent } from '../../components/dialog/dialog.component';
 
 
 @Component({
@@ -14,12 +16,13 @@ import { Buyer } from 'src/app/models/buyer';
 })
 export class BuyerComponent implements OnInit,OnDestroy{
   
-  constructor(private fb : FormBuilder, private buyerService: BuyerService, public dialog : Dialog){}
+  constructor(private fb : FormBuilder, private buyerService: BuyerService, public dialog : Dialog,private toastr:ToastrService){}
   currentTab = 'view';
   subscription$! : Subscription;
   buyerForm! : FormGroup;
   clients!: Buyer[];
   page : any;
+  isRowDeleted:boolean = false;
   
   changeTab(tab:string){
     this.currentTab = tab;
@@ -36,10 +39,43 @@ export class BuyerComponent implements OnInit,OnDestroy{
   }
 
   onEdit(data:any):void {
-    console.log(data)
+    
   }
   onDelete(data:any):void{
-    console.log(data)
+    const dialogRef = this.dialog.open(DialogComponent,{
+      width: '30%',
+      height: '10%',
+      data: {
+        message: "¿Desea borrar este cliente?",
+      }
+      });
+      dialogRef.componentInstance?.accept.subscribe({
+        next: () => {
+
+          this.buyerService.delete(data.id).subscribe({
+            next: (data:any) => {
+            },
+            error:(err:any)=>{
+             
+            }
+              ,
+            complete: () => {
+              this.dialog.closeAll();
+            }
+
+          });
+          
+        },
+        error: (err:any) => {
+          this.toastr.error('Error, intente nuevamente'),this._updateTable()
+        },
+        complete: () => {
+          this.toastr.success('Cliente eliminado con exito'),this._updateTable()
+          this.isRowDeleted =  true;
+          location.reload();
+        }
+      });  
+
   }
 
   onDataSave(data:Buyer):void{
@@ -49,7 +85,7 @@ export class BuyerComponent implements OnInit,OnDestroy{
         this._updateTable()
       },
       error:(err:any)=>{
-        console.log(err)
+        
       }
 
 
@@ -60,7 +96,8 @@ export class BuyerComponent implements OnInit,OnDestroy{
        this.buyerService.getAll().subscribe(
         {
           next:(data:any) => {
-            this.clients = data.content
+            this.clients = data.content.filter((client: Buyer) => !client.banned);
+           
           }
         })
     }
@@ -72,18 +109,11 @@ export class BuyerComponent implements OnInit,OnDestroy{
       this.page = this.clients.slice(0, this.pageSize);
     }
     
-    prevPage(): void {
-  
-    }
-    
-    nextPage(): void {
-  
-    }
   
     private _updatePage(): void {
       this.subscription$ = this.buyerService.getAll().subscribe(
         (data:any) => {
-          this.clients = data.content;
+          this.clients = data.content.filter((client: Buyer) => !client.banned);
           this.page = this.clients;
           this.setPageSize();
         });

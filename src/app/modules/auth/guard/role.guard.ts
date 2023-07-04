@@ -17,12 +17,13 @@ export class RoleGuard  {
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
 
       const module = childRoute.data['module'];
-      console.log(childRoute)
+
       return this.authService.getCurrentUser().pipe(
         switchMap((value: User) => {
           this.currentUser = value;
           
           if (module && !this.authService.hasPermission(module, this.currentUser)) {
+           
             this.router.navigate(['/forbidden']);
             return of(false);
           }
