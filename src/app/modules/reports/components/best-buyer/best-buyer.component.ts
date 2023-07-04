@@ -19,11 +19,17 @@ export class BestBuyerComponent implements OnInit{
   currentMonth = new Date().toISOString().substring(5, 7);
   currentMonthAndYear = new Date().toISOString().substring(0, 7);
   currentMonthStr = new Date().toLocaleString('default', { month: 'long' });
+  fullName!:string;
   constructor(private service:ReportService) { }
   ngOnInit(): void {
     this.service.getBuyerWithMoreTickets(this.currentYear,this.currentMonth).subscribe({
       next: (data: TopBuyer) => {
         this.topBuyer = data;
+        if(data.buyer.name === null || data.buyer.surname === null){
+          this.fullName = 'No hay registros'
+        }else{
+          this.fullName = `${data.buyer.name} ${data.buyer.surname}`;
+        }
       }
     });
 
@@ -42,6 +48,11 @@ export class BestBuyerComponent implements OnInit{
     this.service.getBuyerWithMoreTickets(year,month).subscribe({
       next: (data: any) => {
         this.topBuyer = data;
+        if(data.buyer.name === null || data.buyer.surname === null){
+          this.fullName = 'No hay registros'
+        }else{
+          this.fullName = `${data.buyer.name} ${data.buyer.surname}`;
+        }
       }
     });
   }

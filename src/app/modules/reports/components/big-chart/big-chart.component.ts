@@ -19,6 +19,7 @@ export class BigChartComponent implements OnInit {
   colors!: string[];
   today:Date = new Date();
   ctx:string = 'pie-chart'
+  todayString:string = this.today.toISOString().substring(0, 10);
   yesterday:Date = new Date(this.today.getFullYear(),this.today.getMonth(),this.today.getDate()-1);
   ngOnInit(): void {
 

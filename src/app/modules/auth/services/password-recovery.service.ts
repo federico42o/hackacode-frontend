@@ -12,10 +12,10 @@ export class PasswordRecoveryService {
   tokenUrl = environment.tokenUrl;
 
   requestMail(request:any): Observable<any>{
-    return this.http.post(this.tokenUrl+'recuperar_pass',request);
+    return this.http.post(this.tokenUrl+'/recuperar_pass',request);
   }
 
   changePassword(request:any):Observable<any>{
-    return this.http.post(this.tokenUrl+"cambiar_pass",request)
+    return this.http.post(this.tokenUrl+"/cambiar_pass",request)
   }
 }

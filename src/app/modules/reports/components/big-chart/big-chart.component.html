@@ -1,4 +1,4 @@
-<input type="date" class=" form-input text-gray-900 mt-1 block self-end rounded-md border-gray-300 shadow-md focus:border-light-navbar caret-green focus:ring-2 focus:ring-light-navbar focus:ring-opacity-5"  (change)="applyFilter($event)" placeholder="Filtrar" #inputDate>
+<input type="date" class=" form-input text-gray-900 mt-1 block self-end rounded-md border-gray-300 shadow-md focus:border-light-navbar caret-green focus:ring-2 focus:ring-light-navbar focus:ring-opacity-5" [max]="todayString"  (change)="applyFilter($event)" placeholder="Filtrar" #inputDate>
 <div class="chart-container" style="position: relative; height:40vh; width:80vw">
     <canvas id="pie-chart"></canvas>
 </div>

@@ -36,9 +36,15 @@ export class TopGameComponent implements OnInit{
   applyFilter(event:Event):void{
     this.isLoading = true;
     const filterValue = (event.target as HTMLInputElement).value;
+    const newD = new Date(filterValue).toISOString().split('T')[0];
+    const today = new Date().getDate();
+    const month = newD.split('-')[1];
+    const year = newD.split('-')[0];
+    const newDate = new Date(`${year}-${month}-${today}`).toISOString().split('T')[0];
 
-    const date = new Date(filterValue).toISOString().substring(0, 10);
-    this.loadTopBuyer(date);
+    
+    console.log(new Date().toISOString().split('T')[0]);
+    this.loadTopBuyer(newDate);
   }
 
   loadTopBuyer(date:string){

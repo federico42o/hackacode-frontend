@@ -3,13 +3,13 @@
   class="flex flex-col justify-center items-center gap-8 p-4 w-full"
 >
   <div class="flex gap-8 items-center justify-center">
-    <p class="text-6xl">Cliente del mes de</p>
+    <p class="text-6xl">CLIENTE DEL MES</p>
 
     <input
       type="month"
       [value]="currentMonthAndYear"
       [max]="currentMonthAndYear"
-      class="dark:text-white text-2xl bg-slate-400 bg-opacity-40 form-input mt-1 block self-start rounded-md border-gray-300 shadow-md focus:border-light-navbar caret-green focus:ring-2 focus:ring-light-navbar focus:ring-opacity-5 custom-month-input"
+      class="dark:text-white text-2xl bg-slate-400 uppercase  bg-opacity-40 form-input mt-1 block self-start rounded-md border-gray-300 shadow-md focus:border-light-navbar caret-green focus:ring-2 focus:ring-light-navbar focus:ring-opacity-5 custom-month-input"
       (change)="applyFilter($event)"
       placeholder="Filtrar"
       #inputDate
@@ -21,13 +21,13 @@
     >
   <img
     src="/assets/img/crown.png"
-    class="rounded-full m-0 animate-wiggle"
+    class="rounded-full m-0 animate"
     width="64"
   />
 </div>
 <div class="flex-col justify-start items-center gap-2 p-6 mt-10">
 <p class="text-center xl:text-4xl lg:text-3xl md:text-2xl sm:text-xl text-[1rem]">
-  {{ topBuyer.buyer.name + " " + topBuyer.buyer.surname | uppercase }}
+  {{ (fullName)  | uppercase }}
 </p>
 <div class="flex-col justify-start items-center gap-2">
   <div class="flex gap-6 xl:text-2xl lg:text-xl md:text-lg text-[1rem]">

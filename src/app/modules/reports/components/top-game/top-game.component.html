@@ -3,10 +3,13 @@
   class="flex flex-col justify-center items-center gap-8 p-4 w-full"
 >
   <div class="flex gap-8 items-center justify-start">
-    <p class="xl:text-6xl lg:text-5xl md:text-3xl text-xl">Juego mas vendido
+    <div class="flex flex-col justify-end items-end">
+    <p class="xl:text-6xl lg:text-6xl md:text-4xl text-2xl whitespace-nowrap">JUEGO MAS
 
     </p>
-    <input
+    <p class="xl:text-6xl lg:text-6xl md:text-4xl text-2xl font-bold text-[#222D30] dark:text-yellow-200">VENDIDO</p>
+  </div>
+    <!-- <input
       type="month"
       [value]="currentMonthAndYear"
       [max]="currentMonthAndYear"
@@ -15,7 +18,7 @@
       placeholder="Filtrar"
       #inputDate
     />
-  </div>
+  </div> -->
 
   <div class="flex w-full items-center xl:flex-nowrap lg:flex-nowrap md:flex-nowrap  sm:flex-col flex-col">
       <div
@@ -29,11 +32,12 @@
   </div>
   <div class="flex-col justify-start items-center gap-2">
   <p class="text-center">
-      {{ topGame.gameName| uppercase }}
+      {{ (topGame.gameName ?? 'No hay registros')| uppercase }}
   </p>
       <div class="flex gap-6 text-2xl">
-        <p class="text-center">Entradas compradas: {{ topGame.totalTicketsSold }}</p>
+        <p class="text-center">Entradas vendidas: {{ topGame.totalTicketsSold ?? 0 }}</p>
       </div>
     </div>
   </div>
+</div>
 </div>
