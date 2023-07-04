@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable, forkJoin, map, of, tap } from 'rxjs';
 import { TopBuyer } from 'src/app/models/buyer/top-buyer';
 import { Dataset, GameWithMoreTickets, HistoricSales } from 'src/app/models/dataset';
-import { environment } from 'src/environments/environment.development';
+import { environment } from 'src/environments/environment'
 
 @Injectable({
   providedIn: 'root'

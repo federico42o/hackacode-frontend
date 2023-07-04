@@ -5,7 +5,7 @@ import { BehaviorSubject, Observable, catchError, switchMap, tap, throwError } f
 import { Game, User } from 'src/app/models';
 
 import jwt_decode from 'jwt-decode';
-import { environment } from 'src/environments/environment.development';
+import { environment } from 'src/environments/environment'
 import { LoginRequest } from 'src/app/models/user/login-request';
 
 @Injectable({
