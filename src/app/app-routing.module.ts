@@ -7,22 +7,20 @@ import { RoleGuard } from './modules/auth/guard/role.guard';
 import { ForbiddenComponent } from './shared/components/forbidden/forbidden.component';
 
 const routes: Routes = [
-  { path: '', component: HomeComponent, canActivate: [AuthGuard] },
   {
     path: 'auth',
     loadChildren: () =>
       import('./modules/auth/auth.module').then((m) => m.AuthModule),
   },
-  { path: 'invoice', component: InvoiceComponent },
   { path: 'forbidden', component: ForbiddenComponent },
   {
     path: 'sales',
     loadChildren: () =>
       import('./modules/sales/sales.module').then((m) => m.SalesModule),
     canActivate: [AuthGuard],
+    canActivateChild: [RoleGuard],
+    
     data: { module: 'sales' },
-    
-    
   },
   {
     path: 'administration',
@@ -31,6 +29,7 @@ const routes: Routes = [
         (m) => m.AdministrationModule
       ),
     canActivate: [AuthGuard],
+    canActivateChild: [RoleGuard],
     data: { module: 'administration' },
     
   },
@@ -39,6 +38,7 @@ const routes: Routes = [
     loadChildren: () =>
       import('./modules/reports/reports.module').then((m) => m.ReportsModule),
     canActivate: [AuthGuard],
+    canActivateChild: [RoleGuard],
     data: { module: 'reports' },
     
   },

@@ -2,11 +2,12 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 import { BehaviorSubject, Observable, catchError, switchMap, tap, throwError } from 'rxjs';
-import { Game, User } from 'src/app/models';
+import { Game, User, UserRole } from 'src/app/models';
 
 import jwt_decode from 'jwt-decode';
 import { environment } from 'src/environments/environment'
 import { LoginRequest } from 'src/app/models/user/login-request';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -25,7 +26,7 @@ export class AuthService {
 
 
 
-  constructor(private http: HttpClient, private cookies: CookieService) {
+  constructor(private http: HttpClient, private cookies: CookieService,private router:Router) {
     
   }
   
@@ -74,11 +75,13 @@ export class AuthService {
       }),
       tap((user: User) => {
         this.setCurrentUser(user);
+        this.redirectBasedOnRole(user);
       }),
       catchError((err: any) => {
         this.cookies.delete('token', '/');
         return throwError(()=> new Error('Usuario o contraseña incorrectos.'));
       })
+      
     );
   }
 
@@ -111,5 +114,22 @@ export class AuthService {
       }
     }
     return false;
+  }
+  private redirectBasedOnRole(user: User): void {
+    const roleRoutes: { [key: string]: string } = {
+      admin: '/administration/users',
+      manager: '/reports',
+      user: '/sales/new-ticket',
+    };
+    
+    const userRoles = user.roles.map((role) => role.role);
+    const userRole = userRoles.find((role) => role in roleRoutes);
+    
+    if (userRole) {
+      const route = roleRoutes[userRole];
+      this.router.navigate([route]);
+    } else {
+      this.router.navigate(['/forbidden']);
+    }
   }
 }

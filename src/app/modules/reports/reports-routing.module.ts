@@ -4,7 +4,7 @@ import { ReportsComponent } from './pages/reports/reports.component';
 import { RoleGuard } from '../auth/guard/role.guard';
 
 const routes: Routes = [
-  {path: '', component: ReportsComponent,canActivateChild: [RoleGuard],}
+  {path: 'view', component: ReportsComponent,canActivateChild: [RoleGuard]}
 ];
 
 @NgModule({
