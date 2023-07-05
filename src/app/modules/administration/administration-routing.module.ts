@@ -6,9 +6,9 @@ import { RoleGuard } from '../auth/guard/role.guard';
 
 const routes: Routes = [
   
-  {path:'buyer', component:BuyerComponent,canActivateChild:[RoleGuard]},
-  {path:'employee', component:EmployeeComponent,canActivateChild:[RoleGuard]},
-  {path:'users', component:UsersComponent,canActivateChild:[RoleGuard]},
+  {path:'compradores', component:BuyerComponent,canActivateChild:[RoleGuard]},
+  {path:'empleados', component:EmployeeComponent,canActivateChild:[RoleGuard]},
+  {path:'usuarios', component:UsersComponent,canActivateChild:[RoleGuard]},
 ];
 
 @NgModule({

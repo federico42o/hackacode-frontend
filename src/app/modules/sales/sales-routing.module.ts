@@ -7,9 +7,9 @@ import { ConfirmExitGuard } from 'src/app/shared/guard/confirm-exit.guard';
 import { RoleGuard } from '../auth/guard/role.guard';
 
 const routes: Routes = [
-  {path:'new-ticket', component: TicketSelectorComponent,canDeactivate: [ConfirmExitGuard],canActivateChild:[RoleGuard]},
-  {path: 'game', component: GameComponent,canActivateChild:[RoleGuard]},
-  {path: 'entrada', component: TicketComponent,canActivateChild:[RoleGuard]}
+  {path:'venta', component: TicketSelectorComponent,canDeactivate: [ConfirmExitGuard],canActivateChild:[RoleGuard]},
+  {path: 'juegos', component: GameComponent,canActivateChild:[RoleGuard]},
+  {path: 'entradas', component: TicketComponent,canActivateChild:[RoleGuard]}
 ];
 
 @NgModule({

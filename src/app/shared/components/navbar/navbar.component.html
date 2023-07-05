@@ -5,7 +5,7 @@
 
         <div class=" text-logo flex md:flex-col sm:flex items-center gap-4  text-xl flex-1 mt-2">
             <div 
-                class="flex gap-2 cursor-pointer rounded-md text-center px-4 py-2 " routerLink="/sales/new-ticket"
+                class="flex gap-2 cursor-pointer rounded-md text-center px-4 py-2 " routerLink="venta"
                 matTooltip="Ventas"
                 [matTooltipHideDelay]="200"
                 [matTooltipPosition]="tooltipPosition"
@@ -23,7 +23,7 @@
                 matTooltip="Atracciones"
                 [matTooltipHideDelay]="200"
                 [matTooltipPosition]="tooltipPosition"
-                routerLink="/sales/game" (click)="selectTab('JUEGOS')"
+                routerLink="juegos" (click)="selectTab('JUEGOS')"
                 [ngClass]="{'bg-light-active dark:bg-dark-active ': currentTab === 'JUEGOS'}">
                 <svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-name="Layer 1" viewBox="0 0 24 24" width="24"
                     height="24" class=" fill-logo">
@@ -37,7 +37,7 @@
 
 
             <div  class="flex gap-2 cursor-pointer rounded-md  px-4 py-2 "
-                routerLink="/reports" (click)="selectTab('REPORTES')"
+                routerLink="reportes" (click)="selectTab('REPORTES')"
                 matTooltip="Reportes"
                 [matTooltipHideDelay]="200"
                 [matTooltipPosition]="tooltipPosition"
@@ -52,7 +52,7 @@
 
             </div>
             <div  class="flex gap-2 cursor-pointer rounded-md  px-4 py-2 "
-                routerLink="/administration/buyer" (click)="selectTab('CLIENTES')"
+                routerLink="compradores" (click)="selectTab('CLIENTES')"
                 matTooltip="Clientes"
                 [matTooltipHideDelay]="200"
                 [matTooltipPosition]="tooltipPosition"
@@ -71,7 +71,7 @@
 
             </div>
             <div  class="flex gap-2 cursor-pointer rounded-md  px-4 py-2"
-                routerLink="/administration/employee" (click)="selectTab('EMPLEADO')"
+                routerLink="empleados" (click)="selectTab('EMPLEADO')"
                 matTooltip="Empleados"
                 [matTooltipHideDelay]="200"
                 [matTooltipPosition]="tooltipPosition"
@@ -86,7 +86,7 @@
 
             </div>
             <div  class="flex gap-2 cursor-pointer rounded-md  px-4 py-2 "
-                routerLink="/administration/users" (click)="selectTab('USUARIOS')"
+                routerLink="usuarios" (click)="selectTab('USUARIOS')"
                 matTooltip="Usuarios"
                 [matTooltipHideDelay]="200"
                 [matTooltipPosition]="tooltipPosition"

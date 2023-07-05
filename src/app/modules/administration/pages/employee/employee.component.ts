@@ -1,11 +1,9 @@
-import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { EmployeeService } from '../../services/employee.service';
-import { Employee, Game } from 'src/app/models';
 import { Dialog } from '@angular/cdk/dialog';
-import { EmployeeFormComponent } from '../../components';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { Employee, Game } from 'src/app/models';
 import { DialogComponent } from '../../components/dialog/dialog.component';
+import { EmployeeService } from '../../services/employee.service';
 import { GameService } from '../../services/game.service';
 
 @Component({
