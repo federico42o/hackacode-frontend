@@ -43,8 +43,9 @@ import { SalesComponent } from './pages/sales/sales.component';
   exports: [
     TicketSelectorComponent,
     AddTicketFormComponent,
-    GameFormComponent,
     GameComponent,
+    GameFormComponent,
+    SummaryComponent,
     GameCardComponent,
     TicketComponent,
     CreateTicketComponent,

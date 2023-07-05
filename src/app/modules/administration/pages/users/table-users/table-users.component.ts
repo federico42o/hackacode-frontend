@@ -86,7 +86,7 @@ export class TableUsersComponent implements OnInit {
       roles:user?.roles
     })
 
-    this._updateTable()
+    
   }
   exitEditMode() {
     this.isEditMode = false;

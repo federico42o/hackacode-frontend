@@ -25,6 +25,8 @@ import { SharedModule } from 'src/app/shared';
   ],
   exports: [
     LoginComponent,
+    PasswordRecoveryComponent,
+    ChangePasswordComponent
   ]
 })
 export class AuthModule { }

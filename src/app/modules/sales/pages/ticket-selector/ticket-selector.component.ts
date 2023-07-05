@@ -1,13 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
 import { Ticket } from 'src/app/models';
-import { Buyer } from 'src/app/models/buyer';
-import { Game } from 'src/app/models/game';
 import { TicketDetail } from 'src/app/models/detail/ticket-detail';
+import { Game } from 'src/app/models/game';
 import { AuthService } from 'src/app/modules/auth/services/auth.service';
 import { CanComponentDeactivate } from 'src/app/shared';
 import { TicketService } from '../../services/ticket.service';
-import { BuyerService } from 'src/app/modules/administration/services/buyer.service';
 
 @Component({
   selector: 'app-ticket-selector',
@@ -25,7 +23,7 @@ export class TicketSelectorComponent implements OnInit, CanComponentDeactivate{
  game!: Game;
  game$!: Subscription;
  changes:boolean = true;
- tab:string = 'sales';
+ tab:string = 'new-sale';
  ngOnInit(): void {
   this.authService.initializeCurrentUser();
    this.game$ = this.authService.getCurrentGame().subscribe({
@@ -54,21 +52,17 @@ export class TicketSelectorComponent implements OnInit, CanComponentDeactivate{
  }
 
  canDeactivate(): Observable<boolean> | Promise<boolean> | boolean {
-  if (this.changes) {
+  if (this.tab === 'new-sale') {
     return confirm('¿Estás seguro de que deseas salir? Se perderán los cambios sin guardar.');
   }
   return true;
 }
 
-changeTab(tab:string){
-  if(tab === 'sales'){
-    this.tab = tab;
-  }else{
-
-  if(this.canDeactivate()){
-
-    this.tab = tab;
+changeTab(tab: string): void {
+  if (!this.canDeactivate()) {
+    return;
   }
-}
+
+  this.tab = tab;
 }
 }

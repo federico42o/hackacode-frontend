@@ -1,21 +1,27 @@
-# FROM node:18-alpine as build-stage
+FROM node:18-alpine3.17 as build
 
-# WORKDIR /app
+WORKDIR /app
 
-# COPY package*.json ./
-# RUN npm install
+COPY package*.json ./
 
-# COPY . .
-# RUN npm run build
+RUN npm install
 
-# # Stage 2: Serve the built Angular app using Nginx
-# FROM nginx:alpine
+COPY . .
 
-# COPY --from=build-stage /app/dist /usr/share/nginx/html
 
-# EXPOSE 80
+RUN npm run build --prod
 
-# CMD ["nginx", "-g", "daemon off;"]
+
+FROM nginx:1.24.0-alpine
+
+
+COPY nginx.conf /etc/nginx/conf.d/
+
+COPY --from=build /app/dist/hackacode-theme-park /usr/share/nginx/html
+
+EXPOSE 80
+
+CMD ["nginx", "-g", "daemon off;"]
 
 
 

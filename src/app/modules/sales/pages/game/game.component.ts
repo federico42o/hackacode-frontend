@@ -5,6 +5,7 @@ import { Dialog } from '@angular/cdk/dialog';
 import { Game } from 'src/app/models';
 import { GameFormComponent } from '../../components/game-form/game-form.component';
 import { DialogComponent } from 'src/app/modules/administration/components/dialog/dialog.component';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-game',
@@ -16,7 +17,7 @@ export class GameComponent implements OnInit, OnDestroy {
   games$! : Subscription;
   currentPage: number = 1;
 
-  constructor(private service : GameService,public dialog: Dialog){}
+  constructor(private service : GameService,public dialog: Dialog,private toastr:ToastrService){}
 
   games : Game[] = [];
   pageableGames: Game[] = [];
@@ -66,7 +67,33 @@ export class GameComponent implements OnInit, OnDestroy {
   }
 
   handleDelete(data:any){
-   
+    const dialogRef = this.dialog.open(DialogComponent,{
+      width: '30%',
+      height: '10%',
+      data: {
+        message: "¿Desea borrar este juego?",
+      }
+      });
+      dialogRef.componentInstance?.accept.subscribe({
+        next: () => {
+
+          this.service.delete(data.id).subscribe({
+
+          });
+          
+        },
+        error: (err:any) => {
+          this.toastr.error('Error, intente nuevamente')
+        },
+        complete: () => {
+          this.toastr.success('Juego eliminado con exito')
+          this._updateGames()
+          location.reload();
+        }
+      });  
+      dialogRef.closed.subscribe(result => {
+        this._updateGames()
+      });
     
   }
   onGameAdded():void{

@@ -1,21 +1,40 @@
 <div class="container mx-auto w-full">
     <div class="row">
-        <div class="flex flex-col gap-4">
-            <h1 class="text-7xl font-bold text-[#222D30] dark:text-yellow-200">Entradas disponibles</h1>
+        <div class="block w-full text-center">
+            <h1 class="text-3xl font-bold text-[#222D30] dark:text-yellow-200">{{currentTab=='form'?'Agregar entrada':'Entradas registradas'}}</h1>
         </div>
     </div>
-    <div class="flex my-4 gap-8 ">
-        <div class="flex gap-8 flex-wrap">
-        <app-ticket-card *ngFor="let ticket of tickets" [ticket]="ticket"></app-ticket-card>
-        </div>
-        <div class="ml-4 cursor-pointer  h-full">
-            <div class=" p-6 bg-white border-2 border-dark-primary rounded-lg hover:scale-105 transition duration-500">
-                <div class="flex items-center">
-                    <span>🎫</span>
-                    <h3 class="my-2 ml-3 text-lg font-bold text-gray-800">Agregar</h3>
-                </div>
+    <div class="container mx-auto w-full flex flex-col justify-center-center overflow-auto" *ngIf="currentTab === 'view'" >
+        <div class="flex flex-col my-4 gap-8 flex-1 min-h-[400px] max-h-[600px]">
+            <div class="flex justify-center gap-8 flex-wrap mx-auto px-8 ">
+                
+                <app-ticket-card *ngFor="let ticket of getItemsForCurrentPage()" [ticket]="ticket" (edit)="handleEdit($event)" (delete)="handleDelete($event)"></app-ticket-card>
+                <div class="relative cursor-pointer w-[300px] " (mouseenter)="isHidden = !isHidden" (mouseleave)="isHidden = !isHidden" (click)="changeTab('form')">
+                    <span class="absolute top-0 left-0 w-full h-full mt-1 ml-1 bg-[#35a8ae] rounded-lg"></span>
+                    <div class="relative text-light-primary font-roboto text-4xl p-6 bg-white border-2 border-[#629fa8] rounded-lg  h-[150px]">
+                       NUEVA ENTRADA
+                    </div>
+                      <div class="text-9xl absolute top-[5px] right-[45px] text-light-navbar opacity-20 hover:scale-150 transition duration-500">
+                        +
+                      </div>
+                  </div>
+    
+     
             </div>
         </div>
     </div>
+<div class="flex w-full gap-4" *ngIf="currentTab === 'view'">
+    <button (click)="prevPage()" [disabled]="currentPage === 1" [class.opacity-5]="currentPage === 1">Anterior</button>
+    <span>{{ currentPage }} / {{ totalPages }}</span>
+    <button (click)="nextPage()" [disabled]="currentPage === totalPages" [class.opacity-5]="currentPage===totalPages">Siguiente</button>
 </div>
+<section class="flex justify-center gap-4 flex-1 w-full flex-wrap mt-5" *ngIf="currentTab === 'form'">
+
+      <div class="w-full p-4 flex flex-col justify-center items-center max-h-[600px]" id="scrollbar">
+      <ng-container >
+        <app-create-ticket (clientAdded)="onTicketAdded()" [ticket]="selectedTicket"></app-create-ticket>
+      </ng-container>
+    </div>
+    <button (click)="changeTab('view')">Atrás</button>
+</section>
 

@@ -75,6 +75,8 @@ export class SummaryComponent implements OnChanges{
           },
           complete:()=>{
             this.isLoading = false;
+            this.toastr.success("Compra realizada con éxito");
+            this.ticketData = [];
           }
         });
       },
@@ -101,6 +103,7 @@ export class SummaryComponent implements OnChanges{
         },
         complete:()=>{
           this.isLoading = false;
+
 
         }
       });
