@@ -6,7 +6,6 @@ import player from 'lottie-web';
 import { ClockComponent,HeaderComponent,NavbarComponent,ToggleThemeBtnComponent,BuscadorClienteComponent } from './components';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuthRoutingModule } from '../modules/auth/auth-routing.module';
-import { TabComponent } from './components/navbar/tab/tab.component';
 import {DialogModule} from '@angular/cdk/dialog';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { HomeComponent } from './components/home/home.component';
@@ -36,7 +35,6 @@ export function playerFactory(): any {
     HeaderComponent,
     ClockComponent,
     BuscadorClienteComponent,
-    TabComponent,
     HomeComponent,
     BarCodeComponent,
     InvoiceComponent,
@@ -86,7 +84,6 @@ export function playerFactory(): any {
     MatPaginatorModule,
     MatSortModule,
     MatChipsModule,
-    TabComponent,
     NaturalTimePipe,
     ChartSkeletonComponent,
     

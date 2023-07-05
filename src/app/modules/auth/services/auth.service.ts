@@ -117,12 +117,12 @@ export class AuthService {
   }
   private redirectBasedOnRole(user: User): void {
     const roleRoutes: { [key: string]: string } = {
-      admin: '/administration/users',
-      manager: '/reports',
-      user: '/sales/new-ticket',
+      ADMINISTRADOR: 'usuarios',
+      GERENTE: 'reportes',
+      VENTAS: 'ventas',
     };
     
-    const userRoles = user.roles.map((role) => role.role);
+    const userRoles = user.roles.map((role) => role.role.toUpperCase());
     const userRole = userRoles.find((role) => role in roleRoutes);
     
     if (userRole) {
