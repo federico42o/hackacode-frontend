@@ -1,62 +1,82 @@
-<form  [formGroup]="ticketForm" class="text-dark-primary dark:text-light-primary flex justify-center" (ngSubmit)="onSubmit()">
-    <div class="flex flex-col gap-2">
-
-        <label for="">Descripción de la entrada</label>
-        <input
-        class="w-52 
-        form-input
-        text-dark-primary
-        rounded-sm
-        p-1
-        border-gray-300
-        shadow-md
-        focus:border-green-600 caret-green focus:ring-2 focus:ring-green-600 focus:ring-opacity-5"
-        type="text"
-        placeholder=""
-        formControlName="description"
-        >
-
-        <label for="">Precio</label>
-        <div class="flex flex-row relative items-center">
-        <span class="flex items-center rounded rounded-r-none px-3 font-bold text-dark-primary text-xl absolute top-[3px] right-0">$</span>
-        <input
-        class="w-52 
-        form-input
-        text-dark-primary
-        rounded-sm
-        p-1
-        border-gray-300
-        shadow-md
-        focus:border-green-600 caret-green focus:ring-2 focus:ring-green-600 focus:ring-opacity-5"
-        type="number"
-        placeholder="Precio"
-        formControlName="price"
-        >
-        </div>
-        <div class="flex gap-4 items-center">
-        <label for="vip" name="vip">VIP</label>
-        <input
-        name="vip"
-        id="vip"
-        class="
-        cursor-pointer
-        form-checkbox
-        text-dark-primary
-        rounded-sm
-        p-1
-        border-gray-300
-        shadow-md
-        focus:border-green-600 caret-green focus:ring-2 focus:ring-green-600 focus:ring-opacity-5"
-        type="checkbox"
-        placeholder="Precio"
-        formControlName="vip"
-        value="true"
-        >
+<div class=" login-form mx-auto w-full h-full flex flex-col items-center  gap-4 text-light-primary dark:text-white">
+    <form class="flex flex-col gap-4" [formGroup]="ticketForm" (ngSubmit)="onSubmit()">
+        <div class="flex gap-4">
         
+            <div class="flex flex-col ">
+                <label class="blok whitespace-nowrap w-[40%]">Descripcion <span
+                        class="text-red text-sm align-top">*</span></label>
+                <div class="">
+                    <div class="flex">
+                        <input
+                            class="form-input text-gray-900 mt-1 block rounded-md border-gray-300 shadow-md focus:border-light-navbar caret-green focus:ring-2 focus:ring-light-navbar focus:ring-opacity-5"
+                            type="text" id="description" placeholder="Descripcion" formControlName="description"
+                            [class.border-red]="ticketForm.get('description')?.errors && ticketForm.get('description')?.touched"
+                            [class.border-red]="ticketForm.get('description')?.errors && ticketForm.get('description')?.touched">
+                    </div>
+                </div>
+                <div *ngIf="(ticketForm.get('description')?.invalid &&
+                ticketForm.get('description')?.errors && 
+                (ticketForm.get('description')?.dirty || ticketForm.get('description')?.touched))">
+                    <div class="w-full flex flex-col gap-4">
+                        <small class="dark:text-yellow-200 text-light-primary"
+                            *ngIf="ticketForm.get('description')?.hasError('required')">Estos campos no pueden estar
+                            vacíos.</small>
+                        <small class="dark:text-yellow-200 text-light-primary"
+                            *ngIf="ticketForm.get('description')?.errors?.['minlength'] || ticketForm.get('description')?.errors?.['maxlength']">La
+                            longitud debe ser de 6 hasta 60 caracteres.</small>
+                        <small class="dark:text-yellow-200 text-light-primary"
+                            *ngIf="ticketForm.get('description')?.hasError('pattern') ">Ingrese un nombre de usuario para el
+                            email válido<br>Sólo se permiten caracteres alfanumericos y los símbolos " . _ - " </small>
+                    </div>
+                </div>
+            </div>
+        
+
+        <div class="flex flex-col gap-2 ">
+            <div class="flex flex-col ">
+                <label class="blok whitespace-nowrap ">Precio <span
+                    class="text-red text-sm align-top">*</span></label>
+                <div class="flex relative items-center">
+                    <input
+                        class="form-input text-gray-900 w-full mt-1 block rounded-md border-gray-300 shadow-md focus:border-light-navbar caret-green focus:ring-2 focus:ring-light-navbar focus:ring-opacity-5"
+                        type="number" id="price" placeholder="Precio" formControlName="price"
+                        #price
+                        [class.border-red]="ticketForm.get('price')?.errors && ticketForm.get('price')?.touched">
+                </div>
+                <div *ngIf="(ticketForm.get('price')?.invalid &&
+                ticketForm.get('price')?.errors && 
+                (ticketForm.get('price')?.dirty || ticketForm.get('price')?.touched))">
+                    <div class="w-full flex flex-col gap-4">
+                        <small class="dark:text-yellow-200 text-light-primary"
+                            *ngIf="ticketForm.get('price')?.hasError('required')">Estos campos no pueden estar
+                            vacíos.</small>
+                    </div>
+                </div>
+            </div>
+            
+            
         </div>
+    </div>
+    <div class="flex flex-col gap-2 justify-center">
+                <ul class="max-h-52 overflow-y-auto">
+                    <li  class="flex gap-4 my-5 items-center ">
+                        <input class="form-radio" type="radio" [value]="false" id="vip"
+                            formControlName="vip">
+                        <label for="vip">VIP</label>
+                    </li>
+                </ul>
 
+            </div>
+            <div *ngIf="(ticketForm.get('vip')?.invalid &&
+            ticketForm.get('vip')?.errors && 
+            (ticketForm.get('vip')?.dirty || ticketForm.get('vip')?.touched))">
+            </div>
 
+        <button
+            class="bg-blue-500 hover:bg-blue-400 dark:text-white font-medium py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded"
+            [class.opacity-5]="ticketForm.invalid" [class.cursor-not-allowed]="ticketForm.invalid">
+            Guardar
+        </button>
+    </form>
 
-    <button type="submit" class="bg-dark-primary text-white" >Guardar entrada</button>
 </div>
-</form>

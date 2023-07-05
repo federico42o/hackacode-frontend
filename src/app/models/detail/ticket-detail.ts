@@ -6,4 +6,5 @@ export interface TicketDetail {
     id:string,
     ticket:Ticket;
     buyer:Buyer;
+    price?:number;
 }

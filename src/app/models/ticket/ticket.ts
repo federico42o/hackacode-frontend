@@ -1,7 +1,7 @@
 
 
 export interface Ticket {
-    id: string,
+    id: number,
     price:number,
     description:string,
     vip:boolean,

@@ -16,7 +16,7 @@ const routes: Routes = [
     loadChildren: () =>
       import('./modules/sales/sales.module').then((m) => m.SalesModule),
     canActivate: [AuthGuard],
-    canActivateChild: [RoleGuard],
+    
     
     data: { module: 'sales' },
   },
@@ -27,7 +27,7 @@ const routes: Routes = [
         (m) => m.AdministrationModule
       ),
     canActivate: [AuthGuard],
-    canActivateChild: [RoleGuard],
+    
     data: { module: 'administration' },
     
   },
@@ -36,10 +36,15 @@ const routes: Routes = [
     loadChildren: () =>
       import('./modules/reports/reports.module').then((m) => m.ReportsModule),
     canActivate: [AuthGuard],
-    canActivateChild: [RoleGuard],
+    
     data: { module: 'reports' },
     
   },
+  {
+    path: '',
+    redirectTo: '',
+    pathMatch: 'full'
+  }
 ];
 
 @NgModule({

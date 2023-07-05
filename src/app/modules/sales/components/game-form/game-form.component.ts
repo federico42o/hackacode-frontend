@@ -40,11 +40,7 @@ export class GameFormComponent implements OnInit{
   }
 
   onSubmit():void{
-    const game : GameRequest = {
-      name:this.gameForm.value.name,
-      requiredAge:this.gameForm.value.requiredAge,
-      schedule:this.gameForm.value.schedule
-    }
+
     if(this.gameForm.invalid){
       return
     }
@@ -70,7 +66,11 @@ export class GameFormComponent implements OnInit{
       }
     })}
     else{
-
+      const game : GameRequest = {
+        name:this.gameForm.value.name,
+        requiredAge:this.gameForm.value.requiredAge,
+        schedule:this.gameForm.value.schedule
+      }
     
     this.service.create(game).subscribe(
       {next:(data:any) => {

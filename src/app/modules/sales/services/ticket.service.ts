@@ -20,8 +20,8 @@ export class TicketService {
     return this.http.get(this.baseUrl);
   }
 
-  delete(id:number):void{
-    this.http.delete(this.baseUrl+"/"+id)
+  delete(id:number): Observable<any>{
+    return this.http.delete(this.baseUrl+"/"+id)
   }
 
   update(request:Ticket):Observable<any>{

@@ -7,13 +7,13 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { SharedModule } from 'src/app/shared';
 import { EmployeeFormComponent } from './components';
-import { BuyerEditFormComponent } from './components/buyer-edit-form/buyer-edit-form.component';
 import { BuyerFormComponent } from './components/buyer-form/buyer-form.component';
 import { UserFormComponent } from './components/user-form/user-form.component';
 import { BuyerComponent, EmployeeComponent, UsersComponent } from './pages';
 import { BuyerTableComponent } from './pages/buyer/buyer-table/buyer-table.component';
 import { EmployeeTableComponent } from './pages/employee/employee-table/employee-table.component';
 import { TableUsersComponent } from './pages/users/table-users/table-users.component';
+import {MatDatepickerModule} from '@angular/material/datepicker';
 
 
 @NgModule({
@@ -25,7 +25,6 @@ import { TableUsersComponent } from './pages/users/table-users/table-users.compo
     TableUsersComponent,
     UserFormComponent,
     BuyerFormComponent,
-    BuyerEditFormComponent,
     EmployeeTableComponent,
     BuyerTableComponent,
     
@@ -36,7 +35,7 @@ import { TableUsersComponent } from './pages/users/table-users/table-users.compo
     FormsModule,
     ReactiveFormsModule,
     SharedModule,
-    MatExpansionModule
+    MatExpansionModule,
   ],
   exports:[
     BuyerComponent,
@@ -46,7 +45,6 @@ import { TableUsersComponent } from './pages/users/table-users/table-users.compo
     TableUsersComponent,
     UserFormComponent,
     BuyerFormComponent,
-    BuyerEditFormComponent,
     EmployeeTableComponent,
     BuyerTableComponent,
   ]

@@ -85,7 +85,11 @@ export class BuyerComponent implements OnInit,OnDestroy{
         this._updateTable()
       },
       error:(err:any)=>{
-        
+       this.toastr.error('Error, intente nuevamente'); 
+      },
+      complete:()=>{
+
+        this.toastr.success('Cliente actualizado con exito');
       }
 
 
