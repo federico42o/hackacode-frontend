@@ -5,7 +5,8 @@
 
         <div class=" text-logo flex md:flex-col sm:flex items-center gap-4  text-xl flex-1 mt-2">
             <div 
-                class="flex gap-2 cursor-pointer rounded-md text-center px-4 py-2 " routerLink="venta"
+		*ngIf="roles.includes('VENTAS')"
+                class="flex gap-2 cursor-pointer rounded-md text-center px-4 py-2 " routerLink="ventas"
                 matTooltip="Ventas"
                 [matTooltipHideDelay]="200"
                 [matTooltipPosition]="tooltipPosition"
@@ -19,7 +20,9 @@
                 </svg>
                 
             </div>
-            <div class="flex gap-2 cursor-pointer rounded-md  px-4 py-2"
+            <div
+		*ngIf="roles.includes('VENTAS')"
+		 class="flex gap-2 cursor-pointer rounded-md  px-4 py-2"
                 matTooltip="Atracciones"
                 [matTooltipHideDelay]="200"
                 [matTooltipPosition]="tooltipPosition"
@@ -36,7 +39,9 @@
             </div>
 
 
-            <div  class="flex gap-2 cursor-pointer rounded-md  px-4 py-2 "
+            <div
+		*ngIf="roles.includes('GERENTE')"
+		  class="flex gap-2 cursor-pointer rounded-md  px-4 py-2 "
                 routerLink="reportes" (click)="selectTab('REPORTES')"
                 matTooltip="Reportes"
                 [matTooltipHideDelay]="200"
@@ -51,7 +56,9 @@
                 
 
             </div>
-            <div  class="flex gap-2 cursor-pointer rounded-md  px-4 py-2 "
+            <div  
+		*ngIf="roles.includes('ADMINISTRADOR')"
+		class="flex gap-2 cursor-pointer rounded-md  px-4 py-2 "
                 routerLink="compradores" (click)="selectTab('CLIENTES')"
                 matTooltip="Clientes"
                 [matTooltipHideDelay]="200"
@@ -70,7 +77,9 @@
                 
 
             </div>
-            <div  class="flex gap-2 cursor-pointer rounded-md  px-4 py-2"
+            <div  
+		*ngIf="roles.includes('ADMINISTRADOR')"
+		class="flex gap-2 cursor-pointer rounded-md  px-4 py-2"
                 routerLink="empleados" (click)="selectTab('EMPLEADO')"
                 matTooltip="Empleados"
                 [matTooltipHideDelay]="200"
@@ -85,7 +94,9 @@
                 
 
             </div>
-            <div  class="flex gap-2 cursor-pointer rounded-md  px-4 py-2 "
+            <div  
+		*ngIf="roles.includes('ADMINISTRADOR')"
+		class="flex gap-2 cursor-pointer rounded-md  px-4 py-2 "
                 routerLink="usuarios" (click)="selectTab('USUARIOS')"
                 matTooltip="Usuarios"
                 [matTooltipHideDelay]="200"
