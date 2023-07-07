@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable, forkJoin, map, startWith } from 'rxjs';
-import { Employee, UserRole,UserRequest, User } from 'src/app/models';
+import { Employee, User, UserRequest, UserRole } from 'src/app/models';
 import { randomPassword } from 'src/app/shared/utils/genPw';
 import { EmployeeService } from '../../services/employee.service';
 import { RoleService } from '../../services/role.service';
@@ -45,9 +45,6 @@ export class UserFormComponent implements OnInit {
       this.userService.create(user).subscribe({
         next: () => {
           this.userForm.reset();
-        },
-        error: (err:any) =>{
-          
         },
         complete:()=> {
           this.loadEmployees();

@@ -1,12 +1,11 @@
 import { Dialog } from '@angular/cdk/dialog';
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
-import { Subscription } from 'rxjs';
-import { BuyerFormComponent } from '../../components/buyer-form/buyer-form.component';
-import { BuyerService } from '../../services/buyer.service';
-import { Buyer } from 'src/app/models/buyer';
+import { FormGroup } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
+import { Subscription } from 'rxjs';
+import { Buyer } from 'src/app/models/buyer';
 import { DialogComponent } from '../../components/dialog/dialog.component';
+import { BuyerService } from '../../services/buyer.service';
 
 
 @Component({
@@ -16,12 +15,12 @@ import { DialogComponent } from '../../components/dialog/dialog.component';
 })
 export class BuyerComponent implements OnInit,OnDestroy{
   
-  constructor(private fb : FormBuilder, private buyerService: BuyerService, public dialog : Dialog,private toastr:ToastrService){}
+  constructor( private buyerService: BuyerService, public dialog : Dialog,private toastr:ToastrService){}
   currentTab = 'view';
   subscription$! : Subscription;
   buyerForm! : FormGroup;
   clients!: Buyer[];
-  page : any;
+  page!: Buyer[];
   isRowDeleted:boolean = false;
   
   changeTab(tab:string){
@@ -37,11 +36,7 @@ export class BuyerComponent implements OnInit,OnDestroy{
   onClientAdded(): void {
     this._updateTable();
   }
-
-  onEdit(data:any):void {
-    
-  }
-  onDelete(data:any):void{
+  onDelete(data:Buyer):void{
     const dialogRef = this.dialog.open(DialogComponent,{
       width: '30%',
       height: '10%',
@@ -53,20 +48,14 @@ export class BuyerComponent implements OnInit,OnDestroy{
         next: () => {
 
           this.buyerService.delete(data.id).subscribe({
-            next: (data:any) => {
-            },
-            error:(err:any)=>{
-             
-            }
-              ,
-            complete: () => {
+          complete: () => {
               this.dialog.closeAll();
             }
 
           });
           
         },
-        error: (err:any) => {
+        error: () => {
           this.toastr.error('Error, intente nuevamente'),this._updateTable()
         },
         complete: () => {
@@ -84,7 +73,7 @@ export class BuyerComponent implements OnInit,OnDestroy{
       next:()=>{
         this._updateTable()
       },
-      error:(err:any)=>{
+      error:()=>{
        this.toastr.error('Error, intente nuevamente'); 
       },
       complete:()=>{
@@ -112,17 +101,6 @@ export class BuyerComponent implements OnInit,OnDestroy{
     
       this.page = this.clients.slice(0, this.pageSize);
     }
-    
-  
-    private _updatePage(): void {
-      this.subscription$ = this.buyerService.getAll().subscribe(
-        (data:any) => {
-          this.clients = data.content.filter((client: Buyer) => !client.banned);
-          this.page = this.clients;
-          this.setPageSize();
-        });
-      }
-
 
       setTab(tab:string){
         this.currentTab = tab

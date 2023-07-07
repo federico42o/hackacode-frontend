@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
-import { AuthService } from '../services/auth.service';
 import { LoginRequest } from 'src/app/models/user/login-request';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -10,7 +9,7 @@ import { LoginRequest } from 'src/app/models/user/login-request';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit{
-  constructor(private fb: FormBuilder,private route : Router, private loginService : AuthService) { }
+  constructor(private fb: FormBuilder,private loginService : AuthService) { }
   loginForm!:FormGroup;
   isLoading:boolean = false;
   errorMessage:string ='';
@@ -38,7 +37,8 @@ export class LoginComponent implements OnInit{
       next: () => {
         this.loginService.initializeCurrentUser();
       },
-      error: (error: any) => {
+      error: (error: Error) => {
+        console.log(error)
         this.isLoading = false;
         this.errorMessage = error.message;
       },complete:()=>{

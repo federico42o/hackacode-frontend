@@ -37,7 +37,7 @@ export class BuyerFormComponent implements OnInit{
 
 
   onSubmit():void{
-    const buyer : BuyerRequest = {
+    const buyer :BuyerRequest = {
       name : this.clientForm.get('name')?.value,
       surname : this.clientForm.get('surname')?.value,
       dni : this.clientForm.get('dni')?.value,
@@ -49,12 +49,7 @@ export class BuyerFormComponent implements OnInit{
     }else{
 
     this.service.create(buyer).subscribe(
-      {next:(data:any) => {
-
-      },
-      error:(error:any) => {
-        
-      },
+      {
       complete: () =>{
         this.clientForm.reset();
         this.clientAdded.emit();

@@ -2,7 +2,6 @@ import { Dialog } from '@angular/cdk/dialog';
 import { Component, OnInit } from '@angular/core';
 import { User, UserRole, UserTable } from 'src/app/models';
 import { RoleService } from '../../services/role.service';
-import { UserEmployeeService } from '../../services/user-employee.service';
 
 @Component({
   selector: 'app-users',

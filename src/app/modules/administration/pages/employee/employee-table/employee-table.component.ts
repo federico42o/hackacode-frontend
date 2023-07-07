@@ -7,6 +7,7 @@ import { Employee, Game } from 'src/app/models';
 import { EmployeeService } from '../../../services/employee.service';
 import { GameService } from '../../../services/game.service';
 import { DateValidator } from 'src/app/shared/utils/date-validator';
+import { PaginationResponse } from 'src/app/models/pagination/pagination-response';
 
 @Component({
   selector: 'app-employee-table',
@@ -47,7 +48,7 @@ export class EmployeeTableComponent implements AfterViewInit,OnInit{
   
   ngOnInit(): void {
     this.gameService.getAll().subscribe({
-      next:(data:any)=>{
+      next:(data:PaginationResponse<Game>)=>{
         this.games = data.content
       },
       complete:()=>{
@@ -67,7 +68,7 @@ export class EmployeeTableComponent implements AfterViewInit,OnInit{
   private _updateTable() : void{
     this.service.getAll().subscribe(
       {
-        next: (data: any) => {
+        next: (data: PaginationResponse<Employee>) => {
           this.employees = data.content;
           this.dataSource = new MatTableDataSource(data.content)
           
@@ -130,7 +131,7 @@ export class EmployeeTableComponent implements AfterViewInit,OnInit{
 
   }
 
-  delete(data:any){
+  delete(data:Employee){
     this.service.delete(data.id).subscribe({
       next:()=>{
         this._updateTable()

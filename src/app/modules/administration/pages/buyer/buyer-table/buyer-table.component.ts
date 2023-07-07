@@ -3,11 +3,12 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatPaginator, MatPaginatorIntl } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { Buyer, BuyerRequest } from 'src/app/models/buyer';
-import { BuyerService } from '../../../services/buyer.service';
+import { Buyer } from 'src/app/models/buyer';
 import { BuyerUpdate } from 'src/app/models/buyer/buyer-udate';
-import { restrictionDate } from 'src/app/shared/utils/invalidDate';
 import { DateValidator } from 'src/app/shared/utils/date-validator';
+import { restrictionDate } from 'src/app/shared/utils/invalidDate';
+import { BuyerService } from '../../../services/buyer.service';
+import { PaginationResponse } from 'src/app/models/pagination/pagination-response';
 
 
 @Component({
@@ -73,7 +74,7 @@ export class BuyerTableComponent implements OnInit,OnDestroy,AfterViewInit,After
   private _updateTable() : void{
     this.service.getAll().subscribe(
       {
-        next: (data: any) => {
+        next: (data: PaginationResponse<Buyer>) => {
           this.buyers = data.content.filter((client: Buyer) => !client.banned);
           this.dataSource = new MatTableDataSource(data.content.filter((client: Buyer) => !client.banned))
           
@@ -142,7 +143,7 @@ export class BuyerTableComponent implements OnInit,OnDestroy,AfterViewInit,After
 
   }
 
-  delete(data:any){
+  delete(data:Buyer){
     this.service.delete(data.id).subscribe({
       next:()=>{
         this._updateTable()

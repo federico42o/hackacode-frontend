@@ -6,6 +6,7 @@ import { Game } from 'src/app/models';
 import { GameFormComponent } from '../../components/game-form/game-form.component';
 import { DialogComponent } from 'src/app/modules/administration/components/dialog/dialog.component';
 import { ToastrService } from 'ngx-toastr';
+import { PaginationResponse } from 'src/app/models/pagination/pagination-response';
 
 @Component({
   selector: 'app-game',
@@ -29,7 +30,7 @@ export class GameComponent implements OnInit, OnDestroy {
 
     
   }
-  array: any[] = []; 
+  array: Game[] = []; 
   itemsPerPage = 5; 
   currentTab:string = 'form';
 
@@ -39,7 +40,7 @@ export class GameComponent implements OnInit, OnDestroy {
   }
 
   // Obtiene los elementos para la página actual
-  getItemsForCurrentPage(): any[] {
+  getItemsForCurrentPage(): Game[] {
     const startIndex = (this.currentPage - 1) * this.itemsPerPage;
     const endIndex = startIndex + this.itemsPerPage;
     return this.array.slice(startIndex, endIndex);
@@ -54,7 +55,7 @@ export class GameComponent implements OnInit, OnDestroy {
       height: '50%',
       data: {mode,id}
     });
-    dialogRef.closed.subscribe(result => {
+    dialogRef.closed.subscribe( () => {
       this._updateGames()
     });
   }
@@ -66,7 +67,7 @@ export class GameComponent implements OnInit, OnDestroy {
     
   }
 
-  handleDelete(data:any){
+  handleDelete(data:Game){
     const dialogRef = this.dialog.open(DialogComponent,{
       width: '30%',
       height: '10%',
@@ -82,7 +83,7 @@ export class GameComponent implements OnInit, OnDestroy {
           });
           
         },
-        error: (err:any) => {
+        error: () => {
           this.toastr.error('Error, intente nuevamente')
         },
         complete: () => {
@@ -91,7 +92,7 @@ export class GameComponent implements OnInit, OnDestroy {
           location.reload();
         }
       });  
-      dialogRef.closed.subscribe(result => {
+      dialogRef.closed.subscribe(() => {
         this._updateGames()
       });
     
@@ -102,7 +103,7 @@ export class GameComponent implements OnInit, OnDestroy {
 private _updateGames() : void{
     this.games$ = this.service.getAll().subscribe(
       {
-        next:(data:any) => {
+        next:(data:PaginationResponse<Game>) => {
           this.games = data.content
           this.array = this.games;
         }
