@@ -1,8 +1,6 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@import 'ngx-toastr/toastr';
-@import url('https://fonts.googleapis.com/css2?family=Rubik+Iso&display=swap');
 
 ::selection{
     background-color: #6ad1f9;
