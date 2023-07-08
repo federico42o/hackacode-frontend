@@ -45,7 +45,7 @@ export class BuyerFormComponent implements OnInit{
 
     }
     if(this.clientForm.invalid){
-
+      return;
     }else{
 
     this.service.create(buyer).subscribe(

@@ -6,6 +6,7 @@ import { Subscription } from 'rxjs';
 import { Buyer } from 'src/app/models/buyer';
 import { DialogComponent } from '../../components/dialog/dialog.component';
 import { BuyerService } from '../../services/buyer.service';
+import { PaginationResponse } from 'src/app/models/pagination/pagination-response';
 
 
 @Component({
@@ -21,13 +22,13 @@ export class BuyerComponent implements OnInit,OnDestroy{
   buyerForm! : FormGroup;
   clients!: Buyer[];
   page!: Buyer[];
-  isRowDeleted:boolean = false;
+  isRowDeleted = false;
   
   changeTab(tab:string){
     this.currentTab = tab;
   }
 
-  pageSize: number = 5;
+  pageSize = 5;
 
   ngOnInit(): void {
     this._updateTable()
@@ -88,7 +89,7 @@ export class BuyerComponent implements OnInit,OnDestroy{
   private _updateTable() : void{
        this.buyerService.getAll().subscribe(
         {
-          next:(data:any) => {
+          next:(data:PaginationResponse<Buyer>) => {
             this.clients = data.content.filter((client: Buyer) => !client.banned);
            
           }

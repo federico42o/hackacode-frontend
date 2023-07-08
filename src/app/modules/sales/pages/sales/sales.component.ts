@@ -1,8 +1,9 @@
-import { AfterViewChecked, AfterViewInit, Component, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, Input, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator, MatPaginatorIntl } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Game } from 'src/app/models';
+import { PaginationResponse } from 'src/app/models/pagination/pagination-response';
 import { Sale } from 'src/app/models/sale';
 import { SaleTable } from 'src/app/models/sale/sale-table';
 import { SaleService } from '../../services/sale.service';
@@ -12,7 +13,7 @@ import { SaleService } from '../../services/sale.service';
   templateUrl: './sales.component.html',
   styleUrls: ['./sales.component.css']
 })
-export class SalesComponent implements OnInit,OnDestroy,AfterViewInit,AfterViewChecked{
+export class SalesComponent implements OnInit,AfterViewInit{
 
 
   dataSource!: MatTableDataSource<SaleTable>;
@@ -20,7 +21,7 @@ export class SalesComponent implements OnInit,OnDestroy,AfterViewInit,AfterViewC
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   displayedColumns: string[]  = ['id','game','purchaseDate','ticketsDetail','totalPrice','actions'];
-  isEditMode:boolean = false;
+  isEditMode = false;
   editRowId!:number | null;
   date!:Date;
   sales!:Sale[];
@@ -32,9 +33,7 @@ export class SalesComponent implements OnInit,OnDestroy,AfterViewInit,AfterViewC
       
       
   }
-  ngAfterViewChecked(): void {
-  }
-  
+
   ngAfterViewInit() {
     if (this.dataSource) {
       this.dataSource.paginator = this.paginator;
@@ -53,7 +52,7 @@ export class SalesComponent implements OnInit,OnDestroy,AfterViewInit,AfterViewC
 
   private _updateTable() : void{
     this.service.getAll().subscribe({
-      next:(data:any)=>{
+      next:(data:PaginationResponse<Sale>)=>{
         this.sales = data.content;
         this.dataSource = new MatTableDataSource(this.setData(data.content))
         this.dataSource.paginator = this.paginator;
@@ -87,16 +86,13 @@ export class SalesComponent implements OnInit,OnDestroy,AfterViewInit,AfterViewC
   }
  
 
-  cancel(id:any):void{
+  cancel(id:number):void{
     this.service.delete(id).subscribe({
       next:()=>{
         this._updateTable()
       }
     })
 
-  }
-  ngOnDestroy(): void {
-    
   }
 
 }

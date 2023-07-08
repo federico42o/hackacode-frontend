@@ -17,16 +17,16 @@ export class BuyerService {
     return this.http.get<PaginationResponse<Buyer>>(this.baseUrl);
   }
 
-  create(buyer: BuyerRequest): Observable<any> {
+  create(buyer: BuyerRequest): Observable<object> {
     return this.http.post(this.baseUrl, buyer);
 
   }
 
-  delete(id: number): Observable<any> {
+  delete(id: number): Observable<object> {
     return this.http.delete(this.baseUrl +"/"+ id);
   }
 
-  update(user:BuyerRequest):Observable<any>{
+  update(user:BuyerRequest):Observable<object>{
     return this.http.put(this.baseUrl, user);
   }
 

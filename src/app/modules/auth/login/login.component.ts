@@ -11,12 +11,12 @@ import { AuthService } from '../services/auth.service';
 export class LoginComponent implements OnInit{
   constructor(private fb: FormBuilder,private loginService : AuthService) { }
   loginForm!:FormGroup;
-  isLoading:boolean = false;
-  errorMessage:string ='';
-  viewPassword:boolean = false;
+  isLoading = false;
+  errorMessage ='';
+  viewPassword = false;
   ngOnInit(): void {
     this.loginForm = this.fb.group({
-      username: ['',[Validators.required,Validators.email,Validators.minLength(8),Validators.pattern('[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}')]],
+      username: ['',[Validators.required,Validators.email,Validators.minLength(8),Validators.pattern('[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+.[A-Za-z]{2,}')]],
       password: ['',[Validators.required,Validators.minLength(8)]]
     });
     
@@ -38,7 +38,6 @@ export class LoginComponent implements OnInit{
         this.loginService.initializeCurrentUser();
       },
       error: (error: Error) => {
-        console.log(error)
         this.isLoading = false;
         this.errorMessage = error.message;
       },complete:()=>{

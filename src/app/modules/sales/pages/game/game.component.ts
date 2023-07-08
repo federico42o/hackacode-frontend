@@ -16,14 +16,14 @@ import { PaginationResponse } from 'src/app/models/pagination/pagination-respons
 export class GameComponent implements OnInit, OnDestroy {
 
   games$! : Subscription;
-  currentPage: number = 1;
+  currentPage = 1;
 
   constructor(private service : GameService,public dialog: Dialog,private toastr:ToastrService){}
 
   games : Game[] = [];
   pageableGames: Game[] = [];
-  isHidden:boolean = false;
-  editMode:boolean = false;
+  isHidden = false;
+  editMode = false;
   selectedGame!: Game;
   ngOnInit(): void {
     this._updateGames()
@@ -32,14 +32,12 @@ export class GameComponent implements OnInit, OnDestroy {
   }
   array: Game[] = []; 
   itemsPerPage = 5; 
-  currentTab:string = 'form';
+  currentTab = 'form';
 
-  // Calcula el número total de páginas
   get totalPages(): number {
     return Math.ceil(this.array.length / this.itemsPerPage);
   }
 
-  // Obtiene los elementos para la página actual
   getItemsForCurrentPage(): Game[] {
     const startIndex = (this.currentPage - 1) * this.itemsPerPage;
     const endIndex = startIndex + this.itemsPerPage;
@@ -97,9 +95,7 @@ export class GameComponent implements OnInit, OnDestroy {
       });
     
   }
-  onGameAdded():void{
 
-  }
 private _updateGames() : void{
     this.games$ = this.service.getAll().subscribe(
       {

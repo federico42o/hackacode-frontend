@@ -12,7 +12,7 @@ export class TopGameComponent implements OnInit{
 
   
   topGame!:GameWithMoreTickets;
-  isLoading: boolean = false;
+  isLoading = false;
   today = new Date().toISOString().substring(0, 10);
   currentYear = new Date().toISOString().substring(0, 4);
   currentMonth = new Date().toISOString().substring(5, 7);
@@ -21,13 +21,8 @@ export class TopGameComponent implements OnInit{
   constructor(private service:ReportService) { }
   ngOnInit(): void {
     this.service.getGameWithMoreTickets(this.today).subscribe({
-      next: (data: any) => {
-
-        const topGame: GameWithMoreTickets = {
-          gameName: data.game,
-          totalTicketsSold: data.totalTicketsSold
-        }
-        this.topGame= topGame
+      next: (data: GameWithMoreTickets) => {
+        this.topGame= data
         
       }});
 
@@ -43,19 +38,14 @@ export class TopGameComponent implements OnInit{
     const newDate = new Date(`${year}-${month}-${today}`).toISOString().split('T')[0];
 
     
-    console.log(new Date().toISOString().split('T')[0]);
     this.loadTopBuyer(newDate);
   }
 
   loadTopBuyer(date:string){
     
     this.service.getGameWithMoreTickets(date).subscribe({
-      next: (data: any) => {
-        const topGame: GameWithMoreTickets = {
-          gameName: data.game,
-          totalTicketsSold: data.totalTicketsSold
-        }
-        this.topGame= topGame
+      next: (data: GameWithMoreTickets) => {
+        this.topGame= data
       }
     });
   }

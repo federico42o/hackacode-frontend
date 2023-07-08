@@ -28,7 +28,7 @@ export class TableUsersComponent implements OnInit {
   displayedColumns: string[]  = ['name','surname','dni','username','roles','enable','actions'];
   data: UserTable[] = []
   users!:User[];
-  isEditMode:boolean = false;
+  isEditMode = false;
   editRowId!: number | null;
   userForm!:FormGroup;
   constructor(private service:UserEmployeeService,private roleService:RoleService,public _MatPaginatorIntl: MatPaginatorIntl,private fb:FormBuilder,private authService:AuthService) {
@@ -96,6 +96,8 @@ export class TableUsersComponent implements OnInit {
   confirmEdit(data:User){
     
     const editedRow:UserUpdate = {
+
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       id : this.editRowId!,
       username : this.userForm.get('username')?.value,
       roles : this.userForm.get('roles')?.value,

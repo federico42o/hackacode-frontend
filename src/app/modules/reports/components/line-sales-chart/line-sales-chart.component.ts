@@ -1,23 +1,23 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Chart } from 'chart.js';
-import { ReportService } from '../../services/report.service';
+import { ReportService, SalesAllMonths } from '../../services/report.service';
 
 @Component({
   selector: 'app-line-sales-chart',
   templateUrl: './line-sales-chart.component.html',
   styleUrls: ['./line-sales-chart.component.css']
 })
-export class LineSalesChartComponent implements OnInit,AfterViewInit {
+export class LineSalesChartComponent implements OnInit {
   constructor(private service:ReportService) {}
-  allMonthsData: any;
-  dataLoaded: boolean = false;
-  labelData!: any;
-  mainData!: any;
+  dataLoaded = false;
+  labelData!: string[];
+  mainData!: number[];
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   chart!: any;
-  colors!: string[];
   today:Date = new Date();
-  ctx:string = 'line-chart'
-  isLoading:boolean = false;
+  ctx = 'line-chart'
+  isLoading = false;
   years:string[] = Array.from({length: 5}, (v, k) => (this.today.getFullYear()-k).toString());
   yesterday:Date = new Date(this.today.getFullYear(),this.today.getMonth(),this.today.getDate()-1);
   ngOnInit(): void {
@@ -25,12 +25,9 @@ export class LineSalesChartComponent implements OnInit,AfterViewInit {
     this.loadData(this.today.getFullYear().toString());
   }
   
-  ngAfterViewInit(): void {
-    
-  }
   
-  createChart(labels:any,data:any,id:any): void {
-    this.chart = new Chart(id, {
+  createChart(labels:string[],data:number[]): void {
+    this.chart = new Chart(this.ctx, {
       type: 'line',
       data: {
         labels: labels,
@@ -52,7 +49,7 @@ export class LineSalesChartComponent implements OnInit,AfterViewInit {
     });
     
   }
-  applyFilter(event:Event,type:string):void{
+  applyFilter(event:Event):void{
     this.chart.destroy();
     this.isLoading = true;
     const year = (event.target as HTMLInputElement).value;
@@ -63,23 +60,23 @@ export class LineSalesChartComponent implements OnInit,AfterViewInit {
     const newDate = new Date(date);
     this.loadData(newDate.getFullYear().toString());
   }
-  setLabels(data: any[]): void {
-    this.labelData = data.map((d: any) => {
+  setLabels(data: SalesAllMonths[]): void {
+    this.labelData = data.map((d: SalesAllMonths) => {
       const month = new Date(d.month).toLocaleString('es', { month: 'long' });
       return month;
     });
   }
-  setMainData(data: any[]): void {
-    this.mainData = data.map((d: any) => d.totalAmountSaleMonthAndYear);
+  setMainData(data: SalesAllMonths[]): void {
+    this.mainData = data.map(s => s.totalAmountSaleMonthAndYear);
   }
   loadData(date:string): void {
     this.isLoading = true;
     this.service.fetchDataForAllMonths(date).subscribe({
-      next:(data:any)=>{
+      next:(data:SalesAllMonths[])=>{
         this.setLabels(data);
         this.setMainData(data);
     },complete:()=>{
-      this.createChart(this.labelData,this.mainData,this.ctx);
+      this.createChart(this.labelData,this.mainData);
       this.isLoading = false;
     }
   })

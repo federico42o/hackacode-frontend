@@ -1,7 +1,7 @@
 <div class="container mx-auto w-full">
     <div class="row">
         <div class="block w-full text-center">
-            <h1 class="text-3xl font-bold text-[#222D30] dark:text-yellow-200">{{currentTab=='form'?'Agregar entrada':'Entradas registradas'}}</h1>
+            <h1 class="text-3xl font-bold text-[#222D30] dark:text-yellow-200">{{currentTab==='form'?'Agregar entrada':'Entradas registradas'}}</h1>
         </div>
     </div>
     <div class="container mx-auto w-full flex flex-col justify-center-center overflow-auto" *ngIf="currentTab === 'view'" >
@@ -32,7 +32,7 @@
 
       <div class="w-full p-4 flex flex-col justify-center items-center max-h-[600px]" id="scrollbar">
       <ng-container >
-        <app-create-ticket (clientAdded)="onTicketAdded()" [ticket]="selectedTicket"></app-create-ticket>
+        <app-create-ticket [ticket]="selectedTicket"></app-create-ticket>
       </ng-container>
     </div>
     <button (click)="changeTab('view')">Atrás</button>

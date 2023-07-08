@@ -15,7 +15,7 @@ export class EmployeeComponent {
   employees$! : Subscription;
   constructor(private service : EmployeeService,public dialog: Dialog){}
   employees : Employee[] = [];
-  currentTab:string = 'view';
+  currentTab = 'view';
   games!:Game[]
 
   

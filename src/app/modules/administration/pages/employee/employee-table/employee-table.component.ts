@@ -26,7 +26,7 @@ export class EmployeeTableComponent implements AfterViewInit,OnInit{
   displayedColumns: string[]  = ['name','surname','dni','birthdate','game','actions'];
   employees: Employee[] = []
   isDarkMode!: boolean;
-  isEditMode:boolean = false;
+  isEditMode = false;
   editRowId!: number | null;
   employeeForm!:FormGroup;
   date!:Date;

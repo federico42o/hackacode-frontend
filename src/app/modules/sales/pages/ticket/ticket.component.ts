@@ -1,33 +1,34 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { TicketService } from '../../services/ticket.service';
+import { Dialog } from '@angular/cdk/dialog';
+import { Component, OnInit } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 import { Subscription } from 'rxjs';
 import { Ticket } from 'src/app/models';
-import { Dialog } from '@angular/cdk/dialog';
-import { CreateTicketComponent } from '../../components/create-ticket/create-ticket.component';
+import { PaginationResponse } from 'src/app/models/pagination/pagination-response';
 import { DialogComponent } from 'src/app/modules/administration/components/dialog/dialog.component';
-import { ToastrService } from 'ngx-toastr';
+import { CreateTicketComponent } from '../../components/create-ticket/create-ticket.component';
+import { TicketService } from '../../services/ticket.service';
 
 @Component({
   selector: 'app-ticket',
   templateUrl: './ticket.component.html',
   styleUrls: ['./ticket.component.css']
 })
-export class TicketComponent implements OnInit,OnDestroy{
+export class TicketComponent implements OnInit{
 
 
   tickets$! : Subscription;
-  currentPage: number = 1;
+  currentPage = 1;
 
   
   tickets : Ticket[] = [];
   pageableTickets: Ticket[] = [];
-  isHidden:boolean = false;
-  editMode:boolean = false;
+  isHidden = false;
+  editMode = false;
   selectedTicket!: Ticket;
   constructor(private service:TicketService,public dialog: Dialog,private toastr:ToastrService){}
   ngOnInit(): void {
     this.service.getAll().subscribe({
-      next:(data:any) => {
+      next:(data: PaginationResponse<Ticket>) => {
         this.tickets = data.content
         this.array = this.tickets;
         this.pageableTickets = this.getItemsForCurrentPage();
@@ -36,7 +37,7 @@ export class TicketComponent implements OnInit,OnDestroy{
   }
   array: Ticket[] = []; 
   itemsPerPage = 5; 
-  currentTab:string = 'view';
+  currentTab = 'view';
 
 
   get totalPages(): number {
@@ -49,7 +50,7 @@ export class TicketComponent implements OnInit,OnDestroy{
     return this.array.slice(startIndex, endIndex);
   }
 
-  handleDelete(data:any){
+  handleDelete(data:Ticket){
     const dialogRef = this.dialog.open(DialogComponent,{
       width: '30%',
       height: '10%',
@@ -67,7 +68,7 @@ export class TicketComponent implements OnInit,OnDestroy{
           });
           
         },
-        error: (err:any) => {
+        error: () => {
           this.toastr.error('Error, intente nuevamente')
         },
         complete: () => {
@@ -76,15 +77,11 @@ export class TicketComponent implements OnInit,OnDestroy{
           
         }
       }); 
-      dialogRef.closed.subscribe(result => {
+      dialogRef.closed.subscribe( () => {
         this._updateTickets()
       });
     
   }
-  onTicketAdded():void{
-
-  }
-
 
   openDialog(mode:string,id :number) : void{
     
@@ -93,7 +90,7 @@ export class TicketComponent implements OnInit,OnDestroy{
       height: '50%',
       data: {mode,id}
     });
-    dialogRef.closed.subscribe(result => {
+    dialogRef.closed.subscribe( ()=> {
       this._updateTickets()
     });
   }
@@ -108,7 +105,7 @@ export class TicketComponent implements OnInit,OnDestroy{
 private _updateTickets() : void{
     this.tickets$ = this.service.getAll().subscribe(
       {
-        next:(data:any) => {
+        next:(data:PaginationResponse<Ticket>) => {
           this.tickets = data.content
           this.array = this.tickets;
           this.pageableTickets = this.getItemsForCurrentPage();
@@ -133,9 +130,6 @@ private _updateTickets() : void{
   changeTab(tab:string):void{
     this.currentTab = tab;
 
-  }
-
-  ngOnDestroy(): void {
   }
 
 }

@@ -3,6 +3,7 @@ import { Observable, Subscription } from 'rxjs';
 import { Ticket } from 'src/app/models';
 import { TicketDetail } from 'src/app/models/detail/ticket-detail';
 import { Game } from 'src/app/models/game';
+import { PaginationResponse } from 'src/app/models/pagination/pagination-response';
 import { AuthService } from 'src/app/modules/auth/services/auth.service';
 import { CanComponentDeactivate } from 'src/app/shared';
 import { TicketService } from '../../services/ticket.service';
@@ -17,13 +18,13 @@ export class TicketSelectorComponent implements OnInit, CanComponentDeactivate{
 
  tickets$!:Subscription;
  tickets!:Ticket[];
- formTickets:any[] =[];
- input!: any;
- show: boolean = false;
+ formTickets!:number[];
+ input!: number;
+ show = false;
  game!: Game;
  game$!: Subscription;
- changes:boolean = true;
- tab:string = 'new-sale';
+ changes = true;
+ tab = 'new-sale';
  ngOnInit(): void {
   this.authService.initializeCurrentUser();
    this.game$ = this.authService.getCurrentGame().subscribe({
@@ -32,7 +33,7 @@ export class TicketSelectorComponent implements OnInit, CanComponentDeactivate{
       }
    });
   this.tickets$ = this.service.getAll().subscribe({
-    next: (data:any)=>{
+    next: (data:PaginationResponse<Ticket>)=>{
       this.tickets = data.content;
     }
   });

@@ -9,6 +9,7 @@ import jwt_decode from 'jwt-decode';
 import { LoginRequest } from 'src/app/models/user/login-request';
 import { environment } from 'src/environments/environment';
 import { TokenResponse } from 'src/app/models/token-response';
+import { Payload } from 'src/app/models/user/payload';
 
 @Injectable({
   providedIn: 'root'
@@ -37,7 +38,7 @@ export class AuthService {
     
     if (this.cookies.check(tokenKey)) {
       const token = this.cookies.get(tokenKey);
-      const decoded: any = jwt_decode(token);
+      const decoded: Payload = jwt_decode(token);
       const username = decoded[usernameKey];
 
       this.getUserByUsername(username).subscribe({
@@ -70,9 +71,8 @@ export class AuthService {
   login(request:LoginRequest): Observable<User> {
     return this.http.post<TokenResponse>(this.tokenUrl, request).pipe(
       switchMap((res: TokenResponse) => {
-        console.log(res)
         this.cookies.set('token', res.token);
-        const decoded: any = jwt_decode(res.token);
+        const decoded: Payload = jwt_decode(res.token);
         return this.getUserByUsername(decoded.sub);
       }),
       tap((user: User) => {

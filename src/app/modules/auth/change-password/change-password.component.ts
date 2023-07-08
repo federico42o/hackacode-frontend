@@ -17,8 +17,8 @@ export class ChangePasswordComponent implements OnInit {
   weak!:boolean;
   safe!:boolean;
   good!:boolean;
-  isLoading:boolean = false;
-  errorMessage:string ='';
+  isLoading = false;
+  errorMessage ='';
   @Input() expirationTime!:Date;
 
   ngOnInit(): void {

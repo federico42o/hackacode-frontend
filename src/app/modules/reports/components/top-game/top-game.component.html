@@ -32,10 +32,10 @@
   </div>
   <div class="flex-col justify-start items-center gap-2">
   <p class="text-center">
-      {{ (topGame.gameName ?? 'No hay registros')| uppercase }}
+      {{ (topGame.game)| uppercase }}
   </p>
       <div class="flex gap-6 text-2xl">
-        <p class="text-center">Entradas vendidas: {{ topGame.totalTicketsSold ?? 0 }}</p>
+        <p class="text-center">Entradas vendidas: {{ topGame.totalTicketsSold  }}</p>
       </div>
     </div>
   </div>

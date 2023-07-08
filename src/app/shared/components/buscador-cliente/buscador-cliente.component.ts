@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Observable, map, startWith } from 'rxjs';
+import { Buyer } from 'src/app/models';
+import { PaginationResponse } from 'src/app/models/pagination/pagination-response';
 import { BuyerService } from 'src/app/modules/administration/services/buyer.service';
 
 @Component({
@@ -9,15 +11,15 @@ import { BuyerService } from 'src/app/modules/administration/services/buyer.serv
   styleUrls: ['./buscador-cliente.component.css']
 })
 export class BuscadorClienteComponent implements OnInit {
-  clients!: any[];
+  clients!: Buyer[];
   clientCtrl = new FormControl('');
-  filteredClients$!: Observable<any[]>;
+  filteredClients$!: Observable<Buyer[]>;
 
   constructor(private service: BuyerService) {}
 
   ngOnInit(): void {
     this.service.getAll().subscribe(
-      (response: any) => {
+      (response: PaginationResponse<Buyer>) => {
         this.clients = response.content;
         this.setupFilteredClients()
         
@@ -33,7 +35,7 @@ export class BuscadorClienteComponent implements OnInit {
     );
   }
 
-  private _filterClients$(value: string): any[] {
+  private _filterClients$(value: string): Buyer[] {
     if (this.clients) {
       return this.clients.filter(client => client.dni && client.dni.includes(value.toString())|| client.name && client.name.toLowerCase().includes(value.toString().toLowerCase()));
     } else {

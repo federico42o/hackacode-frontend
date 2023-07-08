@@ -16,9 +16,9 @@ export class PasswordRecoveryComponent implements OnInit{
   constructor(private fb: FormBuilder,private passwordService:PasswordRecoveryService) { }
   recoveryForm!:FormGroup;
   expiration!:Date;
-  sended:boolean = false;
-  isLoading:boolean = false;
-  errorMessage:string ='';
+  sended = false;
+  isLoading = false;
+  errorMessage ='';
   ngOnInit(): void {
 
     this.recoveryForm = this.fb.group({
@@ -43,7 +43,6 @@ export class PasswordRecoveryComponent implements OnInit{
 
         error:(error:HttpErrorResponse)=>{
           this.isLoading = false;
-          console.log(error)
           if(error.status == 404){
 
             this.errorMessage = error.error.message;

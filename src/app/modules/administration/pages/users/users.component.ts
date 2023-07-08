@@ -14,7 +14,7 @@ export class UsersComponent implements OnInit {
   constructor(public dialog : Dialog,private roleService:RoleService) { }
   data: UserTable[] = []
   users!:User[];
-  currentTab:string = 'add';
+  currentTab = 'add';
   roles!:UserRole[]
   ngOnInit(): void {
     this.roleService.getAll().subscribe({

@@ -1,6 +1,6 @@
 <div class="flex gap-4">
 <p class="text-light-primary dark:text-white">Año</p>
-<select name="" id=""   (change)="applyFilter($event, 'year')" class="text-light-primary">
+<select name="" id=""   (change)="applyFilter($event)" class="text-light-primary">
     <option *ngFor="let year of years" [value]="year">{{year}}</option>
 </select>
 </div>

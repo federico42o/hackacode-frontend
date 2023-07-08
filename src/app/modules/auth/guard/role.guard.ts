@@ -20,7 +20,6 @@ export class RoleGuard  {
       return this.authService.getCurrentUser().pipe(
         switchMap((value: User) => {
           this.currentUser = value;
-          console.log(this.currentUser)
           if (module && !this.authService.hasPermission(module, this.currentUser)) {
            
             this.router.navigate(['/forbidden']);

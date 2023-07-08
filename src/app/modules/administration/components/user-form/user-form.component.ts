@@ -21,7 +21,7 @@ export class UserFormComponent implements OnInit {
   filteredEmployees$!: Observable<Employee[]>;
   roles!: UserRole[]
   users!:User[]
-  view:boolean = false;
+  view = false;
   ngOnInit(): void {
     this.userForm = this.fb.group({
       username: ["", [Validators.required,  Validators.minLength(4),Validators.maxLength(10),Validators.pattern("[a-zA-Z0-9._-]*")]],
@@ -75,13 +75,14 @@ export class UserFormComponent implements OnInit {
 
   loadRoles(): void {
     this.roleService.getAll().subscribe({
-      next: (data: any) => {
+      next: (data: UserRole[]) => {
         this.roles = data;
       }
     });
   }
 
   private setupFilteredEmployees(): void {
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     this.filteredEmployees$ = this.userForm.get("employee")!.valueChanges.pipe(
       startWith(""),
       map((value: string | Employee) => {
