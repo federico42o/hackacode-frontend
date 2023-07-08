@@ -1,11 +1,11 @@
-import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Subscription } from 'rxjs';
-import { Employee, Game } from 'src/app/models';
-import { DateValidator } from 'src/app/shared/utils/date-validator';
+import { Component, EventEmitter, Inject, OnDestroy, OnInit, Output } from '@angular/core';
 import { EmployeeService } from '../../services/employee.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Employee, Game } from 'src/app/models';
+import { DIALOG_DATA, DialogRef } from '@angular/cdk/dialog';
+import { Subscription } from 'rxjs';
 import { GameService } from '../../services/game.service';
-import { PaginationResponse } from 'src/app/models/pagination/pagination-response';
+import { DateValidator } from 'src/app/shared/utils/date-validator';
 
 
 @Component({
@@ -28,7 +28,7 @@ export class EmployeeFormComponent implements OnInit,OnDestroy{
   date!: Date;
   ngOnInit(): void {
     this.games$ = this.gameService.getAll().subscribe({
-      next: (data: PaginationResponse<Game>) => {
+      next: (data: any) => {
         this.games = data.content;
       },
     });
@@ -49,7 +49,12 @@ export class EmployeeFormComponent implements OnInit,OnDestroy{
       return
     }
     this.service.create(this.employeeForm.value).subscribe({
-    complete: () => {
+      next: (data:any) => {
+      },
+      error: (err:any) => {
+
+      },
+      complete: () => {
         this.employeeAdded.emit();
         this.employeeForm.reset();
       }

@@ -1,6 +1,5 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { ToastrService } from 'ngx-toastr';
 import { Observable, Subscription, combineLatest, map, startWith } from 'rxjs';
 import { Game, Ticket } from 'src/app/models';
 import { Buyer } from 'src/app/models/buyer';
@@ -8,6 +7,7 @@ import { TicketDetail } from 'src/app/models/detail/ticket-detail';
 import { BuyerService } from 'src/app/modules/administration/services/buyer.service';
 import { AuthService } from 'src/app/modules/auth/services/auth.service';
 import { TicketService } from '../../services/ticket.service';
+import { ToastrService } from 'ngx-toastr';
 
 
 @Component({
@@ -15,10 +15,10 @@ import { TicketService } from '../../services/ticket.service';
   templateUrl: './add-ticket-form.component.html',
   styleUrls: ['./add-ticket-form.component.css']
 })
-export class AddTicketFormComponent implements OnInit{
+export class AddTicketFormComponent implements OnInit,OnDestroy{
 
   constructor(private fb: FormBuilder,private authService:AuthService,private buyerService: BuyerService,private ticketService:TicketService,private toastr: ToastrService) { }
-    created =false;
+    created:boolean =false;
     ticketForm! : FormGroup;
     ticketID!: string;
     buyers!: Buyer[];
@@ -75,8 +75,6 @@ export class AddTicketFormComponent implements OnInit{
     }
 
     private setupFilteredClients(): void {
-
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       this.filteredClients$ = this.ticketForm.get("buyer")!.valueChanges.pipe(
         startWith(""),
         map((value: string | Buyer) => {
@@ -97,4 +95,7 @@ export class AddTicketFormComponent implements OnInit{
       );
     }
 
+  ngOnDestroy():void{
+
+  }
 }

@@ -6,7 +6,6 @@ import { Game } from 'src/app/models';
 import { GameFormComponent } from '../../components/game-form/game-form.component';
 import { DialogComponent } from 'src/app/modules/administration/components/dialog/dialog.component';
 import { ToastrService } from 'ngx-toastr';
-import { PaginationResponse } from 'src/app/models/pagination/pagination-response';
 
 @Component({
   selector: 'app-game',
@@ -16,29 +15,31 @@ import { PaginationResponse } from 'src/app/models/pagination/pagination-respons
 export class GameComponent implements OnInit, OnDestroy {
 
   games$! : Subscription;
-  currentPage = 1;
+  currentPage: number = 1;
 
   constructor(private service : GameService,public dialog: Dialog,private toastr:ToastrService){}
 
   games : Game[] = [];
   pageableGames: Game[] = [];
-  isHidden = false;
-  editMode = false;
+  isHidden:boolean = false;
+  editMode:boolean = false;
   selectedGame!: Game;
   ngOnInit(): void {
     this._updateGames()
 
     
   }
-  array: Game[] = []; 
+  array: any[] = []; 
   itemsPerPage = 5; 
-  currentTab = 'form';
+  currentTab:string = 'form';
 
+  // Calcula el número total de páginas
   get totalPages(): number {
     return Math.ceil(this.array.length / this.itemsPerPage);
   }
 
-  getItemsForCurrentPage(): Game[] {
+  // Obtiene los elementos para la página actual
+  getItemsForCurrentPage(): any[] {
     const startIndex = (this.currentPage - 1) * this.itemsPerPage;
     const endIndex = startIndex + this.itemsPerPage;
     return this.array.slice(startIndex, endIndex);
@@ -53,7 +54,7 @@ export class GameComponent implements OnInit, OnDestroy {
       height: '50%',
       data: {mode,id}
     });
-    dialogRef.closed.subscribe( () => {
+    dialogRef.closed.subscribe(result => {
       this._updateGames()
     });
   }
@@ -65,7 +66,7 @@ export class GameComponent implements OnInit, OnDestroy {
     
   }
 
-  handleDelete(data:Game){
+  handleDelete(data:any){
     const dialogRef = this.dialog.open(DialogComponent,{
       width: '30%',
       height: '10%',
@@ -81,7 +82,7 @@ export class GameComponent implements OnInit, OnDestroy {
           });
           
         },
-        error: () => {
+        error: (err:any) => {
           this.toastr.error('Error, intente nuevamente')
         },
         complete: () => {
@@ -90,16 +91,18 @@ export class GameComponent implements OnInit, OnDestroy {
           location.reload();
         }
       });  
-      dialogRef.closed.subscribe(() => {
+      dialogRef.closed.subscribe(result => {
         this._updateGames()
       });
     
   }
+  onGameAdded():void{
 
+  }
 private _updateGames() : void{
     this.games$ = this.service.getAll().subscribe(
       {
-        next:(data:PaginationResponse<Game>) => {
+        next:(data:any) => {
           this.games = data.content
           this.array = this.games;
         }

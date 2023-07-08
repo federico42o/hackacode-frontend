@@ -7,7 +7,6 @@ import { Employee, Game } from 'src/app/models';
 import { EmployeeService } from '../../../services/employee.service';
 import { GameService } from '../../../services/game.service';
 import { DateValidator } from 'src/app/shared/utils/date-validator';
-import { PaginationResponse } from 'src/app/models/pagination/pagination-response';
 
 @Component({
   selector: 'app-employee-table',
@@ -26,7 +25,7 @@ export class EmployeeTableComponent implements AfterViewInit,OnInit{
   displayedColumns: string[]  = ['name','surname','dni','birthdate','game','actions'];
   employees: Employee[] = []
   isDarkMode!: boolean;
-  isEditMode = false;
+  isEditMode:boolean = false;
   editRowId!: number | null;
   employeeForm!:FormGroup;
   date!:Date;
@@ -48,7 +47,7 @@ export class EmployeeTableComponent implements AfterViewInit,OnInit{
   
   ngOnInit(): void {
     this.gameService.getAll().subscribe({
-      next:(data:PaginationResponse<Game>)=>{
+      next:(data:any)=>{
         this.games = data.content
       },
       complete:()=>{
@@ -68,7 +67,7 @@ export class EmployeeTableComponent implements AfterViewInit,OnInit{
   private _updateTable() : void{
     this.service.getAll().subscribe(
       {
-        next: (data: PaginationResponse<Employee>) => {
+        next: (data: any) => {
           this.employees = data.content;
           this.dataSource = new MatTableDataSource(data.content)
           
@@ -131,7 +130,7 @@ export class EmployeeTableComponent implements AfterViewInit,OnInit{
 
   }
 
-  delete(data:Employee){
+  delete(data:any){
     this.service.delete(data.id).subscribe({
       next:()=>{
         this._updateTable()

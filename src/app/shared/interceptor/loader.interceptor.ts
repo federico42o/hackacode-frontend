@@ -14,11 +14,11 @@ export class LoaderInterceptor implements HttpInterceptor {
   constructor(private loaderService: LoaderService) {}
 
   intercept(
-    request: HttpRequest<unknown>,
-    
+    request: HttpRequest<any>,
     next: HttpHandler
-  ): Observable<HttpEvent<unknown>> {
+  ): Observable<HttpEvent<any>> {
     this.loaderService.show();
+
     return next.handle(request).pipe(
       finalize(() => {
         this.loaderService.hide();

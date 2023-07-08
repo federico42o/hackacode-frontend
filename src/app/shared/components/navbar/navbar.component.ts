@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { TooltipPosition } from '@angular/material/tooltip';
+import { TooltipComponent, TooltipPosition } from '@angular/material/tooltip';
 import { ActivatedRoute, Router } from '@angular/router';
 import { User, UserRole } from 'src/app/models';
 import { AuthService } from 'src/app/modules/auth/services/auth.service';
@@ -14,7 +14,7 @@ export class NavbarComponent implements OnInit{
   
   user!: User;
   roles : string[] = [];
-  currentTab = '';
+  currentTab:string = '';
   tooltipPosition! : TooltipPosition;
   constructor(private route: Router,private service : AuthService,private router: ActivatedRoute) {
     this.tooltipPosition = 'right';

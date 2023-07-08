@@ -8,10 +8,10 @@ import { es } from 'date-fns/locale';
 export class NaturalTimePipe implements PipeTransform {
 
   transform(value: string| Date): string {
-    if(!value){  return ''}
+    if(!value){  return ''};
 
     const date = typeof value === 'string' ?  new Date(value) : value;
-    return formatDistanceToNow(date,{addSuffix:true,locale: es});
+    return formatDistanceToNow(new Date(value),{addSuffix:true,locale: es});
   }
 
 }

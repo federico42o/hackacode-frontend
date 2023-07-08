@@ -2,7 +2,6 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Employee } from 'src/app/models';
-import { PaginationResponse } from 'src/app/models/pagination/pagination-response';
 import { environment } from 'src/environments/environment'
 
 @Injectable({
@@ -14,25 +13,25 @@ export class EmployeeService {
   baseUrl = environment.apiUrl+'empleados';
 
 
-  getAll(): Observable<PaginationResponse<Employee>>  {
-    return this.http.get<PaginationResponse<Employee>>(this.baseUrl);
+  getAll(): Observable<any>  {
+    return this.http.get(this.baseUrl);
   }
 
-  create(employee:Employee):Observable<object>{
+  create(employee:Employee):Observable<any>{
     return this.http.post(this.baseUrl, employee);
 
   }
 
-  delete(id:number):Observable<object>{
+  delete(id:number):Observable<any>{
     return this.http.delete(this.baseUrl+"/"+id);
   }
 
-  update(employee:Employee):Observable<object>{
+  update(employee:Employee):Observable<any>{
     return this.http.put(this.baseUrl, employee);
   }
 
-  getByID(id:number):Observable<Employee>{
-    return this.http.get<Employee>(this.baseUrl+"/"+id);
+  getByID(id:number):Observable<any>{
+    return this.http.get(this.baseUrl+"/"+id);
   }
 
 }

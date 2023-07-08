@@ -2,14 +2,12 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 import { BehaviorSubject, Observable, catchError, switchMap, tap, throwError } from 'rxjs';
-import { Game, User } from 'src/app/models';
+import { Game, User, UserRole } from 'src/app/models';
 
-import { Router } from '@angular/router';
 import jwt_decode from 'jwt-decode';
+import { environment } from 'src/environments/environment'
 import { LoginRequest } from 'src/app/models/user/login-request';
-import { environment } from 'src/environments/environment';
-import { TokenResponse } from 'src/app/models/token-response';
-import { Payload } from 'src/app/models/user/payload';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -38,7 +36,7 @@ export class AuthService {
     
     if (this.cookies.check(tokenKey)) {
       const token = this.cookies.get(tokenKey);
-      const decoded: Payload = jwt_decode(token);
+      const decoded: any = jwt_decode(token);
       const username = decoded[usernameKey];
 
       this.getUserByUsername(username).subscribe({
@@ -49,7 +47,7 @@ export class AuthService {
             this.setCurrentGame(user.employee.game || {} as Game);
           }
         },
-        error: () => {
+        error: (err: any) => {
 
           this.cookies.deleteAll();
         }
@@ -68,18 +66,18 @@ export class AuthService {
     return this.http.get<User>(this.apiUrl+"usuarios/por_nombre/" + username);
   }
 
-  login(request:LoginRequest): Observable<User> {
-    return this.http.post<TokenResponse>(this.tokenUrl, request).pipe(
-      switchMap((res: TokenResponse) => {
+  login(request:LoginRequest): Observable<any> {
+    return this.http.post(this.tokenUrl, request).pipe(
+      switchMap((res: any) => {
         this.cookies.set('token', res.token);
-        const decoded: Payload = jwt_decode(res.token);
+        const decoded: any = jwt_decode(res.token);
         return this.getUserByUsername(decoded.sub);
       }),
       tap((user: User) => {
         this.setCurrentUser(user);
         this.redirectBasedOnRole(user);
       }),
-      catchError(() => {
+      catchError((err: any) => {
         this.cookies.delete('token', '/');
         return throwError(()=> new Error('Usuario o contraseña incorrectos.'));
       })

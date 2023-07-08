@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { PaginationResponse } from 'src/app/models/pagination/pagination-response';
 import { Sale, SaleRequest } from 'src/app/models/sale';
 import { environment } from 'src/environments/environment'
 
@@ -12,26 +11,26 @@ export class SaleService {
 
   constructor(private http:HttpClient) { }
   apiURL=environment.apiUrl+"ventas"
-  save(request:SaleRequest):Observable<object>{
+  save(request:SaleRequest):Observable<any>{
     return this.http.post(this.apiURL,request)
   }
 
-  getAll():Observable<PaginationResponse<Sale>>{
-    return this.http.get<PaginationResponse<Sale>>(this.apiURL);
+  getAll():Observable<any>{
+    return this.http.get(this.apiURL);
   }
 
-  update(sale:Sale):Observable<object>{
+  update(sale:Sale):Observable<any>{
     return this.http.put(this.apiURL,sale)
     
   }
 
 
-  delete(id:number):Observable<object>{
+  delete(id:number):Observable<any>{
     return this.http.delete(this.apiURL+"/"+id)
   }
 
-  getByGame(gameId:number):Observable<Sale>{
-    return this.http.get<Sale>(`${this.apiURL}ventas/juego/${gameId}`)
+  getByGame(gameId:number):Observable<any>{
+    return this.http.get(`${this.apiURL}ventas/juego/${gameId}`)
   }
 
 }

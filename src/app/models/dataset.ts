@@ -1,3 +1,4 @@
+import { Buyer } from "./buyer";
 import { TopBuyer } from "./buyer/top-buyer";
 
 export interface Dataset {
@@ -15,8 +16,8 @@ export interface Dataset {
     salesToday?:number 
 }
 export interface GameWithMoreTickets{
-    game: string ;
-    totalTicketsSold: number ;
+    gameName?: string | null;
+    totalTicketsSold?: number | null;
 }
 
 export interface HistoricSales {

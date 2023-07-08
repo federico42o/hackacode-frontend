@@ -9,7 +9,7 @@ import { AnimationItem } from 'lottie-web';
   styleUrls: ['./toggle-theme-btn.component.css']
 })
 export class ToggleThemeBtnComponent implements OnInit {
-  isDarkTheme = false;
+  isDarkTheme: boolean = false;
   animationItem!: AnimationItem;
 
   constructor(private theme: ThemeService) {}

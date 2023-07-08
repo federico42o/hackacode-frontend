@@ -1,14 +1,13 @@
-import { Component, Input, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AfterViewInit, Component, EventEmitter, Input, OnInit, Output, Renderer2, ViewChild, ViewEncapsulation } from '@angular/core';
 import { MatPaginator, MatPaginatorIntl } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { User, UserRole } from 'src/app/models';
-import { UserTable, UserUpdate } from 'src/app/models/user';
-import { AuthService } from 'src/app/modules/auth/services/auth.service';
-import { RoleService } from '../../../services/role.service';
 import { UserEmployeeService } from '../../../services/user-employee.service';
-import { PaginationResponse } from 'src/app/models/pagination/pagination-response';
+import { UserTable, UserUpdate } from 'src/app/models/user';
+import { RoleService } from '../../../services/role.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AuthService } from 'src/app/modules/auth/services/auth.service';
 
 @Component({
   selector: 'app-table-users',
@@ -28,7 +27,7 @@ export class TableUsersComponent implements OnInit {
   displayedColumns: string[]  = ['name','surname','dni','username','roles','enable','actions'];
   data: UserTable[] = []
   users!:User[];
-  isEditMode = false;
+  isEditMode:boolean = false;
   editRowId!: number | null;
   userForm!:FormGroup;
   constructor(private service:UserEmployeeService,private roleService:RoleService,public _MatPaginatorIntl: MatPaginatorIntl,private fb:FormBuilder,private authService:AuthService) {
@@ -53,7 +52,7 @@ export class TableUsersComponent implements OnInit {
   private _updateTable() : void{
     this.service.getAll().subscribe(
       {
-        next: (data: PaginationResponse<User>) => {
+        next: (data: any) => {
           this.users = data.content;
           this.dataSource = new MatTableDataSource(this.setData(data.content) )
           this.dataSource.paginator = this.paginator; 
@@ -93,11 +92,9 @@ export class TableUsersComponent implements OnInit {
     this.isEditMode = false;
     this._updateTable()
   }
-  confirmEdit(data:User){
+  confirmEdit(data:any){
     
     const editedRow:UserUpdate = {
-
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       id : this.editRowId!,
       username : this.userForm.get('username')?.value,
       roles : this.userForm.get('roles')?.value,
@@ -110,6 +107,9 @@ export class TableUsersComponent implements OnInit {
     }else{
 
       this.service.update(editedRow).subscribe({
+        error:(err:any)=>{
+       
+        },
         complete:()=>{
           this.isEditMode = false;
           this._updateTable()
@@ -119,10 +119,13 @@ export class TableUsersComponent implements OnInit {
       })
     }
   }
-  setEnable(data:User){
+  setEnable(data:any){
     if(data.enable){
 
       this.service.delete(data.id).subscribe({
+        error:(err:any)=>{
+         
+        },
         complete:()=>{
           this._updateTable()
         }
@@ -138,6 +141,9 @@ export class TableUsersComponent implements OnInit {
   
       }
       this.service.update(editedRow).subscribe({
+        error:(err:any)=>{
+         
+        },
         complete:()=>{
           this._updateTable()
         }
