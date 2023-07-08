@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { TopBuyer } from 'src/app/models/buyer/top-buyer';
+import { Component, Input, OnInit } from '@angular/core';
+import { Buyer } from 'src/app/models';
 import { ReportService } from '../../services/report.service';
+import { TopBuyer } from 'src/app/models/buyer/top-buyer';
 
 @Component({
   selector: 'app-best-buyer',
@@ -12,7 +13,7 @@ export class BestBuyerComponent implements OnInit{
 
   
   topBuyer!:TopBuyer;
-  isLoading = false;
+  isLoading: boolean = false;
   today = new Date().toISOString().substring(0, 10);
   currentYear = new Date().toISOString().substring(0, 4);
   currentMonth = new Date().toISOString().substring(5, 7);
@@ -45,7 +46,7 @@ export class BestBuyerComponent implements OnInit{
   loadTopBuyer(date:string){
     const [year, month] = date.split('-');
     this.service.getBuyerWithMoreTickets(year,month).subscribe({
-      next: (data: TopBuyer) => {
+      next: (data: any) => {
         this.topBuyer = data;
         if(data.buyer.name === null || data.buyer.surname === null){
           this.fullName = 'No hay registros'

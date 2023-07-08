@@ -1,8 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ToastrService } from 'ngx-toastr';
-import { Ticket } from 'src/app/models';
 import { TicketService } from '../../services/ticket.service';
+import { Ticket, TicketRequest } from 'src/app/models';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-create-ticket',
@@ -43,8 +43,10 @@ export class CreateTicketComponent implements OnInit {
         price: this.ticketForm.value.price,
         vip: this.ticketForm.value.vip,
       };
+      console.log(ticket)
+      console.log(this.ticketForm.value)
       this.service.update(ticket).subscribe({
-        error: () => {
+        error: (err: any) => {
           this.toastr.error(
             'Error al actualizar la entrada',
             'Intente nuevamente'
@@ -56,8 +58,14 @@ export class CreateTicketComponent implements OnInit {
         },
       });
     } else {
+      const ticket: TicketRequest = {
+        
+        description: this.ticketForm.value.description,
+        price: this.ticketForm.value.price,
+        vip: this.ticketForm.value.vip,
+      };
       this.service.save(this.ticketForm.value).subscribe({
-        error: () => {
+        error: (error) => {
           this.toastr.error('Error al crear el ticket', 'Intente nuevamente');
         },
         complete: () => {

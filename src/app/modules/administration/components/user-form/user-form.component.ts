@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable, forkJoin, map, startWith } from 'rxjs';
-import { Employee, User, UserRequest, UserRole } from 'src/app/models';
+import { Employee, UserRole,UserRequest, User } from 'src/app/models';
 import { randomPassword } from 'src/app/shared/utils/genPw';
 import { EmployeeService } from '../../services/employee.service';
 import { RoleService } from '../../services/role.service';
@@ -21,7 +21,7 @@ export class UserFormComponent implements OnInit {
   filteredEmployees$!: Observable<Employee[]>;
   roles!: UserRole[]
   users!:User[]
-  view = false;
+  view:boolean = false;
   ngOnInit(): void {
     this.userForm = this.fb.group({
       username: ["", [Validators.required,  Validators.minLength(4),Validators.maxLength(10),Validators.pattern("[a-zA-Z0-9._-]*")]],
@@ -45,6 +45,9 @@ export class UserFormComponent implements OnInit {
       this.userService.create(user).subscribe({
         next: () => {
           this.userForm.reset();
+        },
+        error: (err:any) =>{
+          
         },
         complete:()=> {
           this.loadEmployees();
@@ -75,14 +78,13 @@ export class UserFormComponent implements OnInit {
 
   loadRoles(): void {
     this.roleService.getAll().subscribe({
-      next: (data: UserRole[]) => {
+      next: (data: any) => {
         this.roles = data;
       }
     });
   }
 
   private setupFilteredEmployees(): void {
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     this.filteredEmployees$ = this.userForm.get("employee")!.valueChanges.pipe(
       startWith(""),
       map((value: string | Employee) => {

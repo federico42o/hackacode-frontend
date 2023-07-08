@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, Input, OnInit } from '@angular/core';
 import { Dataset } from 'src/app/models/dataset';
-import { ReportService } from '../../services/report.service';
+import { DataThisMonth, ReportService } from '../../services/report.service';
 
 @Component({
   selector: 'app-widget',
@@ -9,22 +9,22 @@ import { ReportService } from '../../services/report.service';
  
   
 })
-export class WidgetComponent implements OnInit {
+export class WidgetComponent implements OnInit,AfterViewInit {
 
 
   
   
   data: Dataset = {};
-  view = 'historic';
-  isLoading = false;
+  view: string = 'historic';
+  isLoading: boolean = false;
   date = new Date();
   currentMonth = this.date.toLocaleString('es-ES', { month: 'long' }).toUpperCase();
   formattedDate = this.date.toLocaleString('es-ES', { month: 'long', year: 'numeric' }).toUpperCase();
   historicEarnings = 0;
-  dataLoaded = false;
-  sales = 0;
-  earnings = 0;
-  tickets = 0;
+  dataLoaded: boolean = false;
+  sales: number = 0;
+  earnings: number = 0;
+  tickets: number = 0;
 
   constructor(private service: ReportService) {}
 
@@ -34,7 +34,7 @@ export class WidgetComponent implements OnInit {
         this.data = data;
         this.isLoading = false;
       },
-      error: () => {
+      error: (error: any) => {
 
         this.isLoading = false;
       },
@@ -45,11 +45,13 @@ export class WidgetComponent implements OnInit {
     });
   }
 
-  handleChange(event: Event) {
-    const view = (event.target as HTMLButtonElement).value;
-    this.view = view
+  handleChange(event: any) {
+    this.view = event.target.value
   }
 
+  ngAfterViewInit(): void {
+
+  }
 
   fetchData() {
     this.isLoading = true;
@@ -60,7 +62,7 @@ export class WidgetComponent implements OnInit {
         this.data = data;
         this.isLoading = false;
       },
-      error: () => {
+      error: (error: any) => {
        
         this.isLoading = false;
       },

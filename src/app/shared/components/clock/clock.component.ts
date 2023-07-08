@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-clock',
   template: '{{currentTime }}',
   styleUrls: ['./clock.component.css']
 })
-export class ClockComponent implements OnInit{
+export class ClockComponent {
   currentTime!: string;
 
   ngOnInit() {

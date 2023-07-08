@@ -1,6 +1,5 @@
 import { Component, EventEmitter, Inject, Output } from '@angular/core';
 import { DIALOG_DATA, DialogRef } from '@angular/cdk/dialog';
-import { DialogBody } from 'src/app/models/dialog/dialog-body';
 
 @Component({
   selector: 'app-dialog',
@@ -9,7 +8,7 @@ import { DialogBody } from 'src/app/models/dialog/dialog-body';
 })
 export class DialogComponent {
 
-  constructor(@Inject(DIALOG_DATA) public data: DialogBody,
+  constructor(@Inject(DIALOG_DATA) public data: any,
   private dialogRef: DialogRef<DialogComponent>
   ) {}
 

@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import { PasswordRecoveryService } from '../services/password-recovery.service';
-import { RecoveryResponse } from 'src/app/models/password/recovery-response';
-import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-password-recovery',
@@ -13,12 +12,12 @@ export class PasswordRecoveryComponent implements OnInit{
 
 
 
-  constructor(private fb: FormBuilder,private passwordService:PasswordRecoveryService) { }
+  constructor(private fb: FormBuilder,private route : Router,private router:ActivatedRoute,private passwordService:PasswordRecoveryService) { }
   recoveryForm!:FormGroup;
   expiration!:Date;
-  sended = false;
-  isLoading = false;
-  errorMessage ='';
+  sended:boolean = false;
+  isLoading:boolean = false;
+  errorMessage:string ='';
   ngOnInit(): void {
 
     this.recoveryForm = this.fb.group({
@@ -34,14 +33,14 @@ export class PasswordRecoveryComponent implements OnInit{
 
     this.isLoading = true;
     this.passwordService.requestMail(this.recoveryForm.value).subscribe(
-      {next:(data:RecoveryResponse)=>{
+      {next:(data:any)=>{
 
         if(data.expiration){
           this.expiration = data.expiration
         }
       },
 
-        error:(error:HttpErrorResponse)=>{
+        error:(error:any)=>{
           this.isLoading = false;
           if(error.status == 404){
 

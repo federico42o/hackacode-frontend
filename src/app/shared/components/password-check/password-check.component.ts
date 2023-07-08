@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, Input, SimpleChanges } from '@angular/core';
 
 
 @Component({
@@ -6,7 +6,7 @@ import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
   templateUrl: './password-check.component.html',
   styleUrls: ['./password-check.component.css']
 })
-export class PasswordCheckComponent implements OnChanges{
+export class PasswordCheckComponent {
   @Input() password!: string;
   passwordStrength!: PasswordStrength | null;
 

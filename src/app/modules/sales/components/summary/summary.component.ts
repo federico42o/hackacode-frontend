@@ -1,11 +1,11 @@
 import { ChangeDetectionStrategy, Component, ElementRef, Input, OnChanges, SimpleChanges, ViewChild } from '@angular/core';
-import { ToastrService } from 'ngx-toastr';
 import { forkJoin } from 'rxjs';
 import { Game } from 'src/app/models';
 import { TicketDetail } from 'src/app/models/detail/ticket-detail';
-import { SaleRequest } from 'src/app/models/sale';
 import { SaleService } from '../../services/sale.service';
 import { TicketDetailService } from '../../services/ticket-detail.service';
+import { SaleRequest } from 'src/app/models/sale';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-summary',
@@ -17,9 +17,9 @@ export class SummaryComponent implements OnChanges{
   @ViewChild('content') content!: ElementRef;
   @Input() currentGame!: Game;
   @Input() ticketData!: TicketDetail[];
-  @Input() ticketCount = 0.0;
-  isLoading=false;
-  total = 0;
+  @Input() ticketCount:number = 0.0;
+  isLoading:boolean=false;
+  total: number = 0;
   constructor(private detailService:TicketDetailService,private saleService:SaleService,private toastr:ToastrService){
   
   }
@@ -36,6 +36,9 @@ export class SummaryComponent implements OnChanges{
         this.total += detail.ticket.price
     }
   }
+  }
+  displayPrice(ticket: TicketDetail): number {
+    return 0
   }
   tickets!:TicketDetail[];
   onSubmit(): void {
@@ -59,8 +62,10 @@ export class SummaryComponent implements OnChanges{
           game: this.currentGame
         };
         this.saleService.save(saleDTO).subscribe({
-          error: () => {
-            this.cancelTickets(this.tickets);
+          next: (data) => {
+          },
+          error: (error) => {
+            this.cancelTickets(this.tickets,error);
             this.toastr.error("Hubo un error al procesar la compra","Intente nuevamente",{
               timeOut: 3000,
               progressAnimation:'decreasing',
@@ -75,7 +80,8 @@ export class SummaryComponent implements OnChanges{
           }
         });
       },
-      error: () => {      
+      error: (err: any) => {
+        
         this.isLoading = false;
       }
     });
@@ -85,15 +91,20 @@ export class SummaryComponent implements OnChanges{
     location.reload();
   }
 
-  cancelTickets(detail:TicketDetail[]): void {
+  cancelTickets(detail:TicketDetail[],error:Error): void {
     detail.forEach((ticket: TicketDetail) => {
       this.detailService.delete(ticket.id).subscribe({
-        next: () => {
+        next: (data) => {
           this.ticketData = this.ticketData.filter((t) => t.id !== ticket.id);
           this.calculateTotal();
         },
+        error: (error) => {
+          
+        },
         complete:()=>{
           this.isLoading = false;
+
+
         }
       });
     })
