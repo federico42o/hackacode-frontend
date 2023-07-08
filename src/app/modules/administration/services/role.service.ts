@@ -12,11 +12,11 @@ export class RoleService {
   constructor(private http: HttpClient) { }
   baseUrl = environment.apiUrl+'roles';
 
-  create(role:UserRole):Observable<any>{ 
+  create(role:UserRole):Observable<object>{ 
     return this.http.post(this.baseUrl, role);
   }
   
-  getAll():Observable<any>{
-    return this.http.get(this.baseUrl);
+  getAll():Observable<UserRole[]>{
+    return this.http.get<UserRole[]>(this.baseUrl);
   }
 }

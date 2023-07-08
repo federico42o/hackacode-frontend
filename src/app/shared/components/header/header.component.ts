@@ -39,8 +39,6 @@ export class HeaderComponent implements OnInit,OnDestroy{
       next:(user:User)=>{
         this.user = user;  
         this.logged = this.service.isLogged();
-    },complete:()=>{
-
     }
   });
   }

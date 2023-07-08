@@ -7,12 +7,12 @@
             <button (click)="changeTab('add')">Agregar empleado</button>
         </div>
         <div class="block w-full text-center">
-            <h1 class="text-3xl font-bold text-[#222D30] dark:text-yellow-200">{{currentTab=='add'?'Registrar empleado':'Empleados registrados'}}</h1>
+            <h1 class="text-3xl font-bold text-[#222D30] dark:text-yellow-200">{{currentTab==='add'?'Registrar empleado':'Empleados registrados'}}</h1>
         </div>
     </div>
 </div>
       <div class="min-w-[80%] max-w-[80%] p-4 flex flex-col justify-center" id="scrollbar">
-        <ng-container class="mx-4 p-4" id="scrollbar" *ngIf="currentTab == 'view'">
+        <ng-container class="mx-4 p-4" id="scrollbar" *ngIf="currentTab === 'view'">
             <app-employee-table></app-employee-table>
         </ng-container>
         <ng-container *ngIf="currentTab === 'add'">

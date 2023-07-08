@@ -1,25 +1,24 @@
-import { NgModule } from '@angular/core';
+import { DialogModule } from '@angular/cdk/dialog';
 import { CommonModule } from '@angular/common';
-import {MatAutocompleteModule} from '@angular/material/autocomplete';
-import { LottieModule } from 'ngx-lottie';
-import player from 'lottie-web';
-import { HeaderComponent,NavbarComponent,ToggleThemeBtnComponent,BuscadorClienteComponent } from './components';
+import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { AuthRoutingModule } from '../modules/auth/auth-routing.module';
-import {DialogModule} from '@angular/cdk/dialog';
-import { HomeComponent } from './components/home/home.component';
-import { PasswordCheckComponent } from './components/password-check/password-check.component';
-import { LoaderComponent } from './components/loader/loader.component';
-import { ForbiddenComponent } from './components/forbidden/forbidden.component';
-import {MatTableModule} from '@angular/material/table';
-import {MatPaginatorModule} from '@angular/material/paginator';
-import {MatSortModule} from '@angular/material/sort';
-import {MatTooltipModule} from '@angular/material/tooltip';
-import { ToastrModule } from 'ngx-toastr';
-import { NaturalTimePipe } from './pipe/natural-time.pipe';
-import { ChartSkeletonComponent } from './components/chart-skeleton/chart-skeleton.component';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatNativeDateModule } from '@angular/material/core';
-export function playerFactory(): any {  
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
+import { MatTableModule } from '@angular/material/table';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { LottieModule } from 'ngx-lottie';
+import { ToastrModule } from 'ngx-toastr';
+import { AuthRoutingModule } from '../modules/auth/auth-routing.module';
+import { BuscadorClienteComponent, HeaderComponent, NavbarComponent, ToggleThemeBtnComponent } from './components';
+import { ChartSkeletonComponent } from './components/chart-skeleton/chart-skeleton.component';
+import { ForbiddenComponent } from './components/forbidden/forbidden.component';
+import { HomeComponent } from './components/home/home.component';
+import { LoaderComponent } from './components/loader/loader.component';
+import { PasswordCheckComponent } from './components/password-check/password-check.component';
+import { NaturalTimePipe } from './pipe/natural-time.pipe';
+export function playerFactory() {  
   return import('lottie-web');
 }
 

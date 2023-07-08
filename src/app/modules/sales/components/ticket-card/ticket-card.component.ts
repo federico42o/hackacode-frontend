@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Ticket } from 'src/app/models';
 
 @Component({
@@ -6,17 +6,14 @@ import { Ticket } from 'src/app/models';
   templateUrl:'./ticket-card.component.html',
   styleUrls: ['./ticket-card.component.css']
 })
-export class TicketCardComponent implements OnInit{
+export class TicketCardComponent {
 
 
   @Input() ticket:Ticket = {id:0,description:'',price:0,vip:false};
   @Output() edit = new EventEmitter<Ticket>()
   @Output() delete = new EventEmitter<Ticket>()
-  isHidden:boolean = false;
+  isHidden = false;
   currentTicket!:Ticket;
-  ngOnInit(): void {
-
-  }
   
   onEdit(game:Ticket){
     this.edit.emit(game)

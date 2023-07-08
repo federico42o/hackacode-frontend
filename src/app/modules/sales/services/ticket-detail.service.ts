@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { TicketDetailRequest } from 'src/app/models';
+import { TicketDetail, TicketDetailRequest } from 'src/app/models';
+import { PaginationResponse } from 'src/app/models/pagination/pagination-response';
 import { environment } from 'src/environments/environment'
 
 
@@ -12,13 +13,13 @@ export class TicketDetailService {
 
   constructor(private http: HttpClient) { }
   apiURL = environment.apiUrl+"ticket-details"
-  save(request:TicketDetailRequest):Observable<any>{
-    return this.http.post(this.apiURL,request)
+  save(request:TicketDetailRequest):Observable<string>{
+    return this.http.post<string>(this.apiURL,request)
   }
-  getAll():Observable<any>{
-    return this.http.get(this.apiURL)
+  getAll():Observable<PaginationResponse<TicketDetail>>{
+    return this.http.get<PaginationResponse<TicketDetail>>(this.apiURL)
   }
-  delete(id:string):Observable<any>{
+  delete(id:string):Observable<object>{
     return this.http.delete(this.apiURL+"/"+id)
   }
 }

@@ -2,7 +2,6 @@ import { Dialog } from '@angular/cdk/dialog';
 import { Component, OnInit } from '@angular/core';
 import { User, UserRole, UserTable } from 'src/app/models';
 import { RoleService } from '../../services/role.service';
-import { UserEmployeeService } from '../../services/user-employee.service';
 
 @Component({
   selector: 'app-users',
@@ -15,7 +14,7 @@ export class UsersComponent implements OnInit {
   constructor(public dialog : Dialog,private roleService:RoleService) { }
   data: UserTable[] = []
   users!:User[];
-  currentTab:string = 'add';
+  currentTab = 'add';
   roles!:UserRole[]
   ngOnInit(): void {
     this.roleService.getAll().subscribe({

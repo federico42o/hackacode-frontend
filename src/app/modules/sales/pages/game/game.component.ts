@@ -6,6 +6,7 @@ import { Game } from 'src/app/models';
 import { GameFormComponent } from '../../components/game-form/game-form.component';
 import { DialogComponent } from 'src/app/modules/administration/components/dialog/dialog.component';
 import { ToastrService } from 'ngx-toastr';
+import { PaginationResponse } from 'src/app/models/pagination/pagination-response';
 
 @Component({
   selector: 'app-game',
@@ -15,31 +16,29 @@ import { ToastrService } from 'ngx-toastr';
 export class GameComponent implements OnInit, OnDestroy {
 
   games$! : Subscription;
-  currentPage: number = 1;
+  currentPage = 1;
 
   constructor(private service : GameService,public dialog: Dialog,private toastr:ToastrService){}
 
   games : Game[] = [];
   pageableGames: Game[] = [];
-  isHidden:boolean = false;
-  editMode:boolean = false;
+  isHidden = false;
+  editMode = false;
   selectedGame!: Game;
   ngOnInit(): void {
     this._updateGames()
 
     
   }
-  array: any[] = []; 
+  array: Game[] = []; 
   itemsPerPage = 5; 
-  currentTab:string = 'form';
+  currentTab = 'form';
 
-  // Calcula el número total de páginas
   get totalPages(): number {
     return Math.ceil(this.array.length / this.itemsPerPage);
   }
 
-  // Obtiene los elementos para la página actual
-  getItemsForCurrentPage(): any[] {
+  getItemsForCurrentPage(): Game[] {
     const startIndex = (this.currentPage - 1) * this.itemsPerPage;
     const endIndex = startIndex + this.itemsPerPage;
     return this.array.slice(startIndex, endIndex);
@@ -54,7 +53,7 @@ export class GameComponent implements OnInit, OnDestroy {
       height: '50%',
       data: {mode,id}
     });
-    dialogRef.closed.subscribe(result => {
+    dialogRef.closed.subscribe( () => {
       this._updateGames()
     });
   }
@@ -66,7 +65,7 @@ export class GameComponent implements OnInit, OnDestroy {
     
   }
 
-  handleDelete(data:any){
+  handleDelete(data:Game){
     const dialogRef = this.dialog.open(DialogComponent,{
       width: '30%',
       height: '10%',
@@ -82,7 +81,7 @@ export class GameComponent implements OnInit, OnDestroy {
           });
           
         },
-        error: (err:any) => {
+        error: () => {
           this.toastr.error('Error, intente nuevamente')
         },
         complete: () => {
@@ -91,18 +90,16 @@ export class GameComponent implements OnInit, OnDestroy {
           location.reload();
         }
       });  
-      dialogRef.closed.subscribe(result => {
+      dialogRef.closed.subscribe(() => {
         this._updateGames()
       });
     
   }
-  onGameAdded():void{
 
-  }
 private _updateGames() : void{
     this.games$ = this.service.getAll().subscribe(
       {
-        next:(data:any) => {
+        next:(data:PaginationResponse<Game>) => {
           this.games = data.content
           this.array = this.games;
         }

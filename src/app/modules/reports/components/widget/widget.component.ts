@@ -1,6 +1,6 @@
-import { AfterViewInit, Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Dataset } from 'src/app/models/dataset';
-import { DataThisMonth, ReportService } from '../../services/report.service';
+import { ReportService } from '../../services/report.service';
 
 @Component({
   selector: 'app-widget',
@@ -9,22 +9,22 @@ import { DataThisMonth, ReportService } from '../../services/report.service';
  
   
 })
-export class WidgetComponent implements OnInit,AfterViewInit {
+export class WidgetComponent implements OnInit {
 
 
   
   
   data: Dataset = {};
-  view: string = 'historic';
-  isLoading: boolean = false;
+  view = 'historic';
+  isLoading = false;
   date = new Date();
   currentMonth = this.date.toLocaleString('es-ES', { month: 'long' }).toUpperCase();
   formattedDate = this.date.toLocaleString('es-ES', { month: 'long', year: 'numeric' }).toUpperCase();
   historicEarnings = 0;
-  dataLoaded: boolean = false;
-  sales: number = 0;
-  earnings: number = 0;
-  tickets: number = 0;
+  dataLoaded = false;
+  sales = 0;
+  earnings = 0;
+  tickets = 0;
 
   constructor(private service: ReportService) {}
 
@@ -34,7 +34,7 @@ export class WidgetComponent implements OnInit,AfterViewInit {
         this.data = data;
         this.isLoading = false;
       },
-      error: (error: any) => {
+      error: () => {
 
         this.isLoading = false;
       },
@@ -45,13 +45,11 @@ export class WidgetComponent implements OnInit,AfterViewInit {
     });
   }
 
-  handleChange(event: any) {
-    this.view = event.target.value
+  handleChange(event: Event) {
+    const view = (event.target as HTMLButtonElement).value;
+    this.view = view
   }
 
-  ngAfterViewInit(): void {
-
-  }
 
   fetchData() {
     this.isLoading = true;
@@ -62,7 +60,7 @@ export class WidgetComponent implements OnInit,AfterViewInit {
         this.data = data;
         this.isLoading = false;
       },
-      error: (error: any) => {
+      error: () => {
        
         this.isLoading = false;
       },
