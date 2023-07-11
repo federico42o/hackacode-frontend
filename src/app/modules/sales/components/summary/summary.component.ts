@@ -37,9 +37,6 @@ export class SummaryComponent implements OnChanges{
     }
   }
   }
-  displayPrice(ticket: TicketDetail): number {
-    return 0
-  }
   tickets!:TicketDetail[];
   onSubmit(): void {
     this.tickets = [];
@@ -62,26 +59,21 @@ export class SummaryComponent implements OnChanges{
           game: this.currentGame
         };
         this.saleService.save(saleDTO).subscribe({
-          next: (data) => {
+          next: () => {
           },
-          error: (error) => {
-            this.cancelTickets(this.tickets,error);
-            this.toastr.error("Hubo un error al procesar la compra","Intente nuevamente",{
-              timeOut: 3000,
-              progressAnimation:'decreasing',
-              progressBar:true,
-              
-            });
+          error: () => {
+            this.cancelTickets(this.tickets);
+            this.toastr.error("Hubo un error al procesar la compra","Intente nuevamente");
           },
           complete:()=>{
             this.isLoading = false;
             this.toastr.success("Compra realizada con éxito");
             this.ticketData = [];
           }
+
         });
       },
-      error: (err: any) => {
-        
+      error: () => {     
         this.isLoading = false;
       }
     });
@@ -91,15 +83,12 @@ export class SummaryComponent implements OnChanges{
     location.reload();
   }
 
-  cancelTickets(detail:TicketDetail[],error:Error): void {
+  cancelTickets(detail:TicketDetail[]): void {
     detail.forEach((ticket: TicketDetail) => {
       this.detailService.delete(ticket.id).subscribe({
-        next: (data) => {
+        next: () => {
           this.ticketData = this.ticketData.filter((t) => t.id !== ticket.id);
           this.calculateTotal();
-        },
-        error: (error) => {
-          
         },
         complete:()=>{
           this.isLoading = false;

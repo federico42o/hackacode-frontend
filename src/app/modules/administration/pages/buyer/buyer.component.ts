@@ -53,12 +53,7 @@ export class BuyerComponent implements OnInit,OnDestroy{
         next: () => {
 
           this.buyerService.delete(data.id).subscribe({
-            next: (data:any) => {
-            },
-            error:(err:any)=>{
-             
-            }
-              ,
+          
             complete: () => {
               this.dialog.closeAll();
             }
@@ -66,7 +61,7 @@ export class BuyerComponent implements OnInit,OnDestroy{
           });
           
         },
-        error: (err:any) => {
+        error: () => {
           this.toastr.error('Error, intente nuevamente'),this._updateTable()
         },
         complete: () => {
@@ -84,7 +79,7 @@ export class BuyerComponent implements OnInit,OnDestroy{
       next:()=>{
         this._updateTable()
       },
-      error:(err:any)=>{
+      error:()=>{
        this.toastr.error('Error, intente nuevamente'); 
       },
       complete:()=>{

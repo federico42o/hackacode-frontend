@@ -34,7 +34,7 @@
     <p>Entradas compradas: {{ topBuyer.tickets }}</p>
   </div>
   <div class="flex xl:text-2xl lg:text-xl md:text-lg text-[1rem] flex-col">
-    <p>Última visita: {{ " "+topBuyer.buyer.lastVisit | date }}  ({{topBuyer.buyer.lastVisit | naturalTime }})</p>
+    <p>Última visita: {{ " "+topBuyer.buyer.lastVisit | date }}  ({{topBuyer.buyer.lastVisit || 'Sin registros'}})</p>
   </div>
 </div>
   </div>

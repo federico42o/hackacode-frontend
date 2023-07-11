@@ -1,7 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { Buyer } from 'src/app/models';
-import { ReportService } from '../../services/report.service';
+import { Component, OnInit } from '@angular/core';
 import { TopBuyer } from 'src/app/models/buyer/top-buyer';
+import { ReportService } from '../../services/report.service';
 
 @Component({
   selector: 'app-best-buyer',

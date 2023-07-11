@@ -43,7 +43,7 @@ export class AddTicketFormComponent implements OnInit,OnDestroy{
         this.ticketService.getAll()
       ]).subscribe(([game, buyers, tickets]) => {
         this.currentGame = game;
-        this.buyers = buyers.content;
+        this.buyers = buyers.content.filter((client: Buyer) => !client.banned);
         this.setupFilteredClients();
         this.tickets = tickets.content;
       });
