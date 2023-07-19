@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { TopBuyer } from 'src/app/models/buyer/top-buyer';
 import { ReportService } from '../../services/report.service';
+import { Buyer } from 'src/app/models';
 
 @Component({
   selector: 'app-best-buyer',
@@ -11,7 +12,8 @@ export class BestBuyerComponent implements OnInit{
 
 
   
-  topBuyer!:TopBuyer;
+  topBuyer!:Buyer;
+  tickets!:number;
   isLoading: boolean = false;
   today = new Date().toISOString().substring(0, 10);
   currentYear = new Date().toISOString().substring(0, 4);
@@ -22,8 +24,9 @@ export class BestBuyerComponent implements OnInit{
   constructor(private service:ReportService) { }
   ngOnInit(): void {
     this.service.getBuyerWithMoreTickets(this.currentYear,this.currentMonth).subscribe({
-      next: (data: TopBuyer) => {
-        this.topBuyer = data;
+      next: (data: any) => {
+        this.topBuyer = data.buyer;
+        this.tickets = data.totalTicketsSold;
         if(data.buyer.name === null || data.buyer.surname === null){
           this.fullName = 'No hay registros'
         }else{

@@ -31,35 +31,11 @@
 </p>
 <div class="flex flex-col justify-center items-center gap-2">
   <div class="flex gap-6 xl:text-2xl lg:text-xl md:text-lg text-[1rem]">
-    <p>Entradas compradas: {{ topBuyer.tickets }}</p>
+    <p>Entradas compradas: {{ tickets }}</p>
   </div>
   <div class="flex xl:text-2xl lg:text-xl md:text-lg text-[1rem] flex-col">
-    <p>Última visita: {{ " "+topBuyer.buyer.lastVisit | date }}  ({{topBuyer.buyer.lastVisit || 'Sin registros'}})</p>
+    <p>Última visita: {{ " "+topBuyer.lastVisit | date }}</p>
   </div>
 </div>
   </div>
 </div>
-
-  <!-- <div class="flex w-full items-center ">
-      <div
-      class="flex gap-6 justify-center items-center text-4xl w-full flex-1"
-      >
-    <img
-      src="/assets/img/crown.png"
-      class="rounded-full m-0 animate-bounce"
-      width="64"
-    />
-    <p>
-        {{ topBuyer.buyer.name + " " + topBuyer.buyer.surname | uppercase }}
-    </p>
-</div>
-<div class="flex-col justify-start items-center gap-2">
-      <div class="flex gap-6 text-2xl">
-        <p>Entradas compradas: {{ topBuyer.tickets }}</p>
-      </div>
-      <div class="flex gap-6 text-2xl">
-        <p>Ultima visita: {{ topBuyer.buyer.lastVisit | date }}</p>
-      </div>
-    </div>
-  </div>
-</div> -->
