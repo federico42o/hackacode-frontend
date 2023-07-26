@@ -62,7 +62,7 @@ changeTab(tab: string): void {
   if (!this.canDeactivate()) {
     return;
   }
-
+  this.ticketData = []
   this.tab = tab;
 }
 }

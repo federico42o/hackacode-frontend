@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, ElementRef, Input, OnChanges, SimpleChanges, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, Input, OnChanges, OnDestroy, OnInit, SimpleChanges, ViewChild } from '@angular/core';
 import { forkJoin } from 'rxjs';
 import { Game } from 'src/app/models';
 import { TicketDetail } from 'src/app/models/detail/ticket-detail';
@@ -6,6 +6,7 @@ import { SaleService } from '../../services/sale.service';
 import { TicketDetailService } from '../../services/ticket-detail.service';
 import { SaleRequest } from 'src/app/models/sale';
 import { ToastrService } from 'ngx-toastr';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-summary',
@@ -13,21 +14,24 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./summary.component.css'],
   changeDetection: ChangeDetectionStrategy.Default,
 })
-export class SummaryComponent implements OnChanges{
+export class SummaryComponent implements OnChanges,OnDestroy{
   @ViewChild('content') content!: ElementRef;
   @Input() currentGame!: Game;
   @Input() ticketData!: TicketDetail[];
   @Input() ticketCount:number = 0.0;
+  tickets!:TicketDetail[];
   isLoading:boolean=false;
   total: number = 0;
   constructor(private detailService:TicketDetailService,private saleService:SaleService,private toastr:ToastrService){
   
   }
+
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['ticketData']) {
       this.calculateTotal();
     }
   }
+
 
   calculateTotal(): void {
     this.total = 0;
@@ -37,15 +41,17 @@ export class SummaryComponent implements OnChanges{
     }
   }
   }
-  tickets!:TicketDetail[];
   onSubmit(): void {
+    if(this.ticketData.length ===0){
+      this.toastr.info("Carrito vacio")
+      return
+    }
     this.tickets = [];
     this.isLoading = true;
   
     const saveTicketDetailsObservables = this.ticketData.map((detail: TicketDetail) =>
       this.detailService.save(detail)
     );
-  
     forkJoin(saveTicketDetailsObservables).subscribe({
       next: (data: string[]) => {
 
@@ -59,16 +65,16 @@ export class SummaryComponent implements OnChanges{
           game: this.currentGame
         };
         this.saleService.save(saleDTO).subscribe({
-          next: () => {
-          },
-          error: () => {
+          error: (err:HttpErrorResponse) => {
             this.cancelTickets(this.tickets);
             this.toastr.error("Hubo un error al procesar la compra","Intente nuevamente");
+            this.toastr.error(err.message);
           },
           complete:()=>{
             this.isLoading = false;
             this.toastr.success("Compra realizada con éxito");
             this.ticketData = [];
+            this.tickets = []
           }
 
         });
@@ -77,6 +83,7 @@ export class SummaryComponent implements OnChanges{
         this.isLoading = false;
       }
     });
+  
   }
   cancel():void{
     this.ticketData = [];
@@ -92,11 +99,13 @@ export class SummaryComponent implements OnChanges{
         },
         complete:()=>{
           this.isLoading = false;
-
-
         }
       });
     })
+  }
+
+  ngOnDestroy(): void {
+    this.ticketData = []
   }
 
 }

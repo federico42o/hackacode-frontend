@@ -24,17 +24,6 @@ export class BestBuyerComponent implements OnInit{
   lastVisit!:string | Date;
   constructor(private service:ReportService) { }
   ngOnInit(): void {
-    // this.service.getBuyerWithMoreTickets(this.currentYear,this.currentMonth).subscribe({
-    //   next: (data: any) => {
-    //     this.topBuyer = data.buyer;
-        
-    //     if(data.buyer.name === null || data.buyer.surname === null){
-    //       this.fullName = 'No hay registros'
-    //     }else{
-    //       this.fullName = `${data.buyer.name} ${data.buyer.surname}`;
-    //     }
-    //   }
-    // });
     this.loadTopBuyer(this.today);
 
   }
@@ -42,8 +31,6 @@ export class BestBuyerComponent implements OnInit{
   applyFilter(event:Event):void{
     this.isLoading = true;
     const filterValue = (event.target as HTMLInputElement).value;
-    
-    // const date = new Date(filterValue).toISOString().substring(0, 10);
     this.loadTopBuyer(filterValue);
   }
 
@@ -52,15 +39,8 @@ export class BestBuyerComponent implements OnInit{
     this.service.getBuyerWithMoreTickets(year,month).subscribe({
       next: (data: any) => {
         this.topBuyer = data.buyer;
+        this.fullName = `${this.topBuyer.name} ${this.topBuyer.surname}`
         this.tickets = data.totalTicketsSold;
-        if(data.buyer===null){
-          this.fullName = 'No hay registros'
-          this.lastVisit = 'No hay registros'
-        }else{
-          this.fullName = `${data.buyer.name} ${data.buyer.surname}`;
-          this.lastVisit = this.topBuyer.lastVisit
-          
-        }
       }
     });
   }
