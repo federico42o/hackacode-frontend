@@ -21,7 +21,7 @@ export class CreateTicketComponent implements OnInit {
     this.ticketForm = this.fb.group({
       description: ['',[Validators.required,Validators.maxLength(60),Validators.minLength(5),Validators.pattern('[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ ]*')]],
       price: [0, [Validators.required, Validators.min(0)]],
-      vip: [false]
+      vip: false
     });
     if (this.ticket) {
       this.ticketForm.patchValue({
@@ -33,20 +33,20 @@ export class CreateTicketComponent implements OnInit {
   }
 
   onSubmit(): void {
+
     if (this.ticketForm.invalid) {
-      return;
+      this.toastr.info("Complete todos los campos correctamente")
+      return
     }
     if (this.ticket) {
       const ticket: Ticket = {
         id: this.ticket.id,
         description: this.ticketForm.value.description,
         price: this.ticketForm.value.price,
-        vip: this.ticketForm.value.vip,
+        vip: this.ticketForm.value.vip
       };
-      console.log(ticket)
-      console.log(this.ticketForm.value)
       this.service.update(ticket).subscribe({
-        error: (err: any) => {
+        error: () => {
           this.toastr.error(
             'Error al actualizar la entrada',
             'Intente nuevamente'
@@ -62,10 +62,10 @@ export class CreateTicketComponent implements OnInit {
         
         description: this.ticketForm.value.description,
         price: this.ticketForm.value.price,
-        vip: this.ticketForm.value.vip,
+        vip: this.ticketForm.get('vip')?.value,
       };
-      this.service.save(this.ticketForm.value).subscribe({
-        error: (error) => {
+      this.service.save(ticket).subscribe({
+        error: () => {
           this.toastr.error('Error al crear el ticket', 'Intente nuevamente');
         },
         complete: () => {

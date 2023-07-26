@@ -65,10 +65,9 @@ export class SummaryComponent implements OnChanges,OnDestroy{
           game: this.currentGame
         };
         this.saleService.save(saleDTO).subscribe({
-          error: (err:HttpErrorResponse) => {
+          error: () => {
             this.cancelTickets(this.tickets);
             this.toastr.error("Hubo un error al procesar la compra","Intente nuevamente");
-            this.toastr.error(err.message);
           },
           complete:()=>{
             this.isLoading = false;
