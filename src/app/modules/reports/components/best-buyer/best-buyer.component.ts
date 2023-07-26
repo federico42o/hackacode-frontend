@@ -21,19 +21,21 @@ export class BestBuyerComponent implements OnInit{
   currentMonthAndYear = new Date().toISOString().substring(0, 7);
   currentMonthStr = new Date().toLocaleString('default', { month: 'long' });
   fullName!:string;
+  lastVisit!:string | Date;
   constructor(private service:ReportService) { }
   ngOnInit(): void {
-    this.service.getBuyerWithMoreTickets(this.currentYear,this.currentMonth).subscribe({
-      next: (data: any) => {
-        this.topBuyer = data.buyer;
-        this.tickets = data.totalTicketsSold;
-        if(data.buyer.name === null || data.buyer.surname === null){
-          this.fullName = 'No hay registros'
-        }else{
-          this.fullName = `${data.buyer.name} ${data.buyer.surname}`;
-        }
-      }
-    });
+    // this.service.getBuyerWithMoreTickets(this.currentYear,this.currentMonth).subscribe({
+    //   next: (data: any) => {
+    //     this.topBuyer = data.buyer;
+        
+    //     if(data.buyer.name === null || data.buyer.surname === null){
+    //       this.fullName = 'No hay registros'
+    //     }else{
+    //       this.fullName = `${data.buyer.name} ${data.buyer.surname}`;
+    //     }
+    //   }
+    // });
+    this.loadTopBuyer(this.today);
 
   }
 
@@ -49,11 +51,15 @@ export class BestBuyerComponent implements OnInit{
     const [year, month] = date.split('-');
     this.service.getBuyerWithMoreTickets(year,month).subscribe({
       next: (data: any) => {
-        this.topBuyer = data;
-        if(data.buyer.name === null || data.buyer.surname === null){
+        this.topBuyer = data.buyer;
+        this.tickets = data.totalTicketsSold;
+        if(data.buyer===null){
           this.fullName = 'No hay registros'
+          this.lastVisit = 'No hay registros'
         }else{
           this.fullName = `${data.buyer.name} ${data.buyer.surname}`;
+          this.lastVisit = this.topBuyer.lastVisit
+          
         }
       }
     });
