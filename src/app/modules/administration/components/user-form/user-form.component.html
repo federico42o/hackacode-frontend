@@ -41,7 +41,7 @@
                 >
                 <div class="w-full flex flex-col gap-4">
                 <small class="dark:text-yellow-200 text-light-primary" *ngIf="userForm.get('username')?.hasError('required')">Estos campos no pueden estar vacíos.</small>
-                <small class="dark:text-yellow-200 text-light-primary" *ngIf="userForm.get('username')?.errors?.['minlength'] || userForm.get('username')?.errors?.['maxlength']">La longitud debe ser de 3 hasta 10 caracteres.</small>
+                <small class="dark:text-yellow-200 text-light-primary" *ngIf="userForm.get('username')?.errors?.['minlength'] || userForm.get('username')?.errors?.['maxlength']">La longitud debe ser de 3 hasta 20 caracteres.</small>
                 <small class="dark:text-yellow-200 text-light-primary" *ngIf="userForm.get('username')?.hasError('pattern') ">Ingrese un nombre de usuario para el email válido<br>Sólo se permiten caracteres alfanumericos y los símbolos " . _  - " </small>
                 </div>
                 </div>

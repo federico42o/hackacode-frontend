@@ -24,7 +24,7 @@ export class UserFormComponent implements OnInit {
   view:boolean = false;
   ngOnInit(): void {
     this.userForm = this.fb.group({
-      username: ["", [Validators.required,  Validators.minLength(4),Validators.maxLength(10),Validators.pattern("[a-zA-Z0-9._-]*")]],
+      username: ["", [Validators.required,  Validators.minLength(4),Validators.maxLength(20),Validators.pattern("[a-zA-Z0-9._-]*")]],
       password: [randomPassword(), [Validators.required, Validators.minLength(8)]],
       employee: [null, [Validators.required]],
       roles: [[], [Validators.required, Validators.minLength(0)]],
