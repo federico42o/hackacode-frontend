@@ -26,14 +26,6 @@ export class BuyerFormComponent implements OnInit{
     this.date = new Date();
   }
 
-  showPw():void{
-    const input = document.getElementById("password") as HTMLInputElement;
-    if(input.type === "password"){
-      input.type = "text";
-    }else{
-      input.type = "password";
-    }
-  }
 
 
   onSubmit():void{
@@ -45,14 +37,16 @@ export class BuyerFormComponent implements OnInit{
 
     }
     if(this.clientForm.invalid){
-
+      return
     }else{
 
     this.service.create(buyer).subscribe(
-      {next:(data:any) => {
+      {next:() => {
+        console.log(buyer)
 
       },
       error:(error:any) => {
+        console.log(error)
         
       },
       complete: () =>{
